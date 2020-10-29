@@ -77,6 +77,31 @@ namespace dotNet5781_01_3963_9714
             DateTime today = DateTime.Now;
             last_inspection = today;
         }
+        public void printBus()
+        {
+
+           
+            if (startDate.Year < 2018)//license plates from before 2018 have 7 digits
+            {
+                int tmpLicense = license / 100000;//this gives us the first 2 digits of license
+                Console.Write(tmpLicense + "-");
+                tmpLicense = (license - (tmpLicense * 100000))/100;//this gives us the next 3 digits
+                Console.Write(tmpLicense + "-");
+                tmpLicense = license % 100;//this gives us the last 2 digits
+                Console.Write(tmpLicense);
+            }
+            else
+            //license plates from after 2018 have 8 digits
+            {//change to 8 digit!!!!!!!
+                int tmpLicense = license / 100000;//this gives us the first 2 digits of license
+                Console.Write(tmpLicense + "-");
+                tmpLicense = (license - (tmpLicense * 100000)) / 100;//this gives us the next 3 digits
+                Console.Write(tmpLicense + "-");
+                tmpLicense = license % 100;//this gives us the last 2 digits
+                Console.Write(tmpLicense);
+            }
+            Console.WriteLine("mileage:" + milage);
+        }
 
     }
     

@@ -110,18 +110,9 @@ namespace dotNet5781_01_3963_9714
                                 bus2.inspection();
                         }
                         break;
-                    case 4:
-                        int j;
-                        for (j = 0; j < buses.Count; j++;)
+                    
                         {
-                            int licenseplate = buses[j].getLicense();
-                            year = buses[j].getStartDate().Year;
-                            if (year < 2018)
-                                Console.WriteLine(year);
-                             else
-                                        //here print in 8 digits
-                             buses[j].getMilage();
-                            Console.WriteLine("mileage:"+buses[j].getMilage());
+                            
                         }
                         break;
                 } 
