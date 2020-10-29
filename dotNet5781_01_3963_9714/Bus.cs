@@ -92,12 +92,12 @@ namespace dotNet5781_01_3963_9714
             }
             else
             //license plates from after 2018 have 8 digits
-            {//change to 8 digit!!!!!!!
-                int tmpLicense = license / 100000;//this gives us the first 2 digits of license
+            {
+                int tmpLicense = license / 100000;//this gives us the first 3 digits of license
                 Console.Write(tmpLicense + "-");
-                tmpLicense = (license - (tmpLicense * 100000)) / 100;//this gives us the next 3 digits
+                tmpLicense = (license - (tmpLicense * 100000)) / 1000;//this gives us the next 2 digits
                 Console.Write(tmpLicense + "-");
-                tmpLicense = license % 100;//this gives us the last 2 digits
+                tmpLicense = license % 1000;//this gives us the last 2 digits
                 Console.Write(tmpLicense);
             }
             Console.WriteLine("mileage:" + milage);
