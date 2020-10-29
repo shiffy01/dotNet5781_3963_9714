@@ -17,14 +17,14 @@ namespace dotNet5781_01_3963_9714
             Bus bus1;
             int i;
             bool can;
-            for (i = 0; i < buses.Count; i++;)
+            for (i = 0; i < buses.Count; i++)
                 {
                     if (buses[i].getLicense() == license)
                     { 
                         bus1 = buses[i];
                         Random rand = new Random(DateTime.Now.Millisecond);
                         int num = rand.Next();
-                        can=bus1.SendTheBus(num);
+                        can=bus1.send_bus(num);
                     if(!can)
                         Console.WriteLine("This bus is unsafe and therefore cannot do the job");
                     return true;
@@ -42,55 +42,56 @@ namespace dotNet5781_01_3963_9714
             Console.WriteLine("3 to fill up gas or inspect");
             Console.WriteLine("4 to print the mileage of all the buses in the company");
             Console.WriteLine("5 to exit");
-            num = int.Parse(Console.ReadLine());
+           string convert=Console.ReadLine();
+            int.TryParse(convert, out num);
             while (num != 5)
             { 
                 switch (num)
                 {
                     case 1:
                         Console.WriteLine("enter year, month and day the bus started working");
-                        int year = int.Parse(Console.ReadLine());
-                        int month = int.Parse(Console.ReadLine());
-                        int day = int.Parse(Console.ReadLine());
+                        int year = int.TryParse(Console.ReadLine());
+                        int month = int.TryParse(Console.ReadLine());
+                        int day = int.TryParse(Console.ReadLine());
                         DateTime date = new DateTime(year, month, day);
                         Console.WriteLine("enter the license plate number:");
-                       int li = int.Parse(Console.ReadLine());
+                       int li = int.TryParse(Console.ReadLine());
                         if (date.Year < 2018)//if the bus bus made before 2018, its license must be 7 digits
                             if (!(li > 9999999 || li < 1000000))//license is invalid
                             {
                                 Console.WriteLine("Invalid. License must have 7 digits. Enter a new license plate number:");
-                                li = int.Parse(Console.ReadLine());
+                                li = int.TryParse(Console.ReadLine());
                             }
                             else//if the bus bus made after 2018, its license must be 8 digits
                             {
-                                if (!(li > 99999999 || li < 10000000))//license is invalid
+                                if ((li > 99999999 || li < 10000000))//license is invalid
                                     Console.WriteLine("Invalid. License must have 8 digits. Enter a new license plate number:");
-                                li = int.Parse(Console.ReadLine());
+                                li = int.TryParse(Console.ReadLine());
                             }
                         Console.WriteLine("enter mileage:");
-                        int mi = int.Parse(Console.ReadLine());
+                        int mi = int.TryParse(Console.ReadLine());
                         Console.WriteLine("enter year, month and day the bus had its last inspection");
-                        int year1 = int.Parse(Console.ReadLine());
-                        int month1 = int.Parse(Console.ReadLine());
-                        int day1 = int.Parse(Console.ReadLine());
+                        int year1 = int.TryParse(Console.ReadLine());
+                        int month1 = int.TryParse(Console.ReadLine());
+                        int day1 = int.TryParse(Console.ReadLine());
                         DateTime dateinspect = new DateTime(year, month, day);
                         Bus bus1 = new Bus(li, date, mi, dateinspect);
                         buses.Add(bus1);
                         break;
                     case 2:
                         Console.WriteLine("enter the license plate number of the bus you want to use");
-                        int lic = int.Parse(Console.ReadLine());
+                        int lic = int.TryParse(Console.ReadLine());
                         bool worked = drive(lic, buses);
                         if(!worked)
                             Console.WriteLine("This bus does not exist in the company");
                         break;
                     case 3:
                         Console.WriteLine("enter the license plate number of the bus you want to inspect/fill up with gas:");
-                        int license = int.Parse(Console.ReadLine());
+                        int license = int.TryParse(Console.ReadLine());
                         int i;
-                        Bus bus2=new Bus(0, new DateTime(0, 0, 0), 0.0, new DateTime(0, 0, 0));
+                        Bus bus2=new Bus(0, new DateTime(0, 0, 0), 0, new DateTime(0, 0, 0));
                         bool exists = false;
-                        for (i = 0; i < buses.Count; i++;)
+                        for (i = 0; i < buses.Count; i++)
                          {
                             if (buses[i].getLicense() == license)
                             {
@@ -103,7 +104,7 @@ namespace dotNet5781_01_3963_9714
                         else
                         { 
                             Console.WriteLine("enter 1 for inspection and 2 for refill");
-                            int number = int.Parse(Console.ReadLine());
+                            int number = int.TryParse(Console.ReadLine());
                             if (number == 1)
                                 bus2.refill();
                             if (number == 2)
@@ -111,10 +112,10 @@ namespace dotNet5781_01_3963_9714
                         }
                         break;
                     
-                        {
+                        
                             
-                        }
-                        break;
+                        
+                       
                 } 
             }
         }
