@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Text;
@@ -84,7 +85,45 @@ namespace dotNet5781_01_3963_9714
                             Console.WriteLine("This bus does not exist in the company");
                         break;
                     case 3:
-
+                        Console.WriteLine("enter the license plate number of the bus you want to inspect/fill up with gas:");
+                        int license = int.Parse(Console.ReadLine());
+                        int i;
+                        Bus bus2=new Bus(0, new DateTime(0, 0, 0), 0.0, new DateTime(0, 0, 0));
+                        bool exists = false;
+                        for (i = 0; i < buses.Count; i++;)
+                         {
+                            if (buses[i].getLicense() == license)
+                            {
+                                bus2 = buses[i];
+                                exists = true;
+                            }
+                         }
+                        if (!exists)
+                            Console.WriteLine("this bus does not exist");                  //should there be an option to put the number in again...? (and then no else)
+                        else
+                        { 
+                            Console.WriteLine("enter 1 for inspection and 2 for refill");
+                            int number = int.Parse(Console.ReadLine());
+                            if (number == 1)
+                                bus2.refill();
+                            if (number == 2)
+                                bus2.inspection();
+                        }
+                        break;
+                    case 4:
+                        int j;
+                        for (j = 0; j < buses.Count; j++;)
+                        {
+                            int licenseplate = buses[j].getLicense();
+                            year = buses[j].getStartDate().Year;
+                            if (year < 2018)
+                                Console.WriteLine(year);
+                             else
+                                        //here print in 8 digits
+                             buses[j].getMilage();
+                            Console.WriteLine("mileage:"+buses[j].getMilage());
+                        }
+                        break;
                 } 
             }
         }
