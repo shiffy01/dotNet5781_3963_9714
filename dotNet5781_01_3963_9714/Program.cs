@@ -13,7 +13,7 @@ namespace dotNet5781_01_3963_9714
 {
     class Program
     {
-        public static bool drive(int license, List<Bus> buses)//drives a bus
+        public static string drive(int license, List<Bus> buses)//drives a bus
         {
             Bus bus1;
             bool can;
@@ -25,19 +25,13 @@ namespace dotNet5781_01_3963_9714
                         Random rand = new Random(DateTime.Now.Millisecond);
                         int num = rand.Next(1, 1201);//num is the length of the drive measured in km, cannot exceed full gas tank
                         can=bus1.send_bus(num);//this function drives the bus and returns true, or returns false if the bus can't drive
-                    while (!can)//if the bus couldn't drive
-                    {
-                        Console.WriteLine("This bus is unsafe or does not have enough gas and therefore cannot do the job.");
-                        Console.WriteLine("Please enter a new license plate number or enter 0 to choose a different option");
-                        license = int.Parse(Console.ReadLine());
-                        if (license == 0)//return and move on to the next choice
-                            return true;
-                        can=drive(license, buses);//try to drive this bus
-                    }
-                    return true;//bus exists in the company
+                    if (can)
+                        return "Bus was successfully driven";
+                    else 
+                        return "Bus needs insepction or refill";
                     }
                 }
-            return false;//bus does not exist
+            return "Bus not found";//bus does not exist
         }
             static void Main(string[] args)
         {
@@ -111,21 +105,32 @@ namespace dotNet5781_01_3963_9714
                     case 2://drive a bus
                         Console.WriteLine("Enter the license plate number of the bus you want to use");
                         int.TryParse(Console.ReadLine(), out licensePlate);//get license plate number from the user
-                        bool worked = drive(licensePlate, buses);//this function finds the bus to drive and drives it, returning true, if it can't find the bus it returns false
-                        while (!worked)//if the bus does not exist
+                        string worked = drive(licensePlate, buses);//this function finds the bus to drive and drives it, returning true, if it can't find the bus it returns false
+                        while (worked== "Bus not found")//if the bus does not exist
                         {
                             Console.WriteLine("This bus does not exist in the company. Please enter a new license plate number or enter 0 to choose a different option");
                             int.TryParse(Console.ReadLine(), out licensePlate);
                             if (licensePlate == 0)//continue and let the user choose a different option
-                                worked = true;
+                                worked = "";//leave while
                             else
                             worked = drive(licensePlate, buses);//try to drive this bus
                         }
+                        while(worked== "Bus needs insepction or refill")
+                        {
+                            Console.WriteLine("The bus needs an insepction or a refill. Please enter a new license plate number or enter 0 to choose a different option");
+                            int.TryParse(Console.ReadLine(), out licensePlate);
+                            if (licensePlate == 0)//continue and let the user choose a different option
+                                worked = "";//leave while
+                            else
+                                worked = drive(licensePlate, buses);//try to drive this bus
+                        }
+                        if(worked== "Bus was successfully driven")
+                            Console.WriteLine(worked);
                         break;
                     case 3://inspect/refill
                         Console.WriteLine("Enter the license plate number of the bus you want to inspect/fill up with gas:");
                         int.TryParse(Console.ReadLine(), out licensePlate);
-                        Bus bus2 = new Bus(0, new DateTime(2000, 01, 01), 0, new DateTime(2000, 01, 01));//empty bus
+                        Bus bus2 = new Bus(0, new DateTime(2000, 01, 01), 0);//empty bus
                         exists = false;//so far the bus is not found
                         do
                         {
@@ -151,9 +156,15 @@ namespace dotNet5781_01_3963_9714
                             Console.WriteLine("Enter 1 for refill and 2 for inspection");
                             int.TryParse(Console.ReadLine(), out number);
                             if (number == 1)//refill
+                            { 
                                 bus2.refill();
+                                Console.WriteLine("Bus refilled with a full tank of gas");
+                            }
                             if (number == 2)//inspection
+                            { 
                                 bus2.inspection();
+                                Console.WriteLine("Bus inspected and is now safe");
+                            }
                         }
                         break;
                     case 4://print

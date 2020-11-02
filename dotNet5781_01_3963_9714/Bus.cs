@@ -39,7 +39,8 @@ namespace dotNet5781_01_3963_9714
        
         public int getGas()
         {
-            return gas;
+            return gas;		
+
         }
         
          public  bool send_bus(int distance)//checks if bus has enough gas, and if its safe to drive.
