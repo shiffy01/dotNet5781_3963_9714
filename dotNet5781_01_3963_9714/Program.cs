@@ -7,116 +7,167 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace dotNet5781_01_3963_9714
 {
     class Program
     {
-        public static bool drive(int license, List<Bus> buses)
+        public static bool drive(int license, List<Bus> buses)//drives a bus
         {
             Bus bus1;
-            int i;
             bool can;
-            for (i = 0; i < buses.Count; i++)
+            for (int i = 0; i < buses.Count; i++)
                 {
-                    if (buses[i].getLicense() == license)
+                    if (buses[i].getLicense() == license)//if this is the bus the user wants to drive
                     { 
                         bus1 = buses[i];
                         Random rand = new Random(DateTime.Now.Millisecond);
-                        int num = rand.Next();
-                        can=bus1.send_bus(num);
-                    if(!can)
-                        Console.WriteLine("This bus is unsafe and therefore cannot do the job");
-                    return true;
+                        int num = rand.Next(1, 1201);//num is the length of the drive measured in km, cannot exceed full gas tank
+                        can=bus1.send_bus(num);//this function drives the bus and returns true, or returns false if the bus can't drive
+                    while (!can)//if the bus couldn't drive
+                    {
+                        Console.WriteLine("This bus is unsafe or does not have enough gas and therefore cannot do the job.");
+                        Console.WriteLine("Please enter a new license plate number or enter 0 to choose a different option");
+                        license = int.Parse(Console.ReadLine());
+                        if (license == 0)//return and move on to the next choice
+                            return true;
+                        can=drive(license, buses);//try to drive this bus
+                    }
+                    return true;//bus exists in the company
                     }
                 }
-            return false;
+            return false;//bus does not exist
         }
             static void Main(string[] args)
         {
-            List<Bus> buses = new List<Bus>();
-            int num;
+            List<Bus> buses = new List<Bus>();//list of buses
+            int choice;
+            //options menu
             Console.WriteLine("please choose one of the following options:");
             Console.WriteLine("1 to enter a new bus into the system");
-            Console.WriteLine("2 to choose a bus for a ride");
+            Console.WriteLine("2 to choose a bus for a drive");
             Console.WriteLine("3 to fill up gas or inspect");
             Console.WriteLine("4 to print the mileage of all the buses in the company");
             Console.WriteLine("5 to exit");
-           string convert=Console.ReadLine();
-            int.TryParse(convert, out num);
-            while (num != 5)
-            { 
-                switch (num)
+            //the user enters a number according to his/her choice
+            int.TryParse(Console.ReadLine(), out choice);
+            while (choice != 5)//the user didnt request to exit yet
+            {
+                int year, month, day, licensePlate, mileage, number;
+                switch (choice)
                 {
-                    case 1:
+                    case 1://add a bus to the company
                         Console.WriteLine("enter year, month and day the bus started working");
-                        int year = int.TryParse(Console.ReadLine());
-                        int month = int.TryParse(Console.ReadLine());
-                        int day = int.TryParse(Console.ReadLine());
-                        DateTime date = new DateTime(year, month, day);
+                        int.TryParse(Console.ReadLine(), out year);
+                        int.TryParse(Console.ReadLine(), out month);
+                        int.TryParse(Console.ReadLine(), out day);
+                        DateTime date = new DateTime(year, month, day);//date the bus started driving
                         Console.WriteLine("enter the license plate number:");
-                       int li = int.TryParse(Console.ReadLine());
-                        if (date.Year < 2018)//if the bus bus made before 2018, its license must be 7 digits
-                            if (!(li > 9999999 || li < 1000000))//license is invalid
+                        int.TryParse(Console.ReadLine(), out licensePlate);
+                        bool exists = false, keepOn=false;
+                        do
+                        {
+                            if (date.Year < 2018)//if the bus bus made before 2018, its license must be 7 digits
                             {
-                                Console.WriteLine("Invalid. License must have 7 digits. Enter a new license plate number:");
-                                li = int.TryParse(Console.ReadLine());
-                            } 
+                                while ((licensePlate > 9999999 || licensePlate < 1000000))//license is invalid
+                                {
+                                    Console.WriteLine("Invalid. License must have 7 digits. Enter a new license plate number:");
+                                    int.TryParse(Console.ReadLine(), out licensePlate);
+                                }
+                            }
                             else//if the bus bus made after 2018, its license must be 8 digits
                             {
-                                if ((li > 99999999 || li < 10000000))//license is invalid
+                                while ((licensePlate > 99999999 || licensePlate < 10000000))//license is invalid
+                                {
                                     Console.WriteLine("Invalid. License must have 8 digits. Enter a new license plate number:");
-                                li = int.TryParse(Console.ReadLine());
+                                    int.TryParse(Console.ReadLine(), out licensePlate);
+                                }
                             }
-                        Console.WriteLine("enter mileage:");
-                        int mi = int.TryParse(Console.ReadLine());
-                        Console.WriteLine("enter year, month and day the bus had its last inspection");
-                        int year1 = int.TryParse(Console.ReadLine());
-                        int month1 = int.TryParse(Console.ReadLine());
-                        int day1 = int.TryParse(Console.ReadLine());
-                        DateTime dateinspect = new DateTime(year, month, day);
-                        Bus bus1 = new Bus(li, date, mi, dateinspect);
-                        buses.Add(bus1);
-                        break;
-                    case 2:
-                        Console.WriteLine("enter the license plate number of the bus you want to use");
-                        int lic = int.TryParse(Console.ReadLine());
-                        bool worked = drive(lic, buses);
-                        if(!worked)
-                            Console.WriteLine("This bus does not exist in the company");
-                        break;
-                    case 3:
-                        Console.WriteLine("enter the license plate number of the bus you want to inspect/fill up with gas:");
-                        int license = int.TryParse(Console.ReadLine());
-                        int i;
-                        Bus bus2=new Bus(0, new DateTime(0, 0, 0), 0, new DateTime(0, 0, 0));
-                        bool exists = false;
-                        for (i = 0; i < buses.Count; i++)
-                         {
-                            if (buses[i].getLicense() == license)
+                            exists = false;//this bus was not yet found in the list of buses
+                            for (int i = 0; i < buses.Count; i++)//go over the list and make sure this license plate is not taken already
                             {
-                                bus2 = buses[i];
-                                exists = true;
+                                if (buses[i].getLicense() == licensePlate)//if the bus exists already
+                                {
+                                    Console.WriteLine("This bus is already in the system. Enter a new license plate number or enter 0 to choose a new option");
+                                    int.TryParse(Console.ReadLine(), out licensePlate);
+                                    if (licensePlate != 0)//the user entered a new license plate number-- try again
+                                        exists = true;
+                                    else//the user entered 0--continue and offer a choice of choosing a new option
+                                        keepOn = true;
+                                }
                             }
-                         }
-                        if (!exists)
-                            Console.WriteLine("this bus does not exist");                  //should there be an option to put the number in again...? (and then no else)
-                        else
+                        } while (exists);//if this bus already is in the system, repeat
+                        if(!keepOn)//if the user did not choose to pick a different option instead
                         { 
-                            Console.WriteLine("enter 1 for inspection and 2 for refill");
-                            int number = int.TryParse(Console.ReadLine());
-                            if (number == 1)
+                        Console.WriteLine("enter mileage:");
+                        int.TryParse(Console.ReadLine(), out mileage);//mileage
+                        Console.WriteLine("enter year, month and day the bus had its last inspection");
+                        int.TryParse(Console.ReadLine(), out year);
+                        int.TryParse(Console.ReadLine(), out month);
+                        int.TryParse(Console.ReadLine(), out day);
+                        DateTime dateinspect = new DateTime(year, month, day);//date of the last inspection
+                        Bus bus1 = new Bus(licensePlate, date, mileage, dateinspect);//make a new bus with all the new data
+                        buses.Add(bus1);//and add it to the list of buses
+                        }
+                        break;
+                    case 2://drive a bus
+                        Console.WriteLine("enter the license plate number of the bus you want to use");
+                        int.TryParse(Console.ReadLine(), out licensePlate);//get license plate number from the user
+                        bool worked = drive(licensePlate, buses);//this function finds the bus to drive and drives it, returning true, if it can't find the bus it returns false
+                        while (!worked)//if the bus does not exist
+                        {
+                            Console.WriteLine("This bus does not exist in the company. Please enter a new license plate number or enter 0 to choose a different option");
+                            int.TryParse(Console.ReadLine(), out licensePlate);
+                            if (licensePlate == 0)//continue and let the user choose a different option
+                                worked = true;
+                            else
+                            worked = drive(licensePlate, buses);//try to drive this bus
+                        }
+                        break;
+                    case 3://inspect/refill
+                        Console.WriteLine("enter the license plate number of the bus you want to inspect/fill up with gas:");
+                        int.TryParse(Console.ReadLine(), out licensePlate);
+                        Bus bus2 = new Bus(0, new DateTime(2000, 01, 01), 0, new DateTime(2000, 01, 01));//empty bus
+                        exists = false;//so far the bus is not found
+                        do
+                        {
+                            for (int i = 0; i < buses.Count; i++)//go over the whole list of buses
+                            {
+                                if (buses[i].getLicense() == licensePlate)//if this is the bus to inspect/refill
+                                {
+                                    bus2 = buses[i];
+                                    exists = true;//found the bus
+                                }
+                            }
+                            if (!exists)
+                            {
+                                Console.WriteLine("This bus does not exist in the company. Please enter a new license plate number or enter 0 to choose a different option");
+                                int.TryParse(Console.ReadLine(), out licensePlate);
+                                if (licensePlate == 0)//continue and let the user choose a new option
+                                    exists = true;
+                            }
+                        }
+                        while (!exists);//redo if the license number was wrong and the user wants to try again
+                        if (licensePlate != 0)//if the user does not want to choose a different option instead,
+                        {
+                            Console.WriteLine("enter 1 for refill and 2 for inspection");
+                            int.TryParse(Console.ReadLine(), out number);
+                            if (number == 1)//refill
                                 bus2.refill();
-                            if (number == 2)
+                            if (number == 2)//inspection
                                 bus2.inspection();
                         }
                         break;
-                    
-                        
-                            
-                        
-                       
-                } 
+                    case 4://print
+                        for (int i = 0; i < buses.Count; i++)//for all the buses, print license plate number and mileage
+                        {
+                            buses[i].printBus();
+                        }
+                            break;
+                }
+                Console.WriteLine("please choose another option");//get another option from the user
+                int.TryParse(Console.ReadLine(), out choice);
             }
         }
     }

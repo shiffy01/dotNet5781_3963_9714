@@ -8,13 +8,13 @@ namespace dotNet5781_01_3963_9714
 {
     class Bus 
     {
-        readonly int license;//מספר רישויpr
+        readonly int license;//מספר רישוי
          DateTime startDate;//תאריך תחילת הפעילות
         DateTime last_inspection;//
         int totalMilage;//נסועה כוללת
         int milage;//נסועה מאז הטיפול האחרון       
         int gas;//כמות דלק
-      
+        
         public Bus(int licenseNumber, DateTime date,  int curr_milage, DateTime inspection )
         {
             license = licenseNumber;
@@ -23,8 +23,6 @@ namespace dotNet5781_01_3963_9714
             totalMilage = curr_milage;
             gas = 1200;//buses fill up the gas tank when they first arrive
             last_inspection = inspection;
-             
-
         }
         public int getLicense()
         {
@@ -45,14 +43,17 @@ namespace dotNet5781_01_3963_9714
         }
         
          public  bool send_bus(int distance)//checks if bus has enough gas, and if its safe to drive.
-                                   //if it is, it updates the gas and milage, and returns true. otherwise it returns false and doesnt update anything
+                                   //if it is, it updates the gas and milage, and returns true. otherwise it returns false and doesn't update anything
         {
             if (milage + distance > 20000)//cant send a bus that is dangerous or become dangerous durring the ride
                 return false;
             if (gas - distance < 0)//cant send a bus that doesnt have enough gas
                 return false;
-            //otherwise, update gas and milage
-            milage += distance;
+            int diff = (startDate - last_inspection).Days;
+            if (diff > 365)
+                return false;
+                //otherwise, update gas and milage
+                milage += distance;
             totalMilage += milage;
             gas -= distance;
             return true;//bus was sent
@@ -90,7 +91,7 @@ namespace dotNet5781_01_3963_9714
                 tmpLicense = license % 1000;//this gives us the last 2 digits
                 Console.Write(tmpLicense);
             }
-            Console.WriteLine("mileage:" + milage);
+            Console.WriteLine(" mileage:" + milage);
         }
 
     }
