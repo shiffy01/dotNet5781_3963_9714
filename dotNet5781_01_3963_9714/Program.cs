@@ -109,6 +109,7 @@ namespace dotNet5781_01_3963_9714
                         DateTime dateinspect = new DateTime(year, month, day);//date of the last inspection
                         Bus bus1 = new Bus(licensePlate, date, mileage, dateinspect);//make a new bus with all the new data
                         buses.Add(bus1);//and add it to the list of buses
+                            Console.WriteLine("Bus was added successfully");
                         }
                         break;
                     case 2://drive a bus
