@@ -44,7 +44,7 @@ namespace dotNet5781_01_3963_9714
             List<Bus> buses = new List<Bus>();//list of buses
             int choice;
             //options menu
-            Console.WriteLine("please choose one of the following options:");
+            Console.WriteLine("Please choose one of the following options:");
             Console.WriteLine("1 to enter a new bus into the system");
             Console.WriteLine("2 to choose a bus for a drive");
             Console.WriteLine("3 to fill up gas or inspect");
@@ -58,12 +58,12 @@ namespace dotNet5781_01_3963_9714
                 switch (choice)
                 {
                     case 1://add a bus to the company
-                        Console.WriteLine("enter year, month and day the bus started working");
+                        Console.WriteLine("Enter year, month and day the bus started working");
                         int.TryParse(Console.ReadLine(), out year);
                         int.TryParse(Console.ReadLine(), out month);
                         int.TryParse(Console.ReadLine(), out day);
                         DateTime date = new DateTime(year, month, day);//date the bus started driving
-                        Console.WriteLine("enter the license plate number:");
+                        Console.WriteLine("Enter the license plate number:");
                         int.TryParse(Console.ReadLine(), out licensePlate);
                         bool exists = false, keepOn=false;
                         do
@@ -100,9 +100,9 @@ namespace dotNet5781_01_3963_9714
                         } while (exists);//if this bus already is in the system, repeat
                         if(!keepOn)//if the user did not choose to pick a different option instead
                         { 
-                        Console.WriteLine("enter mileage:");
+                        Console.WriteLine("Enter mileage:");
                         int.TryParse(Console.ReadLine(), out mileage);//mileage
-                        Console.WriteLine("enter year, month and day the bus had its last inspection");
+                        Console.WriteLine("Enter year, month and day the bus had its last inspection");
                         int.TryParse(Console.ReadLine(), out year);
                         int.TryParse(Console.ReadLine(), out month);
                         int.TryParse(Console.ReadLine(), out day);
@@ -113,7 +113,7 @@ namespace dotNet5781_01_3963_9714
                         }
                         break;
                     case 2://drive a bus
-                        Console.WriteLine("enter the license plate number of the bus you want to use");
+                        Console.WriteLine("Enter the license plate number of the bus you want to use");
                         int.TryParse(Console.ReadLine(), out licensePlate);//get license plate number from the user
                         bool worked = drive(licensePlate, buses);//this function finds the bus to drive and drives it, returning true, if it can't find the bus it returns false
                         while (!worked)//if the bus does not exist
@@ -127,7 +127,7 @@ namespace dotNet5781_01_3963_9714
                         }
                         break;
                     case 3://inspect/refill
-                        Console.WriteLine("enter the license plate number of the bus you want to inspect/fill up with gas:");
+                        Console.WriteLine("Enter the license plate number of the bus you want to inspect/fill up with gas:");
                         int.TryParse(Console.ReadLine(), out licensePlate);
                         Bus bus2 = new Bus(0, new DateTime(2000, 01, 01), 0, new DateTime(2000, 01, 01));//empty bus
                         exists = false;//so far the bus is not found
@@ -152,7 +152,7 @@ namespace dotNet5781_01_3963_9714
                         while (!exists);//redo if the license number was wrong and the user wants to try again
                         if (licensePlate != 0)//if the user does not want to choose a different option instead,
                         {
-                            Console.WriteLine("enter 1 for refill and 2 for inspection");
+                            Console.WriteLine("Enter 1 for refill and 2 for inspection");
                             int.TryParse(Console.ReadLine(), out number);
                             if (number == 1)//refill
                                 bus2.refill();
@@ -167,7 +167,7 @@ namespace dotNet5781_01_3963_9714
                         }
                             break;
                 }
-                Console.WriteLine("please choose another option");//get another option from the user
+                Console.WriteLine("Please choose another option");//get another option from the user
                 int.TryParse(Console.ReadLine(), out choice);
             }
         }
