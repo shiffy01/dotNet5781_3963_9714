@@ -102,13 +102,9 @@ namespace dotNet5781_01_3963_9714
                         { 
                         Console.WriteLine("Enter mileage:");
                         int.TryParse(Console.ReadLine(), out mileage);//mileage
-                        Console.WriteLine("Enter year, month and day the bus had its last inspection");
-                        int.TryParse(Console.ReadLine(), out year);
-                        int.TryParse(Console.ReadLine(), out month);
-                        int.TryParse(Console.ReadLine(), out day);
-                        DateTime dateinspect = new DateTime(year, month, day);//date of the last inspection
-                        Bus bus1 = new Bus(licensePlate, date, mileage, dateinspect);//make a new bus with all the new data
+                        Bus bus1 = new Bus(licensePlate, date, mileage);//make a new bus with all the new data
                         buses.Add(bus1);//and add it to the list of buses
+                            //buses are automaticlly inspected and filled up with gas when they enter the system
                             Console.WriteLine("Bus was added successfully");
                         }
                         break;
