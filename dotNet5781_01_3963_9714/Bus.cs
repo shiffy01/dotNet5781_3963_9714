@@ -46,6 +46,7 @@ namespace dotNet5781_01_3963_9714
                                    //if it is, it updates the gas and milage, and returns true. otherwise it returns false and doesn't update anything
         {
             if (milage + distance > 20000)//cant send a bus that is dangerous or will become dangerous durring the ride
+               
                 return false;
             if (gas - distance < 0)//cant send a bus that doesnt have enough gas
                 return false;
@@ -90,7 +91,7 @@ namespace dotNet5781_01_3963_9714
                 tmpLicense = license % 1000;//this gives us the last 2 digits
                 Console.Write(tmpLicense);
             }
-            Console.WriteLine(" mileage:" + milage);
+            Console.WriteLine(" mileage:" + totalMilage);
         }
 
     }
