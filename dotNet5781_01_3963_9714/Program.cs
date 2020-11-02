@@ -61,7 +61,7 @@ namespace dotNet5781_01_3963_9714
                             {
                                 Console.WriteLine("Invalid. License must have 7 digits. Enter a new license plate number:");
                                 li = int.TryParse(Console.ReadLine());
-                            }
+                            } 
                             else//if the bus bus made after 2018, its license must be 8 digits
                             {
                                 if ((li > 99999999 || li < 10000000))//license is invalid
