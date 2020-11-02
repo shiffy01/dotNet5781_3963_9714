@@ -49,7 +49,7 @@ namespace dotNet5781_01_3963_9714
                 return false;
             if (gas - distance < 0)//cant send a bus that doesnt have enough gas
                 return false;
-            int diff = (startDate - last_inspection).Days;
+            int diff = (DateTime.Now - last_inspection).Days;
             if (diff > 365)
                 return false;
                 //otherwise, update gas and milage
