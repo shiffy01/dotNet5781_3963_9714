@@ -15,14 +15,14 @@ namespace dotNet5781_01_3963_9714
         int milage;//נסועה מאז הטיפול האחרון       
         int gas;//כמות דלק
         
-        public Bus(int licenseNumber, DateTime date,  int curr_milage, DateTime inspection )
+        public Bus(int licenseNumber, DateTime date,  int curr_milage )
         {
             license = licenseNumber;
             startDate = date;
-            milage = curr_milage;
-            totalMilage = curr_milage;
+            milage = 0;//busses go through inspection when they arrive
+            totalMilage = curr_milage;//total milage
             gas = 1200;//buses fill up the gas tank when they first arrive
-            last_inspection = inspection;
+            last_inspection = DateTime.Now;//busses go through inspection when they arrive
         }
         public int getLicense()
         {
@@ -45,7 +45,7 @@ namespace dotNet5781_01_3963_9714
          public  bool send_bus(int distance)//checks if bus has enough gas, and if its safe to drive.
                                    //if it is, it updates the gas and milage, and returns true. otherwise it returns false and doesn't update anything
         {
-            if (milage + distance > 20000)//cant send a bus that is dangerous or become dangerous durring the ride
+            if (milage + distance > 20000)//cant send a bus that is dangerous or will become dangerous durring the ride
                 return false;
             if (gas - distance < 0)//cant send a bus that doesnt have enough gas
                 return false;
@@ -65,8 +65,7 @@ namespace dotNet5781_01_3963_9714
         public void inspection()//set buses milage back to 0, and resets the date of the last inspection to today
         {
             milage = 0;
-            DateTime today = DateTime.Now;
-            last_inspection = today;
+            last_inspection = DateTime.Now;
         }
         public void printBus()
         {
