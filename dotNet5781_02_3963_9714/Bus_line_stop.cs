@@ -22,9 +22,9 @@ namespace dotNet5781_02_3963_9714
             get { return time_since_last_stop; }
             set { time_since_last_stop = value; }
         }
-        public Bus_line_stop(int code1, Bus_line_stop previous )
+        public Bus_line_stop(int code1, Bus_line_stop previous ):base(code1)
         {
-
+            
         }
         //inherrits toString from Bus_stop...
 

@@ -8,13 +8,12 @@ namespace dotNet5781_02_3963_9714
 {
     class Bus_Stop
     {
-        private int code;//code of bus stop
-        
+        protected int code;//code of bus stop
 
         public int Code
         {
-            get { return Code; }
-            set { Code = value; }
+            get { return code; }
+            set { code = value; }
         }
         private double latitude;
        
