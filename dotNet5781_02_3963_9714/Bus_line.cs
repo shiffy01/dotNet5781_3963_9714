@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-//finished this except printing the list of stops in Tostring and the exceptions.
+using System.Runtime;
+//finished this except the exceptions.
 namespace dotNet5781_02_3963_9714
 {
     class Bus_line:IComparable
@@ -48,35 +49,44 @@ namespace dotNet5781_02_3963_9714
             last_stop = 0;//no stops yet
             stops = new List<Bus_line_stop>();
         }
-        public override string ToString()//fix this
+        public override string ToString()
         {
-            return ("Line number:" + line_number + @"
+            //ans contains all the information to be printed:
+            string ans="Line number:" + line_number + @"
            Route area:"+area+@"
            Bus stops:
-           ");//print list
+           ";
+            for (int i = 0; i < stops.Count; i++)//for every stop on the line
+            {
+                ans+=stops[i].Code;//print the stop number
+                ans += @"
+                ";//enter line
+            }
+            return ans;
         }
-        public void add_stop(int code, Bus_line_stop stop)
+        public void add_stop(int code, Bus_line_stop stop)//code=the code of the bus stop to add the new stop after
         {
             //add bus to the route, check if stop1 exists, if its beginning or end of the route, update first/last
-            if (code == 0)//add to the beginning of the route
+            if (code == 0)//if code is 0 it means that this stop should be added at the beginning of the route
             { 
                 stops.Insert(0, stop);
                 first_stop = stop.Code;//update first stop
             }
             else
             {
-                int i;
-                for (i = 0; i < stops.Count; i++)//find the place to add after
-                    if (stops[i].Code == code)//if this is the place with the right code
-                        break;//leave the loop, i is saved and is the position to add to
-                if (stops.Count == i && !(stops[stops.Count].Code == code))//if the loop got to the end and the last place is not the place to add to
-                    Console.WriteLine("error");//switch this, figure out what to do when the stop to enter after doesnt exist
-                else
-                {
-                    stops.Insert(i + 1, stop);//maybe print success messege (or return true and do that in the main)
-                    if (stops[stops.Count].Code == code)//update last stop
-                        last_stop = stop.Code;
-                }
+                    int i;
+                    for (i = 0; i < stops.Count; i++)//find the place to add after
+                        if (stops[i].Code == code)//if this is the place with the right code
+                            break;//leave the loop, i is saved and is the position to add to
+                    if (stops.Count == i && !(stops[stops.Count].Code == code))//if the loop got to the end and the last place is not the place to add to
+                        Console.WriteLine("error");//needs an exception!!
+
+                    else
+                    {
+                        stops.Insert(i + 1, stop);//maybe print success messege (or return true and do that in the main)
+                        if (stops[stops.Count].Code == code)//update last stop
+                            last_stop = stop.Code;
+                    }
             }
         }
         public void remove_stop(int code)

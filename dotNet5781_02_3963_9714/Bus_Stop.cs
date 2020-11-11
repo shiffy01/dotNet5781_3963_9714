@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+//done
 namespace dotNet5781_02_3963_9714
 {
     class Bus_Stop
@@ -39,17 +39,24 @@ namespace dotNet5781_02_3963_9714
         }
         public Bus_Stop(int code1)//constructor
         {
-            if(code1>999999)//make sure code has 6 or less digits
-            code = code1;
-            //use rand for long and latitude
+            if (code1 > 999999 || code1 <= 0)//make sure code has 6 or less digits
+                Console.WriteLine("error");//exception!!!
+            else
+                code = code1;
+            //the longitude and latitude are raffled numbers inside the borders of Israel:
+            //latitude[31, 33.3], longitude[34.3, 35.5]
+            Random rand = new Random(DateTime.Now.Millisecond);
+            latitude = rand.Next(310, 334);
+            latitude = (double)longitude / 10;
+            longitude = rand.Next(343, 356);
+            longitude = (double)longitude / 10;
 
         }
         public override string ToString()
         {
-            //return base.ToString();
+            //return code and measurements for this bus stop
+            string ans = "Bus Station Code: " + code + ", " + latitude + "°N " + longitude + "°E";
+            return ans;
         }
-
-
-
     }
 }
