@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
-
+//finished this except printing the list of stops in Tostring and the exceptions.
 namespace dotNet5781_02_3963_9714
 {
     class Bus_line:IComparable
@@ -39,50 +40,167 @@ namespace dotNet5781_02_3963_9714
             get { return area; }
             set { area = value; }
         }
-        public Bus_line(int number, string area)//constructor
+        public Bus_line(int number, string area1)//constructor
         {
-
+            line_number = number;
+            area = area1;
+            first_stop = 0;//no stops yet
+            last_stop = 0;//no stops yet
+            stops = new List<Bus_line_stop>();
         }
-        public override string ToString()
+        public override string ToString()//fix this
         {
             return ("Line number:" + line_number + @"
            Route area:"+area+@"
            Bus stops:
            ");//print list
         }
-        public void add_stop(int code)
+        public void add_stop(int code, Bus_line_stop stop)
         {
             //add bus to the route, check if stop1 exists, if its beginning or end of the route, update first/last
+            if (code == 0)//add to the beginning of the route
+            { 
+                stops.Insert(0, stop);
+                first_stop = stop.Code;//update first stop
+            }
+            else
+            {
+                int i;
+                for (i = 0; i < stops.Count; i++)//find the place to add after
+                    if (stops[i].Code == code)//if this is the place with the right code
+                        break;//leave the loop, i is saved and is the position to add to
+                if (stops.Count == i && !(stops[stops.Count].Code == code))//if the loop got to the end and the last place is not the place to add to
+                    Console.WriteLine("error");//switch this, figure out what to do when the stop to enter after doesnt exist
+                else
+                {
+                    stops.Insert(i + 1, stop);//maybe print success messege (or return true and do that in the main)
+                    if (stops[stops.Count].Code == code)//update last stop
+                        last_stop = stop.Code;
+                }
+            }
         }
         public void remove_stop(int code)
         {
-            //remove bus stop from route
+            int i;
+            for(i=0; i<stops.Count; i++)
+                if (stops[i].Code == code)//if this is the place with the right code
+                    break;//leave the loop, i is saved as the position to remove from
+            stops.RemoveAt(i);//removes element in index i
         }
         public bool on_route(int code)
         {
-            //if bus stop with this code is on the route
+            bool ans = false;//so far not found
+            for (int i = 0; i < stops.Count; i++)
+                if (stops[i].Code == code)//if found
+                    ans = true;
+            return ans;
+
         }
         public double distance(int code1, int code2)
         {
-            //measure distance between two stops with these codes
+            //returns the distance between the two stops with these codes
+            double dis = 0;//distance
+            int i;
+            for (i = 0; i < stops.Count; i++)
+                if (stops[i].Code == code1)//if found
+                    break;
+            int first = i;//first stop in the sub route
+            for (i = 0; i < stops.Count; i++)
+                if (stops[i].Code == code2)//if found
+                    break;
+            int last = i;//last stop in the sub route
+            if (last == stops.Count || first == stops.Count)//if either first or last reached the end of the list
+            {
+                if ((last == stops.Count && first == stops.Count) && (stops[stops.Count].Code != code1 || stops[stops.Count].Code != code2))
+                {//if both of them reached the end of the list but they are not both equal to the code in the last place
+                    Console.WriteLine("error");//exception?
+                }
+                if (stops[stops.Count].Code != code1 && stops[stops.Count].Code != code2)//if one of them reached the end of the list but neither of the codes equal the on eat the end of the list
+                    Console.WriteLine("error");//exception?
+                return -1;//what to return if there is an error?
+            }
+            else//if code1 and code2 are valid
+            {
+                for (i = first + 1; i < last; i++)
+                    dis += stops[i].Distance_from_last_stop;//keep adding the distances between stops for all the stops in between them
+                return dis;
+            }
         }
         public double travel_time(int code1, int code2)
         {
-            //measure time between two stops with these codes
+            //returns the time it takes to get from one stop to the other
+            double time = 0;//distance
+            int i;
+            for (i = 0; i < stops.Count; i++)
+                if (stops[i].Code == code1)//if found
+                    break;
+            int first = i;//first stop in the sub route
+            for (i = 0; i < stops.Count; i++)
+                if (stops[i].Code == code2)//if found
+                    break;
+            int last = i;//last stop in the sub route
+            if (last == stops.Count || first == stops.Count)//if either first or last reached the end of the list
+            {
+                if ((last == stops.Count && first == stops.Count) && (stops[stops.Count].Code != code1 || stops[stops.Count].Code != code2))
+                {//if both of them reached the end of the list but they are not both equal to the code in the last place
+                    Console.WriteLine("error");//exception?
+                }
+                if (stops[stops.Count].Code != code1 && stops[stops.Count].Code != code2)//if one of them reached the end of the list but neither of the codes equal the on eat the end of the list
+                    Console.WriteLine("error");//exception?
+                return -1;//what to return if there is an error?
+            }
+            else//if code1 and code2 are valid
+            {
+                for (i = first + 1; i < last; i++)
+                    time += stops[i].Distance_from_last_stop;//keep adding the time between stops for all the stops in between them
+                return time;
+            }
         }
         public Bus_line sub_route(int code1, int code2)
         {
-            //returns new route in between these two stops
+            int i;
+            Bus_line sub = new Bus_line(line_number, area);//is the bus line number same as the whole route's number...? might not be
+            for (i = 0; i < stops.Count; i++)
+                if (stops[i].Code == code1)//if found
+                    break;
+            int first = i;//first stop in the sub route
+            for (i = 0; i < stops.Count; i++)
+                if (stops[i].Code == code2)//if found
+                    break;
+            int last = i;//last stop in the sub route
+            if (last == stops.Count || first == stops.Count)//if either first or last reached the end of the list
+            {
+                if ((last == stops.Count && first == stops.Count) && (stops[stops.Count].Code != code1 || stops[stops.Count].Code != code2))
+                {//if both of them reached the end of the list but they are not both equal to the code in the last place
+                    Console.WriteLine("error");//exception?
+                }
+                if (stops[stops.Count].Code != code1 && stops[stops.Count].Code != code2)//if one of them reached the end of the list but neither of the codes equal the on eat the end of the list
+                    Console.WriteLine("error");//exception?
+                return sub;//what to return if one of the codes is invalid
+            }
+            else
+            {
+                sub.add_stop(0, stops[first]);//add first stop
+                int most_recent = stops[first].Code;//this is the stop to add the next one after
+                for (i = first + 1; i <= last; i++)
+                {
+                    sub.add_stop(most_recent, stops[i]);//addd the stop
+                    most_recent = stops[i].Code;//the next one will add after this stop
+                }
+                return sub;
+            }
+          
         }
-        public int CompareTo(Bus_line other)//1=bigger, 0=equal, -1=smaller
+         int IComparable.CompareTo(Object other)//1=bigger, 0=equal, -1=smaller
         {
             
             double time1 = travel_time(first_stop, last_stop);
-            double time2 = travel_time(other.first_stop, other.last_stop);
-            if (time1 > time2)//
+            double time2 = travel_time(((Bus_line)other).first_stop, ((Bus_line)other).last_stop);
+            if (time1 > time2)
                 return 1;
-
-
+            if (time1 < time2)
+                return -1;
+            return 0;
         }
 
     }
