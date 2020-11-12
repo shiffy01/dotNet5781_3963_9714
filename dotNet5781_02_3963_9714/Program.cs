@@ -39,17 +39,59 @@ namespace dotNet5781_02_3963_9714
                     case 1://add
                         Console.WriteLine("Please enter 1 to add a new bus line and 2 to add a new stop to an existing line");
                         int add = int.Parse(Console.ReadLine());
-                        if (add==1)
+                        if (add==1)//add a new bus line
+                        {  
+                            //get all the info and build a new bus line:
                             Console.WriteLine("Enter the number of the Line to add");
-                        //send to a function that checks if the number exists already in the collection
-                      //  if (area1 != "General" && area1 != "North" && area1 != "South" && area1 != "Center" && area1 != "Jerusalem")
-                     //then cout error, maybe tell them what the options are and that its only capital
-                            if (add==2)
+                            int num = int.Parse(Console.ReadLine());
+                            Console.WriteLine("Which part of the country are the bus's routes in? Please choose one of the following:");
+                            string area;
+                            do//keep asking for a valid area untill recieving one
+                            {
+                                Console.WriteLine("General, North, South, Center, Jerusalem");
+                                area = Console.ReadLine();
+                                if (area != "General" && area != "North" && area != "South" && area != "Center" && area != "Jerusalem")
+                                    Console.WriteLine("Error! Please enter one of the following options: (with a capital letter)");//EXCEPTION??
+                            } while (area != "General" && area != "North" && area != "South" && area != "Center" && area != "Jerusalem");
+                            Console.WriteLine("enter the codes for the first and last stops in the new route");
+                            int first = int.Parse(Console.ReadLine());
+                            int last = int.Parse(Console.ReadLine());
+                            Bus_line_stop first_stop = Bus_line_stop.make_bus_line_stop(first);
+                            Bus_line_stop last_stop = Bus_line_stop.make_bus_line_stop(last);
+                            Bus_line b = new Bus_line(num, area, first_stop, last_stop);
+                            buses.add_line(b);//add the bus line to the collection
+                        }
+                        if (add == 2)//add a new stop to an existing bus line
+                        { 
+                            //get all the information and add the stop:
                             Console.WriteLine("Enter the number of the Line to add to");
+                            int line_number = int.Parse(Console.ReadLine());
+                            Console.WriteLine("Enter the number of the stop you want the new stop to come after");
+                            int stop_number = int.Parse(Console.ReadLine());
+                            Bus_line_stop b = Bus_line_stop.make_bus_line_stop(stop_number);
+                            Console.WriteLine("Enter the code of the new stop");
+                            int code = int.Parse(Console.ReadLine());
+                            buses[line_number].add_stop(code, b);
+                        }
                         if (add!=1&&add!=2)
-                                    Console.WriteLine("Error! Cannot complete the action");
+                                    Console.WriteLine("Error! Cannot complete the action");//EXCEPTION???
                         break;
-                    case 2:
+                    case 2://erase
+                        Console.WriteLine("Please enter 1 to remove a bus line and 2 to remove a stop from an existing line");
+                        int erase = int.Parse(Console.ReadLine());
+                        if (erase == 1)
+                        {
+                            Console.WriteLine("Enter the number of the bus line to remove");
+                            int code = int.Parse(Console.ReadLine());
+                        }
+                        if (erase == 2)
+                        {
+
+                        }
+                        if (erase != 1 && erase != 2)
+                        {
+
+                        }
                         break;
                     case 3:
                         break;
