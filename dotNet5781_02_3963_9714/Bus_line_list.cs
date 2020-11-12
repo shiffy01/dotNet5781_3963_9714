@@ -73,13 +73,13 @@ namespace dotNet5781_02_3963_9714
             }
             
         }
-        public void remove_line(Bus_line b_line)
+        public void remove_line(int b_line, int first_stop)
         {
             for(int i=0;i<count;i++)
             {
-                if(busLines[i].Line_number==b_line.Line_number)//if it is the same line
+                if(busLines[i].Line_number==b_line)//if it is the same line
                 {
-                    if(busLines[i].First_stop==b_line.First_stop&& busLines[i].Last_stop == b_line.Last_stop)//if same line and direction
+                    if(busLines[i].First_stop==first_stop)//if same line and direction
                     {
                         busLines.Remove(busLines[i]);//remove line from the list
                         Console.WriteLine("Line was removed from the list.");
@@ -90,12 +90,13 @@ namespace dotNet5781_02_3963_9714
             }
             Console.WriteLine("Line was not found in list");//if we got to here, we went through the whole list, and didnt return, so we know the line wasn't found
         }
-        public List<Bus_line> have_stop(int stop_code)//gets a
+        public List<Bus_line> have_stop(int stop_code)//gets a code for a bus stop, an dreturns a list of all the lines that stop there
         {
-
+            List<Bus_line> lines_with_stop = new List<Bus_line>();
         }
         public Bus_line_list()//constructor
         {
+             busLines = new List<Bus_line>();
             count = 0;
         }
 
