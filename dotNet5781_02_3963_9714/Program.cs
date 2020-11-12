@@ -4,7 +4,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+//need to finish case3, do case 4 and default
 namespace dotNet5781_02_3963_9714
 {
     class Program
@@ -85,18 +85,44 @@ namespace dotNet5781_02_3963_9714
                             int code = int.Parse(Console.ReadLine());
                             Console.WriteLine("Enter the number of the first stop of the bus line to remove");
                             int code_first = int.Parse(Console.ReadLine());
-                            buses[code].remove_line(code, code_first);
+                            buses.remove_line(code, code_first);
                         }
                         if (erase == 2)//remove a stop from one of the bus lines
                         {
-
+                            Console.WriteLine("Enter the number of the bus line to remove from");
+                            int code_bus = int.Parse(Console.ReadLine());
+                            Console.WriteLine("Enter the number of the stop to remove");
+                            int code_stop = int.Parse(Console.ReadLine());
+                            buses[code_bus].remove_stop(code_stop);
                         }
                         if (erase != 1 && erase != 2)
                         {
-
+                            Console.WriteLine("error! Cannot complete action");//EXCEPTION!!
                         }
                         break;
-                    case 3:
+                    case 3://search
+                        Console.WriteLine("Please enter 1 to search for lines that go through a certain bus stop and 2 to search the shortest route from one stop to another");
+                        int search = int.Parse(Console.ReadLine());
+                        if (search == 1)
+                        {
+                            Console.WriteLine("Please enter the code of the bus stop");
+                            int code = int.Parse(Console.ReadLine());
+                            List<Bus_line> b = buses.have_stop(code);
+                            for(int i=0; i<b.Count; i++)
+                                Console.WriteLine(b[i]);
+                        }
+                        if (search == 2)
+                        {
+                            Console.WriteLine("Please enter the code of the the first stop");
+                            int code1 = int.Parse(Console.ReadLine());
+                            Console.WriteLine("Please enter the code of the second stop");
+                            int code2 = int.Parse(Console.ReadLine());
+                            buses.searchroute(code1, code2);//will be called something else, also i dont know what it returns.
+                            //i think its supposed to return bus line numbers in order
+                            //like a list with bus lines sorted from the one that has the shortest route between the stops to the longest
+                        }
+                        if(search!=1&&search!=2)
+                            Console.WriteLine("error! cannot complete action!");//EXCEPTION!!
                         break;
                     case 4:
                         break;
