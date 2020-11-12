@@ -4,7 +4,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-//need to finish case3, do case 4 and default
+//need to finish case3.
 namespace dotNet5781_02_3963_9714
 {
     class Program
@@ -103,7 +103,7 @@ namespace dotNet5781_02_3963_9714
                     case 3://search
                         Console.WriteLine("Please enter 1 to search for lines that go through a certain bus stop and 2 to search the shortest route from one stop to another");
                         int search = int.Parse(Console.ReadLine());
-                        if (search == 1)
+                        if (search == 1)//searches for all bus lines that go through a certain bus stop
                         {
                             Console.WriteLine("Please enter the code of the bus stop");
                             int code = int.Parse(Console.ReadLine());
@@ -111,20 +111,42 @@ namespace dotNet5781_02_3963_9714
                             for(int i=0; i<b.Count; i++)
                                 Console.WriteLine(b[i]);
                         }
-                        if (search == 2)
+                        if (search == 2)//prints list of routes between two stops
                         {
                             Console.WriteLine("Please enter the code of the the first stop");
                             int code1 = int.Parse(Console.ReadLine());
                             Console.WriteLine("Please enter the code of the second stop");
                             int code2 = int.Parse(Console.ReadLine());
-                            buses.searchroute(code1, code2);//will be called something else, also i dont know what it returns.
-                            //i think its supposed to return bus line numbers in order
-                            //like a list with bus lines sorted from the one that has the shortest route between the stops to the longest
+                            //need to make a function in bus line list that returns a list of bus line NUMBERS sorted by the shortest to
+                            //longest route between these two stops
                         }
                         if(search!=1&&search!=2)
                             Console.WriteLine("error! cannot complete action!");//EXCEPTION!!
                         break;
                     case 4:
+                        Console.WriteLine("Please enter 1 to print all the bus lines in the system and two to print each bus stop with the numbers of bus lines that go through it" );
+                        int print = int.Parse(Console.ReadLine());
+                        if (print == 1)//print all the bus lines
+                        {
+                            for(int i=0; i<buses.Count; i++)
+                                Console.WriteLine(buses[i]);
+                        }
+                        if(print==2)//print the bus stops with the lines that go through them
+                        {
+                            for(int i=0; i < Bus_line_stop.stop_list.Count; i++)//go through the saved list of stops
+                            {
+                                List<Bus_line> b = buses.has_stop(Bus_line_stop.stop_list[i].Code);
+                                if (!(b.Count==0))//if list is not empty, print the stop
+                                {
+                                    Console.WriteLine("Bus stop #"+ Bus_line_stop.stop_list[i].Code+":");
+                                    for (int j = 0; j < b.Count; j++)
+                                        Console.WriteLine(b[i]);
+                                }
+
+                            }
+                        }
+                        if(print!=1&&print!=2)
+                            Console.WriteLine("error");//EXCEPTION!!
                         break;
                     default:
                         break;

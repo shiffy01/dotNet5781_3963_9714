@@ -179,6 +179,9 @@ namespace dotNet5781_02_3963_9714
 
     }
     
-
+        public List<Bus_line> shortest_routes(int code1, int code2)
+        {
+            return null;
+        }
     
 
