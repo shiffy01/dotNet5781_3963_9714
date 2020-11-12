@@ -41,13 +41,16 @@ namespace dotNet5781_02_3963_9714
             get { return area; }
             set { area = value; }
         }
-        public Bus_line(int number, string area1)//constructor
+        public Bus_line(int number, string area1, Bus_line_stop first, Bus_line_stop last)//constructor
         {
             line_number = number;
             area = area1;
-            first_stop = 0;//no stops yet
-            last_stop = 0;//no stops yet
+            first_stop = first.Code;
+            last_stop = last.Code;
             stops = new List<Bus_line_stop>();
+            //add the first and last stops to the list of stops
+            stops.Add(first);
+            stops.Add(last);
         }
         public override string ToString()
         {
