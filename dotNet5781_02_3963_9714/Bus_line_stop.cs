@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
+//done
 namespace dotNet5781_02_3963_9714
 {
     class Bus_line_stop:Bus_Stop
@@ -41,7 +41,7 @@ namespace dotNet5781_02_3963_9714
             //the bus's speed is estimated at 1km a minute
             time_since_last_stop = distance_from_last_stop;
         }
-        //inherrits toString from Bus_stop...
+        //inherits toString from Bus_stop...
 
     }
 }

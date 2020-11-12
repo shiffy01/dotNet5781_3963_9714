@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Runtime;
-//finished this except the exceptions.
+//fix the indexer also fix the travel time and the other function that are red and deal with throwing exceptions from this class
 namespace dotNet5781_02_3963_9714
 {
     class Bus_line:IComparable
     {
-        private List<Bus_line_stop> stops;
+        public List<Bus_line_stop> stops;
         private int line_number;
 
         public int Line_number
@@ -41,7 +41,7 @@ namespace dotNet5781_02_3963_9714
             get { return area; }
             set { area = value; }
         }
-        public Bus_line(int number, string area1, Bus_line_stop first, Bus_line_stop last)//constructor
+        public Bus_line(int number, string area1, Bus_line_stop first, Bus_line_stop last)//only valid codes for first and last stops are sent to this function
         {
             line_number = number;
             area = area1;
@@ -49,8 +49,8 @@ namespace dotNet5781_02_3963_9714
             last_stop = last.Code;
             stops = new List<Bus_line_stop>();
             //add the first and last stops to the list of stops
-            stops.Add(first);
-            stops.Add(last);
+                stops.Add(first);
+                stops.Add(last);
         }
         public override string ToString()
         {
@@ -67,7 +67,7 @@ namespace dotNet5781_02_3963_9714
             }
             return ans;
         }
-        public void add_stop(int code, Bus_line_stop stop)//code=the code of the bus stop to add the new stop after
+        public void add_stop(int code, Bus_line_stop stop)//code=the code of the bus stop to add the new stop after. only a valid code for stop is sent to this function
         {
             //add bus to the route, check if stop1 exists, if its beginning or end of the route, update first/last
             for (int i = 0; i < stops.Count; i++)//this loop checks if the stop is already on this bus route
@@ -85,10 +85,10 @@ namespace dotNet5781_02_3963_9714
             {
                     int i;
                     for (i = 0; i < stops.Count; i++)//find the place to add after
-                        if (stops[i].Code == code)//if this is the place with the right code
+                        if (stops[i].Code == code)
                             break;//leave the loop, i is saved and is the position to add to
                     if (stops.Count == i && !(stops[stops.Count].Code == code))//if the loop got to the end and the last place is not the place to add to
-                        Console.WriteLine("error");//needs an exception!!
+                        Console.WriteLine("error");//needs an exception!!AAAAAAA
 
                     else
                     {
@@ -145,7 +145,7 @@ namespace dotNet5781_02_3963_9714
                 return dis;
             }
         }
-        public double travel_time(int code1, int code2)
+        public double travel_time(int code1, int code2)//go over this and call distance and do times whatever it is
         {
             //returns the time it takes to get from one stop to the other
             double time = 0;//distance
@@ -175,7 +175,7 @@ namespace dotNet5781_02_3963_9714
                 return time;
             }
         }
-        public Bus_line sub_route(int code1, int code2)
+        public Bus_line sub_route(int code1, int code2)//fix this!
         {
             int i;
             Bus_line sub = new Bus_line(line_number, area);//is the bus line number same as the whole route's number...? might not be
@@ -199,11 +199,12 @@ namespace dotNet5781_02_3963_9714
             }
             else
             {
+                //this code uses functions that throw exceptions, but it only sends valid codes so there is no need for try/catch
                 sub.add_stop(0, stops[first]);//add first stop
                 int most_recent = stops[first].Code;//this is the stop to add the next one after
                 for (i = first + 1; i <= last; i++)
                 {
-                    sub.add_stop(most_recent, stops[i]);//addd the stop
+                    sub.add_stop(most_recent, stops[i]);//add the stop
                     most_recent = stops[i].Code;//the next one will add after this stop
                 }
                 return sub;
@@ -223,6 +224,54 @@ namespace dotNet5781_02_3963_9714
                 return -1;
             return 0;
         }
+
+    }
+    //i dont know why it doesnt recognize stops. figure this out
+    public Bus_line_stop this[int stop_number]//indexer. Returns the bus stop with stop number recieved
+    {
+
+        get
+        {
+
+            
+            int index = -1;
+            for (int i = 0; i < stops.Count; i++)
+            {
+                if (stops[i].code == stop_number)//if this is the right bus stop
+                {
+                    index = i;//save  the index of line
+                    i = stops.Count;//leave loop
+
+                }
+
+            }
+
+            if (index == -1)//stop wasnt found in loop
+                throw new ArgumentOutOfRangeException();
+            return stops[index];
+
+
+
+        }
+        set
+        {
+            bool found = false;
+            for (int i = 0; i < stops.Count; i++)
+            {
+                if (stops[i].code == stop_number)//if this is the right bus line set it to value
+                {
+                    stops[i] = value;
+                    found = true;
+                }
+                if (!found)
+                    throw new ArgumentOutOfRangeException();
+            }
+
+        }
+
+
+
+
 
     }
 }
