@@ -34,7 +34,7 @@ namespace dotNet5781_02_3963_9714
             get { return last_stop; }
             set { last_stop = value; }
         }
-        private string area;
+        private string area;//General\North\South\Center\Jerusalem
 
         public string Area
         {
@@ -67,7 +67,13 @@ namespace dotNet5781_02_3963_9714
         public void add_stop(int code, Bus_line_stop stop)//code=the code of the bus stop to add the new stop after
         {
             //add bus to the route, check if stop1 exists, if its beginning or end of the route, update first/last
-            if (code == 0)//if code is 0 it means that this stop should be added at the beginning of the route
+            for (int i = 0; i < stops.Count; i++)//this loop checks if the stop is already on this bus route
+                if(stop.Code==stops[i].Code)
+                {
+                    Console.WriteLine("This stop is already on this route");
+                    return;
+                }
+                if (code == 0)//if code is 0 it means that this stop should be added at the beginning of the route
             { 
                 stops.Insert(0, stop);
                 first_stop = stop.Code;//update first stop
