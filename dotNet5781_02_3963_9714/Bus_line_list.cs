@@ -30,12 +30,12 @@ namespace dotNet5781_02_3963_9714
             {
                 if (busLines[i].Line_number == bus.Line_number)//if this line is already in the collection
                 {
-                    if (busLines[i].First_stop == bus.First_stop || busLines[i].Last_stop == bus.Last_stop)// if it is the same direction
+                    if (busLines[i].First_stop == bus.First_stop && busLines[i].Last_stop == bus.Last_stop)// if it is the same direction
                     {
                         same_direction=true;
                     }
 
-                    if (busLines[i].First_stop != bus.Last_stop || busLines[i].Last_stop != bus.First_stop)//if they r the same line, and not in the opposite direction//check if its the opposite direction
+                    if (busLines[i].First_stop == bus.Last_stop &&busLines[i].Last_stop == bus.First_stop)//if they r the same line, but  in the opposite direction//check if its the opposite direction
                         opposite_direction = true;
                     if (!same_direction && !opposite_direction)//if line has same number but different route
                         return 4;
@@ -50,31 +50,50 @@ namespace dotNet5781_02_3963_9714
                 return 2;
             return 5;
         }
-            public void add_line(Bus_line b_line)//function adds bus line to collection
+        public void add_line(Bus_line b_line)//function adds bus line to collection
+        {
+            int in_list = is_in_list(b_line);
+            if (in_list == 2 || in_list == 5)//if line doesn't exist in list, or only exists in opposite direction,then add this line
             {
-                bool line_already_found = false;
-                for (int i = 0; i < count; i++)
-                {
-                    if (busLines[i].Line_number == b_line.Line_number)//if this line is already in the collection
-                    {
-                        if (line_already_found)//if this line is in 
-                            Console.WriteLine("Line already exists in the list:");
+                busLines.Add(b_line);
+                count++;//update counter
+                Console.WriteLine("Line was added to the list");
 
-
-                        if (busLines[i].First_stop != b_line.Last_stop || busLines[i].Last_stop != b_line.First_stop)//if they r the same line, and not in the opposite direction
-                        { Console.WriteLine("Line already exists in the list:");
-                            return;//leave function
-                        }
-                        //if we got to here, they r the same line but opposite directions
-
-                        line_already_found = true; ;//this indicates that the list already has both directions of this line
-
-                    }
-
-                }
-
+                return;
             }
-        
+
+            if (in_list == 4)// if list has same line with different route
+            {
+                Console.WriteLine("Cannot add this line. It is already in the list and has a different route.");
+                return;
+            }
+            if (in_list == 1 || in_list == 3)//if line is already in the list
+            {
+                Console.WriteLine("Cannot add this line, it is already in the list.");
+            }
+            
+        }
+        public void remove_line(Bus_line b_line)
+        {
+            for(int i=0;i<count;i++)
+            {
+                if(busLines[i].Line_number==b_line.Line_number)//if it is the same line
+                {
+                    if(busLines[i].First_stop==b_line.First_stop&& busLines[i].Last_stop == b_line.Last_stop)//if same line and direction
+                    {
+                        busLines.Remove(busLines[i]);//remove line from the list
+                        Console.WriteLine("Line was removed from the list.");
+                        count--;
+                        return;
+                    }
+                }
+            }
+            Console.WriteLine("Line was not found in list");//if we got to here, we went through the whole list, and didnt return, so we know the line wasn't found
+        }
+        public List<Bus_line> have_stop(int stop_code)//gets a
+        {
+
+        }
         public Bus_line_list()//constructor
         {
             count = 0;
