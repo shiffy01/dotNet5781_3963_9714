@@ -79,12 +79,15 @@ namespace dotNet5781_02_3963_9714
                     case 2://erase
                         Console.WriteLine("Please enter 1 to remove a bus line and 2 to remove a stop from an existing line");
                         int erase = int.Parse(Console.ReadLine());
-                        if (erase == 1)
+                        if (erase == 1)//remove bus line
                         {
                             Console.WriteLine("Enter the number of the bus line to remove");
                             int code = int.Parse(Console.ReadLine());
+                            Console.WriteLine("Enter the number of the first stop of the bus line to remove");
+                            int code_first = int.Parse(Console.ReadLine());
+                            buses[code].remove_line(code, code_first);
                         }
-                        if (erase == 2)
+                        if (erase == 2)//remove a stop from one of the bus lines
                         {
 
                         }
