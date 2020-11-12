@@ -109,7 +109,7 @@ namespace dotNet5781_02_3963_9714
             throw new ArgumentException("Line was not found in list");//if we got to here, we went through the whole list, and didnt return, so we know the line wasn't found
         }
 
-        public List<Bus_line> have_stop(int stop_code)//gets a code for a bus stop, and returns a list of all the lines that stop there
+        public List<Bus_line> has_stop(int stop_code)//gets a code for a bus stop, and returns a list of all the lines that stop there
         { 
                 List<Bus_line> lines_with_stop = new List<Bus_line>();
                 for (int i = 0; i < count; i++)

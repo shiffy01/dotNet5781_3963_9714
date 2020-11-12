@@ -107,7 +107,7 @@ namespace dotNet5781_02_3963_9714
                         {
                             Console.WriteLine("Please enter the code of the bus stop");
                             int code = int.Parse(Console.ReadLine());
-                            List<Bus_line> b = buses.have_stop(code);
+                            List<Bus_line> b = buses.has_stop(code);
                             for(int i=0; i<b.Count; i++)
                                 Console.WriteLine(b[i]);
                         }
