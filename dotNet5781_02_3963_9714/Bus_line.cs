@@ -210,6 +210,8 @@ namespace dotNet5781_02_3963_9714
             }
           
         }
+        
+         
          int IComparable.CompareTo(Object other)//1=bigger, 0=equal, -1=smaller
         {
             

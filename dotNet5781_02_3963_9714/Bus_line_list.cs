@@ -13,11 +13,27 @@ namespace dotNet5781_02_3963_9714
     {
         List<Bus_line> busLines;
         private int count;//counts how many busses in list
+
         public int Count
         {
             get { return Count; }
             set { Count = value; }
         }
+
+        public Bus_line_list()//constructor
+        {
+            busLines = new List<Bus_line>();
+            count = 0;
+        }
+
+        public IEnumerator GetEnumerator()
+        {
+            for (int i = 0; i < Count; i++)
+            {
+                yield return busLines[i];
+            }
+        }
+
         public int is_in_list(Bus_line bus)//returns: 1 if list has the same line in the same direction
                                            //         2 if list has the same line in the opposite direction
                                            //         3 if list has same line in both directions
@@ -50,6 +66,7 @@ namespace dotNet5781_02_3963_9714
                 return 2;
             return 5;
         }
+
         public void add_line(Bus_line b_line)//function adds bus line to collection
         {
             int in_list = is_in_list(b_line);
@@ -64,15 +81,16 @@ namespace dotNet5781_02_3963_9714
 
             if (in_list == 4)// if list has same line with different route
             {
-                Console.WriteLine("Cannot add this line. It is already in the list and has a different route.");
-                return;
+               throw new ArgumentException("Cannot add this line. It is already in the list and has a different route.");
+                
             }
             if (in_list == 1 || in_list == 3)//if line is already in the list
             {
-                Console.WriteLine("Cannot add this line, it is already in the list.");
+                throw new ArgumentException("Cannot add this line, it is already in the list.");
             }
             
         }
+
         public void remove_line(int b_line, int first_stop)
         {
             for(int i=0;i<count;i++)
@@ -88,29 +106,79 @@ namespace dotNet5781_02_3963_9714
                     }
                 }
             }
-            Console.WriteLine("Line was not found in list");//if we got to here, we went through the whole list, and didnt return, so we know the line wasn't found
-        }
-        public List<Bus_line> have_stop(int stop_code)//gets a code for a bus stop, an dreturns a list of all the lines that stop there
-        {
-            List<Bus_line> lines_with_stop = new List<Bus_line>();
-        }
-        public Bus_line_list()//constructor
-        {
-             busLines = new List<Bus_line>();
-            count = 0;
+            throw new ArgumentException("Line was not found in list");//if we got to here, we went through the whole list, and didnt return, so we know the line wasn't found
         }
 
-        public IEnumerator GetEnumerator()
-        {
-            for(int i=0; i<Count;i++)
-            {
-                yield return busLines[i];
-            }
+        public List<Bus_line> have_stop(int stop_code)//gets a code for a bus stop, and returns a list of all the lines that stop there
+        { 
+                List<Bus_line> lines_with_stop = new List<Bus_line>();
+                for (int i = 0; i < count; i++)
+                {
+                    if (busLines[i].on_route(stop_code))
+                        lines_with_stop.Add(busLines[i]);
+                }
+                if (lines_with_stop.Count == 0)
+                    throw new ArgumentOutOfRangeException();
+                return lines_with_stop;
+            
+           
         }
+
+        public List<Bus_line> sorted_bus_lines()
+        {
+            List<Bus_line> sorted_lines = new List<Bus_line>(busLines);// builds new list with the same elements as bus list
+            sorted_lines.Sort();//sort this list, based on icomparable interface
+            return sorted_lines;
+        }
+
+        public Bus_line this[int line_number]//indexer. Returns the bus line with line numebr recieved
+        {  
+            
+                get
+                {
+
+
+                     int index = -1;
+                        for (int i = 0; i < count; i++)
+                        {
+                             if (busLines[i].Line_number == line_number)//if this is the right bus line
+                               {
+                                 index = i;//save  the index of line
+                                 i = count;//leave loop
+
+                               }
+                               
+                        }
+                    
+                        if(index==-1)//line wasnt found in loop
+                            throw new ArgumentOutOfRangeException();
+                  return busLines[index];
+                        
+                      
+               
+                    }
+                set
+                {
+                bool found = false;
+                    for (int i = 0; i < count; i++)
+                    {
+                        if (busLines[i].Line_number == line_number)//if this is the right bus line set it to value
+                        {
+                             busLines[i] = value;
+                             found = true;
+                    }
+                        if(!found)
+                            throw new ArgumentOutOfRangeException();
+                }
+            
+        }
+     
+
+      
 
 
     }
     
 
     
-}
+
