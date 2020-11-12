@@ -11,13 +11,18 @@ namespace dotNet5781_02_3963_9714
     {
         static void Main(string[] args)
         {
-            //initialize bus lines and stops here:
             Bus_line_list buses = new Bus_line_list();//this is our collection of buses
+            //add 10 bus lines, each one has a first and last stop so that adds 20 different stops
             for(int i=1; i<=10; i++)
-                buses.add_line(new Bus_line(i, "Central"));
-            for(int i=1; i<=10; i++)
+                buses.add_line(new Bus_line(i, "Central", Bus_line_stop.make_bus_line_stop(i), Bus_line_stop.make_bus_line_stop(i+10)));
+            //add another 20 stops to any two of the lines at random 
+            for(int i=21; i<=40; i++)
             {
-                buses[i]
+                Bus_line_stop b=Bus_line_stop.make_bus_line_stop(i);
+                //randomly select two lines to add to
+                Random rand = new Random(DateTime.Now.Millisecond);
+                buses[rand.Next(1, 11)].add_stop(i, b);
+                buses[rand.Next(1, 11)].add_stop(i, b);
             }
 
             Console.WriteLine("Please choose one of the following options:");
@@ -40,8 +45,8 @@ namespace dotNet5781_02_3963_9714
                       //  if (area1 != "General" && area1 != "North" && area1 != "South" && area1 != "Center" && area1 != "Jerusalem")
                      //then cout error, maybe tell them what the options are and that its only capital
                             if (add==2)
-                                //add stop to an existing bus line
-                                if(add!=1&&add!=2)
+                            Console.WriteLine("Enter the number of the Line to add to");
+                        if (add!=1&&add!=2)
                                     Console.WriteLine("Error! Cannot complete the action");
                         break;
                     case 2:
