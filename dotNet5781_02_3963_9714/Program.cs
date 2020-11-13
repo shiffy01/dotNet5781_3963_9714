@@ -5,8 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-//need to do: throw exception when the user puts in number other than 1 or 2 in each case, and figure out how to do the two 
-//exceptions seperately (where the q's are) also do better תיעוד for the whole program
+//runs but has some problems-- still need to do clearer תיעוד
 namespace dotNet5781_02_3963_9714
 {
     class Program
@@ -25,8 +24,8 @@ namespace dotNet5781_02_3963_9714
                 Bus_line_stop b =Bus_line_stop.make_bus_line_stop(i);
                 //randomly select two lines to add to
                 Random rand = new Random(DateTime.Now.Millisecond);
-                buses[rand.Next(1, 11)].add_stop(i, b);
-                buses[rand.Next(1, 11)].add_stop(i, b);
+                buses[rand.Next(1, 11)].add_stop(0, b);
+                buses[rand.Next(1, 11)].add_stop(0, b);
             }
 
             Console.WriteLine("Please choose one of the following options:");
@@ -204,7 +203,13 @@ namespace dotNet5781_02_3963_9714
                     default:
                         break;
                 }
-                Console.WriteLine("Please choose another option");
+                Console.WriteLine("Please choose another option:");
+                Console.WriteLine("1 to add");
+                Console.WriteLine("2 to erase");
+                Console.WriteLine("3 to search");
+                Console.WriteLine("4 to print");
+                Console.WriteLine("5 to exit");
+                choice = int.Parse(Console.ReadLine());
             }
             Console.WriteLine("Thank you for using our program! We hope to see you again soon.");
         }

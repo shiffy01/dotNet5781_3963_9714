@@ -5,11 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Runtime;
-
-using System.Collections;
-using System.ComponentModel;
-using System.Globalization;
-//fix the indexer also fix the travel time and the other function that are red and deal with throwing exceptions from this class
+//done
 namespace dotNet5781_02_3963_9714
 {
     class Bus_line : IComparable
