@@ -5,10 +5,14 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Runtime;
+
+using System.Collections;
+using System.ComponentModel;
+using System.Globalization;
 //fix the indexer also fix the travel time and the other function that are red and deal with throwing exceptions from this class
 namespace dotNet5781_02_3963_9714
 {
-    class Bus_line:IComparable
+    class Bus_line : IComparable
     {
         public List<Bus_line_stop> stops;
         private int line_number;
@@ -19,7 +23,7 @@ namespace dotNet5781_02_3963_9714
             set { line_number = value; }
         }
         private int first_stop;
-       
+
 
         public int First_stop
         {
@@ -49,19 +53,19 @@ namespace dotNet5781_02_3963_9714
             last_stop = last.Code;
             stops = new List<Bus_line_stop>();
             //add the first and last stops to the list of stops
-                stops.Add(first);
-                stops.Add(last);
+            stops.Add(first);
+            stops.Add(last);
         }
         public override string ToString()
         {
             //ans contains all the information to be printed:
-            string ans="Line number:" + line_number + @"
-           Route area:"+area+@"
+            string ans = "Line number:" + line_number + @"
+           Route area:" + area + @"
            Bus stops:
            ";
             for (int i = 0; i < stops.Count; i++)//for every stop on the line
             {
-                ans+=stops[i].Code;//print the stop number
+                ans += stops[i].Code;//print the stop number
                 ans += @"
                 ";//enter line
             }
@@ -71,37 +75,37 @@ namespace dotNet5781_02_3963_9714
         {
             //add bus to the route, check if stop1 exists, if its beginning or end of the route, update first/last
             for (int i = 0; i < stops.Count; i++)//this loop checks if the stop is already on this bus route
-                if(stop.Code==stops[i].Code)
+                if (stop.Code == stops[i].Code)
                 {
                     Console.WriteLine("This stop is already on this route");
                     return;
                 }
-                if (code == 0)//if code is 0 it means that this stop should be added at the beginning of the route
-            { 
+            if (code == 0)//if code is 0 it means that this stop should be added at the beginning of the route
+            {
                 stops.Insert(0, stop);
                 first_stop = stop.Code;//update first stop
             }
             else
             {
-                    int i;
-                    for (i = 0; i < stops.Count; i++)//find the place to add after
-                        if (stops[i].Code == code)
-                            break;//leave the loop, i is saved and is the position to add to
-                    if (stops.Count == i && !(stops[stops.Count].Code == code))//if the loop got to the end and the last place is not the place to add to
-                        Console.WriteLine("error");//needs an exception!!AAAAAAA
+                int i;
+                for (i = 0; i < stops.Count; i++)//find the place to add after
+                    if (stops[i].Code == code)
+                        break;//leave the loop, i is saved and is the position to add to
+                if (stops.Count == i && !(stops[stops.Count].Code == code))//if the loop got to the end and the last place is not the place to add to
+                    throw new ArgumentException("cannot add after a stop that does not exist");
 
-                    else
-                    {
-                        stops.Insert(i + 1, stop);//maybe print success messege (or return true and do that in the main)
-                        if (stops[stops.Count].Code == code)//update last stop
-                            last_stop = stop.Code;
-                    }
+                else
+                {
+                    stops.Insert(i + 1, stop);//maybe print success messege (or return true and do that in the main)
+                    if (stops[stops.Count].Code == code)//update last stop
+                        last_stop = stop.Code;
+                }
             }
         }
         public void remove_stop(int code)
         {
             int i;
-            for(i=0; i<stops.Count; i++)
+            for (i = 0; i < stops.Count; i++)
                 if (stops[i].Code == code)//if this is the place with the right code
                     break;//leave the loop, i is saved as the position to remove from
             stops.RemoveAt(i);//removes element in index i
@@ -209,13 +213,11 @@ namespace dotNet5781_02_3963_9714
                 }
                 return sub;
             }
-          
+
         }
-        
-         
-         int IComparable.CompareTo(Object other)//1=bigger, 0=equal, -1=smaller
+        int IComparable.CompareTo(Object other)//1=bigger, 0=equal, -1=smaller
         {
-            
+
             double time1 = travel_time(first_stop, last_stop);
             double time2 = travel_time(((Bus_line)other).first_stop, ((Bus_line)other).last_stop);
             if (time1 > time2)
@@ -224,54 +226,16 @@ namespace dotNet5781_02_3963_9714
                 return -1;
             return 0;
         }
-
-    }
-    //i dont know why it doesnt recognize stops. figure this out
-    public Bus_line_stop this[int stop_number]//indexer. Returns the bus stop with stop number recieved
-    {
-
-        get
+        public Bus_line_stop search(int code)//returns bus stop with this code
         {
-
-            
-            int index = -1;
-            for (int i = 0; i < stops.Count; i++)
+            for(int i=0; i<stops.Count; i++)
             {
-                if (stops[i].code == stop_number)//if this is the right bus stop
-                {
-                    index = i;//save  the index of line
-                    i = stops.Count;//leave loop
-
-                }
-
+                if (stops[i].Code == code)
+                    return stops[i];
             }
-
-            if (index == -1)//stop wasnt found in loop
-                throw new ArgumentOutOfRangeException();
-            return stops[index];
-
-
-
-        }
-        set
-        {
-            bool found = false;
-            for (int i = 0; i < stops.Count; i++)
-            {
-                if (stops[i].code == stop_number)//if this is the right bus line set it to value
-                {
-                    stops[i] = value;
-                    found = true;
-                }
-                if (!found)
-                    throw new ArgumentOutOfRangeException();
-            }
-
+            throw new ArgumentException("Code not found");
         }
 
-
-
-
-
     }
+    
 }
