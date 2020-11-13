@@ -121,105 +121,65 @@ namespace dotNet5781_02_3963_9714
         }
         public double distance(int code1, int code2)
         {
-            //returns the distance between the two stops with these codes
+            //the search function will throw an exception if the codes are invalid, and the program will catch the exception in the main
+                search(code1);
+                search(code2);
+
             double dis = 0;//distance
             int i;
             for (i = 0; i < stops.Count; i++)
-                if (stops[i].Code == code1)//if found
+                if (stops[i].Code == code1)//when found
                     break;
             int first = i;//first stop in the sub route
             for (i = 0; i < stops.Count; i++)
-                if (stops[i].Code == code2)//if found
+                if (stops[i].Code == code2)//when found
                     break;
             int last = i;//last stop in the sub route
-            if (last == stops.Count || first == stops.Count)//if either first or last reached the end of the list
-            {
-                if ((last == stops.Count && first == stops.Count) && (stops[stops.Count].Code != code1 || stops[stops.Count].Code != code2))
-                {//if both of them reached the end of the list but they are not both equal to the code in the last place
-                    Console.WriteLine("error");//exception?
-                }
-                if (stops[stops.Count].Code != code1 && stops[stops.Count].Code != code2)//if one of them reached the end of the list but neither of the codes equal the on eat the end of the list
-                    Console.WriteLine("error");//exception?
-                return -1;//what to return if there is an error?
-            }
-            else//if code1 and code2 are valid
-            {
+
                 for (i = first + 1; i < last; i++)
                     dis += stops[i].Distance_from_last_stop;//keep adding the distances between stops for all the stops in between them
                 return dis;
-            }
         }
-        public double travel_time(int code1, int code2)//go over this and call distance and do times whatever it is
+        public double travel_time(int code1, int code2)
         {
-            //returns the time it takes to get from one stop to the other
-            double time = 0;//distance
-            int i;
-            for (i = 0; i < stops.Count; i++)
-                if (stops[i].Code == code1)//if found
-                    break;
-            int first = i;//first stop in the sub route
-            for (i = 0; i < stops.Count; i++)
-                if (stops[i].Code == code2)//if found
-                    break;
-            int last = i;//last stop in the sub route
-            if (last == stops.Count || first == stops.Count)//if either first or last reached the end of the list
-            {
-                if ((last == stops.Count && first == stops.Count) && (stops[stops.Count].Code != code1 || stops[stops.Count].Code != code2))
-                {//if both of them reached the end of the list but they are not both equal to the code in the last place
-                    Console.WriteLine("error");//exception?
-                }
-                if (stops[stops.Count].Code != code1 && stops[stops.Count].Code != code2)//if one of them reached the end of the list but neither of the codes equal the on eat the end of the list
-                    Console.WriteLine("error");//exception?
-                return -1;//what to return if there is an error?
-            }
-            else//if code1 and code2 are valid
-            {
-                for (i = first + 1; i < last; i++)
-                    time += stops[i].Distance_from_last_stop;//keep adding the time between stops for all the stops in between them
-                return time;
-            }
+            //the time is equal to the distance because the distance is measured in km and the time is measured in minutes,
+            //and the speed is 60km per hour-- 1km per minute
+            return this.distance(code1, code2);        
         }
         public Bus_line sub_route(int code1, int code2)//fix this!
         {
+            //the search function will throw an exception if the codes are invalid, and the program will catch the exception in the main
+            Bus_line_stop first=search(code1);
+            Bus_line_stop last=search(code2);
+            Bus_line sub = new Bus_line(this.Line_number, this.Area, first, last);
+
             int i;
-            Bus_line sub = new Bus_line(line_number, area);//is the bus line number same as the whole route's number...? might not be
             for (i = 0; i < stops.Count; i++)
-                if (stops[i].Code == code1)//if found
+                if (stops[i].Code == code1)//when found
                     break;
-            int first = i;//first stop in the sub route
+            int first_index = i;//first stop in the sub route
             for (i = 0; i < stops.Count; i++)
-                if (stops[i].Code == code2)//if found
+                if (stops[i].Code == code2)//when found
                     break;
-            int last = i;//last stop in the sub route
-            if (last == stops.Count || first == stops.Count)//if either first or last reached the end of the list
-            {
-                if ((last == stops.Count && first == stops.Count) && (stops[stops.Count].Code != code1 || stops[stops.Count].Code != code2))
-                {//if both of them reached the end of the list but they are not both equal to the code in the last place
-                    Console.WriteLine("error");//exception?
-                }
-                if (stops[stops.Count].Code != code1 && stops[stops.Count].Code != code2)//if one of them reached the end of the list but neither of the codes equal the on eat the end of the list
-                    Console.WriteLine("error");//exception?
-                return sub;//what to return if one of the codes is invalid
-            }
-            else
-            {
-                //this code uses functions that throw exceptions, but it only sends valid codes so there is no need for try/catch
-                sub.add_stop(0, stops[first]);//add first stop
-                int most_recent = stops[first].Code;//this is the stop to add the next one after
-                for (i = first + 1; i <= last; i++)
+            int last_index = i;//last stop in the sub route
+
+            //this code uses functions that throw exceptions, but it only sends valid codes so there is no need for try/catch
+
+            int most_recent = code1;//this is the stop to add the next one after
+                for (i = first_index + 1; i < last_index; i++)
                 {
                     sub.add_stop(most_recent, stops[i]);//add the stop
                     most_recent = stops[i].Code;//the next one will add after this stop
                 }
                 return sub;
-            }
+            
 
         }
         int IComparable.CompareTo(Object other)//1=bigger, 0=equal, -1=smaller
         {
-
-            double time1 = travel_time(first_stop, last_stop);
-            double time2 = travel_time(((Bus_line)other).first_stop, ((Bus_line)other).last_stop);
+            //only sends valid codes to the travel time function
+            double time1 = this.travel_time(first_stop, last_stop);
+            double time2 = this.travel_time(((Bus_line)other).first_stop, ((Bus_line)other).last_stop);
             if (time1 > time2)
                 return 1;
             if (time1 < time2)
@@ -233,7 +193,7 @@ namespace dotNet5781_02_3963_9714
                 if (stops[i].Code == code)
                     return stops[i];
             }
-            throw new ArgumentException("Code not found");
+            throw new ArgumentException();
         }
 
     }

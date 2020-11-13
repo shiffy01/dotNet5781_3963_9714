@@ -151,7 +151,7 @@ namespace dotNet5781_02_3963_9714
                 }
 
                 if (index == -1)//line wasnt found in loop
-                    throw new ArgumentOutOfRangeException();
+                    throw new ArgumentOutOfRangeException("line not found");
                 return busLines[index];
 
 
@@ -168,7 +168,7 @@ namespace dotNet5781_02_3963_9714
                         found = true;
                     }
                     if (!found)
-                        throw new ArgumentOutOfRangeException();
+                        throw new ArgumentOutOfRangeException("line not found");
                 }
 
             }
@@ -183,10 +183,20 @@ namespace dotNet5781_02_3963_9714
         {
             List<Bus_line> lines_with_route = new List<Bus_line>();//list of routes
             for (int i = 0; i < count; i++)
-            {       
-                    Bus_line route = busLines[i].sub_route(code1, code2);//find the route between the two stops
-                    lines_with_route.Add(route);//add to the list              
+            {
+                try
+                {
+                    Bus_line route = busLines[i].sub_route(code1, code2);//find the route between the two stops, if there is no route between the stops it will jump to the catch
+                    lines_with_route.Add(route);//add to the list
+                }
+                catch(ArgumentException)
+                {
+                    //continue going through the bus lines and finding the routes
+                }
+                                 
             }
+            if (lines_with_route.Count == 0)
+                throw new ArgumentException("There are no routes between these two stops");
             lines_with_route.Sort();//sort the list
             return lines_with_route;
         }

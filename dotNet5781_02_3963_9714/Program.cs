@@ -94,11 +94,17 @@ namespace dotNet5781_02_3963_9714
 
                                 buses[line_number].add_stop(code, b);
                             }
-                            catch (ArgumentOutOfRangeException)//how to do them seperately... wrong stop number and indexerQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ
+                            catch (ArgumentOutOfRangeException ex)//either the line number does not exist or the stop number has more than 6 digits
                             {
-                                Console.WriteLine("Cannot add the stop because the bus line does not exist");
-                                Console.WriteLine("Cannot add this stop because the bus stop code exceeds six digits");
+                                if(ex.Message== "line not found")
+                                    Console.WriteLine("Cannot add a stop to that bus line because it does not exist");
+                                else
+                                    Console.WriteLine(ex.Message);
                             }
+                            catch (ArgumentException ex)//if the stop to add after wasnt on the route
+                            {
+                                Console.WriteLine(ex.Message);
+                            }                        
                         }
                         if (add!=1&&add!=2)
                                     Console.WriteLine("Error! Cannot complete the action");//EXCEPTION!!!
@@ -149,11 +155,19 @@ namespace dotNet5781_02_3963_9714
                             int code1 = int.Parse(Console.ReadLine());
                             Console.WriteLine("Please enter the code of the second stop");
                             int code2 = int.Parse(Console.ReadLine());
-                            List<Bus_line> short_routes = buses.shortest_routes(code1, code2);//gets a list of the sorted routes
-                            for(int i=0; i<short_routes.Count; i++)
+                            try
                             {
-                                //print the line numbers and travel times in order, shortest to longest
-                                Console.WriteLine("Bus #"+ short_routes[i].Line_number+": "+ short_routes[i].travel_time(short_routes[i].First_stop, short_routes[i].Last_stop));
+                                List<Bus_line> short_routes = buses.shortest_routes(code1, code2);//gets a list of the sorted routes
+                                for (int i = 0; i < short_routes.Count; i++)
+                                {
+                                    //print the line numbers and travel times in order, shortest to longest
+                                    //only sending valid codes to travel time, so it wont throw an exception
+                                    Console.WriteLine("Bus #" + short_routes[i].Line_number + ": " + short_routes[i].travel_time(short_routes[i].First_stop, short_routes[i].Last_stop));
+                                }
+                            }
+                            catch(ArgumentException ex)//there were no routes between the two stops
+                            {
+                                Console.WriteLine(ex.Message);
                             }
                         }
                         if(search!=1&&search!=2)
