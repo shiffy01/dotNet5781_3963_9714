@@ -31,7 +31,7 @@ namespace dotNet5781_02_3963_9714
                     return stop_list[i];//return it
             }
             Bus_line_stop new_stop= new Bus_line_stop(code);//if not found in the whole list, build a new stop
-            stop_list.Add(new_stop);
+            stop_list.Add(new_stop);//add it to the list of existing stops
             return new_stop;
         }
         public Bus_line_stop(int code1):base(code1)

@@ -67,11 +67,11 @@ namespace dotNet5781_02_3963_9714
             }
             return ans;
         }
-        public void add_stop(int code, Bus_line_stop stop)//code=the code of the bus stop to add the new stop after. only a valid code for stop is sent to this function
+        public void add_stop(int code, Bus_line_stop stop)//code=the code of the bus stop to add the new stop after. only a valid code for the bus stop STOP is sent to this function
         {
-            //add bus to the route, check if stop1 exists, if its beginning or end of the route, update first/last
-            for (int i = 0; i < stops.Count; i++)//this loop checks if the stop is already on this bus route
-                if (stop.Code == stops[i].Code)
+                if(!on_route(code)&&code!=0)//if the stop to add after is not on the bus route (and is not 0)
+                throw new ArgumentException("cannot add after a stop that does not exist");
+            if (on_route(stop.Code))//if the bus stop is already on the route
                 {
                     Console.WriteLine("This stop is already on this route");
                     return;
@@ -80,26 +80,24 @@ namespace dotNet5781_02_3963_9714
             {
                 stops.Insert(0, stop);
                 first_stop = stop.Code;//update first stop
+                Console.WriteLine("The stop was added successfully");
+                return;
             }
-            else
-            {
+
                 int i;
                 for (i = 0; i < stops.Count; i++)//find the place to add after
                     if (stops[i].Code == code)
                         break;//leave the loop, i is saved and is the position to add to
-                if (stops.Count == i && !(stops[stops.Count].Code == code))//if the loop got to the end and the last place is not the place to add to
-                    throw new ArgumentException("cannot add after a stop that does not exist");
 
-                else
-                {
-                    stops.Insert(i + 1, stop);//maybe print success messege (or return true and do that in the main)
-                    if (stops[stops.Count].Code == code)//update last stop
+                    stops.Insert(i + 1, stop);
+                    if (stops[stops.Count-1].Code == code)//update last stop
                         last_stop = stop.Code;
-                }
-            }
+            Console.WriteLine("The stop was added successfully");
         }
         public void remove_stop(int code)
         {
+            if (!on_route(code))
+                throw new ArgumentException("this bus stop is not on the route");
             int i;
             for (i = 0; i < stops.Count; i++)
                 if (stops[i].Code == code)//if this is the place with the right code
@@ -153,19 +151,20 @@ namespace dotNet5781_02_3963_9714
             for (i = 0; i < stops.Count; i++)
                 if (stops[i].Code == code1)//when found
                     break;
-            int first_index = i;//first stop in the sub route
+            int first_index = i;//index of first stop in the sub route
             for (i = 0; i < stops.Count; i++)
                 if (stops[i].Code == code2)//when found
                     break;
-            int last_index = i;//last stop in the sub route
-
+            int last_index = i;//index of last stop in the sub route
+            if(first_index>last_index)//both codes were found but the route from one to the other is in the wrong direction
+                throw new ArgumentException();
             //this code uses functions that throw exceptions, but it only sends valid codes so there is no need for try/catch
-
+            //add all the stops in between first and last to the sub route:
             int most_recent = code1;//this is the stop to add the next one after
                 for (i = first_index + 1; i < last_index; i++)
                 {
                     sub.add_stop(most_recent, stops[i]);//add the stop
-                    most_recent = stops[i].Code;//the next one will add after this stop
+                    most_recent = stops[i].Code;//the next one will be added after this stop
                 }
                 return sub;
             

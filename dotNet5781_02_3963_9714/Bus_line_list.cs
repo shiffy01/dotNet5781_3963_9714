@@ -16,8 +16,8 @@ namespace dotNet5781_02_3963_9714
 
         public int Count
         {
-            get { return Count; }
-            set { Count = value; }
+            get { return count; }
+            set { count = value; }
         }
 
         public Bus_line_list()//constructor
@@ -73,7 +73,7 @@ namespace dotNet5781_02_3963_9714
             if (in_list == 2 || in_list == 5)//if line doesn't exist in list, or only exists in opposite direction,then add this line
             {
                 busLines.Add(b_line);
-                count++;//update counter
+                Count++;//update counter
                 Console.WriteLine("Line was added to the list");
 
                 return;
@@ -101,7 +101,7 @@ namespace dotNet5781_02_3963_9714
                     {
                         busLines.Remove(busLines[i]);//remove line from the list
                         Console.WriteLine("Line was removed from the list.");
-                        count--;
+                        Count--;
                         return;
                     }
                 }

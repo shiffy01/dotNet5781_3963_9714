@@ -5,7 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-//runs but has some problems-- still need to do clearer תיעוד
+//runs but has some problems-- and which exception to do when user doesnt put in 1 or 2
 namespace dotNet5781_02_3963_9714
 {
     class Program
@@ -18,14 +18,20 @@ namespace dotNet5781_02_3963_9714
                 for (int i = 1; i <= 10; i++)
                     buses.add_line(new Bus_line(i, "Central", Bus_line_stop.make_bus_line_stop(i), Bus_line_stop.make_bus_line_stop(i + 10)));
             //add another 20 stops to any two of the lines at random 
-            for(int i=21; i<=40; i++)
+            Random rand = new Random(DateTime.Now.Millisecond);
+            for (int i=21; i<=40; i++)
             {
                 //although this code uses functions that throw exceptions, it is guaranteed that there will be no exceptions thrown because we used numbers that we know are valid
                 Bus_line_stop b =Bus_line_stop.make_bus_line_stop(i);
-                //randomly select two lines to add to
-                Random rand = new Random(DateTime.Now.Millisecond);
-                buses[rand.Next(1, 11)].add_stop(0, b);
-                buses[rand.Next(1, 11)].add_stop(0, b);
+                //randomly select two lines to add to, making sure they are different
+                int place = rand.Next(1, 11);//first bus line to add to
+                int other_place;
+                //second place to add to gets a different number
+                if (place == 10)
+                    other_place = 1;
+                else other_place = place + 1;
+                buses[place].add_stop(0, b);
+                buses[other_place].add_stop(0, b);
             }
 
             Console.WriteLine("Please choose one of the following options:");
@@ -54,7 +60,7 @@ namespace dotNet5781_02_3963_9714
                                 Console.WriteLine("General, North, South, Center, Jerusalem");
                                 area = Console.ReadLine();
                                 if (area != "General" && area != "North" && area != "South" && area != "Center" && area != "Jerusalem")
-                                    Console.WriteLine("Error! Please enter one of the following options: (with a capital letter)");//EXCEPTION??
+                                    Console.WriteLine("Error! Please enter one of the following options: (with a capital letter)");
                             } while (area != "General" && area != "North" && area != "South" && area != "Center" && area != "Jerusalem");
                             Console.WriteLine("enter the codes for the first and last stops in the new route");
                             int first = int.Parse(Console.ReadLine());
@@ -66,11 +72,11 @@ namespace dotNet5781_02_3963_9714
                                 Bus_line b = new Bus_line(num, area, first_stop, last_stop);
                                 buses.add_line(b);//add the bus line to the collection
                             }
-                            catch (ArgumentOutOfRangeException)
+                            catch (ArgumentOutOfRangeException)//if code is greater than 999999
                             {
                                 Console.WriteLine("Error! Cannot add this bus because the bus stop code exceeds six digits");
                             }
-                            catch(ArgumentException ex)
+                            catch(ArgumentException ex)//if the bus line is already on the route
                             {
                                 Console.WriteLine(ex.Message);
                             }
@@ -87,7 +93,7 @@ namespace dotNet5781_02_3963_9714
                                 Bus_line_stop b = Bus_line_stop.make_bus_line_stop(stop_number);
 
 
-                                Console.WriteLine("Enter the number of the stop you want the new stop to come after");
+                                Console.WriteLine("Enter the number of the stop you want the new stop to come after. To add at the beginning enter 0");
                                 int code = int.Parse(Console.ReadLine());
 
 
@@ -115,7 +121,7 @@ namespace dotNet5781_02_3963_9714
                         {
                             Console.WriteLine("Enter the number of the bus line to remove");
                             int code = int.Parse(Console.ReadLine());
-                            Console.WriteLine("Enter the number of the first stop of the bus line to remove");
+                            Console.WriteLine("Enter the number of the first stop of the bus line to remove");//to now which it is because there can be two of each bus line
                             int code_first = int.Parse(Console.ReadLine());
                             buses.remove_line(code, code_first);
                         }
@@ -129,9 +135,13 @@ namespace dotNet5781_02_3963_9714
                             {
                                 buses[code_bus].remove_stop(code_stop);
                             }
-                            catch(ArgumentOutOfRangeException)
+                            catch(ArgumentOutOfRangeException)//bus line doesn't exist
                             {
                                 Console.WriteLine("The bus line does not exist");
+                            }
+                            catch(ArgumentException ex)//bus stop is not on the bus route
+                            {
+                                Console.WriteLine(ex.Message);
                             }
                         }
                         if (erase != 1 && erase != 2)
@@ -144,9 +154,16 @@ namespace dotNet5781_02_3963_9714
                         {
                             Console.WriteLine("Please enter the code of the bus stop");
                             int code = int.Parse(Console.ReadLine());
+                            try
+                            {
                                 List<Bus_line> b = buses.has_stop(code);
                                 for (int i = 0; i < b.Count; i++)
                                     Console.WriteLine(b[i]);
+                            }
+                            catch(ArgumentOutOfRangeException)//if no buses go through that stop
+                            {
+                                Console.WriteLine("No buses pass through this stop");
+                            }
                         }
                         if (search == 2)//prints list of routes between two stops
                         {
@@ -187,11 +204,11 @@ namespace dotNet5781_02_3963_9714
                                 try
                                 {
                                     List<Bus_line> b = buses.has_stop(Bus_line_stop.stop_list[i].Code);
-                                    Console.WriteLine("Bus stop #" + Bus_line_stop.stop_list[i].Code + ":");
-                                    for (int j = 0; j < b.Count; j++)
+                                    Console.WriteLine("Bus stop #" + Bus_line_stop.stop_list[i].Code + ":");//print the stop
+                                    for (int j = 0; j < b.Count; j++)//and the buses that come to this stop
                                         Console.WriteLine(b[j]);
                                 }
-                                catch(ArgumentOutOfRangeException)
+                                catch(ArgumentOutOfRangeException)//if there are no buses that go through one of the stops
                                 {
                                     //leave the catch and continue printing the rest of the stops
                                 }
