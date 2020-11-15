@@ -62,7 +62,7 @@ namespace dotNet5781_02_3963_9714
                                 if (area != "General" && area != "North" && area != "South" && area != "Center" && area != "Jerusalem")
                                     Console.WriteLine("Error! Please enter one of the following options: (with a capital letter)");
                             } while (area != "General" && area != "North" && area != "South" && area != "Center" && area != "Jerusalem");
-                            Console.WriteLine("enter the codes for the first and last stops in the new route");
+                            Console.WriteLine("Enter the codes for the first and last stops in the new route");
                             int first = int.Parse(Console.ReadLine());
                             int last = int.Parse(Console.ReadLine());
                             try
@@ -101,10 +101,7 @@ namespace dotNet5781_02_3963_9714
                             }
                             catch (ArgumentOutOfRangeException ex)//either the line number does not exist or the stop number has more than 6 digits
                             {
-                                if(ex.Message== "line not found")
-                                    Console.WriteLine("Cannot add a stop to that bus line because it does not exist");
-                                else
-                                    Console.WriteLine(ex.Message);
+                                Console.WriteLine(ex.ParamName);
                             }
                             catch (ArgumentException ex)//if the stop to add after wasnt on the route
                             {
@@ -123,7 +120,14 @@ namespace dotNet5781_02_3963_9714
                             int code = int.Parse(Console.ReadLine());
                             Console.WriteLine("Enter the number of the first stop of the bus line to remove");//to now which it is because there can be two of each bus line
                             int code_first = int.Parse(Console.ReadLine());
-                            buses.remove_line(code, code_first);
+                            try
+                            {
+                                buses.remove_line(code, code_first);
+                            }
+                            catch(ArgumentException ex)
+                            {
+                                Console.WriteLine(ex.Message);
+                            }
                         }
                         if (erase == 2)//remove a stop from one of the bus lines
                         {
@@ -134,6 +138,7 @@ namespace dotNet5781_02_3963_9714
                             try
                             {
                                 buses[code_bus].remove_stop(code_stop);
+                                Console.WriteLine("Stop was successfully removed");
                             }
                             catch(ArgumentOutOfRangeException)//bus line doesn't exist
                             {
@@ -178,7 +183,7 @@ namespace dotNet5781_02_3963_9714
                                 {
                                     //print the line numbers and travel times in order, shortest to longest
                                     //only sending valid codes to travel time, so it wont throw an exception
-                                    Console.WriteLine("Bus #" + short_routes[i].Line_number + ": " + short_routes[i].travel_time(short_routes[i].First_stop, short_routes[i].Last_stop));
+                                    Console.WriteLine("Bus #" + short_routes[i].Line_number + ": " + short_routes[i].travel_time(short_routes[i].First_stop, short_routes[i].Last_stop)+" minutes");
                                 }
                             }
                             catch(ArgumentException ex)//there were no routes between the two stops

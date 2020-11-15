@@ -63,7 +63,7 @@ namespace dotNet5781_02_3963_9714
             {
                 ans += stops[i].Code;//print the stop number
                 ans += @"
-                ";//enter line
+           ";//enter line
             }
             return ans;
         }

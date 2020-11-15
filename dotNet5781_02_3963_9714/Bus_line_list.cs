@@ -151,7 +151,7 @@ namespace dotNet5781_02_3963_9714
                 }
 
                 if (index == -1)//line wasnt found in loop
-                    throw new ArgumentOutOfRangeException("line not found");
+                    throw new ArgumentOutOfRangeException("Cannot complete the action because the bus line does not exist");
                 return busLines[index];
 
 
@@ -168,7 +168,7 @@ namespace dotNet5781_02_3963_9714
                         found = true;
                     }
                     if (!found)
-                        throw new ArgumentOutOfRangeException("line not found");
+                        throw new ArgumentOutOfRangeException("Cannot complete the action because the bus line does not exist");
                 }
 
             }
