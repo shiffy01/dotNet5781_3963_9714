@@ -80,7 +80,6 @@ namespace dotNet5781_02_3963_9714
             {
                 stops.Insert(0, stop);
                 first_stop = stop.Code;//update first stop
-                Console.WriteLine("The stop was added successfully");
                 return;
             }
 
@@ -92,7 +91,6 @@ namespace dotNet5781_02_3963_9714
                     stops.Insert(i + 1, stop);
                     if (stops[stops.Count-1].Code == code)//update last stop
                         last_stop = stop.Code;
-            Console.WriteLine("The stop was added successfully");
         }
         public void remove_stop(int code)
         {

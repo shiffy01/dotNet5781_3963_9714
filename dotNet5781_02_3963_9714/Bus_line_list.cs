@@ -74,7 +74,6 @@ namespace dotNet5781_02_3963_9714
             {
                 busLines.Add(b_line);
                 Count++;//update counter
-                Console.WriteLine("Line was added to the list");
 
                 return;
             }
