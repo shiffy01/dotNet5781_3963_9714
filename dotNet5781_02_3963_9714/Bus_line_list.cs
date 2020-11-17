@@ -12,7 +12,7 @@ namespace dotNet5781_02_3963_9714
     class Bus_line_list:IEnumerable
     {
         List<Bus_line> busLines;
-        private int count;//counts how many busses in list
+        private int count;//counts how many busses in list.
 
         public int Count
         {
