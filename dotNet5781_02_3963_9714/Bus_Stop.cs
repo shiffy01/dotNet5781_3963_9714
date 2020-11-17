@@ -40,9 +40,8 @@ namespace dotNet5781_02_3963_9714
         public Bus_Stop(int code1)//constructor
         {
             if (code1 > 999999 || code1 <= 0)//make sure code has 6 or less digits
-                Console.WriteLine("error");//exception!!!
-            else
-                code = code1;
+                throw new ArgumentOutOfRangeException("Cannot add this stop because the bus stop code exceeds six digits");
+            code = code1;
             //the longitude and latitude are raffled numbers inside the borders of Israel:
             //latitude[31, 33.3], longitude[34.3, 35.5]
             Random rand = new Random(DateTime.Now.Millisecond);

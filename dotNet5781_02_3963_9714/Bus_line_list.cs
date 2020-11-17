@@ -9,15 +9,15 @@ using System.Globalization;
 
 namespace dotNet5781_02_3963_9714
 {
-    class Bus_line_list:IEnumerable
+    class Bus_line_list : IEnumerable
     {
-        List<Bus_line> busLines;
-        private int count;//counts how many busses in list.
+        public List<Bus_line> busLines;
+        int count;//counts how many busses in list
 
         public int Count
         {
-            get { return Count; }
-            set { Count = value; }
+            get { return count; }
+            set { count = value; }
         }
 
         public Bus_line_list()//constructor
@@ -48,17 +48,17 @@ namespace dotNet5781_02_3963_9714
                 {
                     if (busLines[i].First_stop == bus.First_stop && busLines[i].Last_stop == bus.Last_stop)// if it is the same direction
                     {
-                        same_direction=true;
+                        same_direction = true;
                     }
 
-                    if (busLines[i].First_stop == bus.Last_stop &&busLines[i].Last_stop == bus.First_stop)//if they r the same line, but  in the opposite direction//check if its the opposite direction
+                    if (busLines[i].First_stop == bus.Last_stop && busLines[i].Last_stop == bus.First_stop)//if they r the same line, but  in the opposite direction//check if its the opposite direction
                         opposite_direction = true;
                     if (!same_direction && !opposite_direction)//if line has same number but different route
                         return 4;
                 }
                 if (same_direction && opposite_direction)//if list has same line in both directions
                     return 3;
-                
+
             }
             if (same_direction && !opposite_direction)//list has same direction
                 return 1;
@@ -73,35 +73,34 @@ namespace dotNet5781_02_3963_9714
             if (in_list == 2 || in_list == 5)//if line doesn't exist in list, or only exists in opposite direction,then add this line
             {
                 busLines.Add(b_line);
-                count++;//update counter
-                Console.WriteLine("Line was added to the list");
+                Count++;//update counter
 
                 return;
             }
 
             if (in_list == 4)// if list has same line with different route
             {
-               throw new ArgumentException("Cannot add this line. It is already in the list and has a different route.");
-                
+                throw new ArgumentException("Cannot add this line. It is already in the list and has a different route.");
+
             }
             if (in_list == 1 || in_list == 3)//if line is already in the list
             {
                 throw new ArgumentException("Cannot add this line, it is already in the list.");
             }
-            
+
         }
 
         public void remove_line(int b_line, int first_stop)
         {
-            for(int i=0;i<count;i++)
+            for (int i = 0; i < count; i++)
             {
-                if(busLines[i].Line_number==b_line)//if it is the same line
+                if (busLines[i].Line_number == b_line)//if it is the same line
                 {
-                    if(busLines[i].First_stop==first_stop)//if same line and direction
+                    if (busLines[i].First_stop == first_stop)//if same line and direction
                     {
                         busLines.Remove(busLines[i]);//remove line from the list
                         Console.WriteLine("Line was removed from the list.");
-                        count--;
+                        Count--;
                         return;
                     }
                 }
@@ -110,18 +109,18 @@ namespace dotNet5781_02_3963_9714
         }
 
         public List<Bus_line> has_stop(int stop_code)//gets a code for a bus stop, and returns a list of all the lines that stop there
-        { 
-                List<Bus_line> lines_with_stop = new List<Bus_line>();
-                for (int i = 0; i < count; i++)
-                {
-                    if (busLines[i].on_route(stop_code))
-                        lines_with_stop.Add(busLines[i]);
-                }
-                if (lines_with_stop.Count == 0)
-                    throw new ArgumentOutOfRangeException();
-                return lines_with_stop;
-            
-           
+        {
+            List<Bus_line> lines_with_stop = new List<Bus_line>();
+            for (int i = 0; i < count; i++)
+            {
+                if (busLines[i].on_route(stop_code))
+                    lines_with_stop.Add(busLines[i]);
+            }
+            if (lines_with_stop.Count == 0)
+                throw new ArgumentOutOfRangeException();
+            return lines_with_stop;
+
+
         }
 
         public List<Bus_line> sorted_bus_lines()
@@ -131,54 +130,76 @@ namespace dotNet5781_02_3963_9714
             return sorted_lines;
         }
 
-        public Bus_line this[int line_number]//indexer. Returns the bus line with line numebr recieved
-        {  
-            
-                get
+        public Bus_line this[int line_number]//indexer. Returns the bus line with line number recieved
+        {
+
+            get
+            {
+
+
+                int index = -1;
+                for (int i = 0; i < count; i++)
                 {
-
-
-                     int index = -1;
-                        for (int i = 0; i < count; i++)
-                        {
-                             if (busLines[i].Line_number == line_number)//if this is the right bus line
-                               {
-                                 index = i;//save  the index of line
-                                 i = count;//leave loop
-
-                               }
-                               
-                        }
-                    
-                        if(index==-1)//line wasnt found in loop
-                            throw new ArgumentOutOfRangeException();
-                  return busLines[index];
-                        
-                      
-               
-                    }
-                set
-                {
-                bool found = false;
-                    for (int i = 0; i < count; i++)
+                    if (busLines[i].Line_number == line_number)//if this is the right bus line
                     {
-                        if (busLines[i].Line_number == line_number)//if this is the right bus line set it to value
-                        {
-                             busLines[i] = value;
-                             found = true;
+                        index = i;//save the index of line
+                        i = count;//leave loop
+
                     }
-                        if(!found)
-                            throw new ArgumentOutOfRangeException();
+
                 }
-            
+
+                if (index == -1)//line wasnt found in loop
+                    throw new ArgumentOutOfRangeException("Cannot complete the action because the bus line does not exist");
+                return busLines[index];
+
+
+
+            }
+            set
+            {
+                bool found = false;
+                for (int i = 0; i < count; i++)
+                {
+                    if (busLines[i].Line_number == line_number)//if this is the right bus line set it to value
+                    {
+                        busLines[i] = value;
+                        found = true;
+                    }
+                    if (!found)
+                        throw new ArgumentOutOfRangeException("Cannot complete the action because the bus line does not exist");
+                }
+
+            }
+
+
+
+
+
         }
-     
 
-      
-
-
+        public List<Bus_line> shortest_routes(int code1, int code2)
+        {
+            List<Bus_line> lines_with_route = new List<Bus_line>();//list of routes
+            for (int i = 0; i < count; i++)
+            {
+                try
+                {
+                    Bus_line route = busLines[i].sub_route(code1, code2);//find the route between the two stops, if there is no route between the stops it will jump to the catch
+                    lines_with_route.Add(route);//add to the list
+                }
+                catch(ArgumentException)
+                {
+                    //continue going through the bus lines and finding the routes
+                }
+                                 
+            }
+            if (lines_with_route.Count == 0)
+                throw new ArgumentException("There are no routes between these two stops");
+            lines_with_route.Sort();//sort the list
+            return lines_with_route;
+        }
     }
-    
-
+}
     
 

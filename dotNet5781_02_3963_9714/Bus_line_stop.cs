@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
+//done
 namespace dotNet5781_02_3963_9714
 {
     class Bus_line_stop:Bus_Stop
@@ -22,7 +22,7 @@ namespace dotNet5781_02_3963_9714
             get { return time_since_last_stop; }
             set { time_since_last_stop = value; }
         }
-        static List<Bus_line_stop> stop_list = new List<Bus_line_stop>();//this list saves all the bus stops that exist
+        public static List<Bus_line_stop> stop_list = new List<Bus_line_stop>();//this list saves all the bus stops that exist
         public static Bus_line_stop make_bus_line_stop(int code)//checks if the stop already exists. if so it returns it, otherwise it builds a new one and returns it
         {
             for (int i=0; i< stop_list.Count; i++)//go through the list of stops
@@ -30,7 +30,9 @@ namespace dotNet5781_02_3963_9714
                 if (stop_list[i].Code == code)//if found
                     return stop_list[i];//return it
             }
-           return new Bus_line_stop(code);//if not found in the whole list, build a new stop and return it
+            Bus_line_stop new_stop= new Bus_line_stop(code);//if not found in the whole list, build a new stop
+            stop_list.Add(new_stop);//add it to the list of existing stops
+            return new_stop;
         }
         public Bus_line_stop(int code1):base(code1)
         {
@@ -41,7 +43,7 @@ namespace dotNet5781_02_3963_9714
             //the bus's speed is estimated at 1km a minute
             time_since_last_stop = distance_from_last_stop;
         }
-        //inherrits toString from Bus_stop...
+        //inherits toString from Bus_stop...
 
     }
 }
