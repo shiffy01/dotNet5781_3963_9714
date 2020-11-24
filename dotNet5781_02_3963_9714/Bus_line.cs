@@ -10,7 +10,7 @@ namespace dotNet5781_02_3963_9714
 {
    class Bus_line : IComparable
     {
-        public List<Bus_line_stop> stops;
+        public List<Bus_line_stop>stops;
         private int line_number;
 
         public int Line_number
