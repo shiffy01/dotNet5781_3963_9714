@@ -23,13 +23,13 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <ComboBox x:Name="___cbBusLines_" Grid.ColumnSpan="2" Grid.Column="1" Margin="0.333,0,197.667,0" Height="68" SelectionChanged="___cbBusLines__SelectionChanged">
-                <ListBox ItemsSource="{Binding}" x:Name="lbBusLineStation"  HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100"/>
-            </ComboBox>
             <Label Content="Bus Line Number:" Margin="0,0,4.667,0" FontSize="22" FontFamily="Sitka Display" FontWeight="Bold"/>
-            <TextBox x:Name="tbArea" Margin="197.667,0,0.333,0" Grid.Row="0" TextWrapping="Wrap" Text="{Binding Path=Area}" Grid.Column="3" RenderTransformOrigin="0.851,0.417" Grid.ColumnSpan="2" Height="68" VerticalAlignment="Top" FontFamily="Sitka Display" FontWeight="Bold" FontSize="24"/>
+            <ComboBox x:Name="cbBusLines" Grid.ColumnSpan="2" Grid.Column="1" Margin="0.333,0,197.667,0" Height="68" SelectionChanged="___cbBusLines__SelectionChanged"/>
+            <Label Content="Area:" Margin="3.333,0,197.667,0" VerticalAlignment="Top" Height="68" FontFamily="Sitka Display" FontSize="24" FontWeight="Bold" FontStretch="ExtraExpanded" Grid.ColumnSpan="2" Grid.Column="2"/>
+            <TextBox Grid.Column="3" Height="58" Margin="10.333,10,0,0" TextWrapping="Wrap" Text="{Binding Path=Area}" Width="184"/>
 
         </Grid>
-        <Label Content="Area:" Margin="400,0,56,0" VerticalAlignment="Top" Height="68" FontFamily="Sitka Display" FontSize="24" FontWeight="Bold" FontStretch="ExtraExpanded"/>
+        <ListBox ItemsSource="{Binding}" x:Name="lbBusLineStation"  HorizontalAlignment="Left" Height="872" VerticalAlignment="Top" Width="734" RenderTransformOrigin="0.527,1.687" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,0,0,-329.333"/>
+
     </Grid>
 </Window>

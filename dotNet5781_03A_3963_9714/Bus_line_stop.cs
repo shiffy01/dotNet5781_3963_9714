@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 //done
 namespace dotNet5781_02_3963_9714
 {
-    class Bus_line_stop:Bus_Stop
+   public class Bus_line_stop:Bus_Stop
     {
         private double distance_from_last_stop;//measured in km
 
