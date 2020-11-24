@@ -9,7 +9,7 @@ using System.Globalization;
 
 namespace dotNet5781_02_3963_9714
 {
-    class Bus_line_list : IEnumerable
+    public class Bus_line_list : IEnumerable
     {
         public List<Bus_line> busLines;
         int count;//counts how many busses in list

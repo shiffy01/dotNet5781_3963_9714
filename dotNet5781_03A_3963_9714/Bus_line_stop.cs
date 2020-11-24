@@ -7,22 +7,23 @@ using System.Threading.Tasks;
 //done
 namespace dotNet5781_02_3963_9714
 {
-   class Bus_line_stop:Bus_Stop
+   public class Bus_line_stop:Bus_Stop
     {
         private double distance_from_last_stop;//measured in km
-
+        public static List<Bus_line_stop> stop_list = new List<Bus_line_stop>();//this list saves all the bus stops that exist
+        private double time_since_last_stop;//measured in minutes
         public double Distance_from_last_stop
         {
             get { return distance_from_last_stop; }
             set { distance_from_last_stop = value; }
         }
-        private double time_since_last_stop;//measured in minutes
+      
         public double Time_since_last_stop
         {
             get { return time_since_last_stop; }
             set { time_since_last_stop = value; }
         }
-        public static List<Bus_line_stop> stop_list = new List<Bus_line_stop>();//this list saves all the bus stops that exist
+       
         public static Bus_line_stop make_bus_line_stop(int code)//checks if the stop already exists. if so it returns it, otherwise it builds a new one and returns it
         {
             for (int i=0; i< stop_list.Count; i++)//go through the list of stops

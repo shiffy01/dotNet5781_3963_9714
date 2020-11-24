@@ -63,6 +63,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Bus_line.cs" />
+    <Compile Include="Bus_line_list.cs" />
+    <Compile Include="Bus_line_stop.cs" />
+    <Compile Include="Bus_Stop.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

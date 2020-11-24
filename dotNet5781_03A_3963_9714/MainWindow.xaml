@@ -7,29 +7,32 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="640" Width="800">
 
-    <Grid Name="MainGrid">
+    <Grid Name="MainGrid" Background="#FFC7B6DB">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="648*"/>
+            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="16*"/>
+            <ColumnDefinition Width="13*"/>
+            <ColumnDefinition Width="579*"/>
             <ColumnDefinition Width="145*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="50*"/>
             <RowDefinition Height="400*"/>
         </Grid.RowDefinitions>
-        <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"  VerticalAlignment="Stretch" Width="auto" Grid.ColumnSpan="2" Margin="0,0,0.334,0">
+        <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"  VerticalAlignment="Stretch" Width="auto" Grid.ColumnSpan="5" Margin="0,0,-0.321,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Label Content="Bus Line Number:" Margin="0,0,4.667,0" FontSize="22" FontFamily="Sitka Display" FontWeight="Bold"/>
-            <ComboBox x:Name="cbBusLines" Grid.ColumnSpan="2" Grid.Column="1" Margin="0.333,0,197.667,0" Height="68" SelectionChanged="___cbBusLines__SelectionChanged"/>
-            <Label Content="Area:" Margin="3.333,0,197.667,0" VerticalAlignment="Top" Height="68" FontFamily="Sitka Display" FontSize="24" FontWeight="Bold" FontStretch="ExtraExpanded" Grid.ColumnSpan="2" Grid.Column="2"/>
-            <TextBox Grid.Column="3" Height="58" Margin="10.333,10,0,0" TextWrapping="Wrap" Text="{Binding Path=Area}" Width="184"/>
+            <Label Content="Bus Line Number:" Margin="0,0,177.667,0" FontSize="22" FontFamily="Yu Gothic Medium" Background="#FFC7B6DB" FontWeight="Bold" Grid.ColumnSpan="2"/>
+            <ComboBox x:Name="cbBusLines" Grid.ColumnSpan="2" Grid.Column="1" Margin="21,0,197.667,0" Height="68" SelectionChanged="___cbBusLines__SelectionChanged"/>
+            <Label Content="Area:" Margin="3.333,0,197.667,0" VerticalAlignment="Top" Height="58" FontFamily="Yu Gothic Medium" FontSize="24" FontWeight="Bold" FontStretch="ExtraExpanded" Grid.ColumnSpan="2" Grid.Column="2" Background="#FFC7B6DB"/>
+            <TextBox Grid.Column="3" Margin="0.333,0,-0.333,0" TextWrapping="Wrap" Text="{Binding Path=Area, Mode=OneWay}" Background="#FFE5E5E5"/>
 
         </Grid>
-        <ListBox ItemsSource="{Binding}" x:Name="lbBusLineStation"  HorizontalAlignment="Left" Height="872" VerticalAlignment="Top" Width="734" RenderTransformOrigin="0.527,1.687" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,0,0,-329.333"/>
+        <ListBox x:Name="lbBusLineStation"  HorizontalAlignment="Left" Height="449" VerticalAlignment="Top" Width="729" RenderTransformOrigin="0.527,1.687" Grid.Row="1" Grid.ColumnSpan="5" Margin="31,43,0,0" Background="#FFE5E5E5" FontFamily="Yu Gothic Medium" FontSize="14" FontWeight="Bold" SelectionChanged="lbBusLineStation_SelectionChanged"/>
 
     </Grid>
 </Window>
