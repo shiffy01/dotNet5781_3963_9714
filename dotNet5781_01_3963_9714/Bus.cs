@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace dotNet5781_01_3963_9714
 {
-    class Bus 
+   public class Bus 
     {
         readonly int license;//מספר רישוי
          DateTime startDate;//תאריך תחילת הפעילות
