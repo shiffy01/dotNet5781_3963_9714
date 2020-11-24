@@ -23,6 +23,8 @@ namespace dotNet5781_03A_3963_9714
         public MainWindow()
         {
             InitializeComponent();
+            Random rand = new Random(DateTime.Now.Millisecond);
+            int num = rand.Next(0, dotNet5781_02_3963_9714.Bus_line_list.Count);
         }
 
         private void ___cbBusLines__SelectionChanged(object sender, SelectionChangedEventArgs e)

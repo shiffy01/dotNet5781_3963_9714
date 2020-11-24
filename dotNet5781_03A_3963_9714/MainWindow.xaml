@@ -23,7 +23,9 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <ComboBox x:Name="___cbBusLines_" Grid.ColumnSpan="2" Grid.Column="1" Margin="0.333,0,197.667,0" Height="68" SelectionChanged="___cbBusLines__SelectionChanged"/>
+            <ComboBox x:Name="___cbBusLines_" Grid.ColumnSpan="2" Grid.Column="1" Margin="0.333,0,197.667,0" Height="68" SelectionChanged="___cbBusLines__SelectionChanged">
+                <ListBox ItemsSource="{Binding}" x:Name="lbBusLineStation"  HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100"/>
+            </ComboBox>
             <Label Content="Bus Line Number:" Margin="0,0,4.667,0" FontSize="22" FontFamily="Sitka Display" FontWeight="Bold"/>
             <TextBox x:Name="tbArea" Margin="197.667,0,0.333,0" Grid.Row="0" TextWrapping="Wrap" Text="{Binding Path=Area}" Grid.Column="3" RenderTransformOrigin="0.851,0.417" Grid.ColumnSpan="2" Height="68" VerticalAlignment="Top" FontFamily="Sitka Display" FontWeight="Bold" FontSize="24"/>
 

@@ -8,7 +8,7 @@ using System.Runtime;
 //done
 namespace dotNet5781_02_3963_9714
 {
-   public class Bus_line : IComparable
+    class Bus_line : IComparable
     {
         public List<Bus_line_stop> stops;
         private int line_number;

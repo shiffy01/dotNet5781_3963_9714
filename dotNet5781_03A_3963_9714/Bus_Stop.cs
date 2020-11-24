@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 //done
 namespace dotNet5781_02_3963_9714
 {
-    public class Bus_Stop
+    class Bus_Stop
     {
         protected int code;//code of bus stop
 
