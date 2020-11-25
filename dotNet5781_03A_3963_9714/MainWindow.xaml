@@ -27,12 +27,10 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Label Content="Bus Line Number:" Margin="0,0,177.667,0" FontSize="22" FontFamily="Yu Gothic Medium" Background="#FFC7B6DB" FontWeight="Bold" Grid.ColumnSpan="2"/>
-            <ComboBox x:Name="cbBusLines" Grid.ColumnSpan="2" Grid.Column="1" Margin="21,0,197.667,0" Height="68" SelectionChanged="___cbBusLines__SelectionChanged"/>
+            <ComboBox x:Name="cbBusLines" Grid.ColumnSpan="2" Grid.Column="1" Margin="21,0,197.667,0" Height="68" SelectionChanged="CbBusLines__SelectionChanged"/>
             <Label Content="Area:" Margin="3.333,0,197.667,0" VerticalAlignment="Top" Height="58" FontFamily="Yu Gothic Medium" FontSize="24" FontWeight="Bold" FontStretch="ExtraExpanded" Grid.ColumnSpan="2" Grid.Column="2" Background="#FFC7B6DB"/>
             <TextBox Grid.Column="3" Margin="0.333,0,-0.333,0" TextWrapping="Wrap" Text="{Binding Path=Area, Mode=OneWay}" Background="#FFE5E5E5"/>
-
         </Grid>
-        <ListBox x:Name="lbBusLineStation"  HorizontalAlignment="Left" Height="449" VerticalAlignment="Top" Width="729" RenderTransformOrigin="0.527,1.687" Grid.Row="1" Grid.ColumnSpan="5" Margin="31,43,0,0" Background="#FFE5E5E5" FontFamily="Yu Gothic Medium" FontSize="14" FontWeight="Bold" SelectionChanged="lbBusLineStation_SelectionChanged"/>
-
+        <ListBox x:Name="lbBusLineStation" ItemsSource="{Binding}" HorizontalAlignment="Left" Height="449" VerticalAlignment="Top" Width="729" RenderTransformOrigin="0.527,1.687" Grid.Row="1" Grid.ColumnSpan="5" Margin="31,43,0,0" Background="#FFE5E5E5" FontFamily="Yu Gothic Medium" FontSize="14" FontWeight="Bold" SelectionChanged="lbBusLineStation_SelectionChanged" SelectedIndex="-1"/>
     </Grid>
 </Window>
