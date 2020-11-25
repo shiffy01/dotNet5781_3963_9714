@@ -19,7 +19,7 @@
             <RowDefinition Height="50*"/>
             <RowDefinition Height="400*"/>
         </Grid.RowDefinitions>
-        <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"  VerticalAlignment="Stretch" Width="auto" Grid.ColumnSpan="5" Margin="0,0,-0.321,0">
+        <Grid Name="UpGrid" DataContext="currentDisplayBusLine" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"  VerticalAlignment="Stretch" Width="auto" Grid.ColumnSpan="5" Margin="0,0,-0.321,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -32,7 +32,7 @@
             <TextBox Grid.Column="3" Margin="0.333,0,-0.333,0" TextWrapping="Wrap" Text="{Binding Path=Area, Mode=OneWay}" Background="#FFE5E5E5"/>
 
         </Grid>
-        <ListBox x:Name="lbBusLineStation"  HorizontalAlignment="Left" Height="449" VerticalAlignment="Top" Width="729" RenderTransformOrigin="0.527,1.687" Grid.Row="1" Grid.ColumnSpan="5" Margin="31,43,0,0" Background="#FFE5E5E5" FontFamily="Yu Gothic Medium" FontSize="14" FontWeight="Bold" SelectionChanged="lbBusLineStation_SelectionChanged"/>
+        <ListBox x:Name="lbBusLineStation" DataContext="currentDisplayBusLine.stops" HorizontalAlignment="Left" Height="449" VerticalAlignment="Top" Width="729" RenderTransformOrigin="0.527,1.687" Grid.Row="1" Grid.ColumnSpan="5" Margin="31,43,0,0" Background="#FFE5E5E5" FontFamily="Yu Gothic Medium" FontSize="14" FontWeight="Bold"/>
 
     </Grid>
 </Window>

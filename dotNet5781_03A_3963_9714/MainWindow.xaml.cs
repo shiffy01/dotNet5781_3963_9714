@@ -90,7 +90,5 @@ namespace dotNet5781_03A_3963_9714
         {
             ShowBusLine((cbBusLines.SelectedValue as Bus_line).Line_number);
         }
-
-     
     }
 }
