@@ -5,9 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:dotNet5781_03A_3963_9714"
         mc:Ignorable="d"
-        Title="Bus DataBase" Height="640" Width="800">
+        Title="Bus Database" Height="640" Width="800" Icon="WhatsApp Image 2020-11-25 at 8.51.06 PM (1).jpeg">
+    <Window.Background>
+        <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.MenuHighlightColorKey}}"/>
+    </Window.Background>
 
-    <Grid Name="MainGrid" Background="#FFC7B6DB">
+    <Grid Name="MainGrid" Background="#FFA1C8E2">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="40*"/>
             <ColumnDefinition Width="16*"/>
@@ -26,13 +29,14 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Label Content="Bus Line Number:" Margin="0,0,177.667,0" FontSize="22" FontFamily="Yu Gothic Medium" Background="#FFC7B6DB" FontWeight="Bold" Grid.ColumnSpan="2"/>
+            <Label Content="Bus Line Number:" Margin="0,0,177.667,0" FontSize="22" FontFamily="Yu Gothic Medium" Background="#FFA1C8E2" FontWeight="Bold" Grid.ColumnSpan="2"/>
             <ComboBox x:Name="cbBusLines" Grid.ColumnSpan="2" Grid.Column="1" Margin="21,0,197.667,0" Height="68" SelectionChanged="___cbBusLines__SelectionChanged"/>
-            <Label Content="Area:" Margin="3.333,0,197.667,0" VerticalAlignment="Top" Height="58" FontFamily="Yu Gothic Medium" FontSize="24" FontWeight="Bold" FontStretch="ExtraExpanded" Grid.ColumnSpan="2" Grid.Column="2" Background="#FFC7B6DB"/>
+            <Label Content="Area:" Margin="3.667,0,0,0" VerticalAlignment="Top" Height="68" FontFamily="Yu Gothic Medium" FontSize="24" FontWeight="Bold" FontStretch="ExtraExpanded" Grid.Column="2" Background="#FFA1C8E2"/>
             <TextBox Grid.Column="3" Margin="0.333,0,-0.333,0" TextWrapping="Wrap" Text="{Binding Path=Area, Mode=OneWay}" Background="#FFE5E5E5"/>
 
         </Grid>
-        <ListBox x:Name="lbBusLineStation" Grid.Column="3" ItemsSource="{Binding}"  HorizontalAlignment="Left" Height="460" Margin="9.995,41,0,0" Grid.Row="1" VerticalAlignment="Top" Width="646" Grid.ColumnSpan="2" Background="#FFDCCCCC"/>
+        <ListBox x:Name="lbBusLineStation" ItemsSource="{Binding}" Grid.Column="1" HorizontalAlignment="Left" Height="456" Margin="0,37,0,0" Grid.Row="1" VerticalAlignment="Top" Width="714" Grid.ColumnSpan="4" Background="#FFE5E5E5"/>
+
 
 
     </Grid>
