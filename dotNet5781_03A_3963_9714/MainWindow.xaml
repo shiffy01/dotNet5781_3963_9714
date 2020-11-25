@@ -37,7 +37,5 @@
         </Grid>
         <ListBox x:Name="lbBusLineStation" ItemsSource="{Binding}" Grid.Column="1" HorizontalAlignment="Left" Height="456" Margin="0,37,0,0" Grid.Row="1" VerticalAlignment="Top" Width="714" Grid.ColumnSpan="4" Background="#FFE5E5E5"/>
 
-
-
-    </Grid>
+   </Grid>
 </Window>
