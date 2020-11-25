@@ -97,11 +97,13 @@ namespace dotNet5781_03A_3963_9714
             UpGrid.DataContext = currentDisplayBusLine;
             lbBusLineStation.DataContext = currentDisplayBusLine.stops;
         }
-        private void CbBusLines__SelectionChanged(object sender, SelectionChangedEventArgs e)
+
+        private void ___cbBusLines__SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ShowBusLine((cbBusLines.SelectedValue as Bus_line).Line_number);
         }
+       
 
-        
+
     }
 }
