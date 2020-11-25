@@ -48,10 +48,21 @@ namespace dotNet5781_03A_3963_9714
                 Bus_line_stop stop1 = Bus_line_stop.make_bus_line_stop(stop1_number);
                 Bus_line_stop stop2 = Bus_line_stop.make_bus_line_stop(stop2_number);
                 Bus_line_stop stop3 = Bus_line_stop.make_bus_line_stop(stop3_number);
-
+                string region="";
+               switch(i%4)
+                {
+                    case 0: region = "North";
+                        break;
+                    case 1: region = "South";
+                        break;
+                    case 2: region = "Jerusalem";
+                        break;
+                    case 3: region = "Central";
+                        break; 
+                }
                 try
                 {
-                    bus.add_line(new Bus_line(new_line_number, "Central", Bus_line_stop.make_bus_line_stop(i), Bus_line_stop.make_bus_line_stop(i + 5)));
+                    bus.add_line(new Bus_line(new_line_number, region, bus_stop_first, bus_stop_last));
                     bus[new_line_number].add_stop(first_stop_number, stop1);
                     bus[new_line_number].add_stop(stop1_number, stop2);
                     bus[new_line_number].add_stop(stop2_number, stop3);
@@ -90,5 +101,7 @@ namespace dotNet5781_03A_3963_9714
         {
             ShowBusLine((cbBusLines.SelectedValue as Bus_line).Line_number);
         }
+
+        
     }
 }
