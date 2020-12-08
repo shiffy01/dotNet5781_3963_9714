@@ -95,13 +95,14 @@ namespace dotNet5781_01_3963_9714
             totalMilage += milage;
             gas -= distance;
             return reason.Sent;//bus was sent
+            //change state in xaml
         }
-     public void refill()//refill tank
-        {
+        public voicommentsd refill()//refill tank
+        {//change state in xaml
             gas = 1200;
         }
         public void tune_up()//set buses milage back to 0, and resets the date of the last tune_up to today
-        {
+        {//change state in xaml
             milage = 0;
             last_tune_up = DateTime.Now;
         }
