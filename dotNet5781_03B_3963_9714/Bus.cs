@@ -18,11 +18,12 @@ namespace dotNet5781_01_3963_9714
         public enum reason
         {
             Not_enough_gas,
-            Too_far,// bus will need tune
-            bus
+            Too_far,// bus will need tune up in the middle of the ride
+            Needs_tune_up,//bus needs tune up
+            Occupied,//buses status isnt ready
+            Sent// bus was sent succesfully
         }
         private status_ops status;
-
         public status_ops Status
         {
             get { return status; }
@@ -30,12 +31,41 @@ namespace dotNet5781_01_3963_9714
         }
 
         readonly int license;//מספר רישוי
-         DateTime startDate;//תאריך תחילת הפעילות
-        DateTime last_tune_up;//
-        int totalMilage;//נסועה כוללת
-        int milage;//נסועה מאז הטיפול האחרון       
-        int gas;//כמות דלק
-        
+       private DateTime startDate;//תאריך תחילת הפעילות
+       
+        public DateTime StartDate
+        {
+            get { return startDate; }
+            set { startDate = value; }
+        }
+
+       private DateTime last_tune_up;//
+      
+        public DateTime Last_tune_up
+        {
+            get { return last_tune_up; }
+            set { last_tune_up = value; }
+        }
+
+       private int totalMilage;//נסועה כוללת
+        public int TotalMilage
+        {
+            get { return totalMilage; }
+            set { totalMilage = value; }
+        }
+        private int milage;//נסועה מאז הטיפול האחרון    
+        public int Milage
+        {
+            get { return milage; }
+            set { milage = value; }
+        }
+        private int gas;//כמות דלק
+        public int Gas 
+        { 
+            get { return gas; }
+            set { gas = value; }
+        }
+
         public Bus(int licenseNumber, DateTime date,  int curr_milage )
         {
             license = licenseNumber;
@@ -46,42 +76,25 @@ namespace dotNet5781_01_3963_9714
             last_tune_up = DateTime.Now;//busses go through tune_up when they arrive
             status = status_ops.Ready;//bus is ready to leave
         }
-        public int getLicense()
-        {
-            return license;
-        }
-        public DateTime getStartDate()
-        {
-            return startDate;
-        }
-        public int getMilage()
-        {
-            return milage;
-        }
-       
-        public int getGas()
-        {
-            return gas;		
-
-        }
-        
-         public  bool send_bus(int distance)//checks if bus has enough gas, and if its safe to drive.
+              
+        public  reason send_bus(int distance)//checks if bus has enough gas, and if its safe to drive.
                                    //if it is, it updates the gas and milage, and returns true. otherwise it returns false and doesn't update anything
         {
            
             if (milage + distance > 20000)//cant send a bus that is dangerous or will become dangerous durring the ride
-               
-                return false;
+                return reason.Too_far;
             if (gas - distance < 0)//cant send a bus that doesnt have enough gas
-                return false;
+                return reason.Not_enough_gas;
             int diff = ( DateTime.Now- last_tune_up).Days;
-            if (diff > 365)
-                return false;
+            if (diff > 365)//bus needs tune up
+                return reason.Needs_tune_up;
+            if (status != status_ops.Ready)//if bus is occupied 
+                return reason.Occupied;
                 //otherwise, update gas and milage
                 milage += distance;
             totalMilage += milage;
             gas -= distance;
-            return true;//bus was sent
+            return reason.Sent;//bus was sent
         }
      public void refill()//refill tank
         {
