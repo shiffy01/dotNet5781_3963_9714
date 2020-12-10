@@ -8,23 +8,16 @@ namespace dotNet5781_01_3963_9714
 {
    public class Bus 
     {
-      public enum status_ops
+      public enum Status_ops
         {
             Ready,
             On_the_road,
             Filling_up,
             At_mechanic
         }
-        public enum reason
-        {
-            Not_enough_gas,
-            Too_far,// bus will need tune up in the middle of the ride
-            Needs_tune_up,//bus needs tune up
-            Occupied,//buses status isnt ready
-            Sent// bus was sent succesfully
-        }
-        private status_ops status;
-        public status_ops Status
+        
+        private Status_ops status;
+        public Status_ops Status
         {
             get { return status; }
             set { status = value; }
@@ -65,8 +58,34 @@ namespace dotNet5781_01_3963_9714
             get { return gas; }
             set { gas = value; }
         }
+        private int number_of_passengers;
 
-        public Bus(int licenseNumber, DateTime date,  int curr_milage )
+        public int Number_of_passengers
+        {
+            get { return number_of_passengers; }
+            set { number_of_passengers = value; }
+        }
+
+        private bool isAccessable;//האם האוטובוס נגיש לנכים
+        public bool IsAccessable
+        {
+            get { return IsAccessable; }
+            set { IsAccessable = value; }
+        }
+        private bool hasWifi;//האם יש באוטובוס וויי - פיי
+        public bool HasWifi
+        {
+            get { return hasWifi; }
+            set { hasWifi = value; }
+        }
+        private bool hasDVD;// dvd האם יש באוטובוס 
+        public bool HasDVD
+        {
+            get { return hasDVD; }
+            set { hasDVD= value; }
+        }
+
+        public Bus(int licenseNumber, DateTime date,  int curr_milage, int passengers, bool accessable, bool wifi, bool dvd )
         {
             license = licenseNumber;
             startDate = date;
@@ -74,39 +93,43 @@ namespace dotNet5781_01_3963_9714
             totalMilage = curr_milage;//total milage
             gas = 1200;//buses fill up the gas tank when they first arrive
             last_tune_up = DateTime.Now;//busses go through tune_up when they arrive
-            status = status_ops.Ready;//bus is ready to leave
+            status = Status_ops.Ready;//bus is ready to leave
+            number_of_passengers = passengers;
+            isAccessable = accessable;
+            hasWifi = wifi;
+            hasDVD = dvd;
         }
               
-        public  reason send_bus(int distance)//checks if bus has enough gas, and if its safe to drive.
+        public  string Send_bus(int distance)//checks if bus has enough gas, and if its safe to drive.
                                    //if it is, it updates the gas and milage, and returns true. otherwise it returns false and doesn't update anything
         {
            
             if (milage + distance > 20000)//cant send a bus that is dangerous or will become dangerous durring the ride
-                return reason.Too_far;
+                return "The bus needs a tune up in order to go that far";
             if (gas - distance < 0)//cant send a bus that doesnt have enough gas
-                return reason.Not_enough_gas;
+                return "Not enough gas";
             int diff = ( DateTime.Now- last_tune_up).Days;
             if (diff > 365)//bus needs tune up
-                return reason.Needs_tune_up;
+                return "Bus needs a tune up";
             if (status != status_ops.Ready)//if bus is occupied 
-                return reason.Occupied;
+                return "Bus is occupied";
                 //otherwise, update gas and milage
                 milage += distance;
             totalMilage += milage;
             gas -= distance;
-            return reason.Sent;//bus was sent
-            //change state in xaml
+            return "Bus sent";//bus was sent
+            
         }
-        public void refill()//refill tank
+        public void Refill()//refill tank
         {//change state in xaml
             gas = 1200;
         }
-        public void tune_up()//set buses milage back to 0, and resets the date of the last tune_up to today
+        public void Tune_up()//set buses milage back to 0, and resets the date of the last tune_up to today
         {//change state in xaml
             milage = 0;
             last_tune_up = DateTime.Now;
         }
-        public void printBus()
+        public void PrintBus()
         {
 
            
