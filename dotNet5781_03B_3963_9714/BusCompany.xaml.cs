@@ -62,8 +62,9 @@ namespace dotNet5781_03B_3963_9714
         {
            
             InitializeComponent();
-            DataContext = buses;
+            lb_buses.DataContext = buses;
             Initialize_bus_collection();//add busses to the collection
+           
 
         }
 
@@ -79,11 +80,16 @@ namespace dotNet5781_03B_3963_9714
         }
         private void Click_gas(object sender, RoutedEventArgs e)
         {
-           
+          
         }
         private void lb_buses_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+          //figure out what to do
+        }
+        private void Click_add(object sender, RoutedEventArgs e)
+        {
+           // BusDetails busDetails = new BusDetails();
+           // busDetails.ShowDialog();
         }
     }
 }
