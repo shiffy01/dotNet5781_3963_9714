@@ -69,6 +69,13 @@ namespace dotNet5781_03B_3963_9714
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            BusDetails secondWindow = new BusDetails();
+            BusDetails.ShowDialog();
+
+        }
+
+        private void lb_buses_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
 
         }
     }

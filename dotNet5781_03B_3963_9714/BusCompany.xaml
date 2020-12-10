@@ -7,12 +7,31 @@
         mc:Ignorable="d"
         Title="BusCompany" Height="450" Width="800">
     <Grid>
-        <ListBox x:Name="lb_buses" HorizontalAlignment="Left" Height="421" VerticalAlignment="Top" Width="793" Margin="0,0,0,-0.333"  ItemsSource="{Binding}">
+        <ListBox x:Name="lb_buses" HorizontalAlignment="Left" Height="421" VerticalAlignment="Top" Width="793" Margin="0,0,0,-0.333"  ItemsSource="{Binding}" SelectionChanged="lb_buses_SelectionChanged">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
-                        <Button x:Name="license" Content="{Binding Path=PrintBus}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition MinWidth="20"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="license" Content="{Binding Path=PrintBus}" Grid.Column="0" Click="Button_Click">
                         </Button>
+                        <Button x:Name="drive" Content="Drive" Grid.Column="1" Click="click_drive">
+                        </Button>
+                        <Button x:Name="gas" Content="Fill Tank" Grid.Column="2">
+                        </Button>
+                        <ProgressBar Grid.Column="4">
+                        </ProgressBar>
+                        <ProgressBar Grid.Column="3" Visibility="Hidden">
+                            
+                        </ProgressBar>
                     </Grid>
                     
                 </DataTemplate>
