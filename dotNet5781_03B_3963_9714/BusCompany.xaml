@@ -23,9 +23,9 @@
                         </Grid.ColumnDefinitions>
                         <Button x:Name="license" Content="{Binding Path=PrintBus}" Grid.Column="0" Click="Button_Click">
                         </Button>
-                        <Button x:Name="drive" Content="Drive" Grid.Column="1" Click="click_drive">
+                        <Button x:Name="drive" Content="Drive" Grid.Column="1" Click="Click_drive">
                         </Button>
-                        <Button x:Name="gas" Content="Fill Tank" Grid.Column="2">
+                        <Button x:Name="gas" Content="Fill Tank" Grid.Column="2" Click="Click_gas">
                         </Button>
                         <ProgressBar Grid.Column="4">
                         </ProgressBar>
