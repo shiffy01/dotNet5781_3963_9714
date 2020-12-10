@@ -129,30 +129,30 @@ namespace dotNet5781_01_3963_9714
             milage = 0;
             last_tune_up = DateTime.Now;
         }
-        public void PrintBus()
+        public string PrintBus()//this function returns a string of the license plate with the -
         {
 
-           
+            string finalLicense;
             if (startDate.Year < 2018)//license plates from before 2018 have 7 digits
             {
                 int tmpLicense = license / 100000;//this gives us the first 2 digits of license
-                Console.Write(tmpLicense + "-");
+                finalLicense=(tmpLicense + "-");
                 tmpLicense = (license - (tmpLicense * 100000))/100;//this gives us the next 3 digits
-                Console.Write(tmpLicense + "-");
+                finalLicense+=(tmpLicense + "-");
                 tmpLicense = license % 100;//this gives us the last 2 digits
-                Console.Write(tmpLicense);
+                finalLicense+=(tmpLicense);
             }
             else
             //license plates from after 2018 have 8 digits
             {
                 int tmpLicense = license / 100000;//this gives us the first 3 digits of license
-                Console.Write(tmpLicense + "-");
+                finalLicense=(tmpLicense + "-");
                 tmpLicense = (license - (tmpLicense * 100000)) / 1000;//this gives us the next 2 digits
-                Console.Write(tmpLicense + "-");
+                finalLicense+=(tmpLicense + "-");
                 tmpLicense = license % 1000;//this gives us the last 2 digits
-                Console.Write(tmpLicense);
+                finalLicense+=(tmpLicense);
             }
-            Console.WriteLine(" mileage:" + totalMilage);
+            return finalLicense;
         }
 
     }

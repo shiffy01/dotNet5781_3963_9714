@@ -10,11 +10,10 @@
         <ListBox x:Name="lb_buses" HorizontalAlignment="Left" Height="421" VerticalAlignment="Top" Width="793" Margin="0,0,0,-0.333"  ItemsSource="{Binding}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel>
-                        <TextBlock Text="{Binding Path=TaskName}" />
-                        <TextBlock Text="{Binding Path=Description}"/>
-                        <TextBlock Text="{Binding Path=Priority}"/>
-                    </StackPanel>
+                    <Button>
+                        Content="{Binding Path=PrintBus}"
+                        <!--made this up but its supposed to present the string that function returns as the content-->
+                    </Button>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
