@@ -34,9 +34,11 @@
         </DataTemplate>
     </Window.Resources>
     <StackPanel>
-        <ListBox x:Name="lb_buses" ItemsSource="{Binding}"
+        <ListBox x:Name="lb_buses" ItemsSource="{Binding}" 
  ItemTemplate="{StaticResource MyDataTemplate}"
  HorizontalContentAlignment="Stretch" />
-        
+        <Button x:Name="add" Content="Add A Bus" Click="Click_add"> 
+            
+        </Button>
     </StackPanel>
 </Window>

@@ -84,7 +84,11 @@ namespace dotNet5781_03B_3963_9714
         }
         private void lb_buses_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            foreach (var selectedItem in lb_buses.SelectedItems) { }//figure out what to do
+          //figure out what to do
+        }
+        private void Click_add(object sender, RoutedEventArgs e)
+        {
+            //not sure how to add an object of data template type
         }
     }
 }
