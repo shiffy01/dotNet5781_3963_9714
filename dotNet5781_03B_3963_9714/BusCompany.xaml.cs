@@ -88,7 +88,7 @@ namespace dotNet5781_03B_3963_9714
         }
         private void Click_add(object sender, RoutedEventArgs e)//opens add window
         {
-            AddBus addBus = new AddBus();//this wont be red when we have an add button...
+            AddBus addBus = new AddBus();//this wont be red when we have an add window...
               addBus.ShowDialog();
         }
     }
