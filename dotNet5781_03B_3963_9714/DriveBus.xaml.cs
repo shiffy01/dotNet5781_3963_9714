@@ -15,18 +15,13 @@ using System.Windows.Shapes;
 namespace dotNet5781_03B_3963_9714
 {
     /// <summary>
-    /// Interaction logic for AddBus.xaml
+    /// Interaction logic for DriveBus.xaml
     /// </summary>
-    public partial class AddBus : Window
+    public partial class DriveBus : Window
     {
-        public AddBus()
+        public DriveBus()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            //adds a bus to the list. i have no clue how.
         }
     }
 }

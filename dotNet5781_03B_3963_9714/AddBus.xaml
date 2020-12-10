@@ -7,6 +7,24 @@
         mc:Ignorable="d"
         Title="AddBus" Height="450" Width="800">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBlock HorizontalAlignment="Left" Margin="38,274,0,0" TextWrapping="Wrap" Text="Enter a license number:" VerticalAlignment="Top" Height="39" Width="136" Grid.ColumnSpan="2"/>
+        <TextBox IsEnabled="False" HorizontalAlignment="Left" Height="23" Margin="38,299,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="136" Grid.ColumnSpan="2"/>
+        <TextBlock HorizontalAlignment="Left" Margin="38,72,0,0" TextWrapping="Wrap" Text="Choose a date the bus started working:" VerticalAlignment="Top" Height="20" Width="216" Grid.ColumnSpan="2"/>
+        <Calendar HorizontalAlignment="Left" Margin="38,97,0,0" VerticalAlignment="Top" DisplayDateEnd="10.12.2020" Grid.ColumnSpan="2"/>
+        <CheckBox Content="wheelchair accessible" HorizontalAlignment="Left" Margin="281,97,0,0" VerticalAlignment="Top" Height="21" RenderTransformOrigin="3.533,-2.521" Width="151" Grid.ColumnSpan="2"/>
+        <TextBlock HorizontalAlignment="Left" Margin="281,159,0,0" TextWrapping="Wrap" Text="Enter total mileage of the bus:" VerticalAlignment="Top" Height="38" Width="178" Grid.ColumnSpan="2"/>
+        <TextBox HorizontalAlignment="Left" Height="29" Margin="281,197,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="178" Grid.ColumnSpan="2"/>
+        <RadioButton Content="60" HorizontalAlignment="Left" Margin="533,135,0,0" VerticalAlignment="Top" Height="19" Width="115" Checked="RadioButton_Checked" Grid.ColumnSpan="2"/>
+        <RadioButton Content="50" HorizontalAlignment="Left" Margin="533,159,0,0" VerticalAlignment="Top" Height="28" Width="97" Grid.ColumnSpan="2"/>
+        <RadioButton Content="40" HorizontalAlignment="Left" Margin="533,187,0,0" VerticalAlignment="Top" Height="39" Width="115" Grid.ColumnSpan="2"/>
+        <TextBlock HorizontalAlignment="Left" Margin="533,72,0,0" TextWrapping="Wrap" Text="Choose the amount of seats the bus will have:" VerticalAlignment="Top" Height="46" Width="134" Grid.ColumnSpan="2"/>
+        <CheckBox Content="wifi on the bus" HorizontalAlignment="Left" Margin="281,135,0,0" VerticalAlignment="Top" Height="19" RenderTransformOrigin="0.5,0.5" Width="151" Grid.ColumnSpan="2"/>
+        <Button Content="Add the bus" IsEnabled="False" HorizontalAlignment="Left" Margin="316,287,0,0" VerticalAlignment="Top" Width="351" Height="62" Click="Button_Click" Grid.ColumnSpan="2"/>
+        <!--basicly figure out how to connect all this and actually make the bus with this information. enable add button when everything is filled in. enable license 
+        number when date is filled in-->
     </Grid>
 </Window>
