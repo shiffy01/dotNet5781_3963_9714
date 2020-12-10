@@ -47,5 +47,10 @@ namespace dotNet5781_03B_3963_9714
            
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

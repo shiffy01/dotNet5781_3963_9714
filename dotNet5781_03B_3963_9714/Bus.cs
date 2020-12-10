@@ -97,7 +97,7 @@ namespace dotNet5781_01_3963_9714
             return reason.Sent;//bus was sent
             //change state in xaml
         }
-        public voicommentsd refill()//refill tank
+        public void refill()//refill tank
         {//change state in xaml
             gas = 1200;
         }
@@ -106,7 +106,7 @@ namespace dotNet5781_01_3963_9714
             milage = 0;
             last_tune_up = DateTime.Now;
         }
-        public void printBus()
+        public void printBus()//prints license plate number
         {
 
            
@@ -129,7 +129,7 @@ namespace dotNet5781_01_3963_9714
                 tmpLicense = license % 1000;//this gives us the last 2 digits
                 Console.Write(tmpLicense);
             }
-            Console.WriteLine(" mileage:" + totalMilage);
+           
         }
 
     }
