@@ -86,10 +86,10 @@ namespace dotNet5781_03B_3963_9714
         {
           //figure out what to do
         }
-        private void Click_add(object sender, RoutedEventArgs e)
+        private void Click_add(object sender, RoutedEventArgs e)//opens add window
         {
-           // BusDetails busDetails = new BusDetails();
-           // busDetails.ShowDialog();
+            AddBus addBus = new AddBus();//this wont be red when we have an add window...
+              addBus.ShowDialog();
         }
     }
 }
