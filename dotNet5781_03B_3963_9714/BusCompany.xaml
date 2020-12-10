@@ -6,36 +6,37 @@
         xmlns:local="clr-namespace:dotNet5781_03B_3963_9714"
         mc:Ignorable="d"
         Title="BusCompany" Height="450" Width="800">
-    <Grid>
-        <ListBox x:Name="lb_buses" HorizontalAlignment="Left" Height="421" VerticalAlignment="Top" Width="793" Margin="0,0,0,-0.333"  ItemsSource="{Binding}" SelectionChanged="lb_buses_SelectionChanged">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition MinWidth="20"/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <Button x:Name="license" Content="{Binding Path=PrintBus}" Grid.Column="0" Click="Button_Click">
+    <Window.Resources>
+        <DataTemplate x:Key="MyDataTemplate">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button x:Name="license" Content="{Binding Path=PrintBus}" Grid.Column="0" Click="Button_Click">
                         </Button>
                         <Button x:Name="drive" Content="Drive" Grid.Column="1" Click="Click_drive">
                         </Button>
                         <Button x:Name="gas" Content="Fill Tank" Grid.Column="2" Click="Click_gas">
                         </Button>
-                        <ProgressBar Grid.Column="4">
+                        <ProgressBar x:Name="till_works" Grid.Column="4">
                         </ProgressBar>
-                        <ProgressBar Grid.Column="3" Visibility="Hidden">
+                        <ProgressBar x:Name="driving" Grid.Column="3" Visibility="Hidden">
                             
                         </ProgressBar>
-                    </Grid>
-                    
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-    </Grid>
+            </Grid>
+        </DataTemplate>
+    </Window.Resources>
+    <StackPanel>
+        <ListBox x:Name="lb_buses" ItemsSource="{Binding}"
+ ItemTemplate="{StaticResource MyDataTemplate}"
+ HorizontalContentAlignment="Stretch" />
+        
+    </StackPanel>
 </Window>
