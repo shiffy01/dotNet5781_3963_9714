@@ -7,7 +7,16 @@
         mc:Ignorable="d"
         Title="BusCompany" Height="450" Width="800">
     <Grid>
-        <ListBox x:Name="lb_buses" HorizontalAlignment="Left" Height="421" VerticalAlignment="Top" Width="793" Margin="0,0,0,-0.333"/>
-
+        <ListBox x:Name="lb_buses" HorizontalAlignment="Left" Height="421" VerticalAlignment="Top" Width="793" Margin="0,0,0,-0.333"  ItemsSource="{Binding}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding Path=TaskName}" />
+                        <TextBlock Text="{Binding Path=Description}"/>
+                        <TextBlock Text="{Binding Path=Priority}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </Window>
