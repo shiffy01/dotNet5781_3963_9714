@@ -30,11 +30,9 @@
                         <ProgressBar Grid.Column="4">
                         </ProgressBar>
                         <ProgressBar Grid.Column="3" Visibility="Hidden">
-                            
                         </ProgressBar>
                     </Grid>
-                    
-                </DataTemplate>
+                            </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
     </Grid>
