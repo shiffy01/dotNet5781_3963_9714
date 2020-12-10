@@ -19,9 +19,9 @@ namespace dotNet5781_03B_3963_9714
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class BusCompany : Window
     {
-       private List<Bus> buses = new List<Bus>();//list of buses
+         List<Bus> buses = new List<Bus>();//list of buses
        void Initialize_bus_list()
         {
             for (int i = 1; i < 11; i++)//add 10 buses to the list
@@ -42,7 +42,7 @@ namespace dotNet5781_03B_3963_9714
 
 
 
-    public MainWindow()
+    public BusCompany()
         {
            
             InitializeComponent();

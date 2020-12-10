@@ -55,7 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
+    <Page Include="BusCompany.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -67,8 +67,8 @@
     <Compile Include="Bus_line_list.cs" />
     <Compile Include="Bus_line_stop.cs" />
     <Compile Include="Bus_Stop.cs" />
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="BusCompany.xaml.cs">
+      <DependentUpon>BusCompany.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
