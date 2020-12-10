@@ -111,7 +111,7 @@ namespace dotNet5781_01_3963_9714
             int diff = ( DateTime.Now- last_tune_up).Days;
             if (diff > 365)//bus needs tune up
                 return "Bus needs a tune up";
-            if (status != status_ops.Ready)//if bus is occupied 
+            if (status != Status_ops.Ready)//if bus is occupied 
                 return "Bus is occupied";
                 //otherwise, update gas and milage
                 milage += distance;
@@ -153,6 +153,34 @@ namespace dotNet5781_01_3963_9714
                 finalLicense+=(tmpLicense);
             }
             return finalLicense;
+        }
+        public override string ToString()
+        {
+            string lp = PrintBus();
+            int milageLeft = 20000 - milage;
+            string toString = "License Plate: " + lp;
+            toString += @"
+                         Status: "+status;
+            toString += @"
+                         Total milage: " +totalMilage;
+            toString += @"
+                         " + milageLeft+ " kilometers left till next tune up" ;
+            toString += @"
+                         Last tune up: " + last_tune_up;
+            toString += @"
+                         Gas left: " + gas;
+            toString += @"
+                          " + number_of_passengers+ " seats";
+            if(isAccessable)
+                toString += @"
+                             *Accessable";
+            if (hasWifi)
+                toString += @"
+                             *Wifi";
+            if (hasDVD)
+                toString += @"
+                             *DVD player";
+            return toString;
         }
 
     }

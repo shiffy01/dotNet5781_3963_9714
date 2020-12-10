@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="BusDetails" Height="450" Width="800">
     <Grid>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="209" Width="423"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="209" Width="423" />
 
     </Grid>
 </Window>

@@ -19,7 +19,6 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-
                 <Button x:Name="license" Content="{Binding Path=PrintBus}" Grid.Column="0" Click="Button_Click">
                         </Button>
                         <Button x:Name="drive" Content="Drive" Grid.Column="1" Click="Click_drive">
@@ -29,18 +28,16 @@
                         <ProgressBar x:Name="till_works" Grid.Column="4">
                         </ProgressBar>
                         <ProgressBar x:Name="driving" Grid.Column="3" Visibility="Hidden">
-                            
                         </ProgressBar>
             </Grid>
         </DataTemplate>
     </Window.Resources>
     <StackPanel>
         <ListBox x:Name="lb_buses" ItemsSource="{Binding}" 
- ItemTemplate="{StaticResource MyDataTemplate}"
- HorizontalContentAlignment="Stretch" />
+         ItemTemplate="{StaticResource MyDataTemplate}"
+         HorizontalContentAlignment="Stretch" />
         <Button x:Name="add" Content="Add A Bus" Click="Click_add"> 
-            
-        </Button>
+       </Button>
     </StackPanel>
 
 </Window>
