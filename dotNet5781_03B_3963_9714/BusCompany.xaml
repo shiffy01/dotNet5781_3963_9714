@@ -7,8 +7,9 @@
         xmlns:dotNet5781_01_3963_9714="clr-namespace:dotNet5781_01_3963_9714;assembly=dotNet5781_01_3963_9714" x:Class="dotNet5781_03B_3963_9714.BusCompany"
         mc:Ignorable="d"
         Title="BusCompany" Height="450" Width="800" Loaded="Window_Loaded">
-
+   
     <Grid>
+       
 
     </Grid>
 
