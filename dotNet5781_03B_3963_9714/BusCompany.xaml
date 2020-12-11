@@ -6,39 +6,9 @@
         xmlns:local="clr-namespace:dotNet5781_03B_3963_9714"
         mc:Ignorable="d"
         Title="BusCompany" Height="450" Width="800">
-    <Window.Resources>
-        <DataTemplate x:Key="MyDataTemplate">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Button x:Name="license" Content="{Binding Path=PrintBus}" Grid.Column="0" Click="Button_Click">
-                        </Button>
-                        <Button x:Name="drive" Content="Drive" Grid.Column="1" Click="Click_drive">
-                        </Button>
-                        <Button x:Name="gas" Content="Fill Tank" Grid.Column="2" Click="Click_gas">
-                        </Button>
-                        <ProgressBar x:Name="till_works" Grid.Column="4">
-                        </ProgressBar>
-                        <ProgressBar x:Name="driving" Grid.Column="3" Visibility="Hidden">
-                        </ProgressBar>
-            </Grid>
-        </DataTemplate>
-    </Window.Resources>
-    <StackPanel>
-        <ListBox x:Name="lb_buses" ItemsSource="{Binding}" 
-         ItemTemplate="{StaticResource MyDataTemplate}"
-         HorizontalContentAlignment="Stretch" />
-        <Button x:Name="add" Content="Add A Bus" Click="Click_add"> 
-       </Button>
-    </StackPanel>
+    <Grid>
+        
+    </Grid>
 
 </Window>
 
