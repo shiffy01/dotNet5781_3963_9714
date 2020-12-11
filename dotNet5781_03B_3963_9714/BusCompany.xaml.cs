@@ -92,5 +92,13 @@ namespace dotNet5781_03B_3963_9714
             AddBus addBus = new AddBus();
               addBus.ShowDialog();
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+
+            System.Windows.Data.CollectionViewSource busViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("busViewSource")));
+            // Load data by setting the CollectionViewSource.Source property:
+            // busViewSource.Source = [generic data source]
+        }
     }
 }
