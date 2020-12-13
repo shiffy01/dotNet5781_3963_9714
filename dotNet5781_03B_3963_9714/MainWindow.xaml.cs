@@ -52,11 +52,6 @@ namespace dotNet5781_03B_3963_9714
         }
 
 
-
-
-
-
-
         public MainWindow()
         {
             InitializeComponent();
@@ -64,23 +59,52 @@ namespace dotNet5781_03B_3963_9714
             busDataGrid.DataContext = buses;
             busDataGrid.IsReadOnly = true;
         }
-      
-private void busDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
 
+        //// private void busDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        // {
+
+        //     Bus b1 = (busDataGrid.SelectedItem as Bus);
+        //     BusDetails bd = new BusDetails(b1);
+        //     bd.ShowDialog();
+
+        //}
+        private void licenseButton(object sender, RoutedEventArgs e)
+        {
             Bus b1 = (busDataGrid.SelectedItem as Bus);
             BusDetails bd = new BusDetails(b1);
             bd.ShowDialog();
+        }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Bus b1 = (busDataGrid.SelectedItem as Bus);
+            b1.Refill();
+        }
+
+       //// private void Button_Click_add(object sender, RoutedEventArgs e)
+       // {
+       //     Bus b = new Bus(1234567, DateTime.Now, 100, 50, true, false, true);
+       //     add add = new add(b);
+       // }
+        private void Button_Click_add(object sender, RoutedEventArgs e)
+        {
+             AddBus add = new AddBus();
+             add.Closed += AddBusWindow_Closed;
+             add.Show();
 
         }
-    
-        // private void busdatagrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        //{
-        //    Bus b1 = (busDataGrid.SelectedItem as Bus);
-        //    BusDetails bd = new BusDetails(b1);
-        //    bd.ShowDialog();
-        //}
-
-
+    private void AddBusWindow_Closed(object sender, EventArgs e)
+    {
+        Bus resultBus = (sender as AddBus).CurrentBus;
+        buses.Add(resultBus);
     }
+
+    // private void busdatagrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+    //{
+    //    Bus b1 = (busDataGrid.SelectedItem as Bus);
+    //    BusDetails bd = new BusDetails(b1);
+    //    bd.ShowDialog();
+    //}
+
+
+}
 }

@@ -9,9 +9,15 @@
         Title="MainWindow" Height="450" Width="1000">
    
     <Grid>
-        <DataGrid x:Name="busDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="99,52,27.333,126.667" RowDetailsVisibilityMode="VisibleWhenSelected" SelectionChanged="busDataGrid_SelectionChanged">
+        <DataGrid x:Name="busDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="99,52,27.333,126.667" RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="licenseColumn" Binding="{Binding LicenseFull}" Header="License" Width="SizeToHeader"/>
+                <DataGridTemplateColumn x:Name="lp" Header="drive_bus" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="license" Content="{Binding LicenseFull}" MouseDoubleClick="licenseButton"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 
                 <DataGridTemplateColumn x:Name="driving" Header="drive_bus" Width="SizeToHeader">
                     <DataGridTemplateColumn.CellTemplate>
@@ -24,12 +30,14 @@
                 <DataGridTemplateColumn x:Name="gasCol" Header="gastank" Width="SizeToHeader">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button x:Name="gas" Content="Fill Up"/>
+                            <Button x:Name="gas" Content="Fill Up" Click="Button_Click"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
+        <Button Content="Add a bus" HorizontalAlignment="Left" Margin="276,324,0,0" VerticalAlignment="Top" Width="440" Height="55" Click="Button_Click_add"/>
+
 
 
     </Grid>

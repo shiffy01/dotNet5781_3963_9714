@@ -24,7 +24,7 @@ namespace dotNet5781_01_3963_9714
         public int Milage { get; set; }
         public int Gas { get; set; }
         public int Number_of_passengers { get; set; }
-        public bool IsAccessable { get; set; }
+        public bool IsAccessible { get; set; }
         public bool HasWifi { get; set; }
         public bool HasDVD { get; set; }
 
@@ -109,7 +109,7 @@ namespace dotNet5781_01_3963_9714
             Last_tune_up = DateTime.Now;//busses go through tune_up when they arrive
             Status = Status_ops.Ready;//bus is ready to leave
             Number_of_passengers = passengers;
-            IsAccessable = accessable;
+            IsAccessible = accessable;
             HasWifi = wifi;
             HasDVD = dvd;
         }
@@ -175,26 +175,34 @@ namespace dotNet5781_01_3963_9714
             int milageLeft = 20000 - Milage;
             string toString = "License Plate: " + lp;
             toString += @"
+
+
                          Status: " + Status;
             toString += @"
+
                          Total milage: " + TotalMilage;
             toString += @"
+
                          " + milageLeft + " kilometers left till next tune up";
             toString += @"
+
                          Last tune up: " + Last_tune_up;
             toString += @"
+
                          Gas left: " + Gas;
             toString += @"
+
                           " + Number_of_passengers + " seats";
-            if (IsAccessable)
+            if (IsAccessible)
                 toString += @"
-                             *Accessable";
+
+                         *Accessible";
             if (HasWifi)
                 toString += @"
-                             *Wifi";
+                         *Wifi";
             if (HasDVD)
                 toString += @"
-                             *DVD player";
+                         *DVD player";
             return toString;
         }
 

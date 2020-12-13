@@ -7,51 +7,7 @@
         xmlns:dotNet5781_01_3963_9714="clr-namespace:dotNet5781_01_3963_9714" x:Class="dotNet5781_03B_3963_9714.BusDetails"
         mc:Ignorable="d"
         Title="BusDetails" Height="450" Width="400">
-    <Grid>
-
-        <Grid x:Name="grid1Bus" VerticalAlignment="Top" Margin="65,27,0,0" HorizontalAlignment="Left" >
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <Label VerticalAlignment="Center" Grid.Row="0" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="License:"/>
-            <TextBox x:Name="licenseFullTextBox" Width="120" VerticalAlignment="Center" Text="{Binding LicenseFull, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="0" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
-            <Label VerticalAlignment="Center" Grid.Row="1" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Gas:"/>
-            <TextBox x:Name="gasTextBox" Width="120" VerticalAlignment="Center" Text="{Binding Gas, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="1" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
-            <Label VerticalAlignment="Center" Grid.Row="2" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Has DVD:"/>
-            <CheckBox x:Name="hasDVDCheckBox" VerticalAlignment="Center" Grid.Row="21" Margin="3" IsChecked="{Binding HasDVD, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Grid.Column="1" Content=""/>
-            <Label VerticalAlignment="Center" Grid.Row="3" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Has Wifi:"/>
-            <CheckBox x:Name="hasWifiCheckBox" VerticalAlignment="Center" Grid.Row="3" Margin="3" IsChecked="{Binding HasWifi, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Grid.Column="1" Content=""/>
-            <Label VerticalAlignment="Center" Grid.Row="4" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Is Accessable:"/>
-            <CheckBox x:Name="isAccessableCheckBox" VerticalAlignment="Center" Grid.Row="4" Margin="3" IsChecked="{Binding IsAccessable, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Grid.Column="1" Content=""/>
-            <Label VerticalAlignment="Center" Grid.Row="5" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Last tune up:"/>
-            <DatePicker x:Name="last_tune_upDatePicker" VerticalAlignment="Center" SelectedDate="{Binding Last_tune_up, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="5" Margin="3" HorizontalAlignment="Left" Grid.Column="1"/>
-           
-            <Label VerticalAlignment="Center" Grid.Row="6" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Milage:"/>
-            <TextBox x:Name="milageTextBox" Width="120" VerticalAlignment="Center" Text="{Binding Milage, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="6" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
-            <Label VerticalAlignment="Center" Grid.Row="7" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Number of passengers:"/>
-            <TextBox x:Name="number_of_passengersTextBox" Width="120" VerticalAlignment="Center" Text="{Binding Number_of_passengers, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="7" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
-            <Label VerticalAlignment="Center" Grid.Row="8" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Start Date:"/>
-            <DatePicker x:Name="startDateDatePicker" VerticalAlignment="Center" SelectedDate="{Binding StartDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="8" Margin="3" HorizontalAlignment="Left" Grid.Column="1"/>
-            <Label VerticalAlignment="Center" Grid.Row="9" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Status:"/>
-            <TextBox x:Name="statusTextBox" Width="120" VerticalAlignment="Center" Text="{Binding Status, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="9" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
-            <Label VerticalAlignment="Center" Grid.Row="10" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Total Milage:"/>
-            <TextBox x:Name="totalMilageTextBox" Width="120" VerticalAlignment="Center" Text="{Binding TotalMilage, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="10" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
-        </Grid>
-
+    <Grid x:Name="details">
+        <TextBlock HorizontalAlignment="Left" Margin="26,10,0,0" TextWrapping="Wrap" Text="{Binding}" VerticalAlignment="Top" Height="379" Width="331"/>
     </Grid>
 </Window>

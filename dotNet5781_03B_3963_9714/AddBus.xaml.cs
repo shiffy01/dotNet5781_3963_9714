@@ -16,17 +16,20 @@ using dotNet5781_01_3963_9714;
 namespace dotNet5781_03B_3963_9714
 {
     /// <summary>
-    /// Interaction logic for BusDetails.xaml
+    /// Interaction logic for AddBus.xaml
     /// </summary>
-    public partial class BusDetails : Window
+    public partial class AddBus : Window
     {
-        public BusDetails(Bus b)
+        public Bus CurrentBus { get; set; }
+
+        public AddBus()
         {
             InitializeComponent();
-            details.DataContext = b;
-         
+            CurrentBus = new Bus(1234567, DateTime.Now, 12300, 56, false, false, false);
+            gridAdd.DataContext = CurrentBus;
         }
 
-      
+       
+        
     }
 }
