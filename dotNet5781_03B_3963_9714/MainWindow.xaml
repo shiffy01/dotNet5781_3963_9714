@@ -22,7 +22,7 @@
                 <DataGridTemplateColumn x:Name="driving" Header="drive_bus" Width="SizeToHeader">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button x:Name="drive" Content="Drive"/>
+                            <Button x:Name="drive" Content="Drive" Click="Button_Click_Drive"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

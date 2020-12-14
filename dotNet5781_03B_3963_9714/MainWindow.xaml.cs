@@ -101,6 +101,14 @@ namespace dotNet5781_03B_3963_9714
             buses.Add(resultBus);
           
         }
+        private void Button_Click_Drive(object sender, RoutedEventArgs e)
+        {
+            Bus b1 = (busDataGrid.SelectedItem as Bus);
+            DriveBus drive = new DriveBus(b1);
+            drive.ShowDialog();
+
+        }
+
 
         // private void busdatagrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         //{
