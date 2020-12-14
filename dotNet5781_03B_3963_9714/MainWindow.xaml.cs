@@ -32,13 +32,13 @@ namespace dotNet5781_03B_3963_9714
                 switch (i % 3)
                 {
                     case 0:
-                        buses.Add(new Bus(i*1000001, DateTime.Now, i, 56, true, false, false));
+                        buses.Add(new Bus(i * 1000001, DateTime.Now, i, 56, true, false, false));
                         break;
                     case 1:
-                        buses.Add(new Bus(i*1100002, DateTime.Now, i, 20, true, true, true));
+                        buses.Add(new Bus(i * 1100002, DateTime.Now, i, 20, true, true, true));
                         break;
                     case 2:
-                        buses.Add(new Bus(i*1200003, DateTime.Now, i, 16, false, false, true));
+                        buses.Add(new Bus(i * 1200003, DateTime.Now, i, 16, false, false, true));
                         break;
                 };
             }
@@ -80,32 +80,33 @@ namespace dotNet5781_03B_3963_9714
             b1.Refill();
         }
 
-       //// private void Button_Click_add(object sender, RoutedEventArgs e)
-       // {
-       //     Bus b = new Bus(1234567, DateTime.Now, 100, 50, true, false, true);
-       //     add add = new add(b);
-       // }
+        //// private void Button_Click_add(object sender, RoutedEventArgs e)
+        // {
+        //     Bus b = new Bus(1234567, DateTime.Now, 100, 50, true, false, true);
+        //     add add = new add(b);
+        // }
         private void Button_Click_add(object sender, RoutedEventArgs e)
         {
-             AddBus add = new AddBus();
-             add.Closed += AddBusWindow_Closed;
-             add.Show();
+            AddBus add = new AddBus();
+            add.Closed += AddBusWindow_Closed;
+            add.Show();
 
         }
-    private void AddBusWindow_Closed(object sender, EventArgs e)
-    {
-        Bus resultBus = (sender as AddBus).CurrentBus;
-            
-        buses.Add(resultBus);
+        private void AddBusWindow_Closed(object sender, EventArgs e)
+        {
+            Bus resultBus = (sender as AddBus).CurrentBus;
+
+            buses.Add(resultBus);
+        }
+
+        // private void busdatagrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        //{
+        //    Bus b1 = (busDataGrid.SelectedItem as Bus);
+        //    BusDetails bd = new BusDetails(b1);
+        //    bd.ShowDialog();
+        //}
+
+
     }
-
-    // private void busdatagrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-    //{
-    //    Bus b1 = (busDataGrid.SelectedItem as Bus);
-    //    BusDetails bd = new BusDetails(b1);
-    //    bd.ShowDialog();
-    //}
-
-
 }
-}
+
