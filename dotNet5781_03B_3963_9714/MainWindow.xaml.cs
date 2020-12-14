@@ -95,8 +95,9 @@ namespace dotNet5781_03B_3963_9714
         private void AddBusWindow_Closed(object sender, EventArgs e)
         {
             Bus resultBus = (sender as AddBus).CurrentBus;
-
+           if ((sender as AddBus).AddIt)
             buses.Add(resultBus);
+          
         }
 
         // private void busdatagrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
