@@ -1,0 +1,50 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:dotNet5781_03B_3963_9714"
+        xmlns:dotNet5781_01_3963_9714="clr-namespace:dotNet5781_01_3963_9714" x:Class="dotNet5781_03B_3963_9714.AddBus"
+        mc:Ignorable="d"
+        Title="AddBus" Height="450" Width="800">
+    <Grid>
+        <Grid x:Name="gridAdd" VerticalAlignment="Top" Margin="10,0,0,0" HorizontalAlignment="Left" Height="301" Width="704">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label VerticalAlignment="Center" Grid.Row="1" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Has DVD:"/>
+            <CheckBox x:Name="hasDVDCheckBox" VerticalAlignment="Center" Grid.Row="1" Margin="3" IsChecked="{Binding HasDVD, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Grid.Column="1" Content=""/>
+            <Label VerticalAlignment="Center" Grid.Row="2" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Has Wifi:"/>
+            <CheckBox x:Name="hasWifiCheckBox" VerticalAlignment="Center" Grid.Row="2" Margin="3" IsChecked="{Binding HasWifi, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Grid.Column="1" Content=""/>
+            <Label VerticalAlignment="Center" Grid.Row="3" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Is Accessible:"/>
+            <CheckBox x:Name="isAccessibleCheckBox" VerticalAlignment="Center" Grid.Row="3" Margin="3" IsChecked="{Binding IsAccessible, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Grid.Column="1" Content=""/>
+            <Label VerticalAlignment="Center" Grid.Row="5" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="License:"/>
+            <TextBox x:Name="licenseTextBox" Width="120" VerticalAlignment="Center" Text="{Binding License, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="5" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
+            <Label VerticalAlignment="Center" Grid.Row="8" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Number of passengers:"/>
+            <RadioButton x:Name="number_of_passengersRadioButton" VerticalAlignment="Center" Content="60" Grid.Row="8" Margin="3" IsChecked="{Binding Number_of_passengers60, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Grid.Column="1"/>
+            <RadioButton x:Name="number_of_passengersRadioButton2" VerticalAlignment="Center" Content="50" Grid.Row="9" Margin="3" IsChecked="{Binding Number_of_passengers50, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Grid.Column="1"/>
+            <RadioButton x:Name="number_of_passengersRadioButton3" VerticalAlignment="Center" Content="40" Grid.Row="10" Margin="3" IsChecked="{Binding Number_of_passengers40, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Grid.Column="1"/>
+            <Label VerticalAlignment="Center" Grid.Row="11" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Start Date:"/>
+            <DatePicker x:Name="startDateDatePicker" VerticalAlignment="Center" SelectedDate="{Binding StartDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="11" Margin="3" HorizontalAlignment="Left" Grid.Column="1"/>
+            <Label VerticalAlignment="Center" Grid.Row="12" Margin="4,34.333,0,-27.667" HorizontalAlignment="Left" Grid.Column="0" Content="Total Milage:" RenderTransformOrigin="0.562,1.981"/>
+            <TextBox x:Name="totalMilageTextBox" Width="120" VerticalAlignment="Center" Text="{Binding TotalMilage, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="12" Margin="3.667,29.333,0,-19" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
+        </Grid>
+        <Button x:Name="finalAdd" Content="Add" HorizontalAlignment="Left" Margin="89,340,0,0" VerticalAlignment="Top" Width="155" Height="43" Click="finalAdd_Click"/>
+
+    </Grid>
+</Window>

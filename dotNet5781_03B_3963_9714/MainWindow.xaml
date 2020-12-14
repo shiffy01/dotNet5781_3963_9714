@@ -1,0 +1,44 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:dotNet5781_03B_3963_9714"
+        xmlns:dotNet5781_01_3963_9714="clr-namespace:dotNet5781_01_3963_9714" x:Class="dotNet5781_03B_3963_9714.MainWindow"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="1000">
+   
+    <Grid>
+        <DataGrid x:Name="busDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="99,52,27.333,126.667" RowDetailsVisibilityMode="VisibleWhenSelected">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn x:Name="lp" Header="drive_bus" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="license" Content="{Binding LicenseFull}" MouseDoubleClick="licenseButton"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn x:Name="driving" Header="drive_bus" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="drive" Content="Drive"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn x:Name="gasCol" Header="gastank" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="gas" Content="Fill Up" Click="Button_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="Add a bus" HorizontalAlignment="Left" Margin="276,324,0,0" VerticalAlignment="Top" Width="440" Height="55" Click="Button_Click_add"/>
+
+
+
+    </Grid>
+</Window>
