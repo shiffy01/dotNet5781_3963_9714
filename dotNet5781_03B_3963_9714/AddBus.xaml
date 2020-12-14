@@ -44,7 +44,7 @@
             <Label VerticalAlignment="Center" Grid.Row="12" Margin="4,34.333,0,-27.667" HorizontalAlignment="Left" Grid.Column="0" Content="Total Milage:" RenderTransformOrigin="0.562,1.981"/>
             <TextBox x:Name="totalMilageTextBox" Width="120" VerticalAlignment="Center" Text="{Binding TotalMilage, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="12" Margin="3.667,29.333,0,-19" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
         </Grid>
-        <Button x:Name="finalAdd" Content="Add" HorizontalAlignment="Left" Margin="89,340,0,0" VerticalAlignment="Top" Width="155" Height="43"/>
+        <Button x:Name="finalAdd" Content="Add" HorizontalAlignment="Left" Margin="89,340,0,0" VerticalAlignment="Top" Width="155" Height="43" Click="finalAdd_Click"/>
 
     </Grid>
 </Window>

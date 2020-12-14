@@ -21,6 +21,7 @@ namespace dotNet5781_03B_3963_9714
     public partial class AddBus : Window
     {
         public Bus CurrentBus { get; set; }
+        bool addIt = false;
 
         public AddBus()
         {
@@ -29,7 +30,10 @@ namespace dotNet5781_03B_3963_9714
             gridAdd.DataContext = CurrentBus;
         }
 
-       
-        
+        private void finalAdd_Click(object sender, RoutedEventArgs e)
+        {
+            addIt = true;
+            this.Close();
+        }
     }
 }

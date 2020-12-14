@@ -95,6 +95,7 @@ namespace dotNet5781_03B_3963_9714
     private void AddBusWindow_Closed(object sender, EventArgs e)
     {
         Bus resultBus = (sender as AddBus).CurrentBus;
+            
         buses.Add(resultBus);
     }
 
