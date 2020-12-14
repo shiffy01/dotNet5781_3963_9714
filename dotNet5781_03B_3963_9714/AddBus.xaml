@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="AddBus" Height="450" Width="800">
     <Grid>
-       <Grid x:Name="gridAdd" VerticalAlignment="Top" Margin="10,0,0,-0.333" HorizontalAlignment="Left" Height="421" Width="783">
+        <Grid x:Name="gridAdd" VerticalAlignment="Top" Margin="10,0,0,0" HorizontalAlignment="Left" Height="301" Width="704">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -41,9 +41,10 @@
             <RadioButton x:Name="number_of_passengersRadioButton3" VerticalAlignment="Center" Content="40" Grid.Row="10" Margin="3" IsChecked="{Binding Number_of_passengers, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Grid.Column="1"/>
             <Label VerticalAlignment="Center" Grid.Row="11" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Start Date:"/>
             <DatePicker x:Name="startDateDatePicker" VerticalAlignment="Center" SelectedDate="{Binding StartDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="11" Margin="3" HorizontalAlignment="Left" Grid.Column="1"/>
-            <Label VerticalAlignment="Center" Grid.Row="12" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Total Milage:"/>
-            <TextBox x:Name="totalMilageTextBox" Width="120" VerticalAlignment="Center" Text="{Binding TotalMilage, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="12" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
+            <Label VerticalAlignment="Center" Grid.Row="12" Margin="4,34.333,0,-27.667" HorizontalAlignment="Left" Grid.Column="0" Content="Total Milage:" RenderTransformOrigin="0.562,1.981"/>
+            <TextBox x:Name="totalMilageTextBox" Width="120" VerticalAlignment="Center" Text="{Binding TotalMilage, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="12" Margin="3.667,29.333,0,-19" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
         </Grid>
+        <Button x:Name="finalAdd" Content="Add" HorizontalAlignment="Left" Margin="89,340,0,0" VerticalAlignment="Top" Width="155" Height="43"/>
 
     </Grid>
 </Window>
