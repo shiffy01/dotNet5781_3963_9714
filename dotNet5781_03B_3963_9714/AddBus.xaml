@@ -40,7 +40,12 @@
             <RadioButton x:Name="number_of_passengersRadioButton2" VerticalAlignment="Center" Content="50" Grid.Row="9" Margin="3" IsChecked="{Binding Number_of_passengers50, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Grid.Column="1"/>
             <RadioButton x:Name="number_of_passengersRadioButton3" VerticalAlignment="Center" Content="40" Grid.Row="10" Margin="3" IsChecked="{Binding Number_of_passengers40, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Grid.Column="1"/>
             <Label VerticalAlignment="Center" Grid.Row="11" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Start Date:"/>
-            <DatePicker x:Name="startDateDatePicker" VerticalAlignment="Center" SelectedDate="{Binding StartDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="11" Margin="3" HorizontalAlignment="Left" Grid.Column="1"/>
+            <DatePicker x:Name="startDateDatePicker"   VerticalAlignment="Center" SelectedDate="{Binding StartDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Row="11" Margin="3" HorizontalAlignment="Left" Grid.Column="1">
+                <DatePicker.BlackoutDates>
+                    <CalendarDateRange Start="01.15.2011"
+                        End="01.16.2011" />
+                </DatePicker.BlackoutDates>
+            </DatePicker>
             <Label VerticalAlignment="Center" Grid.Row="12" Margin="4,34.333,0,-27.667" HorizontalAlignment="Left" Grid.Column="0" Content="Total Milage:" RenderTransformOrigin="0.562,1.981"/>
             <TextBox x:Name="totalMilageTextBox" Width="120" VerticalAlignment="Center" Text="{Binding TotalMilage, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="12" Margin="3.667,29.333,0,-19" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
         </Grid>

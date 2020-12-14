@@ -163,7 +163,7 @@ namespace dotNet5781_01_3963_9714
             Last_tune_up = DateTime.Now;
         }
         //BIG PROBLEM WITH THIS FUNCTION!! IT DOESNT WORK WHEN THERE ARE ZEROS IN THE LICENSE PLATE!!!
-        public string PrintBus()//this function returns a string of the license plate with the -
+        public string PrintBus()//this function returns a string of the license plate with the -// NEED TO FIX THIS IT DOES 8 DIGITS WRONG
         {
 
             string finalLicense;
@@ -171,9 +171,14 @@ namespace dotNet5781_01_3963_9714
             {
                 int tmpLicense = License / 100000;//this gives us the first 2 digits of license
                 finalLicense = (tmpLicense + "-");
-                tmpLicense = (License - (tmpLicense * 100000)) / 100;//this gives us the next 3 digits
+                tmpLicense = tmpLicense % 100000;
+                if ((tmpLicense / 10000) == 0)
+                    finalLicense += "0";
+                finalLicense+= tmpLicense / 100;
                 finalLicense += (tmpLicense + "-");
                 tmpLicense = License % 100;//this gives us the last 2 digits
+                if (tmpLicense / 10 == 0)
+                    finalLicense += "0";
                 finalLicense += (tmpLicense);
             }
             else
@@ -182,8 +187,12 @@ namespace dotNet5781_01_3963_9714
                 int tmpLicense = License / 100000;//this gives us the first 3 digits of license
                 finalLicense = (tmpLicense + "-");
                 tmpLicense = (License - (tmpLicense * 100000)) / 1000;//this gives us the next 2 digits
+                if (tmpLicense / 10 == 0)
+                    finalLicense += "0";
                 finalLicense += (tmpLicense + "-");
-                tmpLicense = License % 1000;//this gives us the last 2 digits
+                tmpLicense = License % 1000;//this gives us the last 3 digits
+                if(tmpLicense / 100 == 0)
+                    finalLicense += "0";
                 finalLicense += (tmpLicense);
             }
             return finalLicense;
