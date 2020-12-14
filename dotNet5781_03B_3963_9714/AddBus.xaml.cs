@@ -21,18 +21,21 @@ namespace dotNet5781_03B_3963_9714
     public partial class AddBus : Window
     {
         public Bus CurrentBus { get; set; }
-        bool addIt = false;
+       public bool AddIt { get; set; }
 
         public AddBus()
         {
             InitializeComponent();
+            AddIt = false;
             CurrentBus = new Bus(1234567, DateTime.Now, 12300, 56, false, false, false);
             gridAdd.DataContext = CurrentBus;
         }
 
         private void finalAdd_Click(object sender, RoutedEventArgs e)
         {
-            addIt = true;
+            if(!(CurrentBus.License<1000000|| CurrentBus.License >99999999))//add all the other possible errors...
+            AddIt = true;
+            //else error
             this.Close();
         }
     }
