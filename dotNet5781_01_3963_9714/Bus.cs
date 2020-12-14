@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace dotNet5781_01_3963_9714
 {
-   public class Bus 
+    public class Bus
     {
         readonly int license;//מספר רישוי
-         DateTime startDate;//תאריך תחילת הפעילות
+        DateTime startDate;//תאריך תחילת הפעילות
         DateTime last_inspection;//
         int totalMilage;//נסועה כוללת
-        int milage;//נסועה מאז הטיפול האחרון       
+        int milage;//נסועה מאז הטיפול האחרון      
         int gas;//כמות דלק
-        
-        public Bus(int licenseNumber, DateTime date,  int curr_milage )
+
+        public Bus(int licenseNumber, DateTime date, int curr_milage)
         {
             license = licenseNumber;
             startDate = date;
@@ -36,31 +36,31 @@ namespace dotNet5781_01_3963_9714
         {
             return milage;
         }
-       
+
         public int getGas()
         {
-            return gas;		
+            return gas;
 
         }
-        
-         public  bool send_bus(int distance)//checks if bus has enough gas, and if its safe to drive.
-                                   //if it is, it updates the gas and milage, and returns true. otherwise it returns false and doesn't update anything
+
+        public bool send_bus(int distance)//checks if bus has enough gas, and if its safe to drive.
+                                          //if it is, it updates the gas and milage, and returns true. otherwise it returns false and doesn't update anything
         {
             if (milage + distance > 20000)//cant send a bus that is dangerous or will become dangerous durring the ride
-               
+
                 return false;
             if (gas - distance < 0)//cant send a bus that doesnt have enough gas
                 return false;
-            int diff = ( DateTime.Now- last_inspection).Days;
+            int diff = (DateTime.Now - last_inspection).Days;
             if (diff > 365)
                 return false;
-                //otherwise, update gas and milage
-                milage += distance;
+            //otherwise, update gas and milage
+            milage += distance;
             totalMilage += milage;
             gas -= distance;
             return true;//bus was sent
         }
-     public void refill()//refill tank
+        public void refill()//refill tank
         {
             gas = 1200;
         }
@@ -72,12 +72,12 @@ namespace dotNet5781_01_3963_9714
         public void printBus()
         {
 
-           
+
             if (startDate.Year < 2018)//license plates from before 2018 have 7 digits
             {
                 int tmpLicense = license / 100000;//this gives us the first 2 digits of license
                 Console.Write(tmpLicense + "-");
-                tmpLicense = (license - (tmpLicense * 100000))/100;//this gives us the next 3 digits
+                tmpLicense = (license - (tmpLicense * 100000)) / 100;//this gives us the next 3 digits
                 Console.Write(tmpLicense + "-");
                 tmpLicense = license % 100;//this gives us the last 2 digits
                 Console.Write(tmpLicense);
@@ -96,5 +96,5 @@ namespace dotNet5781_01_3963_9714
         }
 
     }
-    
+
 }
