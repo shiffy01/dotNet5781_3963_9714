@@ -27,13 +27,16 @@ namespace dotNet5781_03B_3963_9714
         {
             InitializeComponent();
             AddIt = false;
-            CurrentBus = new Bus(1234567, DateTime.Now, 12300, 56, false, false, false);
+            CurrentBus = new Bus(1234567, DateTime.Now, 12300, 50, false, false, false);
             gridAdd.DataContext = CurrentBus;
         }
 
         private void finalAdd_Click(object sender, RoutedEventArgs e)
         {
-            if(!(CurrentBus.License<1000000|| CurrentBus.License >99999999))//add all the other possible errors...
+           bool noPassengers=false;
+            if (CurrentBus.Number_of_passengers40 == false && CurrentBus.Number_of_passengers50 == false && CurrentBus.Number_of_passengers60 == false)
+                noPassengers = true;
+                if(!(CurrentBus.License<1000000|| CurrentBus.License >99999999||CurrentBus.Milage<0||noPassengers))//limit the date picker inside
             AddIt = true;
             //else error
             this.Close();
