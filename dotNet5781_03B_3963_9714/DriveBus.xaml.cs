@@ -36,7 +36,7 @@ namespace dotNet5781_03B_3963_9714
            // tbText = distance_tb.Text;
            
         }
-        private void drive_grid_KeyDown(object sender, KeyEventArgs e)//still has problems...
+        private void drive_grid_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Return)
             {
@@ -46,7 +46,7 @@ namespace dotNet5781_03B_3963_9714
 
 
             }
-            this.Close();
+           
         }
     }
 }

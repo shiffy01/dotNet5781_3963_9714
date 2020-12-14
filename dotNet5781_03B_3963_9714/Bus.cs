@@ -138,12 +138,12 @@ namespace dotNet5781_01_3963_9714
         {
 
             if (Milage + distance > 20000)//cant send a bus that is dangerous or will become dangerous durring the ride
-                return "The bus needs a tune up in order to go that far";
+                return "Bus needs a tune up in order to go that far";
             if (Gas - distance < 0)//cant send a bus that doesnt have enough gas
-                return "Not enough gas";
+                return "Bus doesnt have enough gas to go that far";
             int diff = (DateTime.Now - Last_tune_up).Days;
             if (diff > 365)//bus needs tune up
-                return "Bus needs a tune up";
+                return "Cannot drive this bus, it needs a tune up";
             if (Status != Status_ops.Ready)//if bus is occupied 
                 return "Bus is occupied";
             //otherwise, update gas and milage
@@ -237,4 +237,3 @@ namespace dotNet5781_01_3963_9714
     }
 
 }
-
