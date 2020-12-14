@@ -23,7 +23,9 @@ namespace dotNet5781_01_3963_9714
         public int TotalMilage { get; set; }
         public int Milage { get; set; }
         public int Gas { get; set; }
-        public int Number_of_passengers { get; set; }
+        public bool Number_of_passengers40 { get; set; }
+        public bool Number_of_passengers50 { get; set; }
+        public bool Number_of_passengers60 { get; set; }
         public bool IsAccessible { get; set; }
         public bool HasWifi { get; set; }
         public bool HasDVD { get; set; }
@@ -108,7 +110,24 @@ namespace dotNet5781_01_3963_9714
             Gas = 1200;//buses fill up the gas tank when they first arrive
             Last_tune_up = DateTime.Now;//busses go through tune_up when they arrive
             Status = Status_ops.Ready;//bus is ready to leave
-            Number_of_passengers = passengers;
+            if (passengers == 50)
+            {
+                Number_of_passengers50 = true;
+                Number_of_passengers60 = false;
+                Number_of_passengers40 = false;
+            }
+            if (passengers == 40)
+            {
+                Number_of_passengers40 = true;
+                Number_of_passengers60 = false;
+                Number_of_passengers50 = false;
+            }
+            if (passengers == 60)
+            {
+                Number_of_passengers60 = true;
+                Number_of_passengers50 = false;
+                Number_of_passengers40 = false;
+            }
             IsAccessible = accessable;
             HasWifi = wifi;
             HasDVD = dvd;
@@ -169,6 +188,15 @@ namespace dotNet5781_01_3963_9714
             }
             return finalLicense;
         }
+       public int Num_of_passengers()
+        {
+
+            if (Number_of_passengers60 == true)
+                return 60;
+            if (Number_of_passengers50 == true)
+                return 50;
+            return 40;
+        }
         public override string ToString()
         {
             string lp = PrintBus();
@@ -192,7 +220,7 @@ namespace dotNet5781_01_3963_9714
                          Gas left: " + Gas;
             toString += @"
 
-                          " + Number_of_passengers + " seats";
+                          " + Num_of_passengers() + " seats";
             if (IsAccessible)
                 toString += @"
 
