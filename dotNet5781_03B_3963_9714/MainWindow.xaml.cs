@@ -78,6 +78,8 @@ namespace dotNet5781_03B_3963_9714
         {
             Bus b1 = (busDataGrid.SelectedItem as Bus);
             b1.Refill();
+            MessageBox.Show("Gas tank was filled", " ", MessageBoxButton.OK, MessageBoxImage.Information);
+
         }
 
         //// private void Button_Click_add(object sender, RoutedEventArgs e)
