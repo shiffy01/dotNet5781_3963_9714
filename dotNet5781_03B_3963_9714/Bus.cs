@@ -180,7 +180,7 @@ namespace dotNet5781_01_3963_9714
                 {
                     if (tmpLicense < 1000)
                         finalLicense += "00";
-                    if (tmpLicense < 10000)
+                    if (tmpLicense < 10000 && tmpLicense >999)
                         finalLicense += "0";
                     finalLicense += tmpLicense / 100;
                     finalLicense +="-";
@@ -220,7 +220,7 @@ namespace dotNet5781_01_3963_9714
                 {
                     if (tmpLicense < 10)//1
                         finalLicense += "00";
-                    if (tmpLicense < 100)//2
+                    if (tmpLicense < 100 && tmpLicense >9)//2
                         finalLicense += "0";
                     finalLicense += tmpLicense;
                 }                             

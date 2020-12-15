@@ -37,7 +37,7 @@ namespace dotNet5781_03B_3963_9714
                 switch (i % 3)
                 {
                     case 0:
-                        buses.Add(new Bus(i * 1000001, DateTime.Now, i, 56, true, false, false));
+                        buses.Add(new Bus(12345008, DateTime.Now, i, 56, true, false, false));
                         break;
                     case 1:
                         buses.Add(new Bus(i * 1100002, DateTime.Now, i, 20, true, true, true));
@@ -80,7 +80,7 @@ namespace dotNet5781_03B_3963_9714
                 filled = false;
             Button b = (Button)sender;
             var s = b.Parent as Grid;        
-             c = s.Children[1] as Label;
+             c = s.Children[3] as Label;
           
             if (filled)
             {
@@ -105,7 +105,7 @@ namespace dotNet5781_03B_3963_9714
         private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             int time = e.ProgressPercentage;//check if this is only percent...
-            c.Content = time + "minutes left untill bus can drive";
+            c.Content  = time + "minutes left untill bus can drive";
             
            
 
