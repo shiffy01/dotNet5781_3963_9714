@@ -167,33 +167,63 @@ namespace dotNet5781_01_3963_9714
         {
 
             string finalLicense;
-            if (StartDate.Year < 2018)//license plates from before 2018 have 7 digits
+            if (License<10000000)//license plate hase 7 digits
             {
                 int tmpLicense = License / 100000;//this gives us the first 2 digits of license
                 finalLicense = (tmpLicense + "-");
-                tmpLicense = tmpLicense % 100000;
-                if ((tmpLicense / 10000) == 0)
-                    finalLicense += "0";
-                finalLicense+= tmpLicense / 100;
-                finalLicense += (tmpLicense + "-");
-                tmpLicense = License % 100;//this gives us the last 2 digits
-                if (tmpLicense / 10 == 0)
-                    finalLicense += "0";
-                finalLicense += (tmpLicense);
+                tmpLicense = License % 100000;
+                if (tmpLicense<100)//2 or less digits
+                {
+                    finalLicense += "000-";
+                }
+                else
+                {
+                    if (tmpLicense < 1000)
+                        finalLicense += "00";
+                    if (tmpLicense < 10000)
+                        finalLicense += "0";
+                    finalLicense += tmpLicense / 100;
+                    finalLicense +="-";
+                }
+
+                tmpLicense = tmpLicense % 100;
+                if (tmpLicense == 0)
+                    finalLicense += "00";
+                else
+                {
+                    if (tmpLicense < 10)
+                        finalLicense += "0";
+                    finalLicense += tmpLicense;
+                }
+               
             }
             else
-            //license plates from after 2018 have 8 digits
+            //license plate has 8 digits
             {
                 int tmpLicense = License / 100000;//this gives us the first 3 digits of license
                 finalLicense = (tmpLicense + "-");
-                tmpLicense = (License - (tmpLicense * 100000)) / 1000;//this gives us the next 2 digits
-                if (tmpLicense / 10 == 0)
-                    finalLicense += "0";
-                finalLicense += (tmpLicense + "-");
-                tmpLicense = License % 1000;//this gives us the last 3 digits
-                if(tmpLicense / 100 == 0)
-                    finalLicense += "0";
-                finalLicense += (tmpLicense);
+                tmpLicense = License % 100000;
+                if(tmpLicense<1000)//3 digits
+                {
+                    finalLicense += "00-";
+                }
+                else
+                {
+                    if (tmpLicense < 10000)//4 digits
+                        finalLicense += "0";
+                    finalLicense +=( tmpLicense / 1000)+"-";
+                    tmpLicense = tmpLicense % 1000;//gets last 3
+                }
+                if (tmpLicense == 0)
+                    finalLicense += "000";
+                else
+                {
+                    if (tmpLicense < 10)//1
+                        finalLicense += "00";
+                    if (tmpLicense < 100)//2
+                        finalLicense += "0";
+                    finalLicense += tmpLicense;
+                }                             
             }
             return finalLicense;
         }
