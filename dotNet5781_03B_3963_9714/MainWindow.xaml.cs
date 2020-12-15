@@ -17,6 +17,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading;
 
+//maybe in the xaml change selection to each cell figure out if that would help
 namespace dotNet5781_03B_3963_9714
 {
     /// <summary>
@@ -26,6 +27,7 @@ namespace dotNet5781_03B_3963_9714
     {
         ObservableCollection<Bus> buses = new ObservableCollection<Bus>();
         BackgroundWorker worker;
+        Label c;
         void Initialize_bus_collection()
         {
 
@@ -65,10 +67,34 @@ namespace dotNet5781_03B_3963_9714
             worker.DoWork += Worker_DoWork;
             worker.ProgressChanged += Worker_ProgressChanged;
             worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
+            worker.WorkerReportsProgress = true;
+            worker.WorkerSupportsCancellation = true;
+
         }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            bool filled = true;
+
+            Bus b1 = (busDataGrid.SelectedItem as Bus);
+            if (b1.Gas == 1200)
+                filled = false;
+            Button b = (Button)sender;
+            var s = b.Parent as Grid;        
+             c = s.Children[1] as Label;
+          
+            if (filled)
+            {
+                MessageBox.Show("Gas tank was filled", " ", MessageBoxButton.OK, MessageBoxImage.Information);
+                worker.RunWorkerAsync(12);
+            }
+
+           
+
+        }
+
         private void Worker_DoWork(object sender,DoWorkEventArgs e)
         {
-            //LABEL.INVISIBLE=FALSE;
+            c.Visibility = Visibility.Visible;
             int length = (int)e.Argument;
             for(int i=0; i<length; i++)
             {
@@ -79,14 +105,17 @@ namespace dotNet5781_03B_3963_9714
         private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             int time = e.ProgressPercentage;//check if this is only percent...
-            //busDataGrid.SelectedItem.
+            c.Content = time + "minutes left untill bus can drive";
             
+           
+
 
 
         }
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            //LABEL.INVISIBLE=TRUE
+
+            c.Visibility = Visibility.Hidden;       
         }
        
         private void licenseButton(object sender, RoutedEventArgs e)
@@ -95,23 +124,7 @@ namespace dotNet5781_03B_3963_9714
             BusDetails bd = new BusDetails(b1);
             bd.ShowDialog();
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            bool filled = true;
-          
-            Bus b1 = (busDataGrid.SelectedItem as Bus);
-            if (b1.Gas == 1200)
-                filled = false;
-            b1.Refill();
-            if (filled)
-            { 
-                MessageBox.Show("Gas tank was filled", " ", MessageBoxButton.OK, MessageBoxImage.Information);
-                worker.RunWorkerAsync(12);
-            }
-
-
-        }
-
+      
      
         private void Button_Click_add(object sender, RoutedEventArgs e)
         {

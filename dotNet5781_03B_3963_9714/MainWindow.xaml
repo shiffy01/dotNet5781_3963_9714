@@ -9,7 +9,7 @@
         Title="MainWindow" Height="450" Width="1000">
    
     <Grid>
-        <DataGrid x:Name="busDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="99,52,27.333,126.667" RowDetailsVisibilityMode="VisibleWhenSelected">
+        <DataGrid x:Name="busDataGrid"  AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="99,52,27.333,126.667" RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
                 <DataGridTemplateColumn x:Name="lp" Header="drive_bus" Width="SizeToHeader">
                     <DataGridTemplateColumn.CellTemplate>
