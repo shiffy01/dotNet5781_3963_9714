@@ -34,11 +34,13 @@ namespace dotNet5781_03B_3963_9714
         private void finalAdd_Click(object sender, RoutedEventArgs e)
         {
            bool noPassengers=false;
+            MessageBoxResult mbResult;
             if (CurrentBus.Number_of_passengers40 == false && CurrentBus.Number_of_passengers50 == false && CurrentBus.Number_of_passengers60 == false)
                 noPassengers = true;
                 if(!(CurrentBus.License<1000000|| CurrentBus.License >99999999||CurrentBus.Milage<0||noPassengers))//limit the date picker inside
             AddIt = true;
-            //else error
+                else
+            mbResult = MessageBox.Show("cannot add!");
             this.Close();
         }
     }

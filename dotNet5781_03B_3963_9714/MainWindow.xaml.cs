@@ -27,7 +27,7 @@ namespace dotNet5781_03B_3963_9714
     {
         ObservableCollection<Bus> buses = new ObservableCollection<Bus>();
         BackgroundWorker worker;
-        Label c;
+       
         void Initialize_bus_collection()
         {
 
@@ -62,7 +62,7 @@ namespace dotNet5781_03B_3963_9714
             InitializeComponent();
             Initialize_bus_collection();
             busDataGrid.DataContext = buses;
-            busDataGrid.IsReadOnly = true;
+           // busDataGrid.IsReadOnly = true;
             worker = new BackgroundWorker();
             worker.DoWork += Worker_DoWork;
             worker.ProgressChanged += Worker_ProgressChanged;
@@ -78,10 +78,7 @@ namespace dotNet5781_03B_3963_9714
             Bus b1 = (busDataGrid.SelectedItem as Bus);
             if (b1.Gas == 1200)
                 filled = false;
-            Button b = (Button)sender;
-            var s = b.Parent as Grid;        
-             c = s.Children[3] as Label;
-          
+            
             if (filled)
             {
                 MessageBox.Show("Gas tank was filled", " ", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -94,7 +91,7 @@ namespace dotNet5781_03B_3963_9714
 
         private void Worker_DoWork(object sender,DoWorkEventArgs e)
         {
-            c.Visibility = Visibility.Visible;
+           
             int length = (int)e.Argument;
             for(int i=0; i<length; i++)
             {
@@ -105,17 +102,14 @@ namespace dotNet5781_03B_3963_9714
         private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             int time = e.ProgressPercentage;//check if this is only percent...
-            c.Content  = time + "minutes left untill bus can drive";
-            
-           
-
-
-
+            Bus b1 = (busDataGrid.SelectedItem as Bus);
+            string mes = time + "seconds till the bus can drive";
+            b1.Seconds = mes;
         }
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
 
-            c.Visibility = Visibility.Hidden;       
+           // c.Visibility = Visibility.Hidden;       
         }
        
         private void licenseButton(object sender, RoutedEventArgs e)
@@ -136,8 +130,13 @@ namespace dotNet5781_03B_3963_9714
         private void AddBusWindow_Closed(object sender, EventArgs e)
         {
             Bus resultBus = (sender as AddBus).CurrentBus;
-           if ((sender as AddBus).AddIt)
-            buses.Add(resultBus);
+            if ((sender as AddBus).AddIt)
+            {
+                buses.Add(resultBus);
+                //Button b = (Button)sender;
+                //var s = b.Parent as Grid;
+                //c = s.Children[1] as Button;
+            }
           
         }
         private void Button_Click_Drive(object sender, RoutedEventArgs e)

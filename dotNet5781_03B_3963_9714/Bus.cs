@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+//do converter then finish תהליכונים
 
 namespace dotNet5781_01_3963_9714
 {
-    public class Bus
+    
+    public class Bus  
     {
         public enum Status_ops
         {
@@ -17,7 +19,8 @@ namespace dotNet5781_01_3963_9714
         }
         public Status_ops Status { get; set; }
         public int License { get; set; }
-        public string LicenseFull { get; set; }
+        string licenseFull;
+        public string LicenseFull { get { return PrintBus(); } }
         public DateTime StartDate { get; set; }
         public DateTime Last_tune_up { get; set; }
         public int TotalMilage { get; set; }
@@ -29,81 +32,13 @@ namespace dotNet5781_01_3963_9714
         public bool IsAccessible { get; set; }
         public bool HasWifi { get; set; }
         public bool HasDVD { get; set; }
-
-
-        //private Status_ops status;
-        //public Status_ops Status
-        //{
-        //    get { return status; }
-        //    set { status = value; }
-        //}
-
-        //readonly int license;//מספר רישוי
-        //private DateTime startDate;//תאריך תחילת הפעילות
-
-        //public DateTime StartDate
-        //{
-        //    get { return startDate; }
-        //    set { startDate = value; }
-        //}
-
-        //private DateTime last_tune_up;//
-
-        //public DateTime Last_tune_up
-        //{
-        //    get { return last_tune_up; }
-        //    set { last_tune_up = value; }
-        //}
-
-        //private int totalMilage;//נסועה כוללת
-        //public int TotalMilage
-        //{
-        //    get { return totalMilage; }
-        //    set { totalMilage = value; }
-        //}
-        //private int milage;//נסועה מאז הטיפול האחרון    
-        //public int Milage
-        //{
-        //    get { return milage; }
-        //    set { milage = value; }
-        //}
-        //private int gas;//כמות דלק
-        //public int Gas
-        //{
-        //    get { return gas; }
-        //    set { gas = value; }
-        //}
-        //private int number_of_passengers;
-
-        //public int Number_of_passengers
-        //{
-        //    get { return number_of_passengers; }
-        //    set { number_of_passengers = value; }
-        //}
-
-        //private bool isAccessable;//האם האוטובוס נגיש לנכים
-        //public bool IsAccessable
-        //{
-        //    get { return isAccessable; }
-        //    set { isAccessable = value; }
-        //}
-        //private bool hasWifi;//האם יש באוטובוס וויי - פיי
-        //public bool HasWifi
-        //{
-        //    get { return hasWifi; }
-        //    set { hasWifi = value; }
-        //}
-        //private bool hasDVD;// dvd האם יש באוטובוס 
-        //public bool HasDVD
-        //{
-        //    get { return hasDVD; }
-        //    set { hasDVD = value; }
-        //}
+        public string Seconds { get; set; }
+        public bool Isvisible { get; set; }
 
         public Bus(int licenseNumber, DateTime date, int curr_milage, int passengers, bool accessable, bool wifi, bool dvd)
         {
             License = licenseNumber;
-            LicenseFull = PrintBus();
+            
             StartDate = date;
             Milage = 0;//busses go through tune_up when they arrive
             TotalMilage = curr_milage;//total milage
@@ -162,7 +97,15 @@ namespace dotNet5781_01_3963_9714
             Milage = 0;
             Last_tune_up = DateTime.Now;
         }
-        //BIG PROBLEM WITH THIS FUNCTION!! IT DOESNT WORK WHEN THERE ARE ZEROS IN THE LICENSE PLATE!!!
+        //public object Convert()
+        //{
+        //    if (Isvisible)
+        //        return Hidden;
+        //}
+        //public object ConvertBack()
+        //{
+
+        //}
         public string PrintBus()//this function returns a string of the license plate with the -// NEED TO FIX THIS IT DOES 8 DIGITS WRONG
         {
 

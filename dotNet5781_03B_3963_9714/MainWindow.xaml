@@ -9,7 +9,8 @@
         Title="MainWindow" Height="450" Width="1000">
 
     <Grid>
-        <DataGrid x:Name="busDataGrid" HeadersVisibility="None" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="99,52,27.333,126.667" RowDetailsVisibilityMode="VisibleWhenSelected">
+      
+        <DataGrid x:Name="busDataGrid" IsSynchronizedWithCurrentItem="true" HeadersVisibility="None" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="99,52,27.333,126.667" RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
                 <DataGridTemplateColumn x:Name="lp" Header="drive_bus">
                     <DataGridTemplateColumn.CellTemplate>
@@ -19,7 +20,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn x:Name="driving" Header="drive_bus">
+                <DataGridTemplateColumn x:Name="driving">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button x:Name="drive" Content="Drive" Click="Button_Click_Drive"/>
@@ -27,10 +28,12 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
+              
+
                 <DataGridTemplateColumn x:Name="till_can_drive" Header="time till bus can drive">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Label x:Name="timeLabel" Visibility="Hidden"/>
+                            <Label x:Name="timeLabel" Content="{Binding Seconds}" Visibility="{Binding}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

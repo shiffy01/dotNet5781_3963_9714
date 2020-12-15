@@ -43,7 +43,7 @@ namespace dotNet5781_03B_3963_9714
                  curr_milage = int.Parse(distance_tb.Text);
                  message= CurrentBus.Send_bus(curr_milage);
                 MessageBoxResult mbResult = MessageBox.Show(message);
-
+                this.Close();
 
             }
            
