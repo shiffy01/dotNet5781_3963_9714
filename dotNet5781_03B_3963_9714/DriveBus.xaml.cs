@@ -20,8 +20,9 @@ namespace dotNet5781_03B_3963_9714
     /// </summary>
     public partial class DriveBus : Window
     {
-      private int curr_milage;
+        public int curr_milage;
         private string message;
+        public bool driven = false;
         public Bus CurrentBus { get; set; }
         public DriveBus(Bus bus)
         {
@@ -33,15 +34,22 @@ namespace dotNet5781_03B_3963_9714
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-           // tbText = distance_tb.Text;
            
+
         }
         private void drive_grid_KeyDown(object sender, KeyEventArgs e)
         {
+            if (e.Key < Key.D0 || e.Key > Key.D9) //Checking if only number and delete.
+            {
+                e.Handled = true;
+            }
             if (e.Key == Key.Return)
             {
                  curr_milage = int.Parse(distance_tb.Text);
                  message= CurrentBus.Send_bus(curr_milage);
+                if (message == "Bus sent")
+                    driven = true;
+
                 MessageBoxResult mbResult = MessageBox.Show(message);
                 this.Close();
 

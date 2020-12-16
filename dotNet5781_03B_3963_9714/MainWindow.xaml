@@ -8,9 +8,16 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="1000">
 
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </Window.Resources>
     <Grid>
-      
-        <DataGrid x:Name="busDataGrid" IsSynchronizedWithCurrentItem="true" HeadersVisibility="None" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="99,52,27.333,126.667" RowDetailsVisibilityMode="VisibleWhenSelected">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="480*"/>
+            <ColumnDefinition Width="17*"/>
+        </Grid.ColumnDefinitions>
+
+        <DataGrid x:Name="busDataGrid" IsSynchronizedWithCurrentItem="true" HeadersVisibility="None" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="99,42,433.333,138.667" RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
                 <DataGridTemplateColumn x:Name="lp" Header="drive_bus">
                     <DataGridTemplateColumn.CellTemplate>
@@ -28,16 +35,6 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-              
-
-                <DataGridTemplateColumn x:Name="till_can_drive" Header="time till bus can drive">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Label x:Name="timeLabel" Content="{Binding Seconds}" Visibility="{Binding}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-
                 <DataGridTemplateColumn x:Name="gasCol" Header="gastank">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -45,12 +42,26 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn x:Name="till_can_drive" Header="time till bus can drive">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label x:Name="timeLabel" Content="{Binding Seconds, Mode=TwoWay}" BorderThickness="0" Visibility="{Binding Path=ButtonVisibility, Converter={StaticResource BooleanToVisibilityConverter}, Mode=TwoWay}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn x:Name="till_can_drivepb" Header="time till bus can drive">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ProgressBar Height="30" Minimum="0" Maximum="100" Value="{Binding Progressb, Mode=TwoWay}" BorderThickness="0" Visibility="{Binding Path=ButtonVisibility, Converter={StaticResource BooleanToVisibilityConverter}, Mode=TwoWay}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+
             </DataGrid.Columns>
         </DataGrid>
         <Button Content="Add a bus" HorizontalAlignment="Left" Margin="276,324,0,0" VerticalAlignment="Top" Width="440" Height="55" Click="Button_Click_add"/>
-        
-
-
-
     </Grid>
 </Window>

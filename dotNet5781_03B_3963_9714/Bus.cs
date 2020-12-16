@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 //do converter then finish תהליכונים
 
 namespace dotNet5781_01_3963_9714
 {
-    
-    public class Bus  
+
+    public class Bus: INotifyPropertyChanged
     {
+        
         public enum Status_ops
         {
             Ready,
@@ -17,6 +21,7 @@ namespace dotNet5781_01_3963_9714
             Filling_up,
             At_mechanic
         }
+       
         public Status_ops Status { get; set; }
         public int License { get; set; }
         string licenseFull;
@@ -34,7 +39,19 @@ namespace dotNet5781_01_3963_9714
         public bool HasDVD { get; set; }
         public string Seconds { get; set; }
         public bool Isvisible { get; set; }
-
+        public bool ButtonVisibility { get; set; }
+        public int Time { get; set; }
+        public int Progressb {get; set;}
+        public event PropertyChangedEventHandler PropertyChanged;
+        //public event PropertyChangedEventHandler PropertyChanged2;
+        public void OnPropertyChanged([CallerMemberName] string seconds = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(Seconds));
+        }
+        //protected void OnPropertyChanged2([CallerMemberName] int time = null)
+        //{
+        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(Time));
+        //}
         public Bus(int licenseNumber, DateTime date, int curr_milage, int passengers, bool accessable, bool wifi, bool dvd)
         {
             License = licenseNumber;
@@ -45,6 +62,7 @@ namespace dotNet5781_01_3963_9714
             Gas = 1200;//buses fill up the gas tank when they first arrive
             Last_tune_up = DateTime.Now;//busses go through tune_up when they arrive
             Status = Status_ops.Ready;//bus is ready to leave
+            Seconds = "please";
             if (passengers == 50)
             {
                 Number_of_passengers50 = true;
@@ -100,11 +118,13 @@ namespace dotNet5781_01_3963_9714
         //public object Convert()
         //{
         //    if (Isvisible)
-        //        return Hidden;
+        //        return "Hidden";
+        //    else
+        //        return "Visible";
         //}
         //public object ConvertBack()
         //{
-
+        //    if(Visible)
         //}
         public string PrintBus()//this function returns a string of the license plate with the -// NEED TO FIX THIS IT DOES 8 DIGITS WRONG
         {
@@ -190,7 +210,7 @@ namespace dotNet5781_01_3963_9714
                          Status: " + Status;
             toString += @"
 
-                         Total milage: " + TotalMilage;
+                         Total mileage: " + TotalMilage;
             toString += @"
 
                          " + milageLeft + " kilometers left till next tune up";

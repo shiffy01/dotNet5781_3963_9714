@@ -27,6 +27,8 @@ namespace dotNet5781_03B_3963_9714
     {
         ObservableCollection<Bus> buses = new ObservableCollection<Bus>();
         BackgroundWorker worker;
+        BackgroundWorker worker2;
+        Bus user;
        
         void Initialize_bus_collection()
         {
@@ -61,65 +63,156 @@ namespace dotNet5781_03B_3963_9714
         {
             InitializeComponent();
             Initialize_bus_collection();
-            busDataGrid.DataContext = buses;
-           // busDataGrid.IsReadOnly = true;
             worker = new BackgroundWorker();
             worker.DoWork += Worker_DoWork;
             worker.ProgressChanged += Worker_ProgressChanged;
             worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
             worker.WorkerReportsProgress = true;
             worker.WorkerSupportsCancellation = true;
+            worker2 = new BackgroundWorker();
+            worker2.DoWork += Worker2_DoWork;
+            worker2.ProgressChanged += Worker2_ProgressChanged;
+            worker2.RunWorkerCompleted += Worker2_RunWorkerCompleted;
+            worker2.WorkerReportsProgress = true;
+            worker2.WorkerSupportsCancellation = true;
+            busDataGrid.DataContext = buses;
+
 
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             bool filled = true;
-
-            Bus b1 = (busDataGrid.SelectedItem as Bus);
+            var button = sender as Button;
+            var b1 = (button.DataContext as Bus);
+            user = b1;
             if (b1.Gas == 1200)
                 filled = false;
             
             if (filled)
             {
                 MessageBox.Show("Gas tank was filled", " ", MessageBoxButton.OK, MessageBoxImage.Information);
-                worker.RunWorkerAsync(12);
+                b1.Refill();
+                b1.Time = 12;
+                b1.ButtonVisibility = true;
+              //  b1.Seconds = "at least";
+               worker.RunWorkerAsync(b1);
+                worker2.RunWorkerAsync(b1);
             }
-
-           
-
         }
 
         private void Worker_DoWork(object sender,DoWorkEventArgs e)
         {
-           
-            int length = (int)e.Argument;
-            for(int i=0; i<length; i++)
+          
+            Bus bb = (Bus)e.Argument;
+            
+            for(int i=0; i<bb.Time; i++)
             {
+                
                 System.Threading.Thread.Sleep(1000);//one second
-                worker.ReportProgress((length - i) * 10);//im not sure if i can give any number here or just percent. see if this works
+                worker.ReportProgress((bb.Time - i) * 10);//im not sure if i can give any number here or just percent. see if this works
             }
         }
         private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             int time = e.ProgressPercentage;//check if this is only percent...
-            Bus b1 = (busDataGrid.SelectedItem as Bus);
-            string mes = time + "seconds till the bus can drive";
-            b1.Seconds = mes;
+           
+            string mes = time + " minutes till the bus can drive";
+            user.Seconds = mes;
+            //OnPropertyChanged(user.Seconds);
+            
+            //     this.Invoke( {someLabel.Text = newText;
         }
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-
-           // c.Visibility = Visibility.Hidden;       
+            if(user.Milage>=20000&&user.Gas<1200)
+            {
+                user.Status = Bus.Status_ops.At_mechanic;//do going to mechanic &gas
+            }
+           else
+            {
+                if (user.Milage >= 20000)
+                {
+                    user.Status = Bus.Status_ops.At_mechanic;//do going to mechanic
+                }
+                if (user.Gas < 1200)
+                {
+                    user.Status = Bus.Status_ops.Filling_up;//do fill up
+                }
+            }
+            user.ButtonVisibility = false;
         }
-       
+        private void Worker2_DoWork(object sender, DoWorkEventArgs e)
+        {
+
+            Bus bb = (Bus)e.Argument;
+            int percent = 0;
+            for (int i = 0; i < bb.Time; i++)
+            {
+                percent += i;
+                System.Threading.Thread.Sleep(1000);//one second
+                worker2.ReportProgress(percent);//im not sure if i can give any number here or just percent. see if this works
+            }
+        }
+        private void Worker2_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            user.Progressb= e.ProgressPercentage;
+        }
+        private void Worker2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            user.ButtonVisibility = false;
+        }
+
         private void licenseButton(object sender, RoutedEventArgs e)
         {
-            Bus b1 = (busDataGrid.SelectedItem as Bus);
+            var button = sender as Button;
+            var b1 = (button.DataContext as Bus);
+            user = b1;
             BusDetails bd = new BusDetails(b1);
+            bd.Closed += BusDetails_Closed;
             bd.ShowDialog();
         }
-      
-     
+        private void BusDetails_Closed(object sender, EventArgs e)
+        {
+            if((sender as BusDetails).Fill)
+            {
+                bool filled = true;
+
+                Bus b1 = (sender as BusDetails).thisBus;
+              
+                if (b1.Gas == 1200)
+                    filled = false;
+
+                if (filled)
+                {
+                    MessageBox.Show("Gas tank was filled", " ", MessageBoxButton.OK, MessageBoxImage.Information);
+                    b1.Refill();
+                    b1.Time = 12;
+                    b1.ButtonVisibility = true;
+                    //  b1.Seconds = "at least";
+                    worker.RunWorkerAsync(b1);
+                    worker2.RunWorkerAsync(b1);
+                }
+            }
+            if ((sender as BusDetails).Tune)
+            {
+                Bus b1 = (sender as BusDetails).thisBus;
+                bool tune = true;
+                if (b1.Milage == 0)
+                    tune = false;
+                if(tune)
+                {
+                    MessageBox.Show("Bus was tuned up", " ", MessageBoxButton.OK, MessageBoxImage.Information);
+                    b1.Tune_up();
+                    b1.Time = 144;
+                    b1.ButtonVisibility = true;
+                    //  b1.Seconds = "at least";
+                    worker.RunWorkerAsync(b1);
+                    worker2.RunWorkerAsync(b1);
+                }
+            }
+        }
+
+
         private void Button_Click_add(object sender, RoutedEventArgs e)
         {
             AddBus add = new AddBus();
@@ -143,19 +236,25 @@ namespace dotNet5781_03B_3963_9714
         {
             Bus b1 = (busDataGrid.SelectedItem as Bus);
             DriveBus drive = new DriveBus(b1);
+            drive.Closed += DriveBusWindow_Closed;
             drive.ShowDialog();
 
         }
 
-
-        // private void busdatagrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        //{
-        //    Bus b1 = (busDataGrid.SelectedItem as Bus);
-        //    BusDetails bd = new BusDetails(b1);
-        //    bd.ShowDialog();
-        //}
-
-
+        private void DriveBusWindow_Closed(object sender, EventArgs e)
+        {
+            if ((sender as DriveBus).driven)
+            {
+                Random rand = new Random(DateTime.Now.Millisecond);
+                int kamash = rand.Next(20, 51);
+                //זמן*מהירות=דרך
+                user = (sender as DriveBus).CurrentBus;
+                user.Status = Bus.Status_ops.On_the_road;
+                user.Time=((((sender as DriveBus).curr_milage)/kamash)*6);               
+                worker.RunWorkerAsync(user);
+                worker2.RunWorkerAsync(user);
+            }
+        }
     }
 }
 
