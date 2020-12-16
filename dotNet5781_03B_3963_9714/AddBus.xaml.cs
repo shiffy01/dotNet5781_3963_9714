@@ -39,6 +39,7 @@ namespace dotNet5781_03B_3963_9714
                 noPassengers = true;
                 if(!(CurrentBus.License<1000000|| CurrentBus.License >99999999||CurrentBus.Milage<0||noPassengers))//limit the date picker inside
             AddIt = true;
+
                 else
             mbResult = MessageBox.Show("cannot add!");
             this.Close();

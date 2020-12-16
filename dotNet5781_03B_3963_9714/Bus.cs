@@ -42,6 +42,7 @@ namespace dotNet5781_01_3963_9714
         public bool ButtonVisibility { get; set; }
         public int Time { get; set; }
         public int Progressb {get; set;}
+        public bool CanDrive { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
         //public event PropertyChangedEventHandler PropertyChanged2;
         public void OnPropertyChanged([CallerMemberName] string seconds = null)
@@ -62,6 +63,7 @@ namespace dotNet5781_01_3963_9714
             Gas = 1200;//buses fill up the gas tank when they first arrive
             Last_tune_up = DateTime.Now;//busses go through tune_up when they arrive
             Status = Status_ops.Ready;//bus is ready to leave
+            CanDrive = true;
             Seconds = "please";
             if (passengers == 50)
             {
@@ -126,6 +128,7 @@ namespace dotNet5781_01_3963_9714
         //{
         //    if(Visible)
         //}
+       
         public string PrintBus()//this function returns a string of the license plate with the -// NEED TO FIX THIS IT DOES 8 DIGITS WRONG
         {
 

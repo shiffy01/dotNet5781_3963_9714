@@ -52,13 +52,21 @@ namespace dotNet5781_03B_3963_9714
             //make one bus be passed the tune up date:
             DateTime date = new DateTime(2017, 01, 01);
             buses[0].Last_tune_up = date;
+            buses[0].CanDrive = false;
             //make one bus at least be close to the max milage allowed:
             buses[1].TotalMilage = 19990;
             //make one bus with very little gas:
             buses[3].Gas = 10;
         }
 
-
+        public bool DoesExist(int license)
+        {
+            bool exists = false;
+            for (int i = 0; i < buses.Count; i++)
+                if (buses[i].License == license)
+                    exists = true;
+            return exists;
+        }
         public MainWindow()
         {
             InitializeComponent();
@@ -79,7 +87,7 @@ namespace dotNet5781_03B_3963_9714
 
 
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click_gas(object sender, RoutedEventArgs e)
         {
             bool filled = true;
             var button = sender as Button;
@@ -87,9 +95,11 @@ namespace dotNet5781_03B_3963_9714
             user = b1;
             if (b1.Gas == 1200)
                 filled = false;
-            
+            user = b1;
             if (filled)
             {
+                if (user.CanDrive == true)
+                    user.CanDrive = false;
                 MessageBox.Show("Gas tank was filled", " ", MessageBoxButton.OK, MessageBoxImage.Information);
                 b1.Refill();
                 b1.Time = 12;
@@ -124,22 +134,86 @@ namespace dotNet5781_03B_3963_9714
         }
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if(user.Milage>=20000&&user.Gas<1200)
-            {
-                user.Status = Bus.Status_ops.At_mechanic;//do going to mechanic &gas
-            }
-           else
-            {
-                if (user.Milage >= 20000)
-                {
-                    user.Status = Bus.Status_ops.At_mechanic;//do going to mechanic
-                }
-                if (user.Gas < 1200)
-                {
-                    user.Status = Bus.Status_ops.Filling_up;//do fill up
-                }
-            }
             user.ButtonVisibility = false;
+            if (user.Status == Bus.Status_ops.At_mechanic || user.Status == Bus.Status_ops.Filling_up)
+            { 
+                user.Status = Bus.Status_ops.Ready;
+                user.CanDrive = true;
+            }
+            else
+            {
+                if (user.Status == Bus.Status_ops.On_the_road)
+                {
+                    if (user.Milage < 20000 && user.Gas == 1200)
+                        user.Status = Bus.Status_ops.Ready;
+                        if (user.Milage >= 20000 && user.Gas < 1200)
+                    {
+                        user.Status = Bus.Status_ops.At_mechanic;
+                        user.Status = Bus.Status_ops.At_mechanic;
+                        Bus b1 = (sender as BusDetails).thisBus;
+                        bool tune = true;
+                        if (b1.Milage == 0)
+                            tune = false;
+                        if (tune)
+                        {
+                            MessageBox.Show("Bus was tuned up", " ", MessageBoxButton.OK, MessageBoxImage.Information);
+                            b1.Tune_up();
+                            b1.Refill();
+                            user = b1;
+                            b1.Time = 144;
+                            b1.ButtonVisibility = true;
+                            //  b1.Seconds = "at least";
+                            worker.RunWorkerAsync(b1);
+                            worker2.RunWorkerAsync(b1);
+                        }
+
+                    }
+                    else
+                    {
+                        if (user.Milage >= 20000)
+                        {
+                            user.Status = Bus.Status_ops.At_mechanic;
+                            Bus b1 = (sender as BusDetails).thisBus;
+                            bool tune = true;
+                            if (b1.Milage == 0)
+                                tune = false;
+                            if (tune)
+                            {
+                                MessageBox.Show("Bus was tuned up", " ", MessageBoxButton.OK, MessageBoxImage.Information);
+                                b1.Tune_up();
+                                user = b1;
+                                b1.Time = 144;
+                                b1.ButtonVisibility = true;
+                                //  b1.Seconds = "at least";
+                                worker.RunWorkerAsync(b1);
+                                worker2.RunWorkerAsync(b1);
+                            }
+                        }
+                        if (user.Gas < 1200)
+                        {
+                            user.Status = Bus.Status_ops.Filling_up;
+                            bool filled = true;
+                            var button = sender as Button;
+                            var b1 = (button.DataContext as Bus);
+                            user = b1;
+                            if (b1.Gas == 1200)
+                                filled = false;
+
+                            if (filled)
+                            {
+                                MessageBox.Show("Gas tank was filled", " ", MessageBoxButton.OK, MessageBoxImage.Information);
+                                b1.Refill();
+                                b1.Time = 12;
+                                b1.ButtonVisibility = true;
+                                user = b1;
+                                worker.RunWorkerAsync(b1);
+                                worker2.RunWorkerAsync(b1);
+                            }
+                        }
+                    }
+                }
+            }
+            
         }
         private void Worker2_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -184,11 +258,13 @@ namespace dotNet5781_03B_3963_9714
 
                 if (filled)
                 {
+                    b1.Status = Bus.Status_ops.Filling_up;
                     MessageBox.Show("Gas tank was filled", " ", MessageBoxButton.OK, MessageBoxImage.Information);
                     b1.Refill();
                     b1.Time = 12;
+                    user = b1;
                     b1.ButtonVisibility = true;
-                    //  b1.Seconds = "at least";
+                    user.CanDrive = false;
                     worker.RunWorkerAsync(b1);
                     worker2.RunWorkerAsync(b1);
                 }
@@ -201,8 +277,12 @@ namespace dotNet5781_03B_3963_9714
                     tune = false;
                 if(tune)
                 {
+                    
                     MessageBox.Show("Bus was tuned up", " ", MessageBoxButton.OK, MessageBoxImage.Information);
                     b1.Tune_up();
+                    user = b1;
+                    user.CanDrive = false;
+                    b1.Status = Bus.Status_ops.At_mechanic;
                     b1.Time = 144;
                     b1.ButtonVisibility = true;
                     //  b1.Seconds = "at least";
@@ -223,6 +303,8 @@ namespace dotNet5781_03B_3963_9714
         private void AddBusWindow_Closed(object sender, EventArgs e)
         {
             Bus resultBus = (sender as AddBus).CurrentBus;
+            if (DoesExist(resultBus.License))
+                (sender as AddBus).AddIt = false;
             if ((sender as AddBus).AddIt)
             {
                 buses.Add(resultBus);
@@ -250,7 +332,9 @@ namespace dotNet5781_03B_3963_9714
                 //זמן*מהירות=דרך
                 user = (sender as DriveBus).CurrentBus;
                 user.Status = Bus.Status_ops.On_the_road;
-                user.Time=((((sender as DriveBus).curr_milage)/kamash)*6);               
+                user.Time=((((sender as DriveBus).curr_milage)/kamash)*6);
+                user.Status = Bus.Status_ops.On_the_road;
+                user.CanDrive = false;
                 worker.RunWorkerAsync(user);
                 worker2.RunWorkerAsync(user);
             }
