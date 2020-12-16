@@ -149,7 +149,7 @@ namespace dotNet5781_03B_3963_9714
             int percent = 0;//percent of time that the bus cannot drive that passed
             for (int i = 0; i < user.Time; i++)
             {
-                percent += i;
+                percent += i*(100/user.Time);
                 System.Threading.Thread.Sleep(1000);//one second
                 worker2.ReportProgress(percent);
             }
@@ -165,8 +165,8 @@ namespace dotNet5781_03B_3963_9714
         private void licenseButton(object sender, RoutedEventArgs e)
         {
             var button = sender as Button;
-            user = (button.DataContext as Bus);
-            BusDetails bd = new BusDetails(user);
+            Bus b1= (button.DataContext as Bus);
+            BusDetails bd = new BusDetails(b1);
             bd.Closed += BusDetails_Closed;
             bd.ShowDialog();
         }
@@ -174,51 +174,87 @@ namespace dotNet5781_03B_3963_9714
         {
             if((sender as BusDetails).Fill)//user pressed refill button
             {     
-                user = (sender as BusDetails).thisBus;
+                Bus b1 = (sender as BusDetails).thisBus;
                 if (user.Gas == 1200)
                     MessageBox.Show("Gas tank was already full", " ", MessageBoxButton.OK, MessageBoxImage.Information);
                 else
                 {
                     user.Status = Bus.Status_ops.Filling_up;
                     MessageBox.Show("Gas tank being refilled", " ", MessageBoxButton.OK, MessageBoxImage.Information);
-                    user.Refill();
-                    user.Time = 12;//2 hours in real time
-                    user.ButtonVisibility = true;
-                    user.CanDrive = false;
-                    worker.RunWorkerAsync(user);
-                    worker2.RunWorkerAsync(user);
+                    b1.Refill();
+                    b1.Time = 12;//2 hours in real time
+                    b1.ButtonVisibility = true;
+                    b1.CanDrive = false;
+                    BackgroundWorker gas = new BackgroundWorker();
+                    gas.DoWork += Worker_DoWork;
+                    gas.ProgressChanged += Worker_ProgressChanged;
+                    gas.RunWorkerCompleted += Worker_RunWorkerCompleted;
+                    gas.WorkerReportsProgress = true;
+                    gas.WorkerSupportsCancellation = true;
+                    BackgroundWorker gas2 = new BackgroundWorker();
+                    gas2.DoWork += Worker2_DoWork;
+                    gas2.ProgressChanged += Worker2_ProgressChanged;
+                    gas2.RunWorkerCompleted += Worker2_RunWorkerCompleted;
+                    gas2.WorkerReportsProgress = true;
+                    gas2.WorkerSupportsCancellation = true;
+                    gas.RunWorkerAsync(b1);
+                    gas2.RunWorkerAsync(b1);
                 }
             }
             if ((sender as BusDetails).Tune)//user pressed tune up button
             {
-                user = (sender as BusDetails).thisBus;
+                Bus b1 = (sender as BusDetails).thisBus;
                 MessageBox.Show("Bus being sent for a tune up...", " ", MessageBoxButton.OK, MessageBoxImage.Information);
-                user.Tune_up();
-                user.CanDrive = false;
-                user.Status = Bus.Status_ops.At_mechanic;
-                user.Time = 144;//one day in real time
-                user.ButtonVisibility = true;
-                worker.RunWorkerAsync(user);
-                worker2.RunWorkerAsync(user);     
+                b1.Tune_up();
+                b1.CanDrive = false;
+                b1.Status = Bus.Status_ops.At_mechanic;
+                b1.Time = 144;//one day in real time
+                b1.ButtonVisibility = true;
+                BackgroundWorker tune = new BackgroundWorker();
+                tune.DoWork += Worker_DoWork;
+                tune.ProgressChanged += Worker_ProgressChanged;
+                tune.RunWorkerCompleted += Worker_RunWorkerCompleted;
+                tune.WorkerReportsProgress = true;
+                tune.WorkerSupportsCancellation = true;
+                BackgroundWorker tune2 = new BackgroundWorker();
+                tune2.DoWork += Worker2_DoWork;
+                tune2.ProgressChanged += Worker2_ProgressChanged;
+                tune2.RunWorkerCompleted += Worker2_RunWorkerCompleted;
+                tune2.WorkerReportsProgress = true;
+                tune2.WorkerSupportsCancellation = true;
+                tune.RunWorkerAsync(b1);
+                tune2.RunWorkerAsync(b1);
             }
         }
         private void Button_Click_gas(object sender, RoutedEventArgs e)
         {
             bool filled = true;//asume the bus needs a refill
             var button = sender as Button;
-            user = (button.DataContext as Bus);
-            if (user.Gas == 1200)
+            Bus b1 = (button.DataContext as Bus);
+            if (b1.Gas == 1200)
                 filled = false;//the bus does not need a refill
             if (filled)
             {
-                if (user.CanDrive == true)
-                    user.CanDrive = false;//the bus will not be in use while refilling
+                if (b1.CanDrive == true)
+                    b1.CanDrive = false;//the bus will not be in use while refilling
                 MessageBox.Show("Gas tank being refilled...", " ", MessageBoxButton.OK, MessageBoxImage.Information);
-                user.Refill();
-                user.Time = 12;//12 seconds= 2 hours real time
-                user.ButtonVisibility = true;
-                worker.RunWorkerAsync(user);
-                worker2.RunWorkerAsync(user);
+                b1.Refill();
+                b1.Time = 12;//12 seconds= 2 hours real time
+                b1.ButtonVisibility = true;
+                BackgroundWorker gas = new BackgroundWorker();
+                gas.DoWork += Worker_DoWork;
+                gas.ProgressChanged += Worker_ProgressChanged;
+                gas.RunWorkerCompleted += Worker_RunWorkerCompleted;
+                gas.WorkerReportsProgress = true;
+                gas.WorkerSupportsCancellation = true;
+                BackgroundWorker gas2 = new BackgroundWorker();
+                gas2.DoWork += Worker2_DoWork;
+                gas2.ProgressChanged += Worker2_ProgressChanged;
+                gas2.RunWorkerCompleted += Worker2_RunWorkerCompleted;
+                gas2.WorkerReportsProgress = true;
+                gas2.WorkerSupportsCancellation = true;
+                gas.RunWorkerAsync(b1);
+                gas2.RunWorkerAsync(b1);
             }
             else
                 MessageBox.Show("Gas tank was already full", " ", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -253,14 +289,26 @@ namespace dotNet5781_03B_3963_9714
             {
                 Random rand = new Random(DateTime.Now.Millisecond);
                 int kamash = rand.Next(20, 51);//random speed between 20 and 50 km per hour
-                user = (sender as DriveBus).CurrentBus;
-                user.Status = Bus.Status_ops.On_the_road;
-                user.Time=((((sender as DriveBus).curr_milage)/kamash)*6);  //זמן*מהירות=דרך
-                user.Status = Bus.Status_ops.On_the_road;
-                user.CanDrive = false;
-                user.ButtonVisibility = true;
-                worker.RunWorkerAsync(user);
-                worker2.RunWorkerAsync(user);
+                Bus b1 = (sender as DriveBus).CurrentBus;
+                b1.Status = Bus.Status_ops.On_the_road;
+                b1.Time=((((sender as DriveBus).curr_milage)/kamash)*6);  //זמן*מהירות=דרך
+                b1.Status = Bus.Status_ops.On_the_road;
+                b1.CanDrive = false;
+                b1.ButtonVisibility = true;
+                BackgroundWorker drive = new BackgroundWorker();
+                drive.DoWork += Worker_DoWork;
+                drive.ProgressChanged += Worker_ProgressChanged;
+                drive.RunWorkerCompleted += Worker_RunWorkerCompleted;
+                drive.WorkerReportsProgress = true;
+                drive.WorkerSupportsCancellation = true;
+                BackgroundWorker drive2 = new BackgroundWorker();
+                drive2.DoWork += Worker2_DoWork;
+                drive2.ProgressChanged += Worker2_ProgressChanged;
+                drive2.RunWorkerCompleted += Worker2_RunWorkerCompleted;
+                drive2.WorkerReportsProgress = true;
+                drive2.WorkerSupportsCancellation = true;
+                drive.RunWorkerAsync(b1);
+                drive2.RunWorkerAsync(b1);
             }
         }
     }

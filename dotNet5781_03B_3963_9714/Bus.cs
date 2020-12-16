@@ -13,7 +13,7 @@ namespace dotNet5781_01_3963_9714
 
     public class Bus: INotifyPropertyChanged
     {
-        
+        public event PropertyChangedEventHandler PropertyChanged;
         public enum Status_ops
         {
             Ready,
@@ -46,26 +46,26 @@ namespace dotNet5781_01_3963_9714
                 seconds = value;
                 if (PropertyChanged != null)
                 {
-                    PropertyChanged(this, new PropertyChangedEventArgs("Secs"));
+                    // PropertyChanged(this, new PropertyChangedEventArgs("Secs"));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("seconds"));
                 }
 
             }
         }
-        public bool isvisible;
-        public bool Isvisible 
-        {
-            get { return isvisible; }
-            set
-            {
-                isvisible = value;
-                if (PropertyChanged != null)
+        public bool buttonVisibility;
+        public bool ButtonVisibility
+        { 
+              get { return buttonVisibility; }
+              set
                 {
-                    PropertyChanged(this, new PropertyChangedEventArgs("Vis"));
+                buttonVisibility = value;
+                    if (PropertyChanged != null)
+                    {
+                        //PropertyChanged(this, new PropertyChangedEventArgs("Vis"));
+                        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("buttonVisibility"));
+                    }
                 }
-
             }
-        }
-        public bool ButtonVisibility { get; set; }
         public int Time { get; set; }//real time
         public int progressb;
         public int Progressb 
@@ -76,14 +76,28 @@ namespace dotNet5781_01_3963_9714
                 progressb = value;
                 if (PropertyChanged != null)
                 {
-                    PropertyChanged(this, new PropertyChangedEventArgs("Pb"));
+                    // PropertyChanged(this, new PropertyChangedEventArgs("Pb"));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("progressb"));
                 }
 
             }
         }
-        public bool CanDrive { get; set; }
-        public event PropertyChangedEventHandler PropertyChanged;
-        //public event PropertyChangedEventHandler PropertyChanged2;
+        public bool canDrive;
+        public bool CanDrive
+        {
+            get { return canDrive; }
+            set
+            {
+                canDrive = value;
+                if (PropertyChanged != null)
+                {
+                    //PropertyChanged(this, new PropertyChangedEventArgs("Vis"));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("canDrive"));
+                }
+            }
+        }
+      
+      
         public void OnPropertyChanged([CallerMemberName] string seconds = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(Seconds));
@@ -103,7 +117,7 @@ namespace dotNet5781_01_3963_9714
             Last_tune_up = DateTime.Now;//busses go through tune_up when they arrive
             Status = Status_ops.Ready;//bus is ready to leave
             CanDrive = true;
-            Seconds = "please";
+            progressb = 0;
             if (passengers == 50)
             {
                 Number_of_passengers50 = true;
@@ -156,17 +170,7 @@ namespace dotNet5781_01_3963_9714
             Milage = 0;
             Last_tune_up = DateTime.Now;
         }
-        //public object Convert()
-        //{
-        //    if (Isvisible)
-        //        return "Hidden";
-        //    else
-        //        return "Visible";
-        //}
-        //public object ConvertBack()
-        //{
-        //    if(Visible)
-        //}
+      
        
         public string PrintBus()//this function returns a string of the license plate with the -// NEED TO FIX THIS IT DOES 8 DIGITS WRONG
         {
@@ -175,7 +179,7 @@ namespace dotNet5781_01_3963_9714
             if (License<10000000)//license plate hase 7 digits
             {
                 int tmpLicense = License / 100000;//this gives us the first 2 digits of license
-                finalLicense = (tmpLicense + "-");
+                finalLicense = (" "+tmpLicense + "-");
                 tmpLicense = License % 100000;
                 if (tmpLicense<100)//2 or less digits
                 {
@@ -230,6 +234,7 @@ namespace dotNet5781_01_3963_9714
                     finalLicense += tmpLicense;
                 }                             
             }
+            finalLicense += " ";
             return finalLicense;
         }
        public int Num_of_passengers()

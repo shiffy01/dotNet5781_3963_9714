@@ -17,7 +17,7 @@
             <ColumnDefinition Width="17*"/>
         </Grid.ColumnDefinitions>
 
-        <DataGrid x:Name="busDataGrid" IsSynchronizedWithCurrentItem="true" HeadersVisibility="None" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="99,35,227.333,88.667" RowDetailsVisibilityMode="VisibleWhenSelected" FontSize="14" Height="297" Background="#FFCFCFCF">
+        <DataGrid x:Name="busDataGrid" IsSynchronizedWithCurrentItem="true" HeadersVisibility="None" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="99,35,0.333,88.667" RowDetailsVisibilityMode="VisibleWhenSelected" FontSize="14" Height="297" Background="#FFCFCFCF">
             <DataGrid.Columns>
                 <DataGridTemplateColumn x:Name="lp" Header="drive_bus">
                     <DataGridTemplateColumn.CellTemplate>
@@ -30,7 +30,7 @@
                 <DataGridTemplateColumn x:Name="driving">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button x:Name="drive" Content="   Drive   " Click="Button_Click_Drive" IsEnabled="{Binding CanDrive, Mode=TwoWay}" Background="#FF7D8F94"/>
+                            <Button x:Name="drive" Content="    Drive    " Click="Button_Click_Drive" IsEnabled="{Binding CanDrive, Mode=TwoWay}" Background="#FF7D8F94"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -38,7 +38,7 @@
                 <DataGridTemplateColumn x:Name="gasCol" Header="gastank">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button x:Name="gas" Content="  Fill Up  " Click="Button_Click_gas" IsEnabled="{Binding CanDrive, Mode=TwoWay}" Background="#FF92C6D4"/>
+                            <Button x:Name="gas" Content="   Fill Up   " Click="Button_Click_gas" IsEnabled="{Binding CanDrive, Mode=TwoWay}" Background="#FF92C6D4"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
