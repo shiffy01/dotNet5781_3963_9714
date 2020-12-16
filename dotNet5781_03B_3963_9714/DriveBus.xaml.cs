@@ -27,19 +27,16 @@ namespace dotNet5781_03B_3963_9714
         public DriveBus(Bus bus)
         {
             CurrentBus = bus;
-            
             InitializeComponent();
-          //drive_grid.DataContext = CurrentBus;
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-           
 
         }
         private void drive_grid_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key < Key.D0 || e.Key > Key.D9) //Checking if only number and delete.
+            if (e.Key < Key.D0 || e.Key > Key.D9) //restricing input to numbers only
             {
                 e.Handled = true;
             }
@@ -47,12 +44,10 @@ namespace dotNet5781_03B_3963_9714
             {
                  curr_milage = int.Parse(distance_tb.Text);
                  message= CurrentBus.Send_bus(curr_milage);
-                if (message == "Bus sent")
+                if (message == "Bus sent")//need to drive the bus when the window closes
                     driven = true;
-
                 MessageBoxResult mbResult = MessageBox.Show(message);
                 this.Close();
-
             }
            
         }

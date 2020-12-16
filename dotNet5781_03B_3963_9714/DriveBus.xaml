@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:dotNet5781_03B_3963_9714"
         mc:Ignorable="d"
-        Title="DriveBus" Height="450" Width="800">
+        Title="DriveBus" Height="250" Width="350" Background="#FFCFCFCF">
     <Grid x:Name="drive_grid" KeyDown="drive_grid_KeyDown">
-        <TextBlock x:Name="ask_distance" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Enter the distance:" VerticalAlignment="Top" Height="21" Width="246" Margin="259,83,0,0"/>
-        <TextBox x:Name="distance_tb" HorizontalAlignment="Left" Height="23" Margin="259,109,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" RenderTransformOrigin="1.791,-0.116" TextChanged="TextBox_TextChanged"/>
+        <TextBlock x:Name="ask_distance" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Enter the distance to drive:" VerticalAlignment="Top" Height="44" Width="224" Margin="68,59,0,0" FontSize="16"/>
+        <TextBox x:Name="distance_tb" HorizontalAlignment="Left" Height="27" Margin="68,108,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="193" RenderTransformOrigin="1.791,-0.116" TextChanged="TextBox_TextChanged" FontSize="14"/>
 
     </Grid>
 </Window>

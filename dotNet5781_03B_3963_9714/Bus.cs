@@ -37,11 +37,50 @@ namespace dotNet5781_01_3963_9714
         public bool IsAccessible { get; set; }
         public bool HasWifi { get; set; }
         public bool HasDVD { get; set; }
-        public string Seconds { get; set; }
-        public bool Isvisible { get; set; }
+        public string seconds;
+        public string Seconds 
+        {
+            get { return seconds; }
+            set
+            {
+                seconds = value;
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs("Secs"));
+                }
+
+            }
+        }
+        public bool isvisible;
+        public bool Isvisible 
+        {
+            get { return isvisible; }
+            set
+            {
+                isvisible = value;
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs("Vis"));
+                }
+
+            }
+        }
         public bool ButtonVisibility { get; set; }
-        public int Time { get; set; }
-        public int Progressb {get; set;}
+        public int Time { get; set; }//real time
+        public int progressb;
+        public int Progressb 
+        {
+            get { return progressb; }
+            set
+            {
+                progressb = value;
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs("Pb"));
+                }
+
+            }
+        }
         public bool CanDrive { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
         //public event PropertyChangedEventHandler PropertyChanged2;
@@ -206,36 +245,36 @@ namespace dotNet5781_01_3963_9714
         {
             string lp = PrintBus();
             int milageLeft = 20000 - Milage;
-            string toString = "License Plate: " + lp;
+            string toString = @"   
+                 License Plate: " + lp;
             toString += @"
 
-
-                         Status: " + Status;
+                 Status: " + Status;
             toString += @"
 
-                         Total mileage: " + TotalMilage;
+                 Total mileage: " + TotalMilage;
             toString += @"
 
-                         " + milageLeft + " kilometers left till next tune up";
+                 " + milageLeft + " kilometers left till next tune up";
             toString += @"
 
-                         Last tune up: " + Last_tune_up;
+                 Last tune up: " + Last_tune_up;
             toString += @"
 
-                         Gas left: " + Gas;
+                 Gas left: " + Gas;
             toString += @"
 
-                          " + Num_of_passengers() + " seats";
+                 " + Num_of_passengers() + " seats";
             if (IsAccessible)
                 toString += @"
 
-                         *Accessible";
+                 *Accessible";
             if (HasWifi)
                 toString += @"
-                         *Wifi";
+                 *Wifi";
             if (HasDVD)
                 toString += @"
-                         *DVD player";
+                 *DVD player";
             return toString;
         }
 
