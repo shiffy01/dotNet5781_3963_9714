@@ -158,13 +158,13 @@ namespace dotNet5781_03B_3963_9714
         private void Worker2_DoWork(object sender, DoWorkEventArgs e)
         {
             Bus bus= (Bus)e.Argument;
-            int percent = 0;//percent of time that the bus cannot drive that passed
+            double percent = 0;//percent of time that the bus cannot drive that passed
             for (int i = 0; i < bus.Time; i++)
             {
-                percent = i*(100/bus.Time);
+                percent = i*(100/(double)bus.Time);
                 System.Threading.Thread.Sleep(1000);//one second
                
-                (sender as BackgroundWorker).ReportProgress(percent, bus);
+                (sender as BackgroundWorker).ReportProgress((int)percent, bus);
             }
             e.Result = bus;
         }
@@ -243,7 +243,6 @@ namespace dotNet5781_03B_3963_9714
             int kamash = rand.Next(20, 51);//random speed between 20 and 50 km per hour 
             b1.Status = Bus.Status_ops.On_the_road;
             b1.Time = ((distance *6) /kamash);  //זמן*מהירות=דרך
-            b1.Status = Bus.Status_ops.On_the_road;
             b1.CanDrive = false;
             b1.CanGas = false;
             b1.CanTuneUp = false;
