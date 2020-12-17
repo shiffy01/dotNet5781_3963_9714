@@ -17,9 +17,9 @@ using dotNet5781_02_3963_9714;
 namespace dotNet5781_03A_3963_9714
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for BusCompany.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class BusCompany : Window
     {
         private Bus_line currentDisplayBusLine;
         private Bus_line_list bus = new Bus_line_list();
@@ -82,7 +82,7 @@ namespace dotNet5781_03A_3963_9714
                 Bus_line_stop bus_stop = Bus_line_stop.make_bus_line_stop(i);
             }
         }
-        public MainWindow()
+        public BusCompany()
         {
             create_20_stops();
             add_lines();    

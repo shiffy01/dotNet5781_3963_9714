@@ -11,7 +11,7 @@ using System.Runtime.CompilerServices;
 namespace dotNet5781_01_3963_9714
 {
 
-    public class Bus: INotifyPropertyChanged
+    public class Bus : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public enum Status_ops
@@ -21,7 +21,7 @@ namespace dotNet5781_01_3963_9714
             Filling_up,
             At_mechanic
         }
-       
+
         public Status_ops Status { get; set; }
         public int License { get; set; }
         string licenseFull;
@@ -38,7 +38,7 @@ namespace dotNet5781_01_3963_9714
         public bool HasWifi { get; set; }
         public bool HasDVD { get; set; }
         public string seconds;
-        public string Seconds 
+        public string Seconds
         {
             get { return seconds; }
             set
@@ -54,21 +54,21 @@ namespace dotNet5781_01_3963_9714
         }
         public bool buttonVisibility;
         public bool ButtonVisibility
-        { 
-              get { return buttonVisibility; }
-              set
-                {
+        {
+            get { return buttonVisibility; }
+            set
+            {
                 buttonVisibility = value;
-                    if (PropertyChanged != null)
-                    {
-                        //PropertyChanged(this, new PropertyChangedEventArgs("Vis"));
-                        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("buttonVisibility"));
-                    }
+                if (PropertyChanged != null)
+                {
+                    //PropertyChanged(this, new PropertyChangedEventArgs("Vis"));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("buttonVisibility"));
                 }
             }
+        }
         public int Time { get; set; }//real time
         public int progressb;
-        public int Progressb 
+        public int Progressb
         {
             get { return progressb; }
             set
@@ -96,8 +96,38 @@ namespace dotNet5781_01_3963_9714
                 }
             }
         }
-      
-      
+        public bool canGas;
+        public bool CanGas
+        {
+            get { return canGas; }
+            set
+            {
+                canGas = value;
+                if (PropertyChanged != null)
+                {
+                    //PropertyChanged(this, new PropertyChangedEventArgs("Vis"));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("canGas"));
+                }
+            }
+        }
+        public bool canTuneUp;
+        public bool CanTuneUp
+        {
+            get { return canTuneUp; }
+            set
+            {
+                if ((DateTime.Now - Last_tune_up).Days > 356)
+                    canTuneUp= false;
+                else
+                    canTuneUp = value;
+                if (PropertyChanged != null)
+                {
+                    //PropertyChanged(this, new PropertyChangedEventArgs("Vis"));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("canTuneUp"));
+                }
+            }
+        }
+
         public void OnPropertyChanged([CallerMemberName] string seconds = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(Seconds));
@@ -117,6 +147,9 @@ namespace dotNet5781_01_3963_9714
             Last_tune_up = DateTime.Now;//busses go through tune_up when they arrive
             Status = Status_ops.Ready;//bus is ready to leave
             CanDrive = true;
+            CanGas = true;
+            CanTuneUp = true;
+            Seconds = "Ready";
             progressb = 0;
             if (passengers == 50)
             {
@@ -260,7 +293,11 @@ namespace dotNet5781_01_3963_9714
                  Total mileage: " + TotalMilage;
             toString += @"
 
-                 " + milageLeft + " kilometers left till next tune up";
+                 ";
+            if ((DateTime.Now-Last_tune_up).Days > 356||milageLeft==0)
+                toString += "THIS BUS NEEDS A TUNE-UP";
+            else
+                toString += milageLeft + " kilometers left till next tune up";
             toString += @"
 
                  Last tune up: " + Last_tune_up;

@@ -4,9 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:dotNet5781_03B_3963_9714"
-        xmlns:dotNet5781_01_3963_9714="clr-namespace:dotNet5781_01_3963_9714" x:Class="dotNet5781_03B_3963_9714.MainWindow"
+        xmlns:dotNet5781_01_3963_9714="clr-namespace:dotNet5781_01_3963_9714" x:Class="dotNet5781_03B_3963_9714.BusCompany"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="700" Background="#FFCFCFCF">
+        Title="BusCompany" Height="450" Width="700" Background="#FFCFCFCF">
 
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
@@ -17,7 +17,7 @@
             <ColumnDefinition Width="17*"/>
         </Grid.ColumnDefinitions>
 
-        <DataGrid x:Name="busDataGrid" IsSynchronizedWithCurrentItem="true" HeadersVisibility="None" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="99,35,0.333,88.667" RowDetailsVisibilityMode="VisibleWhenSelected" FontSize="14" Height="297" Background="#FFCFCFCF">
+        <DataGrid x:Name="busDataGrid" IsSynchronizedWithCurrentItem="true" HeadersVisibility="None" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="99,35,57.333,88.667" RowDetailsVisibilityMode="VisibleWhenSelected" FontSize="14" Height="297" Background="#FFCFCFCF">
             <DataGrid.Columns>
                 <DataGridTemplateColumn x:Name="lp" Header="drive_bus">
                     <DataGridTemplateColumn.CellTemplate>
@@ -38,7 +38,7 @@
                 <DataGridTemplateColumn x:Name="gasCol" Header="gastank">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button x:Name="gas" Content="   Fill Up   " Click="Button_Click_gas" IsEnabled="{Binding CanDrive, Mode=TwoWay}" Background="#FF92C6D4"/>
+                            <Button x:Name="gas" Content="   Fill Up   " Click="Button_Click_gas" IsEnabled="{Binding CanGas, Mode=TwoWay}" Background="#FF92C6D4"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -46,7 +46,7 @@
                 <DataGridTemplateColumn x:Name="till_can_drive" Header="time till bus can drive">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Label x:Name="timeLabel" Content="{Binding Seconds, Mode=TwoWay}" BorderThickness="0" Visibility="{Binding Path=ButtonVisibility, Converter={StaticResource BooleanToVisibilityConverter}, Mode=TwoWay}" Background="#FF7D8F94"/>
+                            <Label x:Name="timeLabel" Content="{Binding Seconds, Mode=TwoWay}" BorderThickness="0" Visibility="Visible" Background="Gray"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -63,6 +63,6 @@
             </DataGrid.Columns>
         </DataGrid>
        
-        <Button Content="Add a bus" HorizontalAlignment="Left" Margin="99,333,0,0" VerticalAlignment="Top" Width="472" Height="56" Click="Button_Click_add" FontWeight="Bold" FontSize="36" Background="#FF64BED7"/>
+        <Button Content="Add a bus" HorizontalAlignment="Left" Margin="120,332,0,0" VerticalAlignment="Top" Width="472" Height="56" Click="Button_Click_add" FontWeight="Bold" FontSize="36" Background="#FF64BED7"/>
     </Grid>
 </Window>

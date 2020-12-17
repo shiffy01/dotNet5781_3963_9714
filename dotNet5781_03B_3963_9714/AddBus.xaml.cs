@@ -29,6 +29,7 @@ namespace dotNet5781_03B_3963_9714
             AddIt = false;
             CurrentBus = new Bus(1234567, DateTime.Now, 12300, 50, false, false, false);
             gridAdd.DataContext = CurrentBus;
+            startDateDatePicker.DisplayDateEnd = DateTime.Now;
         }
 
         private void finalAdd_Click(object sender, RoutedEventArgs e)

@@ -9,8 +9,8 @@
         Title="BusDetails" Height="500" Width="400" Background="#FFCFCFCF">
     <Grid x:Name="details" Margin="0,0,3.333,-1.333">
         <TextBlock HorizontalAlignment="Left" Margin="26,10,0,0" TextWrapping="Wrap" Text="{Binding}" VerticalAlignment="Top" Height="379" Width="331" FontSize="14" FontWeight="Bold"/>
-        <Button Content="Fill up"  HorizontalAlignment="Left" Margin="224,394,0,0" VerticalAlignment="Top" Width="96" Click="Button_Click_fill" Background="#FF64BED7" Height="52"/>
-        <Button Content="Tune up" HorizontalAlignment="Left" Margin="63,394,0,0" VerticalAlignment="Top" Width="88" Click="Button_Click_tune" Background="#FF64BED7" Height="52"/>
+        <Button Content="Fill up" IsEnabled="{Binding CanGas, Mode=TwoWay}"  HorizontalAlignment="Left" Margin="224,394,0,0" VerticalAlignment="Top" Width="96" Click="Button_Click_fill" Background="#FF64BED7" Height="52"/>
+        <Button Content="Tune up" IsEnabled="{Binding CanTuneUp, Mode=TwoWay}" HorizontalAlignment="Left" Margin="63,394,0,0" VerticalAlignment="Top" Width="88" Click="Button_Click_tune" Background="#FF64BED7" Height="52"/>
 
     </Grid>
 </Window>
