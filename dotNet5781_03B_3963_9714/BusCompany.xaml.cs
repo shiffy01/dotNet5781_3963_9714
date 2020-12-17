@@ -108,10 +108,11 @@ namespace dotNet5781_03B_3963_9714
             if (time >= 60)
             {
                 mes += (time / 60) + " hour";
+                if (time / 60 > 1)
+                    mes += "s";
                 if (time % 60 != 0)
                     mes += " and " + time % 60 + " minutes";
-                else
-                    mes+= "s";
+               
             }
             else
                 mes += time + " minutes";
@@ -241,7 +242,7 @@ namespace dotNet5781_03B_3963_9714
             Random rand = new Random(DateTime.Now.Millisecond);
             int kamash = rand.Next(20, 51);//random speed between 20 and 50 km per hour 
             b1.Status = Bus.Status_ops.On_the_road;
-            b1.Time = ((distance / kamash) * 6);  //זמן*מהירות=דרך
+            b1.Time = ((distance *6) /kamash);  //זמן*מהירות=דרך
             b1.Status = Bus.Status_ops.On_the_road;
             b1.CanDrive = false;
             b1.CanGas = false;

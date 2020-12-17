@@ -25,7 +25,7 @@ namespace dotNet5781_01_3963_9714
         public Status_ops Status { get; set; }
         public int License { get; set; }
         string licenseFull;
-        public string LicenseFull { get { return PrintBus(); } }
+        public string LicenseFull { get { return PrintBus(); } }//full format with dashes
         public DateTime StartDate { get; set; }
         public DateTime Last_tune_up { get; set; }
         public int TotalMilage { get; set; }
@@ -46,12 +46,12 @@ namespace dotNet5781_01_3963_9714
                 seconds = value;
                 if (PropertyChanged != null)
                 {
-                    // PropertyChanged(this, new PropertyChangedEventArgs("Secs"));
+                    
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("seconds"));
                 }
 
             }
-        }
+        }//messege of how much time until the bus is ready to drive
         public bool buttonVisibility;
         public bool ButtonVisibility
         {
@@ -61,12 +61,12 @@ namespace dotNet5781_01_3963_9714
                 buttonVisibility = value;
                 if (PropertyChanged != null)
                 {
-                    //PropertyChanged(this, new PropertyChangedEventArgs("Vis"));
+                    
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("buttonVisibility"));
                 }
             }
-        }
-        public int Time { get; set; }//real time
+        }//visibility of progressbar
+        public int Time { get; set; }//real time: 1 second=10 minutes
         public int progressb;
         public int Progressb
         {
@@ -76,12 +76,12 @@ namespace dotNet5781_01_3963_9714
                 progressb = value;
                 if (PropertyChanged != null)
                 {
-                    // PropertyChanged(this, new PropertyChangedEventArgs("Pb"));
+                   
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("progressb"));
                 }
 
             }
-        }
+        }//percent of progress bar
         public bool canDrive;
         public bool CanDrive
         {
@@ -91,11 +91,11 @@ namespace dotNet5781_01_3963_9714
                 canDrive = value;
                 if (PropertyChanged != null)
                 {
-                    //PropertyChanged(this, new PropertyChangedEventArgs("Vis"));
+                  
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("canDrive"));
                 }
             }
-        }
+        }//enable drive button
         public bool canGas;
         public bool CanGas
         {
@@ -105,15 +105,21 @@ namespace dotNet5781_01_3963_9714
                 canGas = value;
                 if (PropertyChanged != null)
                 {
-                    //PropertyChanged(this, new PropertyChangedEventArgs("Vis"));
+                   
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("canGas"));
                 }
             }
-        }
+        }//enable gas button
         public bool canTuneUp;
         public bool CanTuneUp
         {
-            get { return canTuneUp; }
+            get {
+
+                if ((DateTime.Now - Last_tune_up).Days > 356)
+                    return false;
+                else
+                return canTuneUp; 
+                }
             set
             {
                 if ((DateTime.Now - Last_tune_up).Days > 356)
@@ -121,21 +127,13 @@ namespace dotNet5781_01_3963_9714
                 else
                     canTuneUp = value;
                 if (PropertyChanged != null)
-                {
-                    //PropertyChanged(this, new PropertyChangedEventArgs("Vis"));
+                {  
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("canTuneUp"));
                 }
             }
-        }
+        }//enable tune up button
 
-        public void OnPropertyChanged([CallerMemberName] string seconds = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(Seconds));
-        }
-        //protected void OnPropertyChanged2([CallerMemberName] int time = null)
-        //{
-        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(Time));
-        //}
+      
         public Bus(int licenseNumber, DateTime date, int curr_milage, int passengers, bool accessable, bool wifi, bool dvd)
         {
             License = licenseNumber;
@@ -195,17 +193,17 @@ namespace dotNet5781_01_3963_9714
 
         }
         public void Refill()//refill tank
-        {//change state in xaml
+        {
             Gas = 1200;
         }
         public void Tune_up()//set buses milage back to 0, and resets the date of the last tune_up to today
-        {//change state in xaml
+        {
             Milage = 0;
             Last_tune_up = DateTime.Now;
         }
       
        
-        public string PrintBus()//this function returns a string of the license plate with the -// NEED TO FIX THIS IT DOES 8 DIGITS WRONG
+        public string PrintBus()//this function returns a string of the license plate with the dashes
         {
 
             string finalLicense;
@@ -214,15 +212,15 @@ namespace dotNet5781_01_3963_9714
                 int tmpLicense = License / 100000;//this gives us the first 2 digits of license
                 finalLicense = (" "+tmpLicense + "-");
                 tmpLicense = License % 100000;
-                if (tmpLicense<100)//2 or less digits
+                if (tmpLicense<100)// if it has 2 or less digits
                 {
                     finalLicense += "000-";
                 }
                 else
                 {
-                    if (tmpLicense < 1000)
+                    if (tmpLicense < 1000)//if it has 3 digits
                         finalLicense += "00";
-                    if (tmpLicense < 10000 && tmpLicense >999)
+                    if (tmpLicense < 10000 && tmpLicense >999)//if it has 4 digits
                         finalLicense += "0";
                     finalLicense += tmpLicense / 100;
                     finalLicense +="-";
@@ -233,7 +231,7 @@ namespace dotNet5781_01_3963_9714
                     finalLicense += "00";
                 else
                 {
-                    if (tmpLicense < 10)
+                    if (tmpLicense < 10)//if it has one digit
                         finalLicense += "0";
                     finalLicense += tmpLicense;
                 }
@@ -245,13 +243,13 @@ namespace dotNet5781_01_3963_9714
                 int tmpLicense = License / 100000;//this gives us the first 3 digits of license
                 finalLicense = (tmpLicense + "-");
                 tmpLicense = License % 100000;
-                if(tmpLicense<1000)//3 digits
+                if(tmpLicense<1000)//if it has 3 digits or less
                 {
                     finalLicense += "00-";
                 }
                 else
                 {
-                    if (tmpLicense < 10000)//4 digits
+                    if (tmpLicense < 10000)// if it has 4 digits
                         finalLicense += "0";
                     finalLicense +=( tmpLicense / 1000)+"-";
                     tmpLicense = tmpLicense % 1000;//gets last 3
@@ -260,9 +258,9 @@ namespace dotNet5781_01_3963_9714
                     finalLicense += "000";
                 else
                 {
-                    if (tmpLicense < 10)//1
+                    if (tmpLicense < 10)// has only 1 digit
                         finalLicense += "00";
-                    if (tmpLicense < 100 && tmpLicense >9)//2
+                    if (tmpLicense < 100 && tmpLicense >9)//has only 2 digits
                         finalLicense += "0";
                     finalLicense += tmpLicense;
                 }                             
