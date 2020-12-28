@@ -41,13 +41,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="BusClass.cs" />
+    <Compile Include="BusDeparted.cs" />
+    <Compile Include="BusDriving.cs" />
+    <Compile Include="BusLine.cs" />
+    <Compile Include="BusLineStation.cs" />
     <Compile Include="DalConfig.cs" />
     <Compile Include="DalFactory.cs" />
     <Compile Include="DO.cs" />
+    <Compile Include="HelpFunctions.cs" />
     <Compile Include="IClonable.cs" />
     <Compile Include="IDal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="BusStation.cs" />
+    <Compile Include="TwoConsecutiveStops.cs" />
+    <Compile Include="User.cs" />
+    <Compile Include="UserRide.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
