@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DO
 {
-    class User
+    public class User
     {
         string User_name{ get; set; }
         string Password{ get; set; }

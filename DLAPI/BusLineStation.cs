@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DO
 {
-    class BusLineStation
+    public class BusLineStation
     {
          int StationID {get; set;}
         public int Code{ get; set; }

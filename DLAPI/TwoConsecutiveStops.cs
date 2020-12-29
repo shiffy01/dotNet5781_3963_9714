@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DO
 {
-    class TwoConsecutiveStops
+    public class TwoConsecutiveStops
     {
         int Stop_1_code {get; set;}
         int Stop_2_code {get; set;}
