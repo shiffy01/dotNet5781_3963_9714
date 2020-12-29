@@ -17,6 +17,7 @@ namespace DO
         int Previous_stop{get; set;}
         TimeSpan Time_at_previous_stop{get; set;}
         DateTime Arrival_at_next_stop{get; set;}
+        public bool Exists{ get; set; }
         public override string ToString()
         {
             return this.ToStringProperty();

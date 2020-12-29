@@ -12,6 +12,7 @@ namespace DO
         DateTime Start {get; set;}
         int Frequency{get; set;}
         DateTime End {get; set;}
+        public bool Exists{ get; set; }
         public override string ToString()
         {
             return this.ToStringProperty();

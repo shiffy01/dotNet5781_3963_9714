@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DO
 {
-    class BusClass
+    class Bus
     {
         
         public enum Status_ops
@@ -26,7 +26,7 @@ namespace DO
         public bool IsAccessible { get; set; }
         public bool HasWifi { get; set; }
         public bool HasDVD { get; set; }
-
+        public bool Exists{ get; set; }
 
         public override string ToString()
         {
