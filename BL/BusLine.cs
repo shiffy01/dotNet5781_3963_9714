@@ -10,8 +10,8 @@ namespace BO
 {
     class BusLine
     {
-         int BusID {get; set;}
-         int Bus_line_number {get; set;}
+        int BusID {get; set;}
+        int Bus_line_number {get; set;}
         IEnumerable<BusStation> Stations  {get; set;}
         bool InterCity {get; set;}
         string Destination {get; set;}
