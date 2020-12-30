@@ -8,8 +8,8 @@ namespace DO
 {
     public class BusLine
     {
-        int BusID {get; set;}
-        int Bus_line_number {get; set;}
+        public int BusID {get; set;}
+        public int Bus_line_number {get; set;}
         public bool Exists{ get; set; }
         public override string ToString()
         {
