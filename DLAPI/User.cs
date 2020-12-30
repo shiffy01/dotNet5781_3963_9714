@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace DO
 {
-    class User
+    public class User
     {
-        string User_name{ get; set; }
-        string Password{ get; set; }
-        bool Access_level{ get; set; }//might change this to enum or something...
+        public string User_name{ get; set; }
+        public string Password{ get; set; }
+        public bool Access_level{ get; set; }//might change this to enum or something...
         public bool Exists{ get; set; }//also here might not need this
         public override string ToString()
         {

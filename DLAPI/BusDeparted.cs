@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace DO
 {
-    class BusDeparted
+    public class BusDeparted
     {
-         int BusID {get; set;}
-        DateTime Start {get; set;}
-        int Frequency{get; set;}
-        DateTime End {get; set;}
+        public int BusID {get; set;}
+        public DateTime Start {get; set;}
+        public int Frequency{get; set;}
+        public DateTime End {get; set;}
         public bool Exists{ get; set; }
         public override string ToString()
         {

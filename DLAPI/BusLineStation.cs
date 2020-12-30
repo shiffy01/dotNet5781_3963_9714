@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace DO
 {
-    class BusLineStation
+    public class BusLineStation
     {
-         int StationID {get; set;}
+        public int StationID {get; set;}
         public int Code{ get; set; }
-        int Number_on_route{ get; set; }
+        public int Number_on_route{ get; set; }
         public bool Exists{ get; set; }
         public override string ToString()
         {
