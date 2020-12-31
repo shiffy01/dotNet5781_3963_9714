@@ -50,6 +50,7 @@
     <Compile Include="DalConfig.cs" />
     <Compile Include="DalFactory.cs" />
     <Compile Include="DO.cs" />
+    <Compile Include="DuplicateBusLine.cs" />
     <Compile Include="HelpFunctions.cs" />
     <Compile Include="IClonable.cs" />
     <Compile Include="IDal.cs" />
