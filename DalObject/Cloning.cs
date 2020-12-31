@@ -11,7 +11,7 @@ namespace DL
 
         static class Cloning
         {
-            static T Clone<T>(this T original)
+           public static T Clone<T>(this T original)
             {
                
              T result = (T)Activator.CreateInstance(typeof(T));

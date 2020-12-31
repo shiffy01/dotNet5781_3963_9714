@@ -10,46 +10,41 @@ namespace DAL
     public sealed class DalObject : IDAL
     {
         #region singleton implementaion
-        private readonly static IDal mydal = new DalObject();
+        private readonly static IDAL dalInstance = new DalObject();
 
         private DalObject()
         {
-            try
-            {
+            //try
+          //  {
                 DS.DataSource.initialize_buses();
 
-            }
-            catch (BusException be)
-            {
-                //TODO
-            }
+          //  }
+            //catch (BusException be)
+            //{
+            //    //TODO
+            //}
         }
 
         static DalObject()
         {
         }
 
-        public static IDal Instance
+        public static IDAL Instance
         {
-            get => mydal;
+        
+            get => dalInstance;
         }
 
         #endregion singleton
 
-        #region IDal implementation
-        public string SayHello()
-        {
-            return DataSource.Hello;
-        }
+        #region IDAL implementation
+     
 
-        public void SetHello(string message)
-        {
-            DataSource.Hello = message;
-        }
+       
 
-        public bool addBus(BusDAO bus)
+        public bool AddBus(Bus bus)
         {
-            if (DataSource.Buses.Exists(mishehu => mishehu.License == bus.License))
+            if (DataSource.Buses.Exists(tmpBus => tmpBus.License == bus.License))
             {
                 throw new BusException("license exists allready");
                 //return false;
