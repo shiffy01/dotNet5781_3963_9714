@@ -10,6 +10,7 @@ namespace DS
 {
     public static class DataSource
     {
+        public static  int Bus_line_run_number=0;
         private static List<Bus> buses = new List<Bus>();//does this need to be an observerable collection? it does errors if i try..
         public static List<Bus> Buses{ get => buses; }
       
