@@ -36,7 +36,7 @@ namespace DLAPI
         #endregion
 
         #region BusLine  definition
-        bool AddBusLine(BusLine busLine);
+        int AddBusLine(BusLine busLine);
         bool UpdateBusLine(BusLine busLine);
         void DeleteBusLine(int busID);
         IEnumerable<Bus> GetBuslines();

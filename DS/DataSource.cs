@@ -793,62 +793,62 @@ namespace DS
         {
             Lines.Add(new BusLine 
             {
-                BusID = 1,
+                BusID = 2000000,
                 Bus_line_number = 32,
                 Exists = true
             }); 
             Lines.Add(new BusLine 
             {
-                BusID = 2,
+                BusID = 20000001,
                 Bus_line_number = 45,
                 Exists = true
             });
             Lines.Add(new BusLine 
             {
-                BusID = 3,
+                BusID = 2000002,
                 Bus_line_number = 36,
                 Exists = true
 
             });
             Lines.Add(new BusLine 
             {
-                BusID = 4,
+                BusID = 2000003,
                 Bus_line_number=19,
                 Exists = true
             });
             Lines.Add(new BusLine 
             {
-                BusID = 5,
+                BusID = 2000004,
                 Bus_line_number = 56,
                 Exists = true
             });
             Lines.Add(new BusLine 
             {
-                BusID = 6,
+                BusID = 2000005,
                 Bus_line_number = 28,
                 Exists = true
             });
             Lines.Add(new BusLine 
             {
-                BusID = 7,
+                BusID = 2000006,
                 Bus_line_number = 69,
                 Exists = true
             });
             Lines.Add(new BusLine 
             {
-                BusID = 8,
+                BusID = 2000007,
                 Bus_line_number = 58,
                 Exists = true
             });
             Lines.Add(new BusLine 
             {
-                BusID = 9,
+                BusID = 2000008,
                 Bus_line_number = 92,
                 Exists = true
             });
             Lines.Add(new BusLine
             {
-                BusID = 10,
+                BusID = 2000009,
                 Bus_line_number = 55,
                 Exists = true
             });      
