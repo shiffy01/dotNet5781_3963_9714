@@ -21,6 +21,11 @@ namespace DS
         public static List<BusLineStation> Line_stations{ get => line_stations; }
         private static List<TwoConsecutiveStops> two_stops = new List<TwoConsecutiveStops>();
         public static List<TwoConsecutiveStops> Two_stops{ get => two_stops; }
+        public static double Distance_Between_Two_Stops(BusStation station1, BusStation station2)
+        {
+            return Math.Sqrt((station1.Latitude - station2.Latitude) * (station1.Latitude - station2.Latitude) +
+                             (station1.Longitude - station2.Longitude) * (station1.Longitude - station2.Longitude));
+        }
         public static void initialize_buses()
         {
 
@@ -378,7 +383,7 @@ namespace DS
                 Latitude = 31.790758,
                 Longitude = 35.209791,
                 Exists = true
-            });//מלכי ישראל/הטורים
+            });//84 מלכי ישראל/הטורים
             Stations.Add(new BusStation 
             {
                 Code = 85,
@@ -459,7 +464,7 @@ namespace DS
                 Latitude = 31.768759,
                 Longitude = 31.768759,
                 Exists = true
-            });//דרך בית לחם הישנה א
+            });//95 דרך בית לחם הישנה א
             Stations.Add(new BusStation 
             {
                 Code = 97,
