@@ -850,7 +850,7 @@ namespace DS
         }
         public static void initialize_Bus_line_stations()
         {
-            #region line number 1
+            #region line number 1 //this one's a route that makes sense
             Line_stations.Add(new BusLineStation 
             {
                 StationID=1522,
@@ -914,61 +914,61 @@ namespace DS
             #endregion
             #region line number 2
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 73,
                 Bus_line_number = 2,
                 Number_on_route = 1,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 76,
                 Bus_line_number = 2,
                 Number_on_route = 2,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 77,
                 Bus_line_number = 2,
                 Number_on_route = 3,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 78,
                 Bus_line_number = 2,
                 Number_on_route = 4,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 83,
                 Bus_line_number = 2,
                 Number_on_route = 5,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 84,
                 Bus_line_number = 2,
                 Number_on_route = 6,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 85,
                 Bus_line_number = 2,
                 Number_on_route = 7,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 86,
                 Bus_line_number = 2,
                 Number_on_route = 8,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 88,
                 Bus_line_number = 2,
                 Number_on_route = 9,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 89,
                 Bus_line_number = 2,
                 Number_on_route = 10,
                 Exists = true
@@ -976,61 +976,61 @@ namespace DS
             #endregion
             #region line number 3
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 91,
                 Bus_line_number = 3,
                 Number_on_route = 1,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID =93,
                 Bus_line_number = 3,
                 Number_on_route = 2,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 84,
                 Bus_line_number = 3,
                 Number_on_route = 3,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 85,
                 Bus_line_number = 3,
                 Number_on_route = 4,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 86,
                 Bus_line_number = 3,
                 Number_on_route = 5,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 88,
                 Bus_line_number = 3,
                 Number_on_route = 6,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 89,
                 Bus_line_number = 3,
                 Number_on_route = 7,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 108,
                 Bus_line_number = 3,
                 Number_on_route = 8,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 109,
                 Bus_line_number = 3,
                 Number_on_route = 9,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 110,
                 Bus_line_number = 3,
                 Number_on_route = 10,
                 Exists = true
@@ -1038,61 +1038,61 @@ namespace DS
             #endregion
             #region line number 4
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 108,
                 Bus_line_number = 4,
                 Number_on_route = 1,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 109,
                 Bus_line_number = 4,
                 Number_on_route = 2,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 110,
                 Bus_line_number = 4,
                 Number_on_route = 3,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 1485,
                 Bus_line_number = 4,
                 Number_on_route = 4,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 1486,
                 Bus_line_number = 4,
                 Number_on_route = 5,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 1487,
                 Bus_line_number = 4,
                 Number_on_route = 6,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 1488,
                 Bus_line_number = 4,
                 Number_on_route = 7,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 1490,
                 Bus_line_number = 4,
                 Number_on_route = 8,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 1491,
                 Bus_line_number = 4,
                 Number_on_route = 9,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 90,
                 Bus_line_number = 4,
                 Number_on_route = 10,
                 Exists = true
@@ -1100,61 +1100,61 @@ namespace DS
             #endregion
             #region line number 5
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 1485,
                 Bus_line_number = 5,
                 Number_on_route = 1,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 1486,
                 Bus_line_number = 5,
                 Number_on_route = 2,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 1487,
                 Bus_line_number = 5,
                 Number_on_route = 3,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 90,
                 Bus_line_number = 5,
                 Number_on_route = 4,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 105,
                 Bus_line_number = 5,
                 Number_on_route = 5,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 84,
                 Bus_line_number = 5,
                 Number_on_route = 6,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 78,
                 Bus_line_number = 5,
                 Number_on_route = 7,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 115,
                 Bus_line_number = 5,
                 Number_on_route = 8,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 117,
                 Bus_line_number = 5,
                 Number_on_route = 9,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 119,
                 Bus_line_number = 5,
                 Number_on_route = 10,
                 Exists = true
@@ -1162,43 +1162,43 @@ namespace DS
             #endregion
             #region line number 6
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 1485,
                 Bus_line_number = 6,
                 Number_on_route = 1,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 1486,
                 Bus_line_number = 6,
                 Number_on_route = 2,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 1487,
                 Bus_line_number = 6,
                 Number_on_route = 3,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 1488,
                 Bus_line_number = 6,
                 Number_on_route = 4,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 1490,
                 Bus_line_number = 6,
                 Number_on_route = 5,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 1510,
                 Bus_line_number = 6,
                 Number_on_route = 6,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 1491,
                 Bus_line_number = 6,
                 Number_on_route = 7,
                 Exists = true
@@ -1210,13 +1210,13 @@ namespace DS
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 1492,
                 Bus_line_number = 6,
                 Number_on_route = 9,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 1511,
                 Bus_line_number = 6,
                 Number_on_route = 10,
                 Exists = true
@@ -1224,43 +1224,43 @@ namespace DS
             #endregion
             #region line number 7
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 1491,
                 Bus_line_number = 7,
                 Number_on_route = 1,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 1494,
                 Bus_line_number = 7,
                 Number_on_route = 2,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 78,
                 Bus_line_number = 7,
                 Number_on_route = 3,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 123,
                 Bus_line_number = 7,
                 Number_on_route = 4,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 119,
                 Bus_line_number = 7,
                 Number_on_route = 5,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 122,
                 Bus_line_number = 7,
                 Number_on_route = 6,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 1524,
                 Bus_line_number = 7,
                 Number_on_route = 7,
                 Exists = true
@@ -1272,13 +1272,13 @@ namespace DS
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 1522,
                 Bus_line_number = 7,
                 Number_on_route = 9,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 1512,
                 Bus_line_number = 7,
                 Number_on_route = 10,
                 Exists = true
@@ -1286,61 +1286,61 @@ namespace DS
             #endregion
             #region line number 8
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 90,
                 Bus_line_number = 8,
                 Number_on_route = 1,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 91,
                 Bus_line_number = 8,
                 Number_on_route = 2,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 92,
                 Bus_line_number = 8,
                 Number_on_route = 3,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 93,
                 Bus_line_number = 8,
                 Number_on_route = 4,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 94,
                 Bus_line_number = 8,
                 Number_on_route = 5,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 95,
                 Bus_line_number = 8,
                 Number_on_route = 6,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID =97,
                 Bus_line_number = 8,
                 Number_on_route = 7,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 96,
                 Bus_line_number = 8,
                 Number_on_route = 8,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 83,
                 Bus_line_number = 8,
                 Number_on_route = 9,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 85,
                 Bus_line_number = 8,
                 Number_on_route = 10,
                 Exists = true
@@ -1348,55 +1348,55 @@ namespace DS
             #endregion
             #region line number 9
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 91,
                 Bus_line_number = 9,
                 Number_on_route = 1,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 93,
                 Bus_line_number = 9,
                 Number_on_route = 2,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 84,
                 Bus_line_number = 9,
                 Number_on_route = 3,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 85,
                 Bus_line_number = 9,
                 Number_on_route = 4,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 86,
                 Bus_line_number = 9,
                 Number_on_route = 5,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 1488,
                 Bus_line_number = 9,
                 Number_on_route = 6,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 1490,
                 Bus_line_number = 9,
                 Number_on_route = 7,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 1510,
                 Bus_line_number = 9,
                 Number_on_route = 8,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 1491,
                 Bus_line_number = 9,
                 Number_on_route = 9,
                 Exists = true
@@ -1410,75 +1410,94 @@ namespace DS
             #endregion
             #region line number 10
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 1491,
                 Bus_line_number = 10,
                 Number_on_route = 1,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 1494,
                 Bus_line_number = 10,
                 Number_on_route = 2,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 78,
                 Bus_line_number = 10,
                 Number_on_route = 3,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 123,
                 Bus_line_number = 10,
                 Number_on_route = 4,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 119,
                 Bus_line_number = 10,
                 Number_on_route = 5,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 84,
                 Bus_line_number = 10,
                 Number_on_route = 6,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 78,
                 Bus_line_number = 10,
                 Number_on_route = 7,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 115,
                 Bus_line_number = 10,
                 Number_on_route = 8,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 117,
                 Bus_line_number = 10,
                 Number_on_route = 9,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 1493,
+                StationID = 119,
                 Bus_line_number = 10,
                 Number_on_route = 10,
                 Exists = true
             });
             #endregion
         }
-        public static void initialize_two_consecutive_stations()
+        public static BusStation search(int code)//does this need linq?
         {
-            int code1, code2;
+            for (int i = 0; i < stations.Count; i++)
+            {
+                if (code == stations[i].Code)
+                    return (stations[i]);
+            }
+            return null;
+        }
+        public static void initialize_two_consecutive_stations()
+        {   
             for (int i = 0; i < 10; i++)
             {
-                for (int j = i*10; j < 10; j++)
+                for (int j = i*10; j < 9; j++)
                 {
-                  
+                    double distance = Distance_Between_Two_Stops(search(Line_stations[j].StationID), search(Line_stations[j + 1].StationID));
+                    int minutes = (int)(6 * distance) / 5;//average speed is 50 km per hour
+                    Two_stops.Add(new TwoConsecutiveStops 
+                    {
+                        Stop_1_code = Line_stations[j].StationID,
+                        Stop_2_code= Line_stations[j + 1].StationID,
+                        Distance = distance,
+                        Average_drive_time=new TimeSpan(minutes/60, minutes%60, 0),
+                        Exists=true
+                    });
+                    
+                   
                 }
             }
         }
