@@ -22,6 +22,8 @@ namespace DS
         public static List<BusLineStation> Line_stations{ get => line_stations; }
         private static List<TwoConsecutiveStops> two_stops = new List<TwoConsecutiveStops>();
         public static List<TwoConsecutiveStops> Two_stops{ get => two_stops; }
+        private static List<BusDeparted> departed = new List<BusDeparted>();
+        public static List<BusDeparted> Departed{ get => departed; }
         public static double Distance_Between_Two_Stops(BusStation station1, BusStation station2)
         {
             return Math.Sqrt((station1.Latitude - station2.Latitude) * (station1.Latitude - station2.Latitude) +
