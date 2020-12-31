@@ -336,7 +336,7 @@ namespace DS
                 Latitude = 31.825302,
                 Longitude = 35.188624,
                 Exists = true
-            });//שדרות גולדה מאיר/המשורר אצ''ג
+            });//שדרות גולדה מאיר/המשורר אצ''ג 73
             Stations.Add(new BusStation 
             {
                 Code = 76,
@@ -345,7 +345,7 @@ namespace DS
                 Latitude = 31.738425,
                 Longitude = 35.228765,
                 Exists = true
-            });//בית ספר צור באהר בנות/אלמדינה אלמונוורה
+            });//76בית ספר צור באהר בנות/אלמדינה אלמונוורה
             Stations.Add(new BusStation 
             {
             Code = 77,
@@ -354,7 +354,7 @@ namespace DS
                 Latitude = 31.738676,
                 Longitude = 35.226704,
                 Exists = true
-            });//בית ספר אבן רשד/אלמדינה אלמונוורה
+            });// 77 בית ספר אבן רשד/אלמדינה אלמונוורה
             Stations.Add(new BusStation 
             {
                 Code = 78,
@@ -363,7 +363,7 @@ namespace DS
                 Latitude = 31.789128,
                 Longitude = 35.206146,
                 Exists = true
-            });//שרי ישראל/יפו
+            });//שרי ישראל/יפו 78
             Stations.Add(new BusStation
             {
                 Code = 83,
@@ -372,7 +372,7 @@ namespace DS
                 Latitude = 31.766358,
                 Longitude = 35.240417,
                 Exists = true
-            });//בטן אלהווא/חוש אל מרג
+            });//83 בטן אלהווא/חוש אל מרג
             Stations.Add(new BusStation 
             {
                 Code = 84,
@@ -390,7 +390,7 @@ namespace DS
                 Latitude = 31.768643,
                 Longitude = 35.238509,
                 Exists = true
-            });//בית ספר לבנים/אלמדארס
+            });//בית ספר לבנים/אלמדארס 85
             Stations.Add(new BusStation 
             {
                 Code = 86,
@@ -399,7 +399,7 @@ namespace DS
                 Latitude = 31.769899,
                 Longitude = 35.23973,
                 Exists = true
-            });//מגרש כדורגל/אלמדארס
+            });//מגרש כדורגל/אלמדארס 86
             Stations.Add(new BusStation {
                 Code = 88,
                 Name = "בית ספר לבנות/בטן אלהוא",
@@ -407,7 +407,7 @@ namespace DS
                 Latitude = 31.767064,
                 Longitude = 35.238443,
                 Exists = true
-            });//בית ספר לבנות/בטן אלהוא
+            });//בית ספר לבנות/בטן אלהוא 88
             Stations.Add(new BusStation 
             {
                 Code = 89,
@@ -416,7 +416,7 @@ namespace DS
                 Latitude = 31.765863,
                 Longitude = 35.247198,
                 Exists = true
-            });//דרך בית לחם הישה/ואדי קדום
+            });//דרך בית לחם הישה/ואדי קדום89 
             //10
             Stations.Add(new BusStation 
             {
@@ -426,7 +426,7 @@ namespace DS
                 Latitude = 31.799804,
                 Longitude = 35.213021,
                 Exists = true
-            });//גולדה/הרטום
+            });//90 גולדה/הרטום
             Stations.Add(new BusStation 
             {
                 Code = 91,
@@ -435,7 +435,7 @@ namespace DS
                 Latitude = 31.765717,
                 Longitude = 35.247102,
                 Exists = true
-            });//דרך בית לחם הישה/ואדי קדום
+            });//91 דרך בית לחם הישה/ואדי קדום
             Stations.Add(new BusStation 
             {
                 Code = 93,
@@ -444,7 +444,7 @@ namespace DS
                 Latitude = 31.767265,
                 Longitude = 35.246594,
                 Exists = true
-            });//חוש סלימה 
+            });//93 חוש סלימה 
             Stations.Add(new BusStation 
             {
                 Code = 94,
@@ -453,7 +453,7 @@ namespace DS
                 Latitude = 31.767084,
                 Longitude = 35.246655,
                 Exists = true
-            });//דרך בית לחם הישנה ב
+            });//94 דרך בית לחם הישנה ב
             Stations.Add(new BusStation
             {
                 Code = 95,
@@ -471,7 +471,7 @@ namespace DS
                 Latitude = 31.77002,
                 Longitude = 35.24348,
                 Exists = true
-            });//שכונת בזבז 2
+            });//97 שכונת בזבז 2
             Stations.Add(new BusStation 
             {
                 Code = 102,
@@ -480,7 +480,7 @@ namespace DS
                 Latitude = 31.8003,
                 Longitude = 35.208257,
                 Exists = true
-            });//גולדה/שלמה הלוי
+            });//גולדה/שלמה הלוי 102
             Stations.Add(new BusStation 
             {
                 Code = 103,
@@ -489,7 +489,7 @@ namespace DS
                 Latitude = 31.8,
                 Longitude = 35.214106,
                 Exists = true
-            });//גולדה/הרטום
+            });//גולדה/הרטום 103 
             Stations.Add(new BusStation 
             {
                 Code = 105,
@@ -498,7 +498,7 @@ namespace DS
                 Latitude = 31.797708,
                 Longitude = 35.217133,
                 Exists = true
-            });//גבעת משה
+            });// 105 גבעת משה
             Stations.Add(new BusStation 
             {
                 Code = 106,
@@ -507,7 +507,7 @@ namespace DS
                 Latitude = 31.797535,
                 Longitude = 35.217057,
                 Exists = true
-            });//גבעת משה
+            });// 106 גבעת משה
             //20
             Stations.Add(new BusStation
             {
@@ -517,7 +517,7 @@ namespace DS
                 Latitude = 31.797535,
                 Longitude = 35.213728,
                 Exists = true
-            });//עזרת תורה/עלי הכהן
+            });//עזרת תורה/עלי הכהן108 
             Stations.Add(new BusStation 
             {
                 Code = 109,
@@ -526,7 +526,7 @@ namespace DS
                 Latitude = 31.796818,
                 Longitude = 35.212936,
                 Exists = true
-            });//עזרת תורה/דורש טוב
+            });//עזרת תורה/דורש טוב 109
             Stations.Add(new BusStation 
             {
                 Code = 110,
@@ -535,7 +535,7 @@ namespace DS
                 Latitude = 31.796129,
                 Longitude = 35.212698,
                 Exists = true
-            });//עזרת תורה/דורש טוב
+            });//עזרת תורה/דורש טוב110
             Stations.Add(new BusStation 
             {
                 Code = 111,
@@ -544,7 +544,7 @@ namespace DS
                 Latitude = 31.794631,
                 Longitude = 35.21161,
                 Exists = true
-            });//יעקובזון/עזרת תורה
+            });//111 יעקובזון/עזרת תורה
             Stations.Add(new BusStation 
             {
                 Code = 112,
@@ -553,7 +553,7 @@ namespace DS
                 Latitude = 31.79508,
                 Longitude = 35.211684,
                 Exists = true
-            });//יעקובזון/עזרת תורה
+            });//112יעקובזון/עזרת תורה
             Stations.Add(new BusStation 
             {
                 Code = 113,
@@ -562,7 +562,7 @@ namespace DS
                 Latitude = 31.796255,
                 Longitude = 35.211065,
                 Exists = true
-            });//זית רענן/אוהל יהושע
+            });// 113 זית רענן/אוהל יהושע
             Stations.Add(new BusStation 
             {
                 Code = 115,
@@ -571,7 +571,7 @@ namespace DS
                 Latitude = 31.798423,
                 Longitude = 35.209575,
                 Exists = true
-            });//זית רענן/תורת חסד
+            });//זית רענן/תורת חסד 115
             Stations.Add(new BusStation
             {
                 Code = 116,
@@ -580,7 +580,7 @@ namespace DS
                 Latitude = 31.798689,
                 Longitude = 35.208878,
                 Exists = true
-            });//זית רענן/תורת חסד
+            });// 116 זית רענן/תורת חסד
             Stations.Add(new BusStation
             {
                 Code = 117,
@@ -589,7 +589,7 @@ namespace DS
                 Latitude = 31.799165,
                 Longitude = 35.206918,
                 Exists = true
-            });//קרית הילד/סורוצקין
+            });//117 קרית הילד/סורוצקין
             Stations.Add(new BusStation 
             {
                 Code = 119,
@@ -598,7 +598,7 @@ namespace DS
                 Latitude = 31.797829,
                 Longitude = 35.205601,
                 Exists = true
-            });//סורוצקין/שנירר
+            });//סורוצקין/שנירר119
             //30
             Stations.Add(new BusStation 
             {
@@ -609,7 +609,7 @@ namespace DS
                 Longitude = 35.240062,
                 Exists = true
 
-            });//שדרות נווה יעקוב/הרב פרדס
+            });//1485 שדרות נווה יעקוב/הרב פרדס
             Stations.Add(new BusStation 
             {
                 Code = 1486,
@@ -618,7 +618,7 @@ namespace DS
                 Latitude = 31.838481,
                 Longitude = 35.23972,
                 Exists = true
-            });//מרכז קהילתי /שדרות נווה יעקוב
+            });//מרכז קהילתי /שדרות נווה יעקוב 1486
             Stations.Add(new BusStation
             {
                 Code = 1487,
@@ -627,7 +627,7 @@ namespace DS
                 Latitude = 31.837748,
                 Longitude = 35.231598,
                 Exists = true
-            });//מסוף 700 /שדרות נווה יעקוב
+            });// 1487 מסוף 700 /שדרות נווה יעקוב
             Stations.Add(new BusStation 
             {
                 Code = 1488,
@@ -636,7 +636,7 @@ namespace DS
                 Latitude = 31.840279,
                 Longitude = 35.246272,
                 Exists = true
-            });//הרב פרדס/אסטורהב
+            });//הרב פרדס/אסטורה 1488
             Stations.Add(new BusStation 
             {
                 Code = 1490,
@@ -645,7 +645,7 @@ namespace DS
                 Latitude = 31.843598,
                 Longitude = 35.243639,
                 Exists = true
-            });//הרב פרדס/צוקרמן
+            });//הרב פרדס/צוקרמן1490 
             Stations.Add(new BusStation 
             {
                 Code = 1491,
@@ -654,7 +654,7 @@ namespace DS
                 Latitude = 31.766256,
                 Longitude = 35.173,
                 Exists = true
-            });//ברזיל
+            });//ברזיל 1491 
             Stations.Add(new BusStation 
             {
                 Code = 1492,
@@ -663,7 +663,7 @@ namespace DS
                 Latitude = 31.76736,
                 Longitude = 35.184771,
                 Exists = true
-            });//בית וגן/הרב שאג
+            });//1492 בית וגן/הרב שאג
             Stations.Add(new BusStation
             {
                 Code = 1493,
@@ -672,7 +672,7 @@ namespace DS
                 Latitude = 31.770543,
                 Longitude = 35.183999,
                 Exists = true
-            });//בית וגן/עוזיאל
+            });//בית וגן/עוזיאל 1493 
             Stations.Add(new BusStation
             {
                 Code = 1494,
@@ -681,7 +681,7 @@ namespace DS
                 Latitude = 31.768465,
                 Longitude = 35.178701,
                 Exists = true
-            });//קרית יובל/שמריהו לוין
+            });//קרית יובל/שמריהו לוין 1494
             Stations.Add(new BusStation 
             {
                 Code = 1510,
@@ -690,7 +690,7 @@ namespace DS
                 Latitude = 31.759534,
                 Longitude = 35.173688,
                 Exists = true
-            });//קורצ'אק / רינגלבלום
+            });//1510 קורצ'אק / רינגלבלום
             //40
             Stations.Add(new BusStation 
             {
@@ -700,7 +700,7 @@ namespace DS
                 Latitude = 31.761447,
                 Longitude = 35.175929,
                 Exists = true
-            });//טהון/גולומב
+            });//טהון/גולומב 1511 
             Stations.Add(new BusStation 
             {
                 Code = 1512,
@@ -709,16 +709,16 @@ namespace DS
                 Latitude = 31.761447,
                 Longitude = 35.199936,
                 Exists = true
-            });//הרב הרצוג/שח''ל
+            });//הרב הרצוג/שח''ל 1512
             Stations.Add(new BusStation 
             {
                 Code = 1514,
                 Name = "פרץ ברנשטיין/נזר דוד ",
-                Address = "רחוב:הרב הרצוג עיר: ירושלים רציף",
+                Address = " רחוב:פרץ ברנשטיין 37 עיר: ירושלים",
                 Latitude = 31.759186,
                 Longitude = 35.189336,
                 Exists = true
-            });//פרץ ברנשטיין/נזר דוד
+            });//פרץ ברנשטיין/נזר דוד 1514
             Stations.Add(new BusStation 
             {
                 Code = 1518,
@@ -727,7 +727,7 @@ namespace DS
                 Latitude = 31.759121,
                 Longitude = 35.189178,
                 Exists = true
-            });//פרץ ברנשטיין/נזר דוד
+            });// 1518 פרץ ברנשטיין/נזר דוד
             Stations.Add(new BusStation
             {
                 Code = 1522,
@@ -736,7 +736,7 @@ namespace DS
                 Latitude = 31.774484,
                 Longitude = 35.204882,
                 Exists = true
-            });//מוזיאון ישראל/רופין
+            });//מוזיאון ישראל/רופין 1522
             Stations.Add(new BusStation 
             {
                 Code = 1523,
@@ -745,7 +745,7 @@ namespace DS
                 Latitude = 31.769652,
                 Longitude = 35.208248,
                 Exists = true
-            });//הרצוג/טשרניחובסקי
+            });//הרצוג/טשרניחובסקי 1523  
             Stations.Add(new BusStation 
             {
                 Code = 1524,
@@ -754,7 +754,7 @@ namespace DS
                 Latitude = 31.769652,
                 Longitude = 35.208248,
                 Exists = true
-            });//רופין/שד' הזז
+            });//רופין/שד' הזז 1524
             Stations.Add(new BusStation 
             {
                 Code = 121,
@@ -763,7 +763,7 @@ namespace DS
                 Latitude = 31.796033,
                 Longitude = 35.206094,
                 Exists = true
-            });//מרכז סולם/סורוצקין
+            });// 121 מרכז סולם/סורוצקין
             Stations.Add(new BusStation
             {
                 Code = 123,
@@ -772,7 +772,7 @@ namespace DS
                 Latitude = 31.794958,
                 Longitude = 35.205216,
                 Exists = true
-            });//אוהל דוד/סורוצקין
+            });//אוהל דוד/סורוצקין 123 
             Stations.Add(new BusStation
             {
                 Code = 122,
@@ -781,7 +781,7 @@ namespace DS
                 Latitude = 31.79617,
                 Longitude = 35.206158,
                 Exists = true
-            });//מרכז סולם/סורוצקין   
+            });//מרכז סולם/סורוצקין 122   
             //50
         }
         public static void initialize_Lines()
