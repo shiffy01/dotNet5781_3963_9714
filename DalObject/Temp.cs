@@ -6,18 +6,13 @@ using System.Threading.Tasks;
 using System.Linq;
 using DO;
 using DS;
+using DL;
 namespace DalObject
 {
     class Temp
     {
-        //var arr2 = 
-        // arr1.Where(i => i % 2 == 0).Select(item => item* 2);
-        // bool unvaccinated =
-        //pets.Any(p => p.Age > 1 && p.Vaccinated == false);
-        public DalObject()
-        {
-            DS.DataSource.initialize_buses();
-        }
+       
+       
         //bool AddBusDeparted(BusDeparted busDeparted)
         //{
         //    //if the bus is driving it cant depart. meaning if there is an object of bus driving with the same id this function should throw an exception
@@ -29,9 +24,27 @@ namespace DalObject
         //    //if(exists)
         //    //    throw some sort of exception
         //    if(erased)
-                
+
         //    BusDeparted bus = Clone(busDeparted);
 
         //}
+
+        int AddBusLine(BusLine busLine)
+        {
+            bool exists =
+               DataSource.Lines.Any(p => p.Exists == true && p.BusID == busLine.BusID);
+            if (exists)
+               return 0; //throw exception!!!
+           
+           BusLine b = DataSource.Lines.FirstOrDefault(e => e.BusID == busLine.BusID && e.Exists == false);
+            if (b != null)
+            { b.Exists = true;
+                return b.BusID;
+            }
+
+            BusLine bus = Clone(busLine);
+            DataSource.Lines.Add(bus);
+            return bus.BusID;
+        }
     }
 }
