@@ -4,10 +4,10 @@ using DS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
+//ADD EXCEPTIONS!!!
 namespace DAL
 {
-    public sealed class DalObject : IDal
+    public sealed class DalObject : IDAL
     {
         #region singleton implementaion
         private readonly static IDal mydal = new DalObject();
@@ -16,7 +16,7 @@ namespace DAL
         {
             try
             {
-                DS.DataSource.initBuses();
+                DS.DataSource.initialize_buses();
 
             }
             catch (BusException be)
