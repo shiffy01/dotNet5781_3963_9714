@@ -44,6 +44,7 @@ namespace DLAPI
         void DeleteBusLine(int busID);
         IEnumerable<BusLine> GetBuslines();
         BusLine GetBusLine(int busID);
+        IEnumerable<BusLine> GetBuslinesOfStation(int stationID);
         #endregion
 
         #region BusLineStation  definition
@@ -51,7 +52,7 @@ namespace DLAPI
         bool UpdateBusLineStation(BusLineStation busLineStation);
         void DeleteBusLineStation(int license);
         BusLineStation GetBusLineStation(int stationID);
-        IEnumerable<Bus> GetBusLineStations();
+        IEnumerable<BusLineStation> GetBusLineStations();
         #endregion
 
         #region BusStation  definition

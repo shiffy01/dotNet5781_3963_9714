@@ -48,6 +48,8 @@
     <Compile Include="BusLineAlreadyExistsException.cs" />
     <Compile Include="BusLineNotFoundException.cs" />
     <Compile Include="BusLineStation.cs" />
+    <Compile Include="BusLineStationAlreadyExistsException.cs" />
+    <Compile Include="BusLineStationNotFoundException.cs" />
     <Compile Include="BusNotFoundException.cs" />
     <Compile Include="DalConfig.cs" />
     <Compile Include="DalFactory.cs" />
