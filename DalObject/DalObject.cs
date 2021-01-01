@@ -38,10 +38,10 @@ namespace DAL
         #endregion singleton
 
         #region IDAL implementation
-     
 
-       
 
+
+        #region Bus implementation
         public bool AddBus(Bus bus)
         {
             if (DataSource.Buses.Exists(tmpBus => tmpBus.License == bus.License))
