@@ -34,17 +34,61 @@ namespace DalObject
             bool exists =
                DataSource.Lines.Any(p => p.Exists == true && p.BusID == busLine.BusID);
             if (exists)
-               return 0; //throw exception!!!
+                throw new BusLineAlreadyExistsException();//does it need to say something inside?
            
            BusLine b = DataSource.Lines.FirstOrDefault(e => e.BusID == busLine.BusID && e.Exists == false);
             if (b != null)
-            { b.Exists = true;
+            { 
+                b.Exists = true;
                 return b.BusID;
             }
 
-            BusLine bus = Clone(busLine);
+            BusLine bus = Cloning.Clone(busLine);
             DataSource.Lines.Add(bus);
             return bus.BusID;
+        }
+        void DeleteBusLine(int busID)
+        {
+            DO.BusLine bus = DataSource.Lines.Find(b =>( b.BusID == busID&&b.Exists));
+
+            if (bus != null)
+            {
+                bus.Exists = false;
+            }
+            else
+                throw new DO.BusLineNotFoundException("The BusLine is not found in the system");
+        }
+        public bool UpdateBusLine(BusLine busLine)
+        {
+            DO.BusLine bus = DataSource.Lines.Find(b => (b.BusID == busLine.BusID&&b.Exists));
+
+            if (bus != null)
+            {
+                DataSource.Lines.Remove(bus);
+                DataSource.Lines.Add(busLine.Clone());
+                return true;
+            }
+            else
+                throw new DO.BusLineNotFoundException("Bus line is not in the system");
+        }//there's something wrong with this. either it should be bool and return false if it cant update,
+        //or it should throw an exception. not both. not sure which to do yet
+        IEnumerable<BusLine> GetBuslines()
+        {
+            var list =
+             from bus in DataSource.Lines
+             where (bus.Exists)
+             select (bus.Clone());
+            return list;
+                
+        }
+        BusLine GetBusLine(int busID)
+        {
+            DO.BusLine bus = DataSource.Lines.Find(b => (b.BusID == busID&&b.Exists));
+
+            if (bus != null)
+                return bus.Clone();
+            else
+                throw new DO.BusLineNotFoundException("this bus line is not in the system");
         }
     }
 }

@@ -10,7 +10,7 @@ namespace DLAPI
 {
 
     public interface IDAL
-        //ADD GET FILTERS!!!!!!
+        //ADD GET FILTERS!!!!!! also should the functions be public? if so change the implementation in dalobject too.
     {
         #region Bus  definition
         bool AddBus(Bus bus);
@@ -39,7 +39,7 @@ namespace DLAPI
         int AddBusLine(BusLine busLine);
         bool UpdateBusLine(BusLine busLine);
         void DeleteBusLine(int busID);
-        IEnumerable<Bus> GetBuslines();
+        IEnumerable<BusLine> GetBuslines();
         BusLine GetBusLine(int busID);
         #endregion
 

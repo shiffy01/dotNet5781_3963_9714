@@ -45,6 +45,8 @@
     <Compile Include="BusDeparted.cs" />
     <Compile Include="BusDriving.cs" />
     <Compile Include="BusLine.cs" />
+    <Compile Include="BusLineAlreadyExistsException.cs" />
+    <Compile Include="BusLineNotFoundException.cs" />
     <Compile Include="BusLineStation.cs" />
     <Compile Include="BusNotFoundException.cs" />
     <Compile Include="DalConfig.cs" />
