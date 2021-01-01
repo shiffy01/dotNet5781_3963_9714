@@ -7,37 +7,15 @@ using DO;
 
 namespace DLAPI
 {
-  public  class LicenseExistsException:Exception
+    public class LicenseExistsException : Exception
     {
-       // [Serializable]??
-        
-            public int License;
+        // [Serializable]??
+
+        public int License;
         public LicenseExistsException(int license) : base() => License = license;
-        {
-            
-        }
-           
+        public LicenseExistsException(int license, string messege) : base(messege) => License = license;
+        public LicenseExistsException(int license, string message, Exception inner) : base(message, inner) => License = license;
+        public override string ToString() => base.ToString() + $", License number: {License} already exists in the system";
 
-            public override string ToString() => base.ToString() + $", License already exists in the system: {lic}";
-        
-
-        public class BadPersonIdCourseIDException : Exception
-        {
-            public int personID;
-            public int courseID;
-            public BadPersonIdCourseIDException(int perID, int crsID) : base() { personID = perID; courseID = crsID; }
-            public BadPersonIdCourseIDException(int perID, int crsID, string message) :
-                base(message)
-            {
-                personID = perID; courseID = crsID;
-            }
-            public BadPersonIdCourseIDException(int perID, int crsID, string message, Exception innerException) :
-                base(message, innerException)
-            {
-                personID = perID; courseID = crsID;
-            }
-
-            public override string ToString() => base.ToString() + $", bad person id: {personID} and course id: {courseID}";
-        }
     }
 }
