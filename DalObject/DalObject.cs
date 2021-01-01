@@ -44,125 +44,81 @@ namespace DAL
         #region Bus implementation
         public bool AddBus(Bus bus)
         {
-            if (DataSource.Buses.Exists(tmpBus => tmpBus.License == bus.License))
+            if (DataSource.Buses.FirstOrDefault(tmpBus => tmpBus.License ==bus.License) != null)
             {
-                throw new BusException("license exists allready");
-                //return false;
+                throw new DuplicateBusException(bus.License, $", Bus with License number: {bus.License} already exists in the system");
+                
             }
 
-            //BusDAO realBus = new BusDAO //clone
-            //{
-            //    License = bus.License,
-            //    StartOfWork = bus.StartOfWork,
-            //    TotalKms = bus.TotalKms
-            //};
-
-            //DataSource.Buses.Add(realBus);
             DataSource.Buses.Add(bus.Clone());
             return true;
-        }
+        }//done
 
-        public bool update(BusDAO bus)
+        public bool updateBus(Bus bus)
         {
-            if (!DataSource.Buses.Exists(mishehu => mishehu.License == bus.License))
-            {
-                return false;
-            }
+           
+              Bus realBus= DataSource.Buses.Find(tmpBus => tmpBus.License== bus.License);
 
-            /**
-            Bus realBus = DataSource.Buses.First(mishehu => mishehu.License == bus.License);
-            realBus.StartOfWork = bus.StartOfWork;
-            realBus.TotalKms = bus.TotalKms;
-            **/
-            //delete
-            DataSource.Buses.RemoveAll(b => b.License == bus.License);
-            //insert
-            //DataSource.Buses.Add(new BusDAO
-            //{
-            //    License = bus.License,
-            //    StartOfWork = bus.StartOfWork,
-            //    TotalKms = bus.TotalKms
-            //});
-            DataSource.Buses.Add(bus.Clone());
+            if (realBus != null)
+            {
+                DataSource.Buses.Remove(realBus);
+                DataSource.Buses.Add(bus.Clone());
+            }
+            else
+                throw new BusNotFoundException("Bus wasn't found in the system");
             return true;
+        }//done
 
-        }
-
-        public List<BusDAO> getBusses()
+        public bool DeleteBus(Bus bus)
         {
-            List<BusDAO> result = new List<BusDAO>();
-            foreach (var bus in DS.DataSource.Buses)
-            {
-                result.Add(bus.Clone());
-            }
-            return result;
-        }
 
-        public BusDAO read(int license)
-        {
-            BusDAO result = default(BusDAO);
-            result = DS.DataSource.Buses.FirstOrDefault(item => item.License == license);
-            if (result != null)
-            {
-                //return new BusDAO     //clone (!) clown
-                //{
-                //    License = result.License,
-                //    StartOfWork = result.StartOfWork,
-                //    TotalKms = result.TotalKms
-                //};
-                return result.Clone();
-            }
-            return null;
-        }
+            Bus realBus = DataSource.Buses.Find(tmpBus => tmpBus.License == bus.License);
 
-        public bool addBusInTravel(BusInTravelDAO bus)
-        {
-            if (DataSource.BusesTravel.Exists(mishehu =>
-                mishehu.License == bus.License
-                && mishehu.Line == bus.Line
-                && mishehu.Start == bus.Start))
+            if (realBus != null)
             {
-                // throw new InvalidOperationException("license exists allready")
-                return false;
+                DataSource.Buses.Remove(realBus);
             }
-
-            DataSource.BusesTravel.Add(bus.Clone());
+            else
+                throw new BusNotFoundException("Bus wasn't found in the system");
             return true;
-        }
-
-        public List<BusInTravelDAO> getBusesTravel()
+        }//done
+        public Bus GetBus(int license)
         {
-            List<BusInTravelDAO> travels = new List<BusInTravelDAO>();
-            foreach (var busInTravel in DS.DataSource.BusesTravel)
-            {
-                travels.Add(busInTravel.Clone());
-            }
-            return travels;
-        }
+           Bus sameBus= DataSource.Buses.Find(tmpBus => tmpBus.License == license);
 
-        public void delete(BusDAO bus)
+            if (sameBus != null)
+                return sameBus.Clone();
+            else
+                throw new BusNotFoundException("Bus wasn't found in the system");
+        } //done
+        public IEnumerable<Bus> GetAllBuses()
         {
-            if (!DS.DataSource.Buses.Exists(item => item.License == bus.License))
-            {
-                //return false;
-                throw new BusException("lo kayam bammarechet");
-            }
-            //BusDAO todelete = null;
-            //foreach (var item in DS.DataSource.Buses)
-            //{
-            //    if(item.License == bus.License)
-            //    {
-            //        todelete = item;
-            //        break;
-            //    }
-            //}
-            //if(todelete != null)
-            //{
-            //    DS.DataSource.Buses.Remove(todelete);
-            //}
+            return 
+                from Bus in DataSource.Buses
+                   select Bus.Clone();
+        }//done
+        public IEnumerable<Bus> GetAllBusesBy(Predicate<Bus> predicate)
+        {
+            throw new NotImplementedException();
+        }//not sure abt this
+        #endregion
 
-            DS.DataSource.Buses.RemoveAll(item => item.License == bus.License);
-        }
+
+        //public void UpdatePerson(int license, Action<Bus> update)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+
+
+
+
+
+
+
+
         #endregion
     }
 }
+
+

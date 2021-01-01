@@ -15,8 +15,11 @@ namespace DLAPI
         #region Bus  definition
         bool AddBus(Bus bus);
         bool UpdateBus(Bus bus);
+     //   void UpdatePerson(int license, Action<Bus> update);
         void DeleteBus(int license);
         IEnumerable<Bus> GetBusses();
+        Bus GetBus(int license);
+        IEnumerable<Bus> GetAllBussesBy(Predicate<Bus> predicate);
         #endregion
 
         #region BusDeparted  definition

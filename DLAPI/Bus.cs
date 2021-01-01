@@ -20,8 +20,9 @@ namespace DO
         public int License { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime Last_tune_up { get; set; }
-        public int TotalMilage { get; set; }
-        public int Milage { get; set; }
+        public int Totalkilometerage
+        { get; set; }
+        public int kilometerage { get; set; }
         public int Gas { get; set; }
         public bool IsAccessible { get; set; }
         public bool HasWifi { get; set; }
