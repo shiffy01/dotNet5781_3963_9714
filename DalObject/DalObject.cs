@@ -4,7 +4,7 @@ using DS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-//ADD EXCEPTIONS!!!
+//DELETE BONUS????
 namespace DAL
 {
     public sealed class DalObject : IDAL
@@ -72,7 +72,7 @@ namespace DAL
         public bool DeleteBus(Bus bus)
         {
 
-            Bus realBus = DataSource.Buses.Find(tmpBus => tmpBus.License == bus.License);
+            Bus realBus = DataSource.Buses.FirstOrDefault(tmpBus => tmpBus.License == bus.License);
 
             if (realBus != null)
             {
@@ -96,28 +96,97 @@ namespace DAL
             return 
                 from Bus in DataSource.Buses
                    select Bus.Clone();
-        }//done
+        }//done!!
         public IEnumerable<Bus> GetAllBusesBy(Predicate<Bus> predicate)
         {
-            throw new NotImplementedException();
-        }//not sure abt this
-        #endregion
-
+            return from bus in DataSource.Buses
+                   where predicate(bus)
+                   select bus.Clone();
+        }    //Done!!
 
         //public void UpdatePerson(int license, Action<Bus> update)
         //{
         //    throw new NotImplementedException();
-        //}
-
-
-
-
-
-
-
-
+        //}//figure out..
 
         #endregion
+
+        public int AddBusLine(BusLine busLine)
+        {
+            BusLine findLine = DataSource.Lines.FirstOrDefault(tmpBusLine => tmpBusLine.Bus_line_number == busLine.Bus_line_number);
+            if (findLine != null)
+                if(findLine.firstStation==busLine.firstStation && findLine.lastStation == busLine.lastStation)
+                     throw new BusLineStationAlreadyExistsException(" Bus line already exists in the system");
+
+            busLine.BusID = DS.Config.BusDrivingCounter;
+            DataSource.Lines.Add(busLine.Clone());
+            return busLine.BusID;
+        }//done!!
+
+        bool UpdateBusLine(BusLine busLine)
+        {
+            BusLine findLine = DataSource.Lines.FirstOrDefault(tmpBusLine => tmpBusLine.Bus_line_number == busLine.Bus_line_number);
+            if (findLine != null && findLine.firstStation == busLine.firstStation && findLine.lastStation == busLine.lastStation)
+                {
+                    DataSource.Lines.Remove(findLine);
+                    DataSource.Lines.Add(busLine.Clone());
+                }
+                else
+                throw new BusLineNotFoundException("Bus line wasn't found in the system");
+            return true;
+        }//done//!!
+
+        void DeleteBusLine(int busID)
+        {
+
+            BusLine findLine = DataSource.Lines.FirstOrDefault((tmpBusLine => tmpBusLine.BusID== busID);
+
+            if (findLine!= null)
+            {
+                DataSource.Lines.Remove(findLine);
+            }
+            else
+                throw new BusLineNotFoundException("Bus line wasn't found in the system");
+            
+        }//done!!
+
+        IEnumerable<BusLine> GetAllBuslines()
+        {
+            return
+                    from BusLine in DataSource.Lines
+                    select BusLine.Clone();
+        }//done!!
+        BusLine GetBusLine(int busID)
+        {
+            BusLine findLine = DataSource.Lines.FirstOrDefault(tmpLine => tmpLine.BusID == busID);
+
+            if (findLine != null)
+                return findLine.Clone();
+            else
+                throw new BusLineStationAlreadyExistsException(" Bus line already exists in the system");
+        }//done!!
+
+        IEnumerable<BusLine> GetBuslinesOfStation(int stationID)
+        {
+
+            var lineList = from station in DataSource.Line_stations
+                              where station.StationID == stationID
+                              select station.Clone();
+            return lineList;
+        }//done!!!
+
+        #endregion
+
+
+
+
+
+
+
+
+
+
+#endregion
     }
 }
 

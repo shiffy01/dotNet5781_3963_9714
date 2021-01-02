@@ -42,7 +42,7 @@ namespace DLAPI
         int AddBusLine(BusLine busLine);
         bool UpdateBusLine(BusLine busLine);
         void DeleteBusLine(int busID);
-        IEnumerable<BusLine> GetBuslines();
+        IEnumerable<BusLine> GetAllBuslines();
         BusLine GetBusLine(int busID);
         IEnumerable<BusLine> GetBuslinesOfStation(int stationID);
         #endregion
