@@ -12,7 +12,7 @@ namespace DS
     {
        
         private static List<Bus> buses = new List<Bus>();//does this need to be an observerable collection? it does errors if i try..
-        public static List<Bus> Buses{ get => buses; }
+        public static List<Bus> Busses{ get => buses; }
       
          private static List<BusStation> stations = new List<BusStation>();
         public static List<BusStation> Stations { get => stations; }

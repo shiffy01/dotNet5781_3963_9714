@@ -59,8 +59,12 @@
     <Compile Include="IClonable.cs" />
     <Compile Include="IDal.cs" />
     <Compile Include="DuplicateBusException.cs" />
+    <Compile Include="PairAlreadyExitsException.cs" />
+    <Compile Include="PairNotFoundException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BusStation.cs" />
+    <Compile Include="StationAlreadyExistsException.cs" />
+    <Compile Include="StationNotFoundException.cs" />
     <Compile Include="TwoConsecutiveStops.cs" />
     <Compile Include="User.cs" />
     <Compile Include="UserRide.cs" />

@@ -8,16 +8,16 @@ namespace DO
 {
     public class BusLineStationNotFoundException : Exception
     {
-        public BusLineStationNotFoundException()
-        {
-        }
-        public BusLineStationNotFoundException(string messege) : base(messege)
-        {
+        public int Line_Number;
 
-        }
-        public BusLineStationNotFoundException(string message, Exception inner) : base(message, inner)
-        {
-        }
-        public override string ToString() => base.ToString() + "Bus line doesn't exist in the system";
+        public BusLineStationNotFoundException(int line_number) : base() => Line_Number = line_number;
+        
+        public BusLineStationNotFoundException(int line_number, string messege) : base(messege) => Line_Number = line_number;
+      
+        public BusLineStationNotFoundException(int line_number, string message, Exception inner) : base(message, inner) => Line_Number = line_number;
+      
+        public override string ToString() => base.ToString() + $"Line number: {Line_Number} doesn't stop at this station";
+  
     }
+   
 }

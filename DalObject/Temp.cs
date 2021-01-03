@@ -97,7 +97,7 @@ namespace DalObject
                 var list =
                  from station in DataSource.Line_stations
                  where (station.Exists && station.StationID == stationID)
-                 select (station.Bus_line_number);
+                 select (station.LineID);
             List<BusLine> returnList = new List<BusLine>();
             try
             {
