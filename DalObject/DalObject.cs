@@ -224,7 +224,7 @@ namespace DAL
             else
                 throw new DO.BusLineStationNotFoundException(busLineStation.BusLineNumber, $"Line number: {busLineStation.BusLineNumber} doesn't stop at this station");
         }
-     public   bool DeleteBusLineStation(int pairID)
+     public   bool DeleteBusLineStation(string pairID)
         {
             DO.BusLineStation station = DataSource.Line_stations.Find(s => (s.pairID==pairID && s.Exists));
 
@@ -234,16 +234,16 @@ namespace DAL
                 return true;
             }
             else
-                throw new DO.BusLineStationNotFoundException(pairID, "The BusLineStation is not found in the system");
+                throw new DO.BusLineStationNotFoundException(station.StationID, "The BusLineStation is not found in the system");
         }
-        BusLineStation GetBusLineStation(int pairID)
+        BusLineStation GetBusLineStation(string pairID)
         {
             DO.BusLineStation station = DataSource.Line_stations.Find(s => (s.pairID==pairID && s.Exists));
 
             if (station != null)
                 return station.Clone();
             else
-                throw new DO.BusLineStationNotFoundException(pairID, "Bus line station is not in the system");
+                throw new DO.BusLineStationNotFoundException(station.StationID, "Bus line station is not in the system");
         }
         IEnumerable<BusLineStation> GetBusLineStations()
         {

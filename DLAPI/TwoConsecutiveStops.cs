@@ -8,7 +8,7 @@ namespace DO
 {
     public class TwoConsecutiveStops
     {
-       public int PairID{get; set;}
+       public string PairID{get; set;}
         public int Stop_1_code {get; set;}
         public int Stop_2_code {get; set;}
         public double Distance{get; set;}
