@@ -8,6 +8,7 @@ namespace DO
 {
     public class BusLineStation
     {
+        public int pairID{get; set;}
         public int StationID {get; set;}
         public int BusLineNumber { get; set; }
         public int LineID{ get; set; }
