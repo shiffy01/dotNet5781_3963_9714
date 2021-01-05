@@ -16,9 +16,13 @@ namespace BlApi
         void UpdateBusLine(BusLine line);
         void DeleteBusLine(BusLine line);
         void PrintBusLine(BusLine line);
+        IEnumerable<BusLine> GetAllBusLines();
+        IEnumerable<BusLine> GetBusLineBy(Predicate<BusLine> predicate);
         void AddBusStation(BusStation station);
         void UpdateBusStation(BusStation station);
         void DeleteBusStation(BusStation station);
         void PrintBusStation(BusStation station);
+        IEnumerable<BusStation> GetAllBusStations();
+        IEnumerable<BusStation> GetBusStationBy(Predicate<BusLine> predicate);
     }
 }

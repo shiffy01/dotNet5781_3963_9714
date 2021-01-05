@@ -4,7 +4,7 @@ using DLAPI;
 //using DL;
 using BO;
 using DO;
-
+//FIGURE OUT WHAT ADAPTERS ARE!!!!!
 namespace BL
 {
     public class BlImp1 : IBL
@@ -13,69 +13,25 @@ namespace BL
 
         readonly IDAL dal = DalFactory.GetDal();
 
-        public Weather GetWeather(int day)
+
+        void AddBusLine(BO.BusLine line)
         {
-            Weather w = new Weather();
-            double feeling;
-            WindDirections dir;
-
-
-            feeling = dal.GetTemparture(day);
-            dir = dal.GetWindDirection(day).direction;
-
-            switch (dir)
-            {
-                case WindDirections.S:
-                    feeling += 2;
-                    break;
-                case WindDirections.SSE:
-                    feeling += 1.5;
-                    break;
-                case WindDirections.SE:
-                    feeling += 1;
-                    break;
-                case WindDirections.SEE:
-                    feeling += 0.5;
-                    break;
-                case WindDirections.E:
-                    feeling -= 0.5;
-                    break;
-                case WindDirections.NEE:
-                    feeling -= 1;
-                    break;
-                case WindDirections.NE:
-                    feeling -= 1.5;
-                    break;
-                case WindDirections.NNE:
-                    feeling -= 2;
-                    break;
-                case WindDirections.N:
-                    feeling -= 3;
-                    break;
-                case WindDirections.NNW:
-                    feeling -= 2.5;
-                    break;
-                case WindDirections.NW:
-                    feeling -= 2;
-                    break;
-                case WindDirections.NWW:
-                    feeling -= 1.5;
-                    break;
-                case WindDirections.W:
-                    feeling -= 1;
-                    break;
-                case WindDirections.SWW:
-                    feeling -= 0;
-                    break;
-                case WindDirections.SW:
-                    break;
-                case WindDirections.SSW:
-                    feeling += 1;
-                    break;
-            }
-            w.Feeling = (int)feeling;
-            return w;
+            //trying to figure out what this busline is. it said in wpf "add bus line" so it makes an empty one and sends it here. then
+            //how does it get the rest of the information... i think it should get a full one and then check, if anythings wrong
+            //throw an exception and otherwise send to the do.
         }
+       // left to do: 
+        //void UpdateBusLine(BusLine line);
+        //void DeleteBusLine(BusLine line);
+        //void PrintBusLine(BusLine line);
+        //IEnumerable<BusLine> GetAllBusLines();
+        //IEnumerable<BusLine> GetBusLineBy(Predicate<BusLine> predicate);
+        //void AddBusStation(BusStation station);
+        //void UpdateBusStation(BusStation station);
+        //void DeleteBusStation(BusStation station);
+        //void PrintBusStation(BusStation station);
+        //IEnumerable<BusStation> GetAllBusStations();
+        //IEnumerable<BusStation> GetBusStationBy(Predicate<BusLine> predicate);
 
 
     }
