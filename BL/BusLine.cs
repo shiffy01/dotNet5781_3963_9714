@@ -8,7 +8,7 @@ using DO;
 
 namespace BO
 {
-    class BusLine
+    public class BusLine
     {
         public int BusID {get; set;}
         public int Bus_line_number {get; set;}

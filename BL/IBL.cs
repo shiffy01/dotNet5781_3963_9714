@@ -9,6 +9,16 @@ namespace BlApi
 {
     public interface IBL
     {
-        Weather GetWeather(int day);
+        //void AddBus(Bus bus);
+        //void UpdateBus(Bus bus);
+        //void DeleteBus(int license);
+        void AddBusLine(BusLine line);
+        void UpdateBusLine(BusLine line);
+        void DeleteBusLine(BusLine line);
+        void PrintBusLine(BusLine line);
+        void AddBusStation(BusStation station);
+        void UpdateBusStation(BusStation station);
+        void DeleteBusStation(BusStation station);
+        void PrintBusStation(BusStation station);
     }
 }

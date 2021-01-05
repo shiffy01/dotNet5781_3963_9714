@@ -11,20 +11,20 @@ namespace DLAPI
 
     public interface IDAL
         //ADD GET FILTERS!!!!!! also should the functions be public? if so change the implementation in dalobject too.
+        //maybe also late make some of the functions return id numbers if its useful
     {
         #region Bus  definition
-        bool AddBus(Bus bus);
-        bool UpdateBus(Bus bus);
-     //   void UpdatePerson(int license, Action<Bus> update);
-        bool DeleteBus(int license);
+        void AddBus(Bus bus);
+        void UpdateBus(Bus bus);
+        void DeleteBus(int license);
         IEnumerable<Bus> GetAllBusses();
         Bus GetBus(int license);
         IEnumerable<Bus> GetAllBussesBy(Predicate<Bus> predicate);
         #endregion
 
         #region BusLine  definition
-        int AddBusLine(BusLine busLine);
-        bool UpdateBusLine(BusLine busLine);
+        void AddBusLine(BusLine busLine);
+        void UpdateBusLine(BusLine busLine);
         void DeleteBusLine(int busID);
         IEnumerable<BusLine> GetAllBuslines();
         BusLine GetBusLine(int busID);
@@ -32,27 +32,27 @@ namespace DLAPI
         #endregion
 
         #region BusLineStation  definition
-        bool AddBusLineStation(BusLineStation busLineStation);
-        bool UpdateBusLineStation(BusLineStation busLineStation);
-        bool DeleteBusLineStation(int StationCode, int lineID);
-        BusLineStation GetBusLineStation(int stationID);
+        void AddBusLineStation(BusLineStation busLineStation);
+        void UpdateBusLineStation(BusLineStation busLineStation);
+        void DeleteBusLineStation(string pairID);
+        BusLineStation GetBusLineStation(string pairID);
       //  IEnumerable<BusLineStation> GetStationsOfBusLine(int lineID);
         IEnumerable<BusLineStation> GetAllBusLineStations();
         #endregion
 
         #region BusStation  definition
-        bool AddBusStation(BusStation busStation);
-        bool UpdateBusStation(BusStation busStation);
-        bool DeleteBusStation(int code);
+        void AddBusStation(BusStation busStation);
+        void UpdateBusStation(BusStation busStation);
+        void DeleteBusStation(int code);
         BusStation GetBusStation(int code);
         IEnumerable<BusStation> GetAllBusStationsBy(Predicate<BusStation> predicate);
         IEnumerable<BusStation> GetAllBusStations();
         #endregion
 
         #region TwoConsecutiveStops  definition
-        bool AddTwoConsecutiveStops(TwoConsecutiveStops twoConsecutiveStops);
-        bool UpdateTwoConsecutiveStops(TwoConsecutiveStops twoConsecutiveStops);
-        bool DeleteTwoConsecutiveStops(int stop1_code, int stop2_code);
+        void AddTwoConsecutiveStops(TwoConsecutiveStops twoConsecutiveStops);
+        void UpdateTwoConsecutiveStops(TwoConsecutiveStops twoConsecutiveStops);
+        void DeleteTwoConsecutiveStops(int stop1_code, int stop2_code);
         TwoConsecutiveStops GetTwoConsecutiveStops(int stop1_code, int stop2_code);
         IEnumerable<TwoConsecutiveStops> GetAllPairs();
         #endregion

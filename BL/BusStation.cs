@@ -9,7 +9,7 @@ using DO;
 
 namespace BO
 {
-    class BusStation
+    public class BusStation
     {
         public int StationID {get; set;}
         public int Code{ get; set; }
