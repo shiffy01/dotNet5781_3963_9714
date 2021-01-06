@@ -16,9 +16,7 @@ namespace BL
 
         void AddBusLine(BO.BusLine line)
         {
-            //trying to figure out what this busline is. it said in wpf "add bus line" so it makes an empty one and sends it here. then
-            //how does it get the rest of the information... i think it should get a full one and then check, if anythings wrong
-            //throw an exception and otherwise send to the do.
+            
         }
        // left to do: 
         //void UpdateBusLine(BusLine line);
