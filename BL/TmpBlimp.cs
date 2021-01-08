@@ -4,7 +4,7 @@ using BlApi;
 using DLAPI;
 //using DL;
 using BO;
-using DO;
+//using DO;
 //FIGURE OUT WHAT ADAPTERS ARE!!!!!
 namespace BL
 {
@@ -27,28 +27,21 @@ namespace BL
             int StationCode = DOstation.Code;
             DOstation.CopyPropertiesTo(BOstation);
             BOstation.Lines = from line in dal.GetBuslinesOfStation(StationCode)
-                              let tmp = line
-                              select tmp.DOtoBOBusLineAdapter(line);
-        }
+                              select DOtoBOBusLineAdapter(line);
+            return BOstation;
+        }//figure out convert!!!!
         DO.BusStation ConvertStationBOtoDO(BO.BusStation BOstation)
         {
-        
+            DO.BusStation DOstation = new DO.BusStation();
+            BOstation.CopyPropertiesTo(DOstation);
+            return DOstation;
         }
 
-            //new BO.StudentCourse()
-            //{
-            //    ID = course.ID,
-            //    Number = course.Number,
-            //    Name = course.Name,
-            //    Year = course.Year,
-            //    Semester = (BO.Semester)(int)course.Semester,
-            //    Grade = sic.Grade
-            //};
 
-            return studentBO;
-        }
 
     }
+
+
     //void UpdateBusLine(BusLine line);
     //void DeleteBusLine(BusLine line);
     //void PrintBusLine(BusLine line);
@@ -60,8 +53,6 @@ namespace BL
     //void PrintBusStation(BusStation station);
     //IEnumerable<BusStation> GetAllBusStations();
     //IEnumerable<BusStation> GetBusStationBy(Predicate<BusLine> predicate);
-
-
-
 }
-}
+
+
