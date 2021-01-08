@@ -238,6 +238,12 @@ namespace DAL
             select (station.Clone());
             return list;
         }
+        public IEnumerable<BusLineStation> GetAllBusLineStationsBy(Predicate<BusLineStation> predicate)
+        {
+            return from busStation in DataSource.Line_stations
+                   where predicate(busStation)
+                   select busStation.Clone();
+        }
         #endregion   //need to check line too??
         //need to check line too??
         #region  BusStation implementation
@@ -277,7 +283,7 @@ namespace DAL
             else
                 throw new StationNotFoundException(busStation.Code, $"Station :{code} wasn't found in the system");
         }//done!!
-        public BusStation GetBusStation(int code)
+        public BusStation GetBusStation(string code)
         {
             BusStation findBusStation = DataSource.Stations.Find(tmpBusStation => tmpBusStation.Code == code);
 
