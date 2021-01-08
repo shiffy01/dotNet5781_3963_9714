@@ -15,7 +15,6 @@ namespace BL
     public class BlImp1 : IBL
     {
         static Random rnd = new Random(DateTime.Now.Millisecond);
-
         readonly IDAL dal = DalFactory.GetDal();
         BusLine DOtoBOBusLineAdapter(DO.BusLine busLine)//NOT SURE IF THIS IS RIGHT
         {
@@ -24,9 +23,11 @@ namespace BL
             //get stations
             BbusLine.Stations = from station in dal.GetAllBusLineStationsBy(station => station.BusLineNumber == BbusLine.BusID)
             let stop = dal.GetBusStation(station.pairID)
-                                     select stop.ConvertStationDOBO(station);
-            //for each place in the list of all distances by has two stops 
-            from station in dal
+                                     select stop.ConvertStationDOBO(station);//will be switching this to call bus line stations
+            //for each place in the list of all (distances by has two stops) select 
+            BbusLine first=dal.
+            from station in BbusLine.Stations
+
 
         }
 
