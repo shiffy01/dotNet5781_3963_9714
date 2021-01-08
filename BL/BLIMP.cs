@@ -12,6 +12,11 @@ using BO;
 //FIGURE OUT WHAT ADAPTERS ARE!!!!!
 namespace BL
 {
+    //hey adina when ur done the one for bus station can you copy paste it here without the bus lines
+    StationOnTheLine DOtoBOstationOnTheLine(DO.BusStation station)
+    {
+        
+    }
     public class BlImp1 : IBL
     {
         static Random rnd = new Random(DateTime.Now.Millisecond);
