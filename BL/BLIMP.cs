@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using BO;
-using DO;
+//using DO;
 //FIGURE OUT WHAT ADAPTERS ARE!!!!!
 namespace BL
 {
@@ -17,7 +17,7 @@ namespace BL
         static Random rnd = new Random(DateTime.Now.Millisecond);
 
         readonly IDAL dal = DalFactory.GetDal();
-
+        BusLine Convert
 
         public void AddBusLine(int line_number, List<int> stations, int first_bus_hour, int first_bus_minute, int last_bus_hour, int last_bus_minutes, TimeSpan frequency)
         {
