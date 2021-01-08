@@ -36,7 +36,8 @@ namespace DLAPI
         void UpdateBusLineStation(BusLineStation busLineStation);
         void DeleteBusLineStation(string pairID);
         BusLineStation GetBusLineStation(string pairID);
-      //  IEnumerable<BusLineStation> GetStationsOfBusLine(int lineID);
+        //  IEnumerable<BusLineStation> GetStationsOfBusLine(int lineID);
+        IEnumerable<BusLineStation> GetAllBusLineStationsBy(Predicate<BusLineStation> predicate);
         IEnumerable<BusLineStation> GetAllBusLineStations();
         #endregion
 
@@ -44,7 +45,7 @@ namespace DLAPI
         void AddBusStation(BusStation busStation);
         void UpdateBusStation(BusStation busStation);
         void DeleteBusStation(int code);
-        BusStation GetBusStation(int code);
+        BusStation GetBusStation(string code);
         IEnumerable<BusStation> GetAllBusStationsBy(Predicate<BusStation> predicate);
         IEnumerable<BusStation> GetAllBusStations();
         #endregion

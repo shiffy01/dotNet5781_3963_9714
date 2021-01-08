@@ -17,7 +17,18 @@ namespace BL
         static Random rnd = new Random(DateTime.Now.Millisecond);
 
         readonly IDAL dal = DalFactory.GetDal();
-        BusLine Convert
+        BusLine DOtoBOBusLineAdapter(DO.BusLine busLine)//NOT SURE IF THIS IS RIGHT
+        {
+            BusLine BbusLine=new BusLine();
+            busLine.CopyPropertiesTo(BbusLine);
+            //get stations
+            BbusLine.Stations = from station in dal.GetAllBusLineStationsBy(station => station.BusLineNumber == BbusLine.BusID)
+            let stop = dal.GetBusStation(station.pairID)
+                                     select stop.ConvertStationDOBO(station);
+            //for each place in the list of all distances by has two stops 
+            from station in dal
+
+        }
 
         public void AddBusLine(int line_number, List<int> stations, int first_bus_hour, int first_bus_minute, int last_bus_hour, int last_bus_minutes, TimeSpan frequency)
         {
