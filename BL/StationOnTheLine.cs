@@ -5,16 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using DO;
 
-namespace BL
+namespace BO
 {
-    class StationOnTheLine
+    public class StationOnTheLine
     {
          public int StationID {get; set;}
         public int Code{ get; set; }
         public double Latitude{ get; set; }
         public double Longitude{ get; set; }
-        public string Street{ get; set; }
-        public string City{ get; set; }
+        public string Address{ get; set; }
+        public int Number_on_route{ get; set; }
+        public double Distance_from_last_stop{ get; set; }
         public bool Exists{ get; set; }
         public override string ToString()
         {

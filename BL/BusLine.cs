@@ -12,7 +12,7 @@ namespace BO
     {
         public int BusID {get; set;}
         public int Bus_line_number {get; set;}
-        public IEnumerable<BusStation> Stations  {get; set;}
+        public IEnumerable<StationOnTheLine> Stations  {get; set;}
         public bool InterCity {get; set;}
         public string Destination {get; set;}
         public string Origin {get; set;}
