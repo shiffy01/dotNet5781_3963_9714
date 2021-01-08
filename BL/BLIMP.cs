@@ -25,7 +25,7 @@ namespace BL
             let stop = dal.GetBusStation(station.pairID)
                                      select stop.ConvertStationDOBO(station);//will be switching this to call bus line stations
             //for each place in the list of all (distances by has two stops) select 
-            BbusLine first=dal.
+            BbusLine first= BbusLine.Stations.FirstOrDefault(s=>s.)
             from station in BbusLine.Stations
 
 
