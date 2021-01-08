@@ -17,18 +17,23 @@ namespace BL
 
         //void AddBusLine(BO.BusLine line)
         //{
-       
+
         //}
         // left to do: 
 
-        BO.BusStation ConvertStationDoBo(DO.BusStation DOstation)
+        BO.BusStation ConvertStationDOtoBO(DO.BusStation DOstation)
         {
             BO.BusStation BOstation = new BO.BusStation();
             int StationCode = DOstation.Code;
             DOstation.CopyPropertiesTo(BOstation);
             BOstation.Lines = from line in dal.GetBuslinesOfStation(StationCode)
-                                let tmp = line
-                                      select tmp.CopyToStudentCourse(line);
+                              let tmp = line
+                              select tmp.DOtoBOBusLineAdapter(line);
+        }
+        DO.BusStation ConvertStationBOtoDO(BO.BusStation BOstation)
+        {
+        
+        }
 
             //new BO.StudentCourse()
             //{
