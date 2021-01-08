@@ -241,6 +241,7 @@ namespace DAL
         public IEnumerable<BusLineStation> GetAllBusLineStationsBy(Predicate<BusLineStation> predicate)
         {
             return from busStation in DataSource.Line_stations
+                   orderby busStation.Number_on_route
                    where predicate(busStation)
                    select busStation.Clone();
         }
