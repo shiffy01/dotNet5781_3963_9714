@@ -12,11 +12,16 @@ using BO;
 //FIGURE OUT WHAT ADAPTERS ARE!!!!!
 namespace BL
 {
+    //hey adina when ur done the one for bus station can you copy paste it here without the bus lines
+    StationOnTheLine DOtoBOstationOnTheLine(DO.BusStation station)
+    {
+        
+    }
     public class BlImp1 : IBL
     {
         static Random rnd = new Random(DateTime.Now.Millisecond);
         readonly IDAL dal = DalFactory.GetDal();
-       BusLine DOtoBOBusLineAdapter(DO.BusLine busLine)//NOT SURE IF THIS IS RIGHT
+        BusLine DOtoBOBusLineAdapter(DO.BusLine busLine)//NOT SURE IF THIS IS RIGHT
         {
             BusLine BbusLine=new BusLine();
             busLine.CopyPropertiesTo(BbusLine);
@@ -24,10 +29,8 @@ namespace BL
             BbusLine.Stations = from station in dal.GetAllBusLineStationsBy(station => station.BusLineNumber == BbusLine.BusID)
             let stop = dal.GetBusStation(station.pairID)
                                      select stop.ConvertStationDOBO(station);//will be switching this to call bus line stations
-            for each place in the list of all(distances by has two stops) select
-
-            BbusLine first = dal.
-
+            //for each place in the list of all (distances by has two stops) select 
+            BbusLine first= BbusLine.Stations.FirstOrDefault(s=>s.)
             from station in BbusLine.Stations
 
 

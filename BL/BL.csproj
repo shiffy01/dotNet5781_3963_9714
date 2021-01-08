@@ -50,6 +50,7 @@
     <Compile Include="FrequencyConflictException.cs" />
     <Compile Include="IBL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StationOnTheLine.cs" />
     <Compile Include="TmpBlimp.cs" />
   </ItemGroup>
   <ItemGroup>
