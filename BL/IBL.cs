@@ -19,8 +19,9 @@ namespace BlApi
         BusLine GetBusLine(int lineID);
         IEnumerable<BusLine> GetAllBusLines();
         IEnumerable<BusLine> GetBusLineBy(Predicate<BusLine> predicate);
-        BO.BusStation ConvertStationDOtoBO(DO.BusStation DOstation);
-        DO.BusStation ConvertStationBOtoDO(BO.BusStation BOstation);
+        //BusLine DOtoBOBusLineAdapter(DO.BusLine busLine);//NOT SURE IF THIS IS RIGHT
+        //BusStation ConvertStationDOtoBO(DO.BusStation DOstation);
+        //DO.BusStation ConvertStationBOtoDO(BO.BusStation BOstation);
         void AddBusStation(BusStation station);
         void UpdateBusStation(BusStation station);
         void DeleteBusStation(BusStation station);
