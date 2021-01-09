@@ -45,11 +45,13 @@
     <Compile Include="BIFactory.cs" />
     <Compile Include="BLIMP.cs" />
     <Compile Include="BusLine.cs" />
+    <Compile Include="BusLineNotFoundException.cs" />
     <Compile Include="BusStation.cs" />
     <Compile Include="DeepCopyUtilities.cs" />
     <Compile Include="FrequencyConflictException.cs" />
     <Compile Include="IBL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StationNotFoundException.cs" />
     <Compile Include="StationOnTheLine.cs" />
     <Compile Include="TmpBlimp.cs" />
   </ItemGroup>

@@ -8,8 +8,7 @@ namespace DO
 {
     public class BusStation
     {
-        public int StationID {get; set;}
-        public int Code{ get; set; }
+        public int Code{ get; set; }//מזהה קו
         public double Latitude{get; set;}
         public double Longitude{get; set;}
         public string Name{get; set;}

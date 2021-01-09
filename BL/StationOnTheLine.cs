@@ -13,6 +13,7 @@ namespace BO
         public int Code{ get; set; }
         public double Latitude{ get; set; }
         public double Longitude{ get; set; }
+         public string Name{get; set;}
         public string Address{ get; set; }
         public int Number_on_route{ get; set; }
         public double Distance_from_last_stop{ get; set; }

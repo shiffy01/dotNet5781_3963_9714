@@ -162,7 +162,13 @@ namespace DAL
             else
                 throw new DO.BusLineNotFoundException("Bus line is not in the system");
         }
-       public IEnumerable<BusLine> GetBuslinesOfStation(int stationID)//gets all the bus lines with this station on the route
+        public IEnumerable<BusLine> GetAllBusLinesBy(Predicate<BusLine> predicate)
+        {
+            return from line in DataSource.Lines
+                   where predicate(line)
+                   select line.Clone();
+        }   //done!!
+        public IEnumerable<BusLine> GetBuslinesOfStation(int stationID)//gets all the bus lines with this station on the route
         {
             //go through all the bus line stations and for each one select that number. then for each number in the for each select get bus line(number)
             //i'll comment this better tomorrow night
@@ -284,7 +290,7 @@ namespace DAL
             else
                 throw new StationNotFoundException(busStation.Code, $"Station :{code} wasn't found in the system");
         }//done!!
-        public BusStation GetBusStation(string code)
+        public BusStation GetBusStation(int code)
         {
             BusStation findBusStation = DataSource.Stations.Find(tmpBusStation => tmpBusStation.Code == code);
 

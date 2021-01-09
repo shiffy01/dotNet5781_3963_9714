@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DO
+namespace BO
 {
-   public class StationNotFoundException: Exception
+    public class StationNotFoundException : Exception
     {
 
 

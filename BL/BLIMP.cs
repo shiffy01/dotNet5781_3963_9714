@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 using BO;
 //using DO;
-//FIGURE OUT WHAT ADAPTERS ARE!!!!!
+
 namespace BL
 {
     
@@ -17,25 +17,53 @@ namespace BL
     {
         static Random rnd = new Random(DateTime.Now.Millisecond);
         readonly IDAL dal = DalFactory.GetDal();
-        public StationOnTheLine DOtoBOstationOnTheLine(DO.BusStation station)
+        BO.BusStation ConvertStationDOtoBO(DO.BusStation DOstation)//ADINA'S, COPIED IT HERE TO USE
         {
-         
+            BO.BusStation BOstation = new BO.BusStation();
+            int StationCode = DOstation.Code;
+            DOstation.CopyPropertiesTo(BOstation);
+            BOstation.Lines = from line in dal.GetBuslinesOfStation(StationCode)
+                              select DOtoBOBusLineAdapter(line);
+            return BOstation;
+        }//figure out convert!!!!
+        DO.BusStation ConvertStationBOtoDO(BO.BusStation BOstation)//ADINA'S, COPIED IT HERE TO USE
+        {
+            DO.BusStation DOstation = new DO.BusStation();
+            BOstation.CopyPropertiesTo(DOstation);
+            return DOstation;
         }
-        BusLine DOtoBOBusLineAdapter(DO.BusLine busLine)//NOT SURE IF THIS IS RIGHT
+        StationOnTheLine DOtoBOstationOnTheLine(DO.BusStation DOstation)
         {
-            BusLine BbusLine=new BusLine();
-            busLine.CopyPropertiesTo(BbusLine);
-            //get stations
-            BbusLine.Stations = from station in dal.GetAllBusLineStationsBy(station => station.BusLineNumber == BbusLine.BusID)
-                                 let stop = dal.GetBusStation(station.pairID)
-                                 select DOtoBOstationOnTheLine(stop);//will be switching this to call bus line stations
-            //for each place in the list of all (distances by has two stops) select 
-            StationOnTheLine first = BbusLine.Stations.FirstOrDefault(s => s.Number_on_route == 1);
-            var sss = from station in BbusLine.Stations
-                      let distance = (dal.GetTwoConsecutiveStops(first.StationID, station.StationID).Distance)
-                      //not sure how to stick this in
-            
+            StationOnTheLine BOstation = new StationOnTheLine();
+            DOstation.CopyPropertiesTo(BOstation);
+            //this function is missing number on route and distance from last stop
+            //those will have to be filled in somewhere else
+            //otherwise i think its fine
+            return BOstation;
+        }
+        //if we need to convert station on the line to anything in do add it here, im not sure we do
+        BusLine DOtoBOBusLineAdapter(DO.BusLine DObusLine)//NOT FINISHED!!
+        {
+            BusLine BObusLine=new BusLine();
+            DObusLine.CopyPropertiesTo(BObusLine);
+            IEnumerable< StationOnTheLine> sss = from station in dal.GetAllBusLineStationsBy(station => station.BusLineNumber == BbusLine.BusID)
+                                 let stop = dal.GetBusStation(station.StationID)                                       
+                                 select DOtoBOstationOnTheLine(stop);
+          //now the line has all the stops without number on route or distance and i cant figure out how to do it
+                
+          
+            StationOnTheLine first = BObusLine.Stations.FirstOrDefault(s => s.Number_on_route == 1);
+            //var ssss = from station in BbusLine.Stations
+            //          let distance = (dal.GetTwoConsecutiveStops(first.StationID, station.StationID).Distance)
+            //          //not sure how to stick this in
 
+            return BObusLine;
+        }
+        DO.BusLine BOtoDOBusLineAdapter(BusLine BObusline)//i think done
+        {
+            DO.BusLine DObusline = new DO.BusLine();
+            BObusline.CopyPropertiesTo(DObusline);
+            return DObusline;
         }
 
         public void AddBusLine(int line_number, List<int> stations, int first_bus_hour, int first_bus_minute, int last_bus_hour, int last_bus_minutes, TimeSpan frequency)
@@ -68,32 +96,88 @@ namespace BL
         }
         // left to do: 
         //void UpdateBusLine(BusLine line);
-        //void DeleteBusLine(BusLine line);
-        //void PrintBusLine(BusLine line);
+        void DeleteBusLine(int lineID)
+        {
+            try
+            {
+                dal.DeleteBusLine(lineID);
+            }
+            catch (DO.BusLineNotFoundException ex)
+            {
+                throw new BusLineNotFoundException("The bus line cannot be deleted because it is not in the system", ex);
+            }
+        }//done
+        //void PrintBusLine(int lineID);
         BusLine GetBusLine(int lineID)
         {
-            //DO.Student studentDO;
-            //try
-            //{
-            //    studentDO = dl.GetStudent(id);
-            //}
-            //catch (DO.BadPersonIdException ex)
-            //{
-            //    throw new BO.BadStudentIdException("Person id does not exist or he is not a student", ex);
-            //}
-            //return studentDoBoAdapter(studentDO);
+            DO.BusLine DObusline;
+            try
+            {
+                DObusline = dal.GetBusLine(lineID);
+            }
+            catch (DO.BusLineNotFoundException ex)
+            {
+                throw new BusLineNotFoundException("The bus line is not in the system", ex);
+            }
+            return DOtoBOBusLineAdapter(DObusline);
 
             //NONE OF THIS MAKES ANY SENSE AT ALL
-        }
-        //IEnumerable<BusLine> GetAllBusLines();
-        //IEnumerable<BusLine> GetBusLineBy(Predicate<BusLine> predicate);
+        }//done
+        IEnumerable<BusLine> GetAllBusLines()
+        {
+            var list =
+            from bus in dal.GetAllBuslines()
+            select (DOtoBOBusLineAdapter(bus));
+            return list;
+        }//done
+        IEnumerable<BusLine> GetBusLineBy(Predicate<BusLine> predicate)
+        {
+            return from line in dal.GetAllBuslines()
+                   let BOLine= DOtoBOBusLineAdapter(line)
+                   where predicate(BOLine)
+                   select BOLine;
+        }//done
         //void AddBusStation(BusStation station);
         //void UpdateBusStation(BusStation station);
-        //void DeleteBusStation(BusStation station);
-        //void PrintBusStation(BusStation station);
-        //BusStation GetBusStation(int stationID);
-        //IEnumerable<BusStation> GetAllBusStations();
-        //IEnumerable<BusStation> GetBusStationBy(Predicate<BusLine> predicate);
+        void DeleteBusStation(int stationID)
+        {
+            try
+            {
+                dal.DeleteBusStation(stationID);
+            }
+            catch (DO.StationNotFoundException ex)
+            {
+                throw new StationNotFoundException(stationID, $"Station :{stationID} wasn't found in the system", ex);
+            }
+        }
+        //void PrintBusStation(int stationID);
+        BusStation GetBusStation(int stationID)
+        {
+            DO.BusStation DObusStation;
+            try
+            {
+                DObusStation = dal.GetBusStation(stationID);
+            }
+            catch (DO.StationNotFoundException ex)
+            {
+                throw new StationNotFoundException(stationID, $"Station :{stationID} wasn't found in the system", ex);
+            }
+            return ConvertStationDOtoBO(DObusStation);
+        }//done
+        IEnumerable<BusStation> GetAllBusStations()
+        {
+            var list =
+           from bus in dal.GetAllBusStations()
+           select (ConvertStationDOtoBO(bus));
+            return list;
+        }//done
+        IEnumerable<BusStation> GetBusStationBy(Predicate<BusStation> predicate)
+        {
+            return from station in dal.GetAllBusStations()
+                   let BOStation = ConvertStationDOtoBO(station)
+                   where predicate(BOStation)
+                   select BOStation;
+        }//done
 
 
     }
