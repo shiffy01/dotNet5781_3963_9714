@@ -104,7 +104,7 @@ namespace DAL
         #endregion
 
         #region BusLine implementation
-        void AddBusLine(int line_number, bool inter_city, string dest, string org, DateTime first, DateTime last, TimeSpan freq)
+        BusLine AddBusLine(int line_number, bool inter_city, string dest, string org, DateTime first, DateTime last, TimeSpan freq)
         {
             bool exists =
                DataSource.Lines.Any(p => p.Exists == true && p.BusID == line_number);
@@ -118,11 +118,13 @@ namespace DAL
                 Origin=org,
                 First_bus=first,
                 Last_bus=last,
-                Frequency=freq
+                Frequency=freq,
+                Exists=true
             };
 
             //dont need to clone bec i built it here
             DataSource.Lines.Add(newBus);
+            return newBus;
         }
        public  void DeleteBusLine(int busID)
         {
@@ -208,8 +210,8 @@ namespace DAL
                     LineID=line_id,
                     pairID=(station_id.ToString()+line_id.ToString()),
                     BusLineNumber=bus_line_number,
-                    Number_on_route=number_on_route
-
+                    Number_on_route=number_on_route,
+                    Exists=true
                 });
         }
         public void UpdateBusLineStation(BusLineStation busLineStation)
@@ -322,16 +324,20 @@ namespace DAL
         #endregion
                
         #region TwoConsecutiveStops  implementation
-      public  void AddTwoConsecutiveStops(TwoConsecutiveStops twoConsecutiveStops)
+       public  void AddTwoConsecutiveStops(int code_1, int code_2)
         {
-            if (DataSource.Two_stops.FirstOrDefault(tmpTwo_stops => tmpTwo_stops.PairID == twoConsecutiveStops.PairID) != null)
+            if (DataSource.Two_stops.FirstOrDefault(tmpTwo_stops => tmpTwo_stops.PairID == (code_1.ToString()+code_2.ToString())) != null)
             {
                 throw new PairAlreadyExitsException(" Pair already exists in the system");
             }
-            string id = twoConsecutiveStops.Stop_1_code.ToString() + twoConsecutiveStops.Stop_2_code.ToString();
 
-            twoConsecutiveStops.PairID = id;
-            DataSource.Two_stops.Add(twoConsecutiveStops.Clone());
+            DataSource.Two_stops.Add(new TwoConsecutiveStops {
+                Stop_1_code = code_1,
+                Stop_2_code = code_2,
+                PairID = (code_1.ToString() + code_2.ToString()),
+                Distance = DS.DataSource.Distance_Between_Two_Stops(GetBusStation(code_1), GetBusStation(code_2)),
+                Average_drive_time = new TimeSpan()//CHANGE THIS!!FIGURE OUT HOW TO CALCULATE AVERAGE DRIVE TIME, SHOULD BE DONE IN BL UNLESS ITS A SET NUMBER!!!!!!!!
+            }) ;
         }//done!!
         public void UpdateTwoConsecutiveStops(TwoConsecutiveStops twoConsecutiveStops)
         {
@@ -360,7 +366,7 @@ namespace DAL
         }//done!!
         public TwoConsecutiveStops GetTwoConsecutiveStops(string pairID)
         {
-            string id = stop1_code.ToString() + stop2_code.ToString();
+            string id = pairID;
             TwoConsecutiveStops findTwoStops = DataSource.Two_stops.FirstOrDefault(tmpTwo_stops => tmpTwo_stops.PairID == id);
             if (findTwoStops != null)
                 return findTwoStops.Clone();
@@ -373,6 +379,18 @@ namespace DAL
             return from pair in DataSource.Two_stops
                    select pair.Clone();
         }   //done!!
+        bool TwoConsecutiveStopsExists(string pairID)
+        {
+            try
+            {
+                GetTwoConsecutiveStops(pairID);
+                return true;
+            }
+            catch (PairNotFoundException)
+            {
+                return false;
+            }
+        }
         #endregion
 
         // #region BuLine implementation

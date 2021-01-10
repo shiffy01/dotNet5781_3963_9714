@@ -16,7 +16,7 @@ namespace BL
     public class BlImp1 : IBL
     {
         static Random rnd = new Random(DateTime.Now.Millisecond);
-        readonly IDAL dal = DalFactory.GetDal();
+     //   readonly IDAL dal = DalFactory.GetDal();
         BO.BusStation ConvertStationDOtoBO(DO.BusStation DOstation)//ADINA'S, COPIED IT HERE TO USE
         {
             BO.BusStation BOstation = new BO.BusStation();
@@ -46,9 +46,10 @@ namespace BL
         {
             BusLine BObusLine = new BusLine();
             DObusLine.CopyPropertiesTo(BObusLine);
-            List<StationOnTheLine> list = (from station in dal.GetAllBusLineStationsBy(station => station.BusLineNumber == BObusLine.BusID)
-                                          let stop = dal.GetBusStation(station.StationID)
-                                          select DOtoBOstationOnTheLine(stop)).ToList();
+            List<StationOnTheLine>  list = (from station in dal.GetAllBusLineStationsBy(station => station.BusLineNumber == BObusLine.BusID)
+                        let stop = dal.GetBusStation(station.StationID)
+                        select DOtoBOstationOnTheLine(stop)).ToList();
+          
             for (int i = 0; i < list.Count; i++)//add number on route for each stop
                 list[i].Number_on_route = i + 1;
             for (int i = 0; i < (list.Count - 1); i++)//add distance to the next stop for each stop
@@ -69,28 +70,46 @@ namespace BL
             DateTime first_bus = new DateTime(0, 0, 0, first_bus_hour, first_bus_minute, 0);
             DateTime last_bus = new DateTime(0, 0, 0, last_bus_hour, last_bus_minutes, 0);
             TimeSpan totalTime = last_bus - first_bus;
-            //does it need to be exact? like if first bus is 11, second bus is 12:30, frequencey is every hour is that an exception?
-            //FIGURE THIS OUT AND THEN THROW AN EXCEPTION
+            if (frequency > totalTime)
+                throw new FrequencyConflictException("The bus doesn't come frequently enough");
+            DateTime total_last_bus = first_bus;
+            while (total_last_bus < last_bus)
+                total_last_bus += frequency;
+            
+            
 
+            bool in_city;//=//how to get city out of first/last stops? then compare them if theyre the same true else false
+            DO.BusLine newBus;
+            try
+            {
+                 newBus = dal.AddBusLine(line_number, in_city, dal.GetBusStation(stations[stations.Count - 1]).Address, dal.GetBusStation(stations[0]).Address, first_bus, total_last_bus, frequency);
+            }
+            catch (DO.BusLineAlreadyExistsException ex)
+            {
+                throw new BusLineAlreadyExistsException("Cannot add the bus line because it is already in the system", ex);
+            }
             //stations can't be incorrect bec the user has to choose them directly from the list of existing stations
             try
             {
-                foreach (var item in stations)
+                for(int i=0; i<stations.Count; i++)
                 {
-                    dal.GetBusStation(item);//throws an exception if this bus station doesn't exist
-
+                    dal.GetBusStation(stations[i]);//throws an exception if this bus station doesn't exist
+                    dal.AddBusLineStation(stations[i], newBus.BusID, line_number, i);
+                    if (i != 0)
+                        if (!dal.TwoConsecutiveStopsExists(stations[i - 1].ToString() + stations[i].ToString()))
+                            dal.AddTwoConsecutiveStops(stations[i - 1], stations[i]);
                 }
             }
             catch(Exception ex)//CHANGE THIS TO "ONE OF THE BUS STOPS DOESNT EXIST" EXCEPTION BUT FIRST PUT ALL THE EXCEPTIONS TOGETHER IN ONE FILE
             {
                 throw ex;
             }
-            
-           // dal.AddBusLine(line_number, )
-           
-       
-          
-        }
+
+            // dal.AddBusLine(line_number, )
+            if (total_last_bus > last_bus)
+                throw new FrequencyConflictException("The time of the last bus has been changed to match the frequency");
+
+        }//not done
         // left to do: 
         void UpdateBusLine(BusLine line)
         {
