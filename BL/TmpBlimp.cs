@@ -8,7 +8,7 @@ using BO;
 //FIGURE OUT WHAT ADAPTERS ARE!!!!!
 namespace BL
 {
-    public class TmpBlimp : IBL
+    partial class BlImp1 : IBL
     {
         static Random rnd = new Random(DateTime.Now.Millisecond);
 
@@ -26,7 +26,8 @@ namespace BL
             BO.BusStation BOstation = new BO.BusStation();
             int StationCode = DOstation.Code;
             DOstation.CopyPropertiesTo(BOstation);
-            BOstation.Lines = from line in dal.GetBuslinesOfStation(StationCode)
+           // BOstation.Lines 
+                var a= from line in dal.GetBuslinesOfStation(StationCode)
                               select DOtoBOBusLineAdapter(line);
             return BOstation;
         }//figure out convert!!!!
@@ -37,18 +38,32 @@ namespace BL
             return DOstation;
         }
 
-
+        void AddBusStation(BusStation station)
+        {
+            try
+            {
+                dal.AddBusStation(ConvertStationBOtoDO(station));
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }//done!
+        void UpdateBusStation(BusStation station)
+        {
+         dal
+        }
 
     }
 
 
-    //void UpdateBusLine(BusLine line);
-    //void DeleteBusLine(BusLine line);
-    //void PrintBusLine(BusLine line);
-    //IEnumerable<BusLine> GetAllBusLines();
-    //IEnumerable<BusLine> GetBusLineBy(Predicate<BusLine> predicate);
-    //void AddBusStation(BusStation station);
-    //void UpdateBusStation(BusStation station);
+    
+
+
+
+
+
+    //;
     //void DeleteBusStation(BusStation station);
     //void PrintBusStation(BusStation station);
     //IEnumerable<BusStation> GetAllBusStations();

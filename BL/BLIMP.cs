@@ -13,25 +13,25 @@ using BO;
 namespace BL
 {
     
-    public class BlImp1 : IBL
+    partial class BlImp1 : IBL
     {
         static Random rnd = new Random(DateTime.Now.Millisecond);
         readonly IDAL dal = DalFactory.GetDal();
-        BO.BusStation ConvertStationDOtoBO(DO.BusStation DOstation)//ADINA'S, COPIED IT HERE TO USE
-        {
-            BO.BusStation BOstation = new BO.BusStation();
-            int StationCode = DOstation.Code;
-            DOstation.CopyPropertiesTo(BOstation);
-            BOstation.Lines = from line in dal.GetBuslinesOfStation(StationCode)
-                              select DOtoBOBusLineAdapter(line);
-            return BOstation;
-        }//figure out convert!!!!
-        DO.BusStation ConvertStationBOtoDO(BO.BusStation BOstation)//ADINA'S, COPIED IT HERE TO USE
-        {
-            DO.BusStation DOstation = new DO.BusStation();
-            BOstation.CopyPropertiesTo(DOstation);
-            return DOstation;
-        }
+       ////BO.BusStation ConvertStationDOtoBO(DO.BusStation DOstation)//ADINA'S, COPIED IT HERE TO USE
+       //// {
+       ////     BO.BusStation BOstation = new BO.BusStation();
+       ////     int StationCode = DOstation.Code;
+       ////     DOstation.CopyPropertiesTo(BOstation);
+       ////     BOstation.Lines = from line in dal.GetBuslinesOfStation(StationCode)
+       ////                       select DOtoBOBusLineAdapter(line);
+       ////     return BOstation;
+        //}//figure out convert!!!!
+       // DO.BusStation ConvertStationBOtoDO(BO.BusStation BOstation)//ADINA'S, COPIED IT HERE TO USE
+        //{
+        //    DO.BusStation DOstation = new DO.BusStation();
+        //    BOstation.CopyPropertiesTo(DOstation);
+        //    return DOstation;
+        //}
         StationOnTheLine DOtoBOstationOnTheLine(DO.BusStation DOstation)
         {
             StationOnTheLine BOstation = new StationOnTheLine();
@@ -44,16 +44,17 @@ namespace BL
         //if we need to convert station on the line to anything in do add it here, im not sure we do
         BusLine DOtoBOBusLineAdapter(DO.BusLine DObusLine)//NOT FINISHED!!
         {
-            BusLine BObusLine=new BusLine();
+           
+            BusLine BObusLine = new BusLine();
             DObusLine.CopyPropertiesTo(BObusLine);
-            IEnumerable< StationOnTheLine> sss = from station in dal.GetAllBusLineStationsBy(station => station.BusLineNumber == BObusLine.BusID)
-                                 let stop = dal.GetBusStation(station.StationID)                                       
-                                 select DOtoBOstationOnTheLine(stop);
-          //now the line has all the stops without number on route or distance and i cant figure out how to do it
-                
-          
+            IEnumerable<StationOnTheLine> sss = from station in dal.GetAllBusLineStationsBy(station => station.BusLineNumber == BObusLine.BusID)
+                                                let stop = dal.GetBusStation(station.StationID)
+                                                select DOtoBOstationOnTheLine(stop);
+            //now the line has all the stops without number on route or distance and i cant figure out how to do it
+
+
             StationOnTheLine first = BObusLine.Stations.FirstOrDefault(s => s.Number_on_route == 1);
-            
+
 
             return BObusLine;
         }
