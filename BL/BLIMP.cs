@@ -13,7 +13,7 @@ using BO;
 namespace BL
 {
     
-    public class BlImp1 : IBL
+    partial class BlImp1 : IBL
     {
         static Random rnd = new Random(DateTime.Now.Millisecond);
      //   readonly IDAL dal = DalFactory.GetDal();
@@ -75,10 +75,11 @@ namespace BL
             DateTime total_last_bus = first_bus;
             while (total_last_bus < last_bus)
                 total_last_bus += frequency;
-            
-            
 
-            bool in_city;//=//how to get city out of first/last stops? then compare them if theyre the same true else false
+            //stations can't be incorrect bec the user has to choose them directly from the list of existing stations
+            //if we change that, need to add some try/catches
+
+            bool in_city = (dal.GetBusStation(stations[0]).City == dal.GetBusStation(stations[stations.Count - 1]).City);
             DO.BusLine newBus;
             try
             {
@@ -86,7 +87,7 @@ namespace BL
             }
             catch (DO.BusLineAlreadyExistsException ex)
             {
-                throw new BusLineAlreadyExistsException("Cannot add the bus line because it is already in the system", ex);
+                throw new BusLineAlreadyExistsException(line_number, "Cannot add the bus line because it is already in the system", ex);
             }
             //stations can't be incorrect bec the user has to choose them directly from the list of existing stations
             try

@@ -13,6 +13,7 @@ namespace DO
         public double Longitude{get; set;}
         public string Name{get; set;}
         public string Address{get; set;}
+        public string City{get; set;}//not the best way to do this.. cuz it already says the city inside the address. but idk how to extract it
         public bool Exists{ get; set; }
 
         public override string ToString()
