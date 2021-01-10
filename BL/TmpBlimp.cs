@@ -38,20 +38,20 @@ namespace BL
             return DOstation;
         }
 
-        void AddBusStation(BusStation station)
-        {
-            try
-            {
-                dal.AddBusStation(ConvertStationBOtoDO(station));
-            }
-            catch(Exception ex)
-            {
-                throw ex;
-            }
-        }//done!
+        //void AddBusStation(BusStation station)
+        //{
+        //    try
+        //    {
+        //        dal.AddBusStation(ConvertStationBOtoDO(station));
+        //    }
+        //    catch(Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}//done!
         void UpdateBusStation(BusStation station)
         {
-         dal
+         
         }
 
     }
