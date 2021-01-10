@@ -23,7 +23,7 @@ namespace DLAPI
         #endregion
 
         #region BusLine  definition
-        void AddBusLine(BusLine busLine);
+        void AddBusLine(int line_number, bool inter_city, string dest, string org, DateTime first, DateTime last, TimeSpan freq);
         void UpdateBusLine(BusLine busLine);
         void DeleteBusLine(int busID);
         IEnumerable<BusLine> GetAllBuslines();
@@ -32,8 +32,9 @@ namespace DLAPI
         IEnumerable<BusLine> GetBuslinesOfStation(int stationID);
         #endregion
 
+        
         #region BusLineStation  definition
-        void AddBusLineStation(BusLineStation busLineStation);
+        void AddBusLineStation(int station_id, int line_id, int bus_line_number, int number_on_route);
         void UpdateBusLineStation(BusLineStation busLineStation);
         void DeleteBusLineStation(string pairID);
         BusLineStation GetBusLineStation(string pairID);
@@ -58,6 +59,7 @@ namespace DLAPI
         TwoConsecutiveStops GetTwoConsecutiveStops(string pairID);
         IEnumerable<TwoConsecutiveStops> GetAllPairs();
         #endregion
+
         //#region BusDeparted  definition
         //bool AddBusDeparted(BusDeparted busDeparted);
         //bool UpdateBusDeparted(BusDeparted busDeparted);
