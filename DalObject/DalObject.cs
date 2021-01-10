@@ -100,25 +100,29 @@ namespace DAL
                    select bus.Clone();
         }    //Done!!
 
-       
+
         #endregion
 
         #region BusLine implementation
-       public void AddBusLine(BusLine busLine)
+        void AddBusLine(int line_number, bool inter_city, string dest, string org, DateTime first, DateTime last, TimeSpan freq)
         {
             bool exists =
-               DataSource.Lines.Any(p => p.Exists == true && p.BusID == busLine.BusID);
+               DataSource.Lines.Any(p => p.Exists == true && p.BusID == line_number);
             if (exists)
                 throw new BusLineAlreadyExistsException();//does it need to say something inside?
 
-            BusLine b = DataSource.Lines.FirstOrDefault(e => e.BusID == busLine.BusID && e.Exists == false);
-            if (b != null)
-            {
-                b.Exists = true;
-            }
+            BusLine newBus = new BusLine {
+                Bus_line_number=line_number,
+                InterCity=inter_city,
+                Destination=dest,
+                Origin=org,
+                First_bus=first,
+                Last_bus=last,
+                Frequency=freq
+            };
 
-            BusLine bus = Cloning.Clone(busLine);
-            DataSource.Lines.Add(bus);
+            //dont need to clone bec i built it here
+            DataSource.Lines.Add(newBus);
         }
        public  void DeleteBusLine(int busID)
         {
@@ -194,15 +198,19 @@ namespace DAL
         #endregion
 
         #region BusLineStation CRUD 
-        public void AddBusLineStation(BusLineStation busLineStation)
+        void AddBusLineStation(int station_id, int line_id, int bus_line_number, int number_on_route)
         {
-            if (DataSource.Line_stations.FirstOrDefault(b => (b.StationID == busLineStation.StationID && b.Exists)) != null)
+            if (DataSource.Line_stations.FirstOrDefault(b => (b.StationID == station_id && b.Exists)) != null)
                 throw new DO.BusLineStationAlreadyExistsException("This bus line station is already in the system");
-            var station = DataSource.Line_stations.FirstOrDefault(b => (b.pairID == busLineStation.pairID && b.Exists == false));
-            if (station != null)
-                station.Exists = true;
-            else
-                DataSource.Line_stations.Add(busLineStation.Clone());
+           
+                DataSource.Line_stations.Add(new BusLineStation {
+                    StationID=station_id,
+                    LineID=line_id,
+                    pairID=(station_id.ToString()+line_id.ToString()),
+                    BusLineNumber=bus_line_number,
+                    Number_on_route=number_on_route
+
+                });
         }
         public void UpdateBusLineStation(BusLineStation busLineStation)
         {
@@ -339,7 +347,7 @@ namespace DAL
                 throw new PairNotFoundException("Pair not found in system");
         }//done!!
 
-        public void DeleteTwoConsecutiveStops(int stop1_code, int stop2_code)
+        public void DeleteTwoConsecutiveStops(string pairID)
         {
             string id = stop1_code.ToString() + stop2_code.ToString();
             TwoConsecutiveStops findTwoStops = DataSource.Two_stops.FirstOrDefault(tmpTwo_stops => tmpTwo_stops.PairID == id);
@@ -350,7 +358,7 @@ namespace DAL
             else
                 throw new PairNotFoundException("Pair not found in system");
         }//done!!
-        public TwoConsecutiveStops GetTwoConsecutiveStops(int stop1_code, int stop2_code)
+        public TwoConsecutiveStops GetTwoConsecutiveStops(string pairID)
         {
             string id = stop1_code.ToString() + stop2_code.ToString();
             TwoConsecutiveStops findTwoStops = DataSource.Two_stops.FirstOrDefault(tmpTwo_stops => tmpTwo_stops.PairID == id);

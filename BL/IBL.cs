@@ -19,7 +19,7 @@ namespace BlApi
         BusLine GetBusLine(int lineID);
         IEnumerable<BusLine> GetAllBusLines();
         IEnumerable<BusLine> GetBusLineBy(Predicate<BusLine> predicate);
-        void AddBusStation(BusStation station);
+        void AddBusStation(BusStation station);//DO WE NEED THIS SINCE THEY CANT ADD BUS STATIONS???
         void UpdateBusStation(BusStation station);
         void DeleteBusStation(int stationID);
         void PrintBusStation(int StationID);
