@@ -46,16 +46,14 @@ namespace BL
         {
             BusLine BObusLine=new BusLine();
             DObusLine.CopyPropertiesTo(BObusLine);
-            IEnumerable< StationOnTheLine> sss = from station in dal.GetAllBusLineStationsBy(station => station.BusLineNumber == BbusLine.BusID)
+            IEnumerable< StationOnTheLine> sss = from station in dal.GetAllBusLineStationsBy(station => station.BusLineNumber == BObusLine.BusID)
                                  let stop = dal.GetBusStation(station.StationID)                                       
                                  select DOtoBOstationOnTheLine(stop);
           //now the line has all the stops without number on route or distance and i cant figure out how to do it
                 
           
             StationOnTheLine first = BObusLine.Stations.FirstOrDefault(s => s.Number_on_route == 1);
-            //var ssss = from station in BbusLine.Stations
-            //          let distance = (dal.GetTwoConsecutiveStops(first.StationID, station.StationID).Distance)
-            //          //not sure how to stick this in
+            
 
             return BObusLine;
         }
@@ -95,7 +93,19 @@ namespace BL
             //IS THERE A PLACE WHERE ALL THE BO STUFF IS SAVED? LIKE A DS FOR THIS LEVEL
         }
         // left to do: 
-        //void UpdateBusLine(BusLine line);
+        void UpdateBusLine(BusLine line)
+        {
+            DO.BusLine DOline;
+            DOline=BOtoDOBusLineAdapter(line);
+            try
+            {
+                dal.UpdateBusLine(DOline);
+            }
+            catch (DO.BusLineNotFoundException ex)
+            {
+                throw new BusLineNotFoundException("The bus line cannot be deleted because it is not in the system", ex);
+            }
+        }
         void DeleteBusLine(int lineID)
         {
             try
@@ -138,7 +148,19 @@ namespace BL
                    select BOLine;
         }//done
         //void AddBusStation(BusStation station);
-        //void UpdateBusStation(BusStation station);
+        void UpdateBusStation(BusStation station)
+        {
+            DO.BusStation DOstation;
+            DOstation = ConvertStationBOtoDO(station);
+            try
+            {
+                dal.UpdateBusStation(DOstation);
+            }
+            catch (DO.StationNotFoundException ex)
+            {
+                throw new StationNotFoundException(station.Code, $"Station :{station.Code} wasn't found in the system", ex);
+            }
+        }
         void DeleteBusStation(int stationID)
         {
             try
