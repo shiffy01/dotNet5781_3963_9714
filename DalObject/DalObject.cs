@@ -339,7 +339,7 @@ namespace DAL
                 throw new PairNotFoundException("Pair not found in system");
         }//done!!
 
-        public void DeleteTwoConsecutiveStops(int stop1_code, int stop2_code)
+        public void DeleteTwoConsecutiveStops(string pairID)
         {
             string id = stop1_code.ToString() + stop2_code.ToString();
             TwoConsecutiveStops findTwoStops = DataSource.Two_stops.FirstOrDefault(tmpTwo_stops => tmpTwo_stops.PairID == id);
@@ -350,7 +350,7 @@ namespace DAL
             else
                 throw new PairNotFoundException("Pair not found in system");
         }//done!!
-        public TwoConsecutiveStops GetTwoConsecutiveStops(int stop1_code, int stop2_code)
+        public TwoConsecutiveStops GetTwoConsecutiveStops(string pairID)
         {
             string id = stop1_code.ToString() + stop2_code.ToString();
             TwoConsecutiveStops findTwoStops = DataSource.Two_stops.FirstOrDefault(tmpTwo_stops => tmpTwo_stops.PairID == id);

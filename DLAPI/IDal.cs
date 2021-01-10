@@ -54,8 +54,8 @@ namespace DLAPI
         #region TwoConsecutiveStops  definition
         void AddTwoConsecutiveStops(TwoConsecutiveStops twoConsecutiveStops);
         void UpdateTwoConsecutiveStops(TwoConsecutiveStops twoConsecutiveStops);
-        void DeleteTwoConsecutiveStops(int stop1_code, int stop2_code);
-        TwoConsecutiveStops GetTwoConsecutiveStops(int stop1_code, int stop2_code);
+        void DeleteTwoConsecutiveStops(string pairID);
+        TwoConsecutiveStops GetTwoConsecutiveStops(string pairID);
         IEnumerable<TwoConsecutiveStops> GetAllPairs();
         #endregion
         //#region BusDeparted  definition

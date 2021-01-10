@@ -44,17 +44,20 @@ namespace BL
         //if we need to convert station on the line to anything in do add it here, im not sure we do
         BusLine DOtoBOBusLineAdapter(DO.BusLine DObusLine)//NOT FINISHED!!
         {
-            BusLine BObusLine=new BusLine();
+            BusLine BObusLine = new BusLine();
             DObusLine.CopyPropertiesTo(BObusLine);
-            IEnumerable< StationOnTheLine> sss = from station in dal.GetAllBusLineStationsBy(station => station.BusLineNumber == BObusLine.BusID)
-                                 let stop = dal.GetBusStation(station.StationID)                                       
-                                 select DOtoBOstationOnTheLine(stop);
+            List<StationOnTheLine> sss = (from station in dal.GetAllBusLineStationsBy(station => station.BusLineNumber == BObusLine.BusID)
+                                          let stop = dal.GetBusStation(station.StationID)
+                                          select DOtoBOstationOnTheLine(stop)).ToList();
           //now the line has all the stops without number on route or distance and i cant figure out how to do it
                 
           
             StationOnTheLine first = BObusLine.Stations.FirstOrDefault(s => s.Number_on_route == 1);
-            
-
+            foreach (var item in sss)
+            {
+                item.Distance_to_the_next_stop = dal.GetTwoConsecutiveStops(first.Code.ToString()+ item.Code.ToString()).Distance;
+                first = item;
+            }
             return BObusLine;
         }
         DO.BusLine BOtoDOBusLineAdapter(BusLine BObusline)//i think done
@@ -171,7 +174,7 @@ namespace BL
             {
                 throw new StationNotFoundException(stationID, $"Station :{stationID} wasn't found in the system", ex);
             }
-        }
+        }//done
         //void PrintBusStation(int stationID);
         BusStation GetBusStation(int stationID)
         {
