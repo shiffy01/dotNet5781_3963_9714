@@ -15,8 +15,8 @@ namespace BL
     
     partial class BlImp1 : IBL
     {
-        static Random rnd = new Random(DateTime.Now.Millisecond);
-     //   readonly IDAL dal = DalFactory.GetDal();
+      //  static Random rnd = new Random(DateTime.Now.Millisecond);
+         readonly IDAL dal = DalFactory.GetDal();
         BO.BusStation ConvertStationDOtoBO(DO.BusStation DOstation)//ADINA'S, COPIED IT HERE TO USE
         {
             BO.BusStation BOstation = new BO.BusStation();
@@ -219,13 +219,14 @@ namespace BL
                    where predicate(BOStation)
                    select BOStation;
         }//done
-        IEnumerable<BusStation> GetBusStationBy(Predicate<BusLine> predicate)
-        {
-            return from station in dal.GetAllBusStations()
-                   let BOStation = ConvertStationDOtoBO(station)
-                   where predicate(BOStation)
-                   select BOStation;
-        }
+
+        //IEnumerable<BusStation> GetBusStationBy(Predicate<BusStation> predicate)
+        //{
+        //    return from station in dal.GetAllBusStations()
+        //           let BOStation = ConvertStationDOtoBO(station)
+        //           where predicate(BOStation)
+        //           select BOStation;
+        //}
         public void AddStationToBusLine(int bus_number, int code, int place)//done
         {
             try
@@ -267,6 +268,42 @@ namespace BL
                 dal.AddTwoConsecutiveStops(code_before, code);
           
         }
+        public void RemoveBusStationFromLine(StationOnTheLine station, BusLine line)
+        {
+            var stationlist = (from stop in line.Stations
+                               select stop).ToList();
+            StationOnTheLine stationToRemove = stationlist.Find(s => s.Code == station.Code);
+            for (int i = stationToRemove.Number_on_route; i < stationlist.Count; i++)
+            {
+                stationlist[i].Number_on_route--;
+            }
+            stationlist.Remove(stationToRemove);
+            line.Stations = stationlist;
+        }//add exception and fix 
 
+        public void AddBusLine(int line_number, List<int> stations, DateTime first_bus, DateTime last_bus, TimeSpan frequency)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void PrintBusLine(int lineID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddBusStation(BusStation station)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void PrintBusStation(int StationID)
+        {
+            throw new NotImplementedException();
+        }
+
+        //IEnumerable<BusStation> IBL.GetBusStationBy(Predicate<BusLine> predicate)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }
