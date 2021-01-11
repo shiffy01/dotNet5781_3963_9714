@@ -26,6 +26,6 @@ namespace BlApi
         BusStation GetBusStation(int stationID);
         IEnumerable<BusStation> GetAllBusStations();
         IEnumerable<BusStation> GetBusStationBy(Predicate<BusLine> predicate);
-       
+        void RemoveBusStationFromLine(StationOnTheLine station, BusLine line);
     }
 }

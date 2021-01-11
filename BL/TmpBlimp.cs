@@ -19,24 +19,24 @@ namespace BL
         //{
 
         //}
-        // left to do: 
+        //// left to do: 
 
-        BO.BusStation ConvertStationDOtoBO(DO.BusStation DOstation)
-        {
-            BO.BusStation BOstation = new BO.BusStation();
-            int StationCode = DOstation.Code;
-            DOstation.CopyPropertiesTo(BOstation);
-           // BOstation.Lines 
-                var a= from line in dal.GetBuslinesOfStation(StationCode)
-                              select DOtoBOBusLineAdapter(line);
-            return BOstation;
-        }//figure out convert!!!!
-        DO.BusStation ConvertStationBOtoDO(BO.BusStation BOstation)
-        {
-            DO.BusStation DOstation = new DO.BusStation();
-            BOstation.CopyPropertiesTo(DOstation);
-            return DOstation;
-        }
+        //BO.BusStation ConvertStationDOtoBO(DO.BusStation DOstation)
+        //{
+        //    BO.BusStation BOstation = new BO.BusStation();
+        //    int StationCode = DOstation.Code;
+        //    DOstation.CopyPropertiesTo(BOstation);
+        //   // BOstation.Lines 
+        //        var a= from line in dal.GetBuslinesOfStation(StationCode)
+        //                      select DOtoBOBusLineAdapter(line);
+        //    return BOstation;
+        //}//figure out convert!!!!
+        //DO.BusStation ConvertStationBOtoDO(BO.BusStation BOstation)
+        //{
+        //    DO.BusStation DOstation = new DO.BusStation();
+        //    BOstation.CopyPropertiesTo(DOstation);
+        //    return DOstation;
+        //}
 
         //void AddBusStation(BusStation station)
         //{
@@ -49,11 +49,18 @@ namespace BL
         //        throw ex;
         //    }
         //}//done!
-        void UpdateBusStation(BusStation station)
+        public void RemoveBusStationFromLine(StationOnTheLine station, BusLine line)
         {
-         
-        }
-
+            var stationlist = (from stop in line.Stations
+                               select stop).ToList();
+            StationOnTheLine stationToRemove= stationlist.Find(s => s.Code == station.Code);
+            for (int i = stationToRemove.Number_on_route; i < stationlist.Count; i++)
+            {
+                stationlist[i].Number_on_route--;
+            }
+            stationlist.Remove(stationToRemove);
+            line.Stations = stationlist;
+        }//add exception and fix 
     }
 
 
