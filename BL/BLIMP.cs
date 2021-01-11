@@ -112,7 +112,7 @@ namespace BL
 
         }//not done
         // left to do: 
-        void UpdateBusLine(BusLine line)
+        public void UpdateBusLine(BusLine line)
         {
             DO.BusLine DOline;
             DOline=BOtoDOBusLineAdapter(line);
@@ -125,7 +125,7 @@ namespace BL
                 throw new BusLineNotFoundException("The bus line cannot be deleted because it is not in the system", ex);
             }
         }
-        void DeleteBusLine(int lineID)
+        public void DeleteBusLine(int lineID)
         {
             try
             {
@@ -137,7 +137,7 @@ namespace BL
             }
         }//done
         //void PrintBusLine(int lineID);
-        BusLine GetBusLine(int lineID)
+        public BusLine GetBusLine(int lineID)
         {
             DO.BusLine DObusline;
             try
@@ -152,14 +152,14 @@ namespace BL
 
             //NONE OF THIS MAKES ANY SENSE AT ALL
         }//done
-        IEnumerable<BusLine> GetAllBusLines()
+        public IEnumerable<BusLine> GetAllBusLines()
         {
             var list =
             from bus in dal.GetAllBuslines()
             select (DOtoBOBusLineAdapter(bus));
             return list;
         }//done
-        IEnumerable<BusLine> GetBusLineBy(Predicate<BusLine> predicate)
+        public IEnumerable<BusLine> GetBusLineBy(Predicate<BusLine> predicate)
         {
             return from line in dal.GetAllBuslines()
                    let BOLine= DOtoBOBusLineAdapter(line)
@@ -167,7 +167,7 @@ namespace BL
                    select BOLine;
         }//done
         //void AddBusStation(BusStation station);
-        void UpdateBusStation(BusStation station)
+        public void UpdateBusStation(BusStation station)
         {
             DO.BusStation DOstation;
             DOstation = ConvertStationBOtoDO(station);
@@ -180,7 +180,7 @@ namespace BL
                 throw new StationNotFoundException(station.Code, $"Station :{station.Code} wasn't found in the system", ex);
             }
         }
-        void DeleteBusStation(int stationID)
+        public void DeleteBusStation(int stationID)
         {
             try
             {
@@ -192,7 +192,7 @@ namespace BL
             }
         }//done
         //void PrintBusStation(int stationID);
-        BusStation GetBusStation(int stationID)
+        public BusStation GetBusStation(int stationID)//check why the red in this function
         {
             DO.BusStation DObusStation;
             try
@@ -205,21 +205,68 @@ namespace BL
             }
             return ConvertStationDOtoBO(DObusStation);
         }//done
-        IEnumerable<BusStation> GetAllBusStations()
+        public IEnumerable<BusStation> GetAllBusStations()
         {
             var list =
            from bus in dal.GetAllBusStations()
            select (ConvertStationDOtoBO(bus));
             return list;
         }//done
-        IEnumerable<BusStation> GetBusStationBy(Predicate<BusStation> predicate)
+        public IEnumerable<BusStation> GetBusStationBy(Predicate<BusStation> predicate)
         {
             return from station in dal.GetAllBusStations()
                    let BOStation = ConvertStationDOtoBO(station)
                    where predicate(BOStation)
                    select BOStation;
         }//done
+        IEnumerable<BusStation> GetBusStationBy(Predicate<BusLine> predicate)
+        {
+            return from station in dal.GetAllBusStations()
+                   let BOStation = ConvertStationDOtoBO(station)
+                   where predicate(BOStation)
+                   select BOStation;
+        }
+        public void AddStationToBusLine(int bus_number, int code, int place)//done
+        {
+            try
+            {
+                dal.GetBusLine(bus_number);
+                dal.GetBusStation(code);
+            }
+            catch (DO.BusLineNotFoundException ex)
+            {
+                throw new BusLineNotFoundException("The bus line is not in the system", ex);
+            }
+            catch (DO.StationNotFoundException ex)
+            {
+                throw new StationNotFoundException(ex.Code, "The Station is not in the system", ex);
+            }
+            try
+            {
+                dal.AddBusLineStation(code, bus_number, dal.GetBusLine(bus_number).Bus_line_number, place);
+            }
+            catch (DO.BusLineStationAlreadyExistsException ex)
+            {
+                throw new StationAlreadyExistsEOnTheLinexception(bus_number, code);//fill this in when i make the class
+            }
+            var list = dal.GetAllBusLineStationsBy(station => (station.BusLineNumber == bus_number && station.Number_on_route >= place));
+            foreach (var item in list)
+            {
+                item.Number_on_route++;
+                dal.UpdateBusLineStation(item);
+            }
+            //doesnt need exception because it just got it from the ds, its for sure there        
 
+            //add distances between the stop and the ones next to it if they dont exist already
+            int code_before = (dal.GetAllBusLineStationsBy(station => (station.LineID == bus_number)).FirstOrDefault(ss => (ss.Number_on_route == place - 1))).StationID;
+            int code_after = (dal.GetAllBusLineStationsBy(station => (station.LineID == bus_number)).FirstOrDefault(ss => (ss.Number_on_route == place +1))).StationID;
+            //two stops with before and after stops if not exist
+            if (!(dal.TwoConsecutiveStopsExists(code_before.ToString() + code.ToString())))
+                dal.AddTwoConsecutiveStops(code_before, code);
+            if (!(dal.TwoConsecutiveStopsExists(code.ToString() + code_after.ToString())))
+                dal.AddTwoConsecutiveStops(code_before, code);
+          
+        }
 
     }
 }
