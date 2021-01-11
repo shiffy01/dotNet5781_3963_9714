@@ -13,7 +13,7 @@ using BO;
 namespace BL
 {
     
-    partial class BlImp1 : IBL
+    public class BlImp1 : IBL
     {
       //  static Random rnd = new Random(DateTime.Now.Millisecond);
          readonly IDAL dal = DalFactory.GetDal();
@@ -180,18 +180,17 @@ namespace BL
                 throw new StationNotFoundException(station.Code, $"Station :{station.Code} wasn't found in the system", ex);
             }
         }
-        public void DeleteBusStation(int stationID)
-        {
-            try
-            {
-                dal.DeleteBusStation(stationID);
-            }
-            catch (DO.StationNotFoundException ex)
-            {
-                throw new StationNotFoundException(stationID, $"Station :{stationID} wasn't found in the system", ex);
-            }
-        }//done
-        //void PrintBusStation(int stationID);
+        //public void DeleteBusStation(int stationID)
+        //{
+        //    try
+        //    {
+        //        dal.DeleteBusStation(stationID);
+        //    }
+        //    catch (DO.StationNotFoundException ex)
+        //    {
+        //        throw new StationNotFoundException(stationID, $"Station :{stationID} wasn't found in the system", ex);
+        //    }
+      //  }//done
         public BusStation GetBusStation(int stationID)//check why the red in this function
         {
             DO.BusStation DObusStation;
@@ -268,42 +267,49 @@ namespace BL
                 dal.AddTwoConsecutiveStops(code_before, code);
           
         }
-        public void RemoveBusStationFromLine(StationOnTheLine station, BusLine line)
+        public void RemoveBusStationFromLine(int stationCode, int lineNumber)
         {
-            var stationlist = (from stop in line.Stations
-                               select stop).ToList();
-            StationOnTheLine stationToRemove = stationlist.Find(s => s.Code == station.Code);
-            for (int i = stationToRemove.Number_on_route; i < stationlist.Count; i++)
+            string id = stationCode.ToString() + lineNumber.ToString();
+            DO.BusLineStation busLineStation;
+            try
             {
-                stationlist[i].Number_on_route--;
+                busLineStation = dal.GetBusLineStation(id);
             }
-            stationlist.Remove(stationToRemove);
-            line.Stations = stationlist;
-        }//add exception and fix 
+            catch (DO.BusLineStationNotFoundException ex )
+            {
+                throw new StationNotFoundException(stationCode, $",station number: {stationCode} is not on this route", ex);
+            }
+            var lineStations = from lineStation in dal.GetAllBusLineStationsBy(l => l.BusLineNumber == busLineStation.BusLineNumber)
+                               select lineStation;
+            List<DO.BusLineStation> busLineStationList = (lineStations.OrderBy(lineStation => lineStation.Number_on_route)).ToList();
+            string pairIDPreviousStop = busLineStation.StationID.ToString()+busLineStationList[busLineStation.Number_on_route - 1].StationID.ToString();
+            dal.DeleteTwoConsecutiveStops(pairIDPreviousStop);
+            string pairIDNextStop =busLineStationList[busLineStation.Number_on_route + 1].StationID.ToString()+ busLineStation.StationID.ToString();
+            dal.DeleteTwoConsecutiveStops(pairIDNextStop);
+
+            dal.AddTwoConsecutiveStops(busLineStationList[busLineStation.Number_on_route - 1].StationID, busLineStationList[busLineStation.Number_on_route + 1].StationID);
+            for (int i = busLineStation.Number_on_route+1; i < busLineStationList.Count; i++)
+            {
+                busLineStationList[i].Number_on_route--;
+                dal.UpdateBusLineStation(busLineStationList[i]);
+            }
+                             
+        }
 
         public void AddBusLine(int line_number, List<int> stations, DateTime first_bus, DateTime last_bus, TimeSpan frequency)
         {
             throw new NotImplementedException();
         }
 
-        public void PrintBusLine(int lineID)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public void AddBusStation(BusStation station)
         {
-            throw new NotImplementedException();
+           
         }
 
-        public void PrintBusStation(int StationID)
-        {
-            throw new NotImplementedException();
-        }
+        
 
-        //IEnumerable<BusStation> IBL.GetBusStationBy(Predicate<BusLine> predicate)
-        //{
-        //    throw new NotImplementedException();
-        //}
-    }
+        
+    
 }
