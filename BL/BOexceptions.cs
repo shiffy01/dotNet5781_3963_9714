@@ -57,6 +57,14 @@ namespace BO
         public BusLineAlreadyExistsException(int lineNumber, string message, Exception inner) : base(message, inner) => LineNumber = lineNumber;
         public override string ToString() => base.ToString() + $",Line number: {LineNumber} is already in the system";
     }
+    public class StationAlreadyExistsEOnTheLinexception : Exception
+    {
 
+        public int LineNumber;
+        public StationAlreadyExistsEOnTheLinexception(int lineNumber, int stationcode) : base() => LineNumber = lineNumber;
+        public StationAlreadyExistsEOnTheLinexception(int lineNumber, int stationcode, string message) : base(message) => LineNumber = lineNumber;
+        public StationAlreadyExistsEOnTheLinexception(int lineNumber, int stationcode, string message, Exception inner) : base(message, inner) => LineNumber = lineNumber;
+        public override string ToString() => base.ToString() + $",Line number: {LineNumber} is already in the system";
+    }
 
 }

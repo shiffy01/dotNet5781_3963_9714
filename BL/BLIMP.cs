@@ -219,7 +219,14 @@ namespace BL
                    where predicate(BOStation)
                    select BOStation;
         }//done
-        public void AddStationToBusLine(int bus_number, int code, int place)//add decleration to ibl, exception that needs to be made
+        IEnumerable<BusStation> GetBusStationBy(Predicate<BusLine> predicate)
+        {
+            return from station in dal.GetAllBusStations()
+                   let BOStation = ConvertStationDOtoBO(station)
+                   where predicate(BOStation)
+                   select BOStation;
+        }
+        public void AddStationToBusLine(int bus_number, int code, int place)//done
         {
             try
             {
@@ -240,7 +247,7 @@ namespace BL
             }
             catch (DO.BusLineStationAlreadyExistsException ex)
             {
-                throw new StationAlreadyExistsEOnTheLinexception();//fill this in when i make the class
+                throw new StationAlreadyExistsEOnTheLinexception(bus_number, code);//fill this in when i make the class
             }
             var list = dal.GetAllBusLineStationsBy(station => (station.BusLineNumber == bus_number && station.Number_on_route >= place));
             foreach (var item in list)

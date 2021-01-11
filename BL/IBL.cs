@@ -12,7 +12,7 @@ namespace BlApi
         //void AddBus(Bus bus);
         //void UpdateBus(Bus bus);
         //void DeleteBus(int license);
-        void AddBusLine(int line_number, List<int> stations, DateTime first_bus, DateTime last_bus, TimeSpan frequency);
+        void AddBusLine(int line_number, List<int> stations, int first_bus_hour, int first_bus_minute, int last_bus_hour, int last_bus_minutes, TimeSpan frequency);
         void UpdateBusLine(BusLine line);
         void DeleteBusLine(int lineID);
         void PrintBusLine(int lineID);
@@ -26,6 +26,6 @@ namespace BlApi
         BusStation GetBusStation(int stationID);
         IEnumerable<BusStation> GetAllBusStations();
         IEnumerable<BusStation> GetBusStationBy(Predicate<BusLine> predicate);
-       
+        void AddStationToBusLine(int bus_number, int code, int place);
     }
 }
