@@ -40,7 +40,8 @@ namespace DAL
 
         #region IDAL implementation
 
-
+        // static Random rnd = new Random(DateTime.Now.Millisecond);
+        int BusLineRunningNumber=2000010;
 
         #region Bus implementation
         public void AddBus(Bus bus)
@@ -51,7 +52,6 @@ namespace DAL
             }
             DataSource.Buses.Add(bus.Clone());
         }//done
-
         public void UpdateBus(Bus bus)
         {
            
@@ -65,7 +65,6 @@ namespace DAL
             else
                 throw new BusNotFoundException("Bus wasn't found in the system");
         }//done
-
         public void DeleteBus(int license)
         {
 
@@ -100,11 +99,10 @@ namespace DAL
                    select bus.Clone();
         }    //Done!!
 
-
         #endregion
 
         #region BusLine implementation
-        BusLine AddBusLine(int line_number, bool inter_city, string dest, string org, DateTime first, DateTime last, TimeSpan freq)
+       public BusLine AddBusLine(int line_number, bool inter_city, string dest, string org, DateTime first, DateTime last, TimeSpan freq)
         {
             bool exists =
                DataSource.Lines.Any(p => p.Exists == true && p.BusID == line_number);
@@ -112,7 +110,8 @@ namespace DAL
                 throw new BusLineAlreadyExistsException();//does it need to say something inside?
 
             BusLine newBus = new BusLine {
-                Bus_line_number=line_number,
+                BusID= BusLineRunningNumber,
+                Bus_line_number =line_number,
                 InterCity=inter_city,
                 Destination=dest,
                 Origin=org,
@@ -121,6 +120,7 @@ namespace DAL
                 Frequency=freq,
                 Exists=true
             };
+            BusLineRunningNumber++;
 
             //dont need to clone bec i built it here
             DataSource.Lines.Add(newBus);
@@ -148,8 +148,7 @@ namespace DAL
             }
             else
                 throw new DO.BusLineNotFoundException("Bus line is not in the system");
-        }//there's something wrong with this. either it should be bool and return false if it cant update,
-        //or it should throw an exception. not both. not sure which to do yet
+        }
        public  IEnumerable<BusLine> GetAllBuslines()
         {
             var list =
@@ -200,7 +199,7 @@ namespace DAL
         #endregion
 
         #region BusLineStation CRUD 
-        void AddBusLineStation(int station_id, int line_id, int bus_line_number, int number_on_route)
+        public void AddBusLineStation(int station_id, int line_id, int bus_line_number, int number_on_route)
         {
             if (DataSource.Line_stations.FirstOrDefault(b => (b.StationID == station_id && b.Exists)) != null)
                 throw new DO.BusLineStationAlreadyExistsException("This bus line station is already in the system");
@@ -261,7 +260,7 @@ namespace DAL
                    where predicate(busStation)
                    select busStation.Clone();
         }
-        #endregion   //need to check line too??
+        #endregion   
         //need to check line too??
         #region  BusStation implementation
         public void AddBusStation(BusStation busStation)
@@ -287,7 +286,6 @@ namespace DAL
             else
                 throw new StationNotFoundException(busStation.Code, $"Station :{busStation.Code} wasn't found in the system");
         }//done!!
-
         public void DeleteBusStation(int code)
         {
 
@@ -324,7 +322,7 @@ namespace DAL
         #endregion
                
         #region TwoConsecutiveStops  implementation
-       public  void AddTwoConsecutiveStops(int code_1, int code_2)
+       public  void AddTwoConsecutiveStops(int code_1, int code_2, double distance, TimeSpan drive_time)
         {
             if (DataSource.Two_stops.FirstOrDefault(tmpTwo_stops => tmpTwo_stops.PairID == (code_1.ToString()+code_2.ToString())) != null)
             {
@@ -335,8 +333,8 @@ namespace DAL
                 Stop_1_code = code_1,
                 Stop_2_code = code_2,
                 PairID = (code_1.ToString() + code_2.ToString()),
-                Distance = DS.DataSource.Distance_Between_Two_Stops(GetBusStation(code_1), GetBusStation(code_2)),
-                Average_drive_time = new TimeSpan()//CHANGE THIS!!FIGURE OUT HOW TO CALCULATE AVERAGE DRIVE TIME, SHOULD BE DONE IN BL UNLESS ITS A SET NUMBER!!!!!!!!
+                Distance = distance,
+                Average_drive_time = drive_time//CHANGE THIS!!FIGURE OUT HOW TO CALCULATE AVERAGE DRIVE TIME, SHOULD BE DONE IN BL UNLESS ITS A SET NUMBER!!!!!!!!
             }) ;
         }//done!!
         public void UpdateTwoConsecutiveStops(TwoConsecutiveStops twoConsecutiveStops)
@@ -352,11 +350,9 @@ namespace DAL
             else
                 throw new PairNotFoundException("Pair not found in system");
         }//done!!
-
         public void DeleteTwoConsecutiveStops(string pairID)
         {
-            string id = stop1_code.ToString() + stop2_code.ToString();
-            TwoConsecutiveStops findTwoStops = DataSource.Two_stops.FirstOrDefault(tmpTwo_stops => tmpTwo_stops.PairID == id);
+            TwoConsecutiveStops findTwoStops = DataSource.Two_stops.FirstOrDefault(tmpTwo_stops => tmpTwo_stops.PairID == pairID);
             if (findTwoStops != null)
             {
                 DataSource.Two_stops.Remove(findTwoStops);
@@ -372,14 +368,13 @@ namespace DAL
                 return findTwoStops.Clone();
             else
                 throw new PairNotFoundException("Pair not found in system");
-        }///done!!
-      
+        }///done!! 
         public IEnumerable<TwoConsecutiveStops> GetAllPairs()
         {
             return from pair in DataSource.Two_stops
                    select pair.Clone();
         }   //done!!
-        bool TwoConsecutiveStopsExists(string pairID)
+        public bool TwoConsecutiveStopsExists(string pairID)
         {
             try
             {

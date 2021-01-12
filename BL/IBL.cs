@@ -12,7 +12,7 @@ namespace BlApi
         //void AddBus(Bus bus);
         //void UpdateBus(Bus bus);
         //void DeleteBus(int license);
-        void AddBusLine(int line_number, List<int> stations, int first_bus_hour, int first_bus_minute, int last_bus_hour, int last_bus_minutes, TimeSpan frequency);
+        List<string> AddBusLine(int line_number, List<int> stations, DateTime first_bus, DateTime last_bus, TimeSpan frequency);
         void UpdateBusLine(BusLine line);
         void DeleteBusLine(int lineID);
    
@@ -20,7 +20,7 @@ namespace BlApi
         IEnumerable<BusLine> GetAllBusLines();
         IEnumerable<BusLine> GetBusLineBy(Predicate<BusLine> predicate);
         void AddBusStation(BusStation station);//DO WE NEED THIS SINCE THEY CANT ADD BUS STATIONS???
-        void UpdateBusStation(BusStation station);
+        void UpdateBusStation(int code, string name);
         void DeleteBusStation(int stationID);
      
         BusStation GetBusStation(int stationID);
