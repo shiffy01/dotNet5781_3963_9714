@@ -63,7 +63,6 @@ namespace BL
             BObusline.CopyPropertiesTo(DObusline);
             return DObusline;
         }
-
         public void AddBusLine(int line_number, List<int> stations, DateTime first_bus, DateTime last_bus, TimeSpan frequency)
         {
 
@@ -110,8 +109,7 @@ namespace BL
             if (total_last_bus > last_bus)
                 throw new FrequencyConflictException("The time of the last bus has been changed to match the frequency");
 
-        }//not done
-        
+        }//not done        
         public void UpdateBusLine(BusLine line)
         {
             DO.BusLine DOline;
@@ -124,7 +122,7 @@ namespace BL
             {
                 throw new BusLineNotFoundException("The bus line cannot be deleted because it is not in the system", ex);
             }
-        }
+        }//find out what ur allowed to update and maybe change this!!!!!!!!!!!!!!!!
         public void DeleteBusLine(int lineID)
         {
             try
@@ -165,17 +163,18 @@ namespace BL
                    where predicate(BOLine)
                    select BOLine;
         }//done
-        public void UpdateBusStation(BusStation station)
+        public void UpdateBusStation(int code, string name)
         {
             DO.BusStation DOstation;
-            DOstation = ConvertStationBOtoDO(station);
+            DOstation =dal.GetBusStation(code);
+            DOstation.Name = name;
             try
             {
                 dal.UpdateBusStation(DOstation);
             }
             catch (DO.StationNotFoundException ex)
             {
-                throw new StationNotFoundException(station.Code, $"Station :{station.Code} wasn't found in the system", ex);
+                throw new StationNotFoundException(code, $"Station :{code} wasn't found in the system", ex);
             }
         }
         public BusStation GetBusStation(int stationID)//check why the red in this function
@@ -205,8 +204,6 @@ namespace BL
                    where predicate(BOStation)
                    select BOStation;
         }//done
-
-       
         public void AddStationToBusLine(int bus_number, int code, int place)//done
         {
             try
@@ -296,7 +293,10 @@ namespace BL
             }
         }
 
-
+        public void DeleteBusStation(int stationID)//BONUS, not implemented
+        {
+            throw new NotImplementedException();
+        }
     }      
     
 }
