@@ -12,11 +12,11 @@ using BO;
 
 namespace BL
 {
-    
+
     public class BlImp1 : IBL
     {
-      //  static Random rnd = new Random(DateTime.Now.Millisecond);
-         readonly IDAL dal = DalFactory.GetDal();
+        //  static Random rnd = new Random(DateTime.Now.Millisecond);
+        readonly IDAL dal = DalFactory.GetDal();
         BO.BusStation ConvertStationDOtoBO(DO.BusStation DOstation)//ADINA'S, COPIED IT HERE TO USE
         {
             BO.BusStation BOstation = new BO.BusStation();
@@ -46,10 +46,10 @@ namespace BL
         {
             BusLine BObusLine = new BusLine();
             DObusLine.CopyPropertiesTo(BObusLine);
-            List<StationOnTheLine>  list = (from station in dal.GetAllBusLineStationsBy(station => station.BusLineNumber == BObusLine.BusID)
-                        let stop = dal.GetBusStation(station.StationID)
-                        select DOtoBOstationOnTheLine(stop)).ToList();
-          
+            List<StationOnTheLine> list = (from station in dal.GetAllBusLineStationsBy(station => station.BusLineNumber == BObusLine.BusID)
+                                           let stop = dal.GetBusStation(station.StationID)
+                                           select DOtoBOstationOnTheLine(stop)).ToList();
+
             for (int i = 0; i < list.Count; i++)//add number on route for each stop
                 list[i].Number_on_route = i + 1;
             for (int i = 0; i < (list.Count - 1); i++)//add distance to the next stop for each stop
@@ -64,11 +64,11 @@ namespace BL
             return DObusline;
         }
 
-        public void AddBusLine(int line_number, List<int> stations, int first_bus_hour, int first_bus_minute, int last_bus_hour, int last_bus_minutes, TimeSpan frequency)
+        public void AddBusLine(int line_number, List<int> stations, DateTime first_bus, DateTime last_bus, TimeSpan frequency)
         {
-            
-            DateTime first_bus = new DateTime(0, 0, 0, first_bus_hour, first_bus_minute, 0);
-            DateTime last_bus = new DateTime(0, 0, 0, last_bus_hour, last_bus_minutes, 0);
+
+            //DateTime first_bus = new DateTime(0, 0, 0, first_bus_hour, first_bus_minute, 0);
+            //DateTime last_bus = new DateTime(0, 0, 0, last_bus_hour, last_bus_minutes, 0);
             TimeSpan totalTime = last_bus - first_bus;
             if (frequency > totalTime)
                 throw new FrequencyConflictException("The bus doesn't come frequently enough");
@@ -83,7 +83,7 @@ namespace BL
             DO.BusLine newBus;
             try
             {
-                 newBus = dal.AddBusLine(line_number, in_city, dal.GetBusStation(stations[stations.Count - 1]).Address, dal.GetBusStation(stations[0]).Address, first_bus, total_last_bus, frequency);
+                newBus = dal.AddBusLine(line_number, in_city, dal.GetBusStation(stations[stations.Count - 1]).Address, dal.GetBusStation(stations[0]).Address, first_bus, total_last_bus, frequency);
             }
             catch (DO.BusLineAlreadyExistsException ex)
             {
@@ -92,7 +92,7 @@ namespace BL
             //stations can't be incorrect bec the user has to choose them directly from the list of existing stations
             try
             {
-                for(int i=0; i<stations.Count; i++)
+                for (int i = 0; i < stations.Count; i++)
                 {
                     dal.GetBusStation(stations[i]);//throws an exception if this bus station doesn't exist
                     dal.AddBusLineStation(stations[i], newBus.BusID, line_number, i);
@@ -101,7 +101,7 @@ namespace BL
                             dal.AddTwoConsecutiveStops(stations[i - 1], stations[i]);
                 }
             }
-            catch(Exception ex)//CHANGE THIS TO "ONE OF THE BUS STOPS DOESNT EXIST" EXCEPTION BUT FIRST PUT ALL THE EXCEPTIONS TOGETHER IN ONE FILE
+            catch (Exception ex)//CHANGE THIS TO "ONE OF THE BUS STOPS DOESNT EXIST" EXCEPTION BUT FIRST PUT ALL THE EXCEPTIONS TOGETHER IN ONE FILE
             {
                 throw ex;
             }
@@ -111,11 +111,11 @@ namespace BL
                 throw new FrequencyConflictException("The time of the last bus has been changed to match the frequency");
 
         }//not done
-        // left to do: 
+        
         public void UpdateBusLine(BusLine line)
         {
             DO.BusLine DOline;
-            DOline=BOtoDOBusLineAdapter(line);
+            DOline = BOtoDOBusLineAdapter(line);
             try
             {
                 dal.UpdateBusLine(DOline);
@@ -136,7 +136,6 @@ namespace BL
                 throw new BusLineNotFoundException("The bus line cannot be deleted because it is not in the system", ex);
             }
         }//done
-        //void PrintBusLine(int lineID);
         public BusLine GetBusLine(int lineID)
         {
             DO.BusLine DObusline;
@@ -162,11 +161,10 @@ namespace BL
         public IEnumerable<BusLine> GetBusLineBy(Predicate<BusLine> predicate)
         {
             return from line in dal.GetAllBuslines()
-                   let BOLine= DOtoBOBusLineAdapter(line)
+                   let BOLine = DOtoBOBusLineAdapter(line)
                    where predicate(BOLine)
                    select BOLine;
         }//done
-        //void AddBusStation(BusStation station);
         public void UpdateBusStation(BusStation station)
         {
             DO.BusStation DOstation;
@@ -180,17 +178,6 @@ namespace BL
                 throw new StationNotFoundException(station.Code, $"Station :{station.Code} wasn't found in the system", ex);
             }
         }
-        //public void DeleteBusStation(int stationID)
-        //{
-        //    try
-        //    {
-        //        dal.DeleteBusStation(stationID);
-        //    }
-        //    catch (DO.StationNotFoundException ex)
-        //    {
-        //        throw new StationNotFoundException(stationID, $"Station :{stationID} wasn't found in the system", ex);
-        //    }
-      //  }//done
         public BusStation GetBusStation(int stationID)//check why the red in this function
         {
             DO.BusStation DObusStation;
@@ -219,13 +206,7 @@ namespace BL
                    select BOStation;
         }//done
 
-        //IEnumerable<BusStation> GetBusStationBy(Predicate<BusStation> predicate)
-        //{
-        //    return from station in dal.GetAllBusStations()
-        //           let BOStation = ConvertStationDOtoBO(station)
-        //           where predicate(BOStation)
-        //           select BOStation;
-        //}
+       
         public void AddStationToBusLine(int bus_number, int code, int place)//done
         {
             try
@@ -259,13 +240,17 @@ namespace BL
 
             //add distances between the stop and the ones next to it if they dont exist already
             int code_before = (dal.GetAllBusLineStationsBy(station => (station.LineID == bus_number)).FirstOrDefault(ss => (ss.Number_on_route == place - 1))).StationID;
-            int code_after = (dal.GetAllBusLineStationsBy(station => (station.LineID == bus_number)).FirstOrDefault(ss => (ss.Number_on_route == place +1))).StationID;
+            int code_after = (dal.GetAllBusLineStationsBy(station => (station.LineID == bus_number)).FirstOrDefault(ss => (ss.Number_on_route == place + 1))).StationID;
             //two stops with before and after stops if not exist
+            bool add_before=false, add_after = false;
             if (!(dal.TwoConsecutiveStopsExists(code_before.ToString() + code.ToString())))
-                dal.AddTwoConsecutiveStops(code_before, code);
+                add_before = true;
             if (!(dal.TwoConsecutiveStopsExists(code.ToString() + code_after.ToString())))
-                dal.AddTwoConsecutiveStops(code_before, code);
-          
+                add_after = true;
+            if (add_before || add_after)
+                throw new NeedDistanceException(code_before, code, code_after, add_before, add_after);
+            //basiclly i threw and exception to get the distance and the pl will send to the AddTwoConsecutiveStops function
+            //when it catches the exception. bec i cant ask for distance in middle of the function
         }
         public void RemoveBusStationFromLine(int stationCode, int lineNumber)
         {
@@ -275,41 +260,43 @@ namespace BL
             {
                 busLineStation = dal.GetBusLineStation(id);
             }
-            catch (DO.BusLineStationNotFoundException ex )
+            catch (DO.BusLineStationNotFoundException ex)
             {
                 throw new StationNotFoundException(stationCode, $",station number: {stationCode} is not on this route", ex);
             }
             var lineStations = from lineStation in dal.GetAllBusLineStationsBy(l => l.BusLineNumber == busLineStation.BusLineNumber)
                                select lineStation;
             List<DO.BusLineStation> busLineStationList = (lineStations.OrderBy(lineStation => lineStation.Number_on_route)).ToList();
-            string pairIDPreviousStop = busLineStation.StationID.ToString()+busLineStationList[busLineStation.Number_on_route - 1].StationID.ToString();
+            string pairIDPreviousStop = busLineStation.StationID.ToString() + busLineStationList[busLineStation.Number_on_route - 1].StationID.ToString();
             dal.DeleteTwoConsecutiveStops(pairIDPreviousStop);
-            string pairIDNextStop =busLineStationList[busLineStation.Number_on_route + 1].StationID.ToString()+ busLineStation.StationID.ToString();
+            string pairIDNextStop = busLineStationList[busLineStation.Number_on_route + 1].StationID.ToString() + busLineStation.StationID.ToString();
             dal.DeleteTwoConsecutiveStops(pairIDNextStop);
 
             dal.AddTwoConsecutiveStops(busLineStationList[busLineStation.Number_on_route - 1].StationID, busLineStationList[busLineStation.Number_on_route + 1].StationID);
-            for (int i = busLineStation.Number_on_route+1; i < busLineStationList.Count; i++)
+            for (int i = busLineStation.Number_on_route + 1; i < busLineStationList.Count; i++)
             {
                 busLineStationList[i].Number_on_route--;
                 dal.UpdateBusLineStation(busLineStationList[i]);
             }
-                             
+
         }
-
-        public void AddBusLine(int line_number, List<int> stations, DateTime first_bus, DateTime last_bus, TimeSpan frequency)
-        {
-            throw new NotImplementedException();
-        }
-
-        
-
         public void AddBusStation(BusStation station)
         {
-           
+            //bonus
+        }
+        public void AddTwoConsecutiveStops(int codeA, int codeB, double distance, TimeSpan drive_time)
+        {
+            try
+            {
+                dal.AddTwoConsecutiveStops(codeA, codeB, distance, drive_time);
+            }
+            catch (DO.PairAlreadyExitsException ex)
+            {
+                throw new PairAlreadyExitsException("the pair already exists in the system", ex);
+            }
         }
 
-        
 
-        
+    }      
     
 }

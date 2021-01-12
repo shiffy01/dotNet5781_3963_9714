@@ -31,7 +31,6 @@ namespace DLAPI
         IEnumerable<BusLine> GetAllBusLinesBy(Predicate<BusLine> predicate);
         IEnumerable<BusLine> GetBuslinesOfStation(int stationID);
         #endregion
-
         
         #region BusLineStation  definition
         void AddBusLineStation(int station_id, int line_id, int bus_line_number, int number_on_route);
@@ -53,7 +52,7 @@ namespace DLAPI
         #endregion
 
         #region TwoConsecutiveStops  definition
-        void AddTwoConsecutiveStops(int code_1, int code_2);
+        void AddTwoConsecutiveStops(int code_1, int code_2, double distance, TimeSpan drive_time);
         void UpdateTwoConsecutiveStops(TwoConsecutiveStops twoConsecutiveStops);
         void DeleteTwoConsecutiveStops(string pairID);
         TwoConsecutiveStops GetTwoConsecutiveStops(string pairID);

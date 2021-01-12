@@ -57,6 +57,7 @@ namespace BO
         public BusLineAlreadyExistsException(int lineNumber, string message, Exception inner) : base(message, inner) => LineNumber = lineNumber;
         public override string ToString() => base.ToString() + $",Line number: {LineNumber} is already in the system";
     }
+    [Serializable]
     public class StationAlreadyExistsEOnTheLinexception : Exception
     {
 
@@ -64,9 +65,49 @@ namespace BO
         public StationAlreadyExistsEOnTheLinexception(int lineNumber, int stationcode) : base() => LineNumber = lineNumber;
         public StationAlreadyExistsEOnTheLinexception(int lineNumber, int stationcode, string message) : base(message) => LineNumber = lineNumber;
         public StationAlreadyExistsEOnTheLinexception(int lineNumber, int stationcode, string message, Exception inner) : base(message, inner) => LineNumber = lineNumber;
-        public override string ToString() => base.ToString() + $",Line number: {LineNumber} is already in the system";
+        public override string ToString() => base.ToString() + $",Line number: {LineNumber} already goes through that stop";
     }
+    [Serializable]
+    public class NeedDistanceException : Exception
+    {
 
-
+        public int CodeA;
+        public int CodeB;
+        public int CodeC;
+        public bool FirstPair;
+        public bool SecondPair;
+        public NeedDistanceException(int codeA, int codeB, int codeC, bool first, bool second) : base()
+        {
+            CodeA = codeA;
+            CodeB = codeB;
+            CodeC = codeC;
+            FirstPair = first;
+            SecondPair = second;
+        }
+        public NeedDistanceException(int codeA, int codeB, int codeC, bool first, bool second, string message) : base(message)
+        {
+            CodeA = codeA;
+            CodeB = codeB;
+            CodeC = codeC;
+            FirstPair = first;
+            SecondPair = second;
+        }
+        public NeedDistanceException(int codeA, int codeB, int codeC, bool first, bool second, string message, Exception inner) : base(message, inner)
+        {
+            CodeA = codeA;
+            CodeB = codeB;
+            CodeC = codeC;
+            FirstPair = first;
+            SecondPair = second;
+        }
+        public override string ToString() => base.ToString() + $",Codes: {CodeA} and {CodeB} already have a distance between them";
+    }
+    public class PairAlreadyExitsException : Exception
+    {
+        public PairAlreadyExitsException() : base() { }
+        public PairAlreadyExitsException(string message) : base(message) { }
+        public PairAlreadyExitsException(string message, Exception inner) : base(message, inner) { }
+        public override string ToString() => base.ToString() + " Pair already exists in the system";
+    }
 
 }
