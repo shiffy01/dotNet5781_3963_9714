@@ -63,7 +63,7 @@ namespace BL
             BObusline.CopyPropertiesTo(DObusline);
             return DObusline;
         }
-        public void AddBusLine(int line_number, List<int> stations, DateTime first_bus, DateTime last_bus, TimeSpan frequency)
+        public List<string> AddBusLine(int line_number, List<int> stations, DateTime first_bus, DateTime last_bus, TimeSpan frequency)
         {
 
             //DateTime first_bus = new DateTime(0, 0, 0, first_bus_hour, first_bus_minute, 0);
@@ -88,7 +88,7 @@ namespace BL
             {
                 throw new BusLineAlreadyExistsException(line_number, "Cannot add the bus line because it is already in the system", ex);
             }
-            //stations can't be incorrect bec the user has to choose them directly from the list of existing stations
+            List<string> needed_distances=new List<string>();
             try
             {
                 for (int i = 0; i < stations.Count; i++)
@@ -97,19 +97,18 @@ namespace BL
                     dal.AddBusLineStation(stations[i], newBus.BusID, line_number, i);
                     if (i != 0)
                         if (!dal.TwoConsecutiveStopsExists(stations[i - 1].ToString() + stations[i].ToString()))
-                            dal.AddTwoConsecutiveStops(stations[i - 1], stations[i]);
+                            needed_distances.Add((stations[i - 1].ToString() + stations[i].ToString()));
                 }
             }
-            catch (Exception ex)//CHANGE THIS TO "ONE OF THE BUS STOPS DOESNT EXIST" EXCEPTION BUT FIRST PUT ALL THE EXCEPTIONS TOGETHER IN ONE FILE
+            catch (DO.StationNotFoundException ex)
             {
-                throw ex;
+                throw new StationNotFoundException(ex.Code, "One of the stops is not in the system");
             }
-
-            // dal.AddBusLine(line_number, )
-            if (total_last_bus > last_bus)
-                throw new FrequencyConflictException("The time of the last bus has been changed to match the frequency");
-
-        }//not done        
+            // i liked this idea but it doesnt work if we want to return a list of needed distances... so maybe figure out something else
+            //if (total_last_bus > last_bus)
+            //    throw new FrequencyConflictException("The time of the last bus has been changed to match the frequency");
+            return needed_distances;
+        } //returns all the pair IDs of distances we need to make
         public void UpdateBusLine(BusLine line)
         {
             DO.BusLine DOline;
@@ -225,7 +224,7 @@ namespace BL
             }
             catch (DO.BusLineStationAlreadyExistsException ex)
             {
-                throw new StationAlreadyExistsEOnTheLinexception(bus_number, code);//fill this in when i make the class
+                throw new StationAlreadyExistsOnTheLinexception(bus_number, code);//fill this in when i make the class
             }
             var list = dal.GetAllBusLineStationsBy(station => (station.BusLineNumber == bus_number && station.Number_on_route >= place));
             foreach (var item in list)

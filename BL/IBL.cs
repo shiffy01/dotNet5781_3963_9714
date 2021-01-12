@@ -12,7 +12,7 @@ namespace BlApi
         //void AddBus(Bus bus);
         //void UpdateBus(Bus bus);
         //void DeleteBus(int license);
-        void AddBusLine(int line_number, List<int> stations, DateTime first_bus, DateTime last_bus, TimeSpan frequency);
+        List<string> AddBusLine(int line_number, List<int> stations, DateTime first_bus, DateTime last_bus, TimeSpan frequency);
         void UpdateBusLine(BusLine line);
         void DeleteBusLine(int lineID);
    

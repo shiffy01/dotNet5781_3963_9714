@@ -58,7 +58,7 @@ namespace BO
         public override string ToString() => base.ToString() + $",Line number: {LineNumber} is already in the system";
     }
     [Serializable]
-    public class StationAlreadyExistsEOnTheLinexception : Exception
+    public class StationAlreadyExistsOnTheLinexception : Exception
     {
 
         public int LineNumber;
@@ -102,6 +102,7 @@ namespace BO
         }
         public override string ToString() => base.ToString() + $",Codes: {CodeA} and {CodeB} already have a distance between them";
     }
+    [Serializable]
     public class PairAlreadyExitsException : Exception
     {
         public PairAlreadyExitsException() : base() { }
@@ -109,5 +110,7 @@ namespace BO
         public PairAlreadyExitsException(string message, Exception inner) : base(message, inner) { }
         public override string ToString() => base.ToString() + " Pair already exists in the system";
     }
+    
+    
 
 }
