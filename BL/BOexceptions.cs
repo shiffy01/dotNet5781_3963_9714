@@ -66,6 +66,15 @@ namespace BO
         public StationAlreadyExistsEOnTheLinexception(int lineNumber, int stationcode, string message, Exception inner) : base(message, inner) => LineNumber = lineNumber;
         public override string ToString() => base.ToString() + $",Line number: {LineNumber} is already in the system";
     }
+    public class StationAlreadyExistsException : Exception
+    {
+
+        public int Code;
+        public StationAlreadyExistsException(int code) : base() => Code = code;
+        public StationAlreadyExistsException(int code, string message) : base(message) => Code = code;
+        public StationAlreadyExistsException(int code, string message, Exception inner) : base(message, inner) => Code = code;
+        public override string ToString() => base.ToString() + $",Station with code: {Code} already exists in the system";
+    }
 
 
 
