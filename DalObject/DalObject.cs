@@ -258,7 +258,7 @@ namespace DAL
                    select busStation.Clone();
         }
         #endregion   
-        //need to check line too??
+
         #region  BusStation implementation
         public void AddBusStation(int code, double latitude, double longitude, string name, string address, string city)
         {
