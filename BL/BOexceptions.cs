@@ -62,9 +62,9 @@ namespace BO
     {
 
         public int LineNumber;
-        public StationAlreadyExistsEOnTheLinexception(int lineNumber, int stationcode) : base() => LineNumber = lineNumber;
-        public StationAlreadyExistsEOnTheLinexception(int lineNumber, int stationcode, string message) : base(message) => LineNumber = lineNumber;
-        public StationAlreadyExistsEOnTheLinexception(int lineNumber, int stationcode, string message, Exception inner) : base(message, inner) => LineNumber = lineNumber;
+        public StationAlreadyExistsOnTheLinexception(int lineNumber, int stationcode) : base() => LineNumber = lineNumber;
+        public StationAlreadyExistsOnTheLinexception(int lineNumber, int stationcode, string message) : base(message) => LineNumber = lineNumber;
+        public StationAlreadyExistsOnTheLinexception(int lineNumber, int stationcode, string message, Exception inner) : base(message, inner) => LineNumber = lineNumber;
         public override string ToString() => base.ToString() + $",Line number: {LineNumber} already goes through that stop";
     }
     [Serializable]

@@ -15,15 +15,12 @@ namespace DAL
 
         private DalObject()
         {
-            //try
-          //  {
-                DS.DataSource.initialize_buses();
-
-          //  }
-            //catch (BusException be)
-            //{
-            //    //TODO
-            //}
+           
+            DS.DataSource.initialize_buses();
+            DS.DataSource.initialize_Stations();
+            DS.DataSource.initialize_Lines();
+            DS.DataSource.initialize_Bus_line_stations();
+            DS.DataSource.initialize_two_consecutive_stations();
         }
 
         static DalObject()

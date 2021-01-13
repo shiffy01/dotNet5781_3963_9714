@@ -50,7 +50,7 @@ namespace PlConsole
             {
                 Console.WriteLine(ex.Message);
             }
-            catch (StationAlreadyExistsEOnTheLinexception ex)
+            catch (StationAlreadyExistsOnTheLinexception ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -62,7 +62,7 @@ namespace PlConsole
             {
                 Console.WriteLine(ex.Message);
             }
-            catch (StationAlreadyExistsEOnTheLinexception ex)
+            catch (StationAlreadyExistsOnTheLinexception ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -74,13 +74,13 @@ namespace PlConsole
             {
                 Console.WriteLine(ex.Message);
             }
-            catch (StationAlreadyExistsEOnTheLinexception ex)
+            catch (StationAlreadyExistsOnTheLinexception ex)
             {
                 Console.WriteLine(ex.Message);
             }
             try
             {
-                bl.AddBusLine(35, stationsOnLine, 8, 0, 22, 0, new TimeSpan(1, 0, 0));
+               bl.AddBusLine(35, stationsOnLine, new DateTime(0, 0, 0, 3, 40, 0), new DateTime(0, 0, 0, 8, 40, 0), new TimeSpan(1, 0, 0));
             }
             catch (BusLineAlreadyExistsException ex)
             {
