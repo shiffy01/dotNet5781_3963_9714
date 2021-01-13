@@ -308,7 +308,7 @@ namespace BL
             }
             catch (DO.StationAlreadyExistsException ex)
             {
-                throw new StationALreadyExistsException(code, "You can't add a bus station that is alredy in the system", ex);
+                throw new StationALreadyExistsException(code, "You can't add a bus station that is already in the system", ex);
             }
         }
         public void DeleteBusStation(int stationID)//BONUS, not implemented
