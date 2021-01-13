@@ -16,7 +16,7 @@ namespace BL
     public class Blimp1: IBL
     {
         #region singleton implementaion
-        private readonly static IBL blInstance = new Blimp1();
+        private readonly static Blimp1 blInstance = new Blimp1();
         private Blimp1()
         {
         }
@@ -25,7 +25,7 @@ namespace BL
         {
         }
 
-        public static IBL Instance
+        public static Blimp1 Instance
         {
 
             get => blInstance;

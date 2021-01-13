@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 //DELETE BONUS????
-namespace DAL
+namespace DL
 {
     public sealed class DalObject : IDAL
     {
