@@ -43,7 +43,7 @@ namespace DLAPI
         #endregion
 
         #region BusStation  definition
-        void AddBusStation(BusStation busStation);
+        void AddBusStation(int code, double latitude, double longitude, string name, string address, string city);
         void UpdateBusStation(BusStation busStation);
         void DeleteBusStation(int code);
         BusStation GetBusStation(int code);
