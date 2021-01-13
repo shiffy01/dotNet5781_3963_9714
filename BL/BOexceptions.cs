@@ -48,6 +48,15 @@ namespace BO
         public override string ToString() => base.ToString() + $",Station number: {Code} wasn't found in the system";
     }
     [Serializable]
+    public class StationALreadyExistsException:Exception
+    {
+        public int Code;
+        public StationALreadyExistsException(int code) : base() => Code = code;
+        public StationALreadyExistsException(int code, string message) : base(message) => Code = code;
+        public StationALreadyExistsException(int code, string message, Exception inner) : base(message, inner) => Code = code;
+        public override string ToString() => base.ToString() + $",StationCode: {Code} is already in the system";
+    }
+    [Serializable]
     public class BusLineAlreadyExistsException : Exception
     {
 

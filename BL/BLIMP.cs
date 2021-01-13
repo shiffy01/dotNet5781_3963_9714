@@ -13,9 +13,26 @@ using BO;
 namespace BL
 {
 
-    public class BlImp1 : IBL
+    public class BLIMP : IBL
     {
-        //  static Random rnd = new Random(DateTime.Now.Millisecond);
+        #region singleton implementaion
+        private readonly static IBL blInstance = new BLIMP();
+        private BLIMP()
+        {
+        }
+
+        static BLIMP()
+        {
+        }
+
+        public static IBL Instance
+        {
+
+            get => blInstance;
+        }
+        #endregion//what is bl factory then? isnt that the implementation?//what is bl factory then? isnt that the implementation?
+
+        #region convert functions
         readonly IDAL dal = DalFactory.GetDal();
         BO.BusStation ConvertStationDOtoBO(DO.BusStation DOstation)//ADINA'S, COPIED IT HERE TO USE
         {
@@ -63,6 +80,9 @@ namespace BL
             BObusline.CopyPropertiesTo(DObusline);
             return DObusline;
         }
+        #endregion
+
+        #region BusLine functions
         public List<string> AddBusLine(int line_number, List<int> stations, DateTime first_bus, DateTime last_bus, TimeSpan frequency)
         {
 
@@ -91,13 +111,14 @@ namespace BL
             List<string> needed_distances=new List<string>();
             try
             {
+
                 for (int i = 0; i < stations.Count; i++)
                 {
                     dal.GetBusStation(stations[i]);//throws an exception if this bus station doesn't exist
                     dal.AddBusLineStation(stations[i], newBus.BusID, line_number, i);
                     if (i != 0)
                         if (!dal.TwoConsecutiveStopsExists(stations[i - 1].ToString() + stations[i].ToString()))
-                            needed_distances.Add((stations[i - 1].ToString() + stations[i].ToString()));
+                            needed_distances.Add(stations[i - 1] +"*" +stations[i]);
                 }
             }
             catch (DO.StationNotFoundException ex)
@@ -162,6 +183,9 @@ namespace BL
                    where predicate(BOLine)
                    select BOLine;
         }//done
+        #endregion
+
+        #region BusStation
         public void UpdateBusStation(int code, string name)
         {
             DO.BusStation DOstation;
@@ -276,10 +300,22 @@ namespace BL
             }
 
         }
-        public void AddBusStation(BusStation station)
+        public void AddBusStation(int code, double latitude, double longitude, string name, string address, string city)
         {
-            //bonus
+            try
+            {
+                dal.AddBusStation(code, latitude, longitude, name, address, city);
+            }
+            catch (DO.StationAlreadyExistsException ex)
+            {
+                throw new StationALreadyExistsException(code, "You can't add a bus station that is alredy in the system", ex);
+            }
         }
+        public void DeleteBusStation(int stationID)//BONUS, not implemented
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
         public void AddTwoConsecutiveStops(int codeA, int codeB, double distance, TimeSpan drive_time)
         {
             try
@@ -292,10 +328,8 @@ namespace BL
             }
         }
 
-        public void DeleteBusStation(int stationID)//BONUS, not implemented
-        {
-            throw new NotImplementedException();
-        }
-    }      
-    
+        
+    }
+   
+
 }

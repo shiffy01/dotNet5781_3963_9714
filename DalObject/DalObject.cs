@@ -38,7 +38,7 @@ namespace DAL
         #region IDAL implementation
 
         // static Random rnd = new Random(DateTime.Now.Millisecond);
-        int BusLineRunningNumber=2000010;
+       // int BusLineRunningNumber=2000010;
 
         #region Bus implementation
         public void AddBus(Bus bus)
@@ -260,15 +260,23 @@ namespace DAL
         #endregion   
         //need to check line too??
         #region  BusStation implementation
-        public void AddBusStation(BusStation busStation)
+        public void AddBusStation(int code, double latitude, double longitude, string name, string address, string city)
         {
-            if (DataSource.Stations.FirstOrDefault(tmpBusStation => tmpBusStation.Code == busStation.Code) != null)
+            if (DataSource.Stations.FirstOrDefault(tmpBusStation => tmpBusStation.Code == code) != null)
             {
-                throw new StationAlreadyExistsException(busStation.Code, $", Bus with License number: {busStation.Code} already exists in the system");
+                throw new StationAlreadyExistsException(code, $", Bus with License number: {code} already exists in the system");
 
             }
            
-            DataSource.Stations.Add(busStation.Clone());
+            DataSource.Stations.Add(new BusStation {
+                Code=code,
+                Latitude=latitude,
+                Longitude=longitude,
+                Name=name,
+                Address=address,
+                City=city,
+                //Exists=true
+            });
         }//done!!
         public void UpdateBusStation(BusStation busStation)
         {
