@@ -43,7 +43,7 @@
   <ItemGroup>
     <Compile Include="Address.cs" />
     <Compile Include="BIFactory.cs" />
-    <Compile Include="BLIMP.cs" />
+    <Compile Include="Blimp1.cs" />
     <Compile Include="BOexceptions.cs" />
     <Compile Include="BusLine.cs" />
     <Compile Include="BusStation.cs" />

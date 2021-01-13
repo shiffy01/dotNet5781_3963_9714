@@ -107,7 +107,7 @@ namespace DAL
                 throw new BusLineAlreadyExistsException();//does it need to say something inside?
 
             BusLine newBus = new BusLine {
-                BusID= BusLineRunningNumber,
+                BusID = DS.Config.BusLineCounter,
                 Bus_line_number =line_number,
                 InterCity=inter_city,
                 Destination=dest,
@@ -117,7 +117,7 @@ namespace DAL
                 Frequency=freq,
                 Exists=true
             };
-            BusLineRunningNumber++;
+            
 
             //dont need to clone bec i built it here
             DataSource.Lines.Add(newBus);

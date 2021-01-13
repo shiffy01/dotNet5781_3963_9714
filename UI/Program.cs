@@ -126,7 +126,7 @@ namespace PlConsole
                 Console.WriteLine(ex.Message);
             }
             Console.WriteLine("testing  getBusStationBy ");
-            List<BusLine> lines= bl.GetBusStationBy(station => (station.City=="ירושלים"));
+            List<BusStation> lines= (bl.GetBusStationBy(station => (station.City=="ירושלים"))).ToList();
             #endregion
             #endregion
             Console.WriteLine("TESTING REMOVE STATION FROM LIST");

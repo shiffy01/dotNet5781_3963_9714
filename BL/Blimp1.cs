@@ -13,15 +13,15 @@ using BO;
 namespace BL
 {
 
-    public class BLIMP : IBL
+    public class Blimp1: IBL
     {
         #region singleton implementaion
-        private readonly static IBL blInstance = new BLIMP();
-        private BLIMP()
+        private readonly static IBL blInstance = new Blimp1();
+        private Blimp1()
         {
         }
 
-        static BLIMP()
+        static Blimp1()
         {
         }
 
