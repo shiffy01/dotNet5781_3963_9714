@@ -248,7 +248,7 @@ namespace BL
             //basiclly i threw and exception to get the distance and the pl will send to the AddTwoConsecutiveStops function
             //when it catches the exception. bec i cant ask for distance in middle of the function
         }
-        public void RemoveBusStationFromLine(int stationCode, int lineNumber)
+        public string RemoveBusStationFromLine(int stationCode, int lineNumber)
         {
             string id = stationCode.ToString() + lineNumber.ToString();
             DO.BusLineStation busLineStation;
@@ -263,18 +263,16 @@ namespace BL
             var lineStations = from lineStation in dal.GetAllBusLineStationsBy(l => l.BusLineNumber == busLineStation.BusLineNumber)
                                select lineStation;
             List<DO.BusLineStation> busLineStationList = (lineStations.OrderBy(lineStation => lineStation.Number_on_route)).ToList();
-            string pairIDPreviousStop = busLineStation.StationID.ToString() + busLineStationList[busLineStation.Number_on_route - 1].StationID.ToString();
-            dal.DeleteTwoConsecutiveStops(pairIDPreviousStop);
-            string pairIDNextStop = busLineStationList[busLineStation.Number_on_route + 1].StationID.ToString() + busLineStation.StationID.ToString();
-            dal.DeleteTwoConsecutiveStops(pairIDNextStop);
-
-            dal.AddTwoConsecutiveStops(busLineStationList[busLineStation.Number_on_route - 1].StationID, busLineStationList[busLineStation.Number_on_route + 1].StationID);
             for (int i = busLineStation.Number_on_route + 1; i < busLineStationList.Count; i++)
             {
                 busLineStationList[i].Number_on_route--;
                 dal.UpdateBusLineStation(busLineStationList[i]);
             }
-
+            if(! (dal.TwoConsecutiveStopsExists(busLineStationList[busLineStation.Number_on_route - 1].StationID.ToString()+ busLineStationList[busLineStation.Number_on_route + 1].StationID.ToString())))
+            {
+                return busLineStationList[busLineStation.Number_on_route - 1].StationID + "*" + busLineStationList[busLineStation.Number_on_route + 1].StationID;
+            }
+            return null;
         }
         public void AddBusStation(BusStation station)
         {
