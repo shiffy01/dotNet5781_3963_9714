@@ -35,6 +35,7 @@ namespace PlConsole
             }
 
             #region create and print lists
+            try
             List<BO.BusLine> busLines = bl.GetAllBusLines().ToList();
             List<BO.BusStation> busStations = bl.GetAllBusStations().ToList();
             Console.WriteLine("All Bus Lines:");
@@ -67,28 +68,58 @@ namespace PlConsole
             {
                 Console.WriteLine(ex.Message);
             }
-            List<BO.StationOnTheLine> stationsToAdd = new List<BO.StationOnTheLine>();
-            neededDistances.ForEach(AddDistance);
-            void AddDistance(string pairId)
+            int code1=0, code2=0;
+            for (int i = 0; i < neededDistances.Count; i++)
             {
-                //get both station codes, choose rand distance, and create a bus station w the distance and the staion code, and add to stationsToAd
+                string[] codes = neededDistances[i].Split('*');
+                try
+                {
+                     code1= Int32.Parse(codes[0]);
+                }
+                catch (FormatException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                try
+                {
+                     code2 = Int32.Parse(codes[1]);
+                }
+                catch (FormatException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                bl.AddTwoConsecutiveStops(code1, code2, rnd.Next(), new TimeSpan(6, 0, 0));
             }
-            BusLine tmpLine=new BusLine();
-            #region create tmpline
-            tmpLine.Bus_line_number = 35;
-            tmpLine.Destination = bl.GetBusLine(35).Destination;
-            tmpLine.BusID = bl.GetBusLine(35).BusID;
-            tmpLine.First_bus = bl.GetBusLine(35).First_bus;
-            tmpLine.Frequency = bl.GetBusLine(35).Frequency;
-            tmpLine.InterCity = bl.GetBusLine(35).InterCity;
-            tmpLine.Last_bus = bl.GetBusLine(35).Last_bus;
-            tmpLine.Origin = bl.GetBusLine(35).Origin;
-            tmpLine.Stations = stationsToAdd;
-            #endregion
-            bl.UpdateBusLine(tmpLine);
-            Console.WriteLine("All Bus Lines:");
-            PrintLines(busLines);
 
+
+            #endregion
+
+
+            #region update line, and getline
+            try
+            {
+                bl.UpdateBusLine(new DateTime(2021, 1, 1, 6, 0, 0), new DateTime(2021, 1, 1, 12, 0, 0), new TimeSpan(30, 0, 0), 200011);
+            }
+            catch (BO.FrequencyConflictException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (BO.BusLineNotFoundException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            try
+            {
+                Console.WriteLine("Updated line:" + bl.GetBusLine(200011));
+            }
+            catch (BusLineNotFoundException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (PairNotFoundException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
             #endregion//implement addDistance 
 
             //*********************

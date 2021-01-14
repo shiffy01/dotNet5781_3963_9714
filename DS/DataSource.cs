@@ -29,311 +29,7 @@ namespace DS
             return Math.Sqrt((station1.Latitude - station2.Latitude) * (station1.Latitude - station2.Latitude) +
                              (station1.Longitude - station2.Longitude) * (station1.Longitude - station2.Longitude));
         }
-        public static void initialize_buses()
-        {
-            Buses.Add(new Bus {
-                Status = Bus.Status_ops.Ready,
-                License = 12345678,
-                StartDate = DateTime.Now,
-                Last_tune_up = DateTime.Now,
-                Totalkilometerage = 0,
-                kilometerage = 0,
-                Gas = 1200,
-                HasDVD = true,
-                HasWifi = true,
-                IsAccessible = false
-            });//12345678
-            Buses.Add(new Bus {
-                Status = Bus.Status_ops.Ready,
-                License = 12375578,
-                StartDate = new DateTime(2019, 02, 05),
-                Last_tune_up = DateTime.Now,
-                Totalkilometerage = 1200,
-                kilometerage = 0,
-                Gas = 1200,
-                HasDVD = false,
-                HasWifi = true,
-                IsAccessible = false
-            });//12375578
-            Buses.Add(new Bus {
-                Status = Bus.Status_ops.Ready,
-                License = 11343098,
-                StartDate = new DateTime(2020, 05, 14),
-                Last_tune_up = DateTime.Now,
-                Totalkilometerage = 13500,
-                kilometerage = 0,
-                Gas = 1200,
-                HasDVD = true,
-                HasWifi = true,
-                IsAccessible = false
-            });//11343098
-            Buses.Add(new Bus {
-                Status = Bus.Status_ops.Ready,
-                License = 67544527,
-                StartDate = new DateTime(2020, 10, 22),
-                Last_tune_up = DateTime.Now,
-                Totalkilometerage = 4098,
-                kilometerage = 0,
-                Gas = 1200,
-                HasDVD = true,
-                HasWifi = true,
-                IsAccessible = true
-            });//67544527
-            Buses.Add(new Bus {
-                Status = Bus.Status_ops.Ready,
-                License = 76542223,
-                StartDate = new DateTime(2018, 08, 30),
-                Last_tune_up = DateTime.Now,
-                Totalkilometerage = 1000000,
-                kilometerage = 0,
-                Gas = 1200,
-                HasDVD = true,
-                HasWifi = true,
-                IsAccessible = false
-            });//76542223
-            //5
-            Buses.Add(new Bus {
-                Status = Bus.Status_ops.Ready,
-                License = 1234567,
-                StartDate = new DateTime(2015, 01, 01),
-                Last_tune_up = DateTime.Now,
-                Totalkilometerage = 4000000,
-                kilometerage = 0,
-                Gas = 1200,
-                HasDVD = true,
-                HasWifi = true,
-                IsAccessible = true
-            });//1234567
-            Buses.Add(new Bus {
-                Status = Bus.Status_ops.Ready,
-                License = 7154110,
-                StartDate = new DateTime(2016, 01, 01),
-                Last_tune_up = DateTime.Now,
-                Totalkilometerage = 905088,
-                kilometerage = 0,
-                Gas = 1200,
-                HasDVD = true,
-                HasWifi = false,
-                IsAccessible = true
-            });//7154110
-            Buses.Add(new Bus {
-                Status = Bus.Status_ops.Ready,
-                License = 8765432,
-                StartDate = new DateTime(2017, 02, 05),
-                Last_tune_up = DateTime.Now,
-                Totalkilometerage = 620000,
-                kilometerage = 0,
-                Gas = 1200,
-                HasDVD = true,
-                HasWifi = false,
-                IsAccessible = true
-            });//8765432
-            Buses.Add(new Bus {
-                Status = Bus.Status_ops.Ready,
-                License = 7564325,
-                StartDate = new DateTime(2012, 12, 27),
-                Last_tune_up = DateTime.Now,
-                Totalkilometerage = 10000000,
-                kilometerage = 0,
-                Gas = 1200,
-                HasDVD = true,
-                HasWifi = true,
-                IsAccessible = false
-            });//7564325
-            Buses.Add(new Bus {
-                Status = Bus.Status_ops.Ready,
-                License = 67541527,
-                StartDate = new DateTime(2020, 09, 18),
-                Last_tune_up = DateTime.Now,
-                Totalkilometerage = 40,
-                kilometerage = 0,
-                Gas = 1200,
-                HasDVD = true,
-                HasWifi = true,
-                IsAccessible = true
-            });//67541527
-            //10
-            Buses.Add(new Bus {
-                Status = Bus.Status_ops.Ready,
-                License = 76542823,
-                StartDate = new DateTime(2018, 08, 30),
-                Last_tune_up = DateTime.Now,
-                Totalkilometerage = 3049330,
-                kilometerage = 0,
-                Gas = 1200,
-                HasDVD = true,
-                HasWifi = true,
-                IsAccessible = false
-            });//76542821
-            Buses.Add(new Bus {
-                Status = Bus.Status_ops.Ready,
-                License = 2490171,
-                StartDate = new DateTime(2015, 04, 21),
-                Last_tune_up = DateTime.Now,
-                Totalkilometerage = 4998778,
-                kilometerage = 0,
-                Gas = 1200,
-                HasDVD = true,
-                HasWifi = false,
-                IsAccessible = true
-            });//2490171
-            Buses.Add(new Bus {
-                Status = Bus.Status_ops.Ready,
-                License = 47321385,
-                StartDate = DateTime.Now,
-                Last_tune_up = DateTime.Now,
-                Totalkilometerage = 0,
-                kilometerage = 0,
-                Gas = 1200,
-                HasDVD = true,
-                HasWifi = true,
-                IsAccessible = true
-            });//47321385
-            Buses.Add(new Bus {
-                Status = Bus.Status_ops.Ready,
-                License = 80368632,
-                StartDate = new DateTime(2019, 02, 05),
-                Last_tune_up = DateTime.Now,
-                Totalkilometerage = 920098,
-                kilometerage = 0,
-                Gas = 1200,
-                HasDVD = true,
-                HasWifi = true,
-                IsAccessible = true
-            });//80368632
-            Buses.Add(new Bus {
-                Status = Bus.Status_ops.Ready,
-                License = 21609875,
-                StartDate = new DateTime(2020, 05, 14),
-                Last_tune_up = DateTime.Now,
-                Totalkilometerage = 13500,
-                kilometerage = 0,
-                Gas = 1200,
-                HasDVD = true,
-                HasWifi = true,
-                IsAccessible = false
-            });//21609875
-            //15
-            Buses.Add(new Bus {
-                Status = Bus.Status_ops.Ready,
-                License = 60544521,
-                StartDate = DateTime.Now,
-                Last_tune_up = DateTime.Now,
-                Totalkilometerage = 0,
-                kilometerage = 0,
-                Gas = 1200,
-                HasDVD = true,
-                HasWifi = true,
-                IsAccessible = true,
-                Exists = true
-            });//60544521
-            Buses.Add(new Bus {
-                Status = Bus.Status_ops.Ready,
-                License = 36542873,
-                StartDate = DateTime.Now,
-                Last_tune_up = DateTime.Now,
-                Totalkilometerage = 0,
-                kilometerage = 0,
-                Gas = 1200,
-                HasDVD = true,
-                HasWifi = true,
-                IsAccessible = true,
-                Exists = true
-            });//36542873
-            Buses.Add(new Bus {
-                Status = Bus.Status_ops.Ready,
-                License = 18932468,
-                StartDate = DateTime.Now,
-                Last_tune_up = DateTime.Now,
-                Totalkilometerage = 0,
-                kilometerage = 0,
-                Gas = 1200,
-                HasDVD = true,
-                HasWifi = true,
-                IsAccessible = true,
-                Exists = true
-            });//18932468
-            Buses.Add(new Bus {
-                Status = Bus.Status_ops.Ready,
-                License = 93254329,
-                StartDate = DateTime.Now,
-                Last_tune_up = DateTime.Now,
-                Totalkilometerage = 0,
-                kilometerage = 0,
-                Gas = 1200,
-                HasDVD = true,
-                HasWifi = true,
-                IsAccessible = true,
-                Exists = true
-            });//93254329
-            Buses.Add(new Bus {
-                Status = Bus.Status_ops.Ready,
-                License = 53281972,
-                StartDate = DateTime.Now,
-                Last_tune_up = DateTime.Now,
-                Totalkilometerage = 0,
-                kilometerage = 0,
-                Gas = 1200,
-                HasDVD = true,
-                HasWifi = true,
-                IsAccessible = true,
-                Exists = true
-            });//53281972
-            //20
-            Buses.Add(new Bus {
-                Status = Bus.Status_ops.Ready,
-                License = 84372803,
-                StartDate = new DateTime(2021, 01, 01),
-                Last_tune_up = DateTime.Now,
-                Totalkilometerage = 0,
-                kilometerage = 0,
-                Gas = 1200,
-                HasDVD = true,
-                HasWifi = true,
-                IsAccessible = false,
-                Exists = true
-            });//84372803
-            Buses.Add(new Bus {
-                Status = Bus.Status_ops.Ready,
-                License = 95344034,
-                StartDate = new DateTime(2020, 10, 22),
-                Last_tune_up = new DateTime(2020, 10, 22),
-                Totalkilometerage = 2000,
-                kilometerage = 2000,
-                Gas = 0,
-                HasDVD = true,
-                HasWifi = true,
-                IsAccessible = true,
-                Exists = true
-            });//95344034
-            Buses.Add(new Bus {
-                Status = Bus.Status_ops.Ready,
-                License = 21234567,
-                StartDate = new DateTime(2017, 10, 30),
-                Last_tune_up = new DateTime(2019, 10, 30),
-                Totalkilometerage = 400000,
-                kilometerage = 20030,
-                Gas = 120,
-                HasDVD = true,
-                HasWifi = true,
-                IsAccessible = true,
-                Exists = true
-            });//21234567
-            Buses.Add(new Bus {
-                Status = Bus.Status_ops.Ready,
-                License = 48392412,
-                StartDate = new DateTime(2019, 01, 10),
-                Last_tune_up = new DateTime(2019, 01, 10),
-                Totalkilometerage = 19005,
-                kilometerage = 19005,
-                Gas = 574,
-                HasDVD = true,
-                HasWifi = true,
-                IsAccessible = true,
-                Exists = true
-            });//48392412
-            //24
-        }
+
         public static void initialize_Stations()
         {
             Stations.Add(new BusStation {
@@ -1661,4 +1357,308 @@ namespace DS
             }
         }
     }
-}
+}        //public static void initialize_buses()
+         //{
+         //    Buses.Add(new Bus {
+         //        Status = Bus.Status_ops.Ready,
+         //        License = 12345678,
+         //        StartDate = DateTime.Now,
+         //        Last_tune_up = DateTime.Now,
+         //        Totalkilometerage = 0,
+         //        kilometerage = 0,
+         //        Gas = 1200,
+         //        HasDVD = true,
+         //        HasWifi = true,
+         //        IsAccessible = false
+         //    });//12345678
+         //    Buses.Add(new Bus {
+         //        Status = Bus.Status_ops.Ready,
+         //        License = 12375578,
+         //        StartDate = new DateTime(2019, 02, 05),
+         //        Last_tune_up = DateTime.Now,
+         //        Totalkilometerage = 1200,
+         //        kilometerage = 0,
+         //        Gas = 1200,
+         //        HasDVD = false,
+         //        HasWifi = true,
+         //        IsAccessible = false
+         //    });//12375578
+         //    Buses.Add(new Bus {
+         //        Status = Bus.Status_ops.Ready,
+         //        License = 11343098,
+         //        StartDate = new DateTime(2020, 05, 14),
+         //        Last_tune_up = DateTime.Now,
+         //        Totalkilometerage = 13500,
+         //        kilometerage = 0,
+         //        Gas = 1200,
+         //        HasDVD = true,
+         //        HasWifi = true,
+         //        IsAccessible = false
+         //    });//11343098
+         //    Buses.Add(new Bus {
+         //        Status = Bus.Status_ops.Ready,
+         //        License = 67544527,
+         //        StartDate = new DateTime(2020, 10, 22),
+         //        Last_tune_up = DateTime.Now,
+         //        Totalkilometerage = 4098,
+         //        kilometerage = 0,
+         //        Gas = 1200,
+         //        HasDVD = true,
+         //        HasWifi = true,
+         //        IsAccessible = true
+         //    });//67544527
+         //    Buses.Add(new Bus {
+         //        Status = Bus.Status_ops.Ready,
+         //        License = 76542223,
+         //        StartDate = new DateTime(2018, 08, 30),
+         //        Last_tune_up = DateTime.Now,
+         //        Totalkilometerage = 1000000,
+         //        kilometerage = 0,
+         //        Gas = 1200,
+         //        HasDVD = true,
+         //        HasWifi = true,
+         //        IsAccessible = false
+         //    });//76542223
+         //    //5
+         //    Buses.Add(new Bus {
+         //        Status = Bus.Status_ops.Ready,
+         //        License = 1234567,
+         //        StartDate = new DateTime(2015, 01, 01),
+         //        Last_tune_up = DateTime.Now,
+         //        Totalkilometerage = 4000000,
+         //        kilometerage = 0,
+         //        Gas = 1200,
+         //        HasDVD = true,
+         //        HasWifi = true,
+         //        IsAccessible = true
+         //    });//1234567
+         //    Buses.Add(new Bus {
+         //        Status = Bus.Status_ops.Ready,
+         //        License = 7154110,
+         //        StartDate = new DateTime(2016, 01, 01),
+         //        Last_tune_up = DateTime.Now,
+         //        Totalkilometerage = 905088,
+         //        kilometerage = 0,
+         //        Gas = 1200,
+         //        HasDVD = true,
+         //        HasWifi = false,
+         //        IsAccessible = true
+         //    });//7154110
+         //    Buses.Add(new Bus {
+         //        Status = Bus.Status_ops.Ready,
+         //        License = 8765432,
+         //        StartDate = new DateTime(2017, 02, 05),
+         //        Last_tune_up = DateTime.Now,
+         //        Totalkilometerage = 620000,
+         //        kilometerage = 0,
+         //        Gas = 1200,
+         //        HasDVD = true,
+         //        HasWifi = false,
+         //        IsAccessible = true
+         //    });//8765432
+         //    Buses.Add(new Bus {
+         //        Status = Bus.Status_ops.Ready,
+         //        License = 7564325,
+         //        StartDate = new DateTime(2012, 12, 27),
+         //        Last_tune_up = DateTime.Now,
+         //        Totalkilometerage = 10000000,
+         //        kilometerage = 0,
+         //        Gas = 1200,
+         //        HasDVD = true,
+         //        HasWifi = true,
+         //        IsAccessible = false
+         //    });//7564325
+         //    Buses.Add(new Bus {
+         //        Status = Bus.Status_ops.Ready,
+         //        License = 67541527,
+         //        StartDate = new DateTime(2020, 09, 18),
+         //        Last_tune_up = DateTime.Now,
+         //        Totalkilometerage = 40,
+         //        kilometerage = 0,
+         //        Gas = 1200,
+         //        HasDVD = true,
+         //        HasWifi = true,
+         //        IsAccessible = true
+         //    });//67541527
+         //    //10
+         //    Buses.Add(new Bus {
+         //        Status = Bus.Status_ops.Ready,
+         //        License = 76542823,
+         //        StartDate = new DateTime(2018, 08, 30),
+         //        Last_tune_up = DateTime.Now,
+         //        Totalkilometerage = 3049330,
+         //        kilometerage = 0,
+         //        Gas = 1200,
+         //        HasDVD = true,
+         //        HasWifi = true,
+         //        IsAccessible = false
+         //    });//76542821
+         //    Buses.Add(new Bus {
+         //        Status = Bus.Status_ops.Ready,
+         //        License = 2490171,
+         //        StartDate = new DateTime(2015, 04, 21),
+         //        Last_tune_up = DateTime.Now,
+         //        Totalkilometerage = 4998778,
+         //        kilometerage = 0,
+         //        Gas = 1200,
+         //        HasDVD = true,
+         //        HasWifi = false,
+         //        IsAccessible = true
+         //    });//2490171
+         //    Buses.Add(new Bus {
+         //        Status = Bus.Status_ops.Ready,
+         //        License = 47321385,
+         //        StartDate = DateTime.Now,
+         //        Last_tune_up = DateTime.Now,
+         //        Totalkilometerage = 0,
+         //        kilometerage = 0,
+         //        Gas = 1200,
+         //        HasDVD = true,
+         //        HasWifi = true,
+         //        IsAccessible = true
+         //    });//47321385
+         //    Buses.Add(new Bus {
+         //        Status = Bus.Status_ops.Ready,
+         //        License = 80368632,
+         //        StartDate = new DateTime(2019, 02, 05),
+         //        Last_tune_up = DateTime.Now,
+         //        Totalkilometerage = 920098,
+         //        kilometerage = 0,
+         //        Gas = 1200,
+         //        HasDVD = true,
+         //        HasWifi = true,
+         //        IsAccessible = true
+         //    });//80368632
+         //    Buses.Add(new Bus {
+         //        Status = Bus.Status_ops.Ready,
+         //        License = 21609875,
+         //        StartDate = new DateTime(2020, 05, 14),
+         //        Last_tune_up = DateTime.Now,
+         //        Totalkilometerage = 13500,
+         //        kilometerage = 0,
+         //        Gas = 1200,
+         //        HasDVD = true,
+         //        HasWifi = true,
+         //        IsAccessible = false
+         //    });//21609875
+         //    //15
+         //    Buses.Add(new Bus {
+         //        Status = Bus.Status_ops.Ready,
+         //        License = 60544521,
+         //        StartDate = DateTime.Now,
+         //        Last_tune_up = DateTime.Now,
+         //        Totalkilometerage = 0,
+         //        kilometerage = 0,
+         //        Gas = 1200,
+         //        HasDVD = true,
+         //        HasWifi = true,
+         //        IsAccessible = true,
+         //        Exists = true
+         //    });//60544521
+         //    Buses.Add(new Bus {
+         //        Status = Bus.Status_ops.Ready,
+         //        License = 36542873,
+         //        StartDate = DateTime.Now,
+         //        Last_tune_up = DateTime.Now,
+         //        Totalkilometerage = 0,
+         //        kilometerage = 0,
+         //        Gas = 1200,
+         //        HasDVD = true,
+         //        HasWifi = true,
+         //        IsAccessible = true,
+         //        Exists = true
+         //    });//36542873
+         //    Buses.Add(new Bus {
+         //        Status = Bus.Status_ops.Ready,
+         //        License = 18932468,
+         //        StartDate = DateTime.Now,
+         //        Last_tune_up = DateTime.Now,
+         //        Totalkilometerage = 0,
+         //        kilometerage = 0,
+         //        Gas = 1200,
+         //        HasDVD = true,
+         //        HasWifi = true,
+         //        IsAccessible = true,
+         //        Exists = true
+         //    });//18932468
+         //    Buses.Add(new Bus {
+         //        Status = Bus.Status_ops.Ready,
+         //        License = 93254329,
+         //        StartDate = DateTime.Now,
+         //        Last_tune_up = DateTime.Now,
+         //        Totalkilometerage = 0,
+         //        kilometerage = 0,
+         //        Gas = 1200,
+         //        HasDVD = true,
+         //        HasWifi = true,
+         //        IsAccessible = true,
+         //        Exists = true
+         //    });//93254329
+         //    Buses.Add(new Bus {
+         //        Status = Bus.Status_ops.Ready,
+         //        License = 53281972,
+         //        StartDate = DateTime.Now,
+         //        Last_tune_up = DateTime.Now,
+         //        Totalkilometerage = 0,
+         //        kilometerage = 0,
+         //        Gas = 1200,
+         //        HasDVD = true,
+         //        HasWifi = true,
+         //        IsAccessible = true,
+         //        Exists = true
+         //    });//53281972
+         //    //20
+         //    Buses.Add(new Bus {
+         //        Status = Bus.Status_ops.Ready,
+         //        License = 84372803,
+         //        StartDate = new DateTime(2021, 01, 01),
+         //        Last_tune_up = DateTime.Now,
+         //        Totalkilometerage = 0,
+         //        kilometerage = 0,
+         //        Gas = 1200,
+         //        HasDVD = true,
+         //        HasWifi = true,
+         //        IsAccessible = false,
+         //        Exists = true
+         //    });//84372803
+         //    Buses.Add(new Bus {
+         //        Status = Bus.Status_ops.Ready,
+         //        License = 95344034,
+         //        StartDate = new DateTime(2020, 10, 22),
+         //        Last_tune_up = new DateTime(2020, 10, 22),
+         //        Totalkilometerage = 2000,
+         //        kilometerage = 2000,
+         //        Gas = 0,
+         //        HasDVD = true,
+         //        HasWifi = true,
+         //        IsAccessible = true,
+         //        Exists = true
+         //    });//95344034
+         //    Buses.Add(new Bus {
+         //        Status = Bus.Status_ops.Ready,
+         //        License = 21234567,
+         //        StartDate = new DateTime(2017, 10, 30),
+         //        Last_tune_up = new DateTime(2019, 10, 30),
+         //        Totalkilometerage = 400000,
+         //        kilometerage = 20030,
+         //        Gas = 120,
+         //        HasDVD = true,
+         //        HasWifi = true,
+         //        IsAccessible = true,
+         //        Exists = true
+         //    });//21234567
+         //    Buses.Add(new Bus {
+         //        Status = Bus.Status_ops.Ready,
+         //        License = 48392412,
+         //        StartDate = new DateTime(2019, 01, 10),
+         //        Last_tune_up = new DateTime(2019, 01, 10),
+         //        Totalkilometerage = 19005,
+         //        kilometerage = 19005,
+         //        Gas = 574,
+         //        HasDVD = true,
+         //        HasWifi = true,
+         //        IsAccessible = true,
+         //        Exists = true
+         //    });//48392412
+         //    //24
+         //}

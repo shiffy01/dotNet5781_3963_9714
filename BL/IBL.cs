@@ -11,7 +11,7 @@ namespace BlApi
     {
         #region BusLine
         List<string> AddBusLine(int line_number, List<int> stations, DateTime first_bus, DateTime last_bus, TimeSpan frequency);
-        void UpdateBusLine(BusLine line);
+        void UpdateBusLine( DateTime firstBus,  DateTime lastBus, TimeSpan frequency, int busID, int lineNumber = 0);
         void DeleteBusLine(int lineID);
         BusLine GetBusLine(int lineID);
         IEnumerable<BusLine> GetAllBusLines();
@@ -27,5 +27,6 @@ namespace BlApi
         IEnumerable<BusStation> GetBusStationBy(Predicate<BusStation> predicate);
         string RemoveBusStationFromLine(int stationCode, int lineNumber);
         #endregion
+         void AddTwoConsecutiveStops(int codeA, int codeB, double distance, TimeSpan drive_time);
     }
 }

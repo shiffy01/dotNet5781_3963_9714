@@ -72,7 +72,7 @@ namespace BL
             try
             {
                 for (int i = 0; i < (list.Count - 1); i++)//add distance to the next stop for each stop
-                    list[i].Distance_to_the_next_stop = dal.GetTwoConsecutiveStops(list[i].ToString() + list[i + 1].ToString()).Distance;
+                    list[i].Distance_to_the_next_stop = dal.GetTwoConsecutiveStops(list[i].Code.ToString() + list[i + 1].Code.ToString()).Distance;
             }
             catch (DO.PairNotFoundException ex)
             {
@@ -88,20 +88,25 @@ namespace BL
             return DObusline;
         }
         #endregion
-
+        void FrequencyCheck(DateTime firstBus, DateTime lastBus, TimeSpan frequency)
+        {
+            TimeSpan totalTime = lastBus - firstBus;
+            if (frequency > totalTime)
+                throw new FrequencyConflictException("The bus doesn't come frequently enough");
+           if(totalTime.Ticks%frequency.Ticks!=0)
+                throw new FrequencyConflictException("Frequencey doesnt match with time frame");
+        }
         #region BusLine functions
         public List<string> AddBusLine(int line_number, List<int> stations, DateTime first_bus, DateTime last_bus, TimeSpan frequency)
         {
-
-            //DateTime first_bus = new DateTime(0, 0, 0, first_bus_hour, first_bus_minute, 0);
-            //DateTime last_bus = new DateTime(0, 0, 0, last_bus_hour, last_bus_minutes, 0);
-            TimeSpan totalTime = last_bus - first_bus;
-            if (frequency > totalTime)
-                throw new FrequencyConflictException("The bus doesn't come frequently enough");
-            DateTime total_last_bus = first_bus;
-            while (total_last_bus < last_bus)
-                total_last_bus += frequency;
-
+            try
+            {
+                FrequencyCheck(first_bus, last_bus, frequency);
+            }
+            catch (FrequencyConflictException ex)
+            {
+                throw ex;
+            }
             //stations can't be incorrect bec the user has to choose them directly from the list of existing stations
             //if we change that, need to add some try/catches
 
@@ -137,17 +142,46 @@ namespace BL
             //    throw new FrequencyConflictException("The time of the last bus has been changed to match the frequency");
             return needed_distances;
         } //returns all the pair IDs of distances we need to make
-        public void UpdateBusLine(BusLine line)
+        public  void UpdateBusLine(DateTime firstBus, DateTime lastBus, TimeSpan frequency, int busID, int lineNumber = 0)
         {
-            DO.BusLine DOline;
-            DOline = BOtoDOBusLineAdapter(line);
+            DO.BusLine busToUpdate = dal.GetBusLine(busID);
+            DateTime tmpFirstbus=busToUpdate.First_bus, tmpLastbus=busToUpdate.Last_bus;
+            TimeSpan tmpFrequency=busToUpdate.Frequency;
+
+            #region check frequency
+            if ( firstBus!= null)
+            {
+               tmpFirstbus= firstBus;
+            }
+            if ( lastBus != null)
+            {
+                tmpLastbus = lastBus;
+            }
+            if ( frequency != null)
+            {
+                tmpFrequency = frequency;
+            }
             try
             {
-                dal.UpdateBusLine(DOline);
+                FrequencyCheck(tmpFirstbus, tmpLastbus, tmpFrequency);
+            }
+            catch (FrequencyConflictException ex)
+            {
+                throw ex;
+            }
+            #endregion
+            if (lineNumber != 0)
+                busToUpdate.Bus_line_number = lineNumber;
+            busToUpdate.First_bus = tmpFirstbus;
+            busToUpdate.Last_bus = tmpLastbus;
+            busToUpdate.Frequency = tmpFrequency;
+            try
+            {
+                dal.UpdateBusLine(busToUpdate);
             }
             catch (DO.BusLineNotFoundException ex)
             {
-                throw new BusLineNotFoundException("The bus line cannot be deleted because it is not in the system", ex);
+                throw new BusLineNotFoundException("The bus line was not found in the system", ex);
             }
         }//find out what ur allowed to update and maybe change this!!!!!!!!!!!!!!!!
         public void DeleteBusLine(int lineID)
@@ -172,23 +206,49 @@ namespace BL
             {
                 throw new BusLineNotFoundException("The bus line is not in the system", ex);
             }
-            return DOtoBOBusLineAdapter(DObusline);
+            BusLine answer=new BusLine();
+            try
+            {
+                 answer = DOtoBOBusLineAdapter(DObusline);
+            }
+            catch (PairNotFoundException ex)
+            {
+              throw ex;
+            }
+            return answer;
 
-            //NONE OF THIS MAKES ANY SENSE AT ALL
         }//done
         public IEnumerable<BusLine> GetAllBusLines()
         {
-            var list =
+            IEnumerable<BusLine> list;
+            try
+            {
+                list =
             from bus in dal.GetAllBuslines()
             select (DOtoBOBusLineAdapter(bus));
+            }
+            catch (PairNotFoundException ex)
+            {
+                throw ex;
+            }
             return list;
         }//done
         public IEnumerable<BusLine> GetBusLineBy(Predicate<BusLine> predicate)
         {
-            return from line in dal.GetAllBuslines()
-                   let BOLine = DOtoBOBusLineAdapter(line)
-                   where predicate(BOLine)
-                   select BOLine;
+            IEnumerable<BusLine> answer;
+            try
+            {
+                answer = from line in dal.GetAllBuslines()
+                         let BOLine = DOtoBOBusLineAdapter(line)
+                         where predicate(BOLine)
+                         select BOLine;
+            }
+            catch (PairNotFoundException ex)
+            {
+                throw ex;
+            }
+            return answer;
+
         }//done
         #endregion
 

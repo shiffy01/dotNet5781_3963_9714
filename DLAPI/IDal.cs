@@ -13,14 +13,14 @@ namespace DLAPI
         //ADD GET FILTERS!!!!!! also should the functions be public? if so change the implementation in dalobject too.
         //maybe also late make some of the functions return id numbers if its useful
     {
-        #region Bus  definition
-        void AddBus(Bus bus);
-        void UpdateBus(Bus bus);
-        void DeleteBus(int license);
-        IEnumerable<Bus> GetAllBusses();
-        Bus GetBus(int license);
-        IEnumerable<Bus> GetAllBussesBy(Predicate<Bus> predicate);
-        #endregion
+        //#region Bus  definition
+        //void AddBus(Bus bus);
+        //void UpdateBus(Bus bus);
+        //void DeleteBus(int license);
+        //IEnumerable<Bus> GetAllBusses();
+        //Bus GetBus(int license);
+        //IEnumerable<Bus> GetAllBussesBy(Predicate<Bus> predicate);
+        //#endregion
 
         #region BusLine  definition
         BusLine AddBusLine(int line_number, bool inter_city, string dest, string org, DateTime first, DateTime last, TimeSpan freq);
