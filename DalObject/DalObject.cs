@@ -172,8 +172,6 @@ namespace DL
         }   //done!!
         public IEnumerable<BusLine> GetBuslinesOfStation(int stationID)//gets all the bus lines with this station on the route
         {
-            //go through all the bus line stations and for each one select that number. then for each number in the for each select get bus line(number)
-            //i'll comment this better tomorrow night
             var list =
              from station in DataSource.Line_stations
              where (station.Exists && station.StationID == stationID)
@@ -196,7 +194,7 @@ namespace DL
         #endregion
 
         #region BusLineStation CRUD 
-        public void AddBusLineStation(int station_id, int line_id, int bus_line_number, int number_on_route)
+        public void AddBusLineStation(int station_id, int line_id, int number_on_route)
         {
             if (DataSource.Line_stations.FirstOrDefault(b => (b.BusLineStationID == (station_id.ToString()+line_id.ToString()) && b.Exists)) != null)
                 throw new DO.BusLineStationAlreadyExistsException("This bus line station is already in the system");
@@ -204,8 +202,7 @@ namespace DL
                 DataSource.Line_stations.Add(new BusLineStation {
                     StationID=station_id,
                     LineID=line_id,
-                    BusLineStationID = (station_id.ToString()+line_id.ToString()),
-                    BusLineNumber=bus_line_number,
+                    BusLineStationID = (station_id.ToString()+line_id.ToString()),                   
                     Number_on_route=number_on_route,
                     Exists=true
                 });
@@ -220,7 +217,7 @@ namespace DL
                 DataSource.Line_stations.Add(busLineStation.Clone());
             }
             else
-                throw new DO.BusLineStationNotFoundException(busLineStation.BusLineNumber, $"Line number: {busLineStation.BusLineNumber} doesn't stop at this station");
+                throw new DO.BusLineStationNotFoundException(busLineStation.BusLineStationID, $"ID number: {busLineStation.LineID} doesn't stop at this station");
         }
         public void DeleteBusLineStation(string ID)
         {
@@ -231,7 +228,7 @@ namespace DL
                 station.Exists = false;
             }
             else
-                throw new DO.BusLineStationNotFoundException(station.StationID, "The BusLineStation is not found in the system");
+                throw new DO.BusLineStationNotFoundException(station.BusLineStationID, "The BusLineStation is not found in the system");
         }
         public BusLineStation GetBusLineStation(string ID)
         {
@@ -240,7 +237,7 @@ namespace DL
             if (station != null)
                 return station.Clone();
             else
-                throw new DO.BusLineStationNotFoundException(station.StationID, "Bus line station is not in the system");
+                throw new BusLineStationNotFoundException(ID, "Bus line station is not in the system");
         }
         public IEnumerable<BusLineStation> GetAllBusLineStations()
         {

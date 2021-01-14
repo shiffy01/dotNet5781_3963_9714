@@ -25,6 +25,7 @@ namespace BlApi
         BusStation GetBusStation(int stationID);
         IEnumerable<BusStation> GetAllBusStations();
         IEnumerable<BusStation> GetBusStationBy(Predicate<BusStation> predicate);
+        List<string> AddStationToBusLine(int bus_number, int code, int place);
         string RemoveBusStationFromLine(int stationCode, int lineNumber);
         #endregion
          void AddTwoConsecutiveStops(int codeA, int codeB, double distance, TimeSpan drive_time);

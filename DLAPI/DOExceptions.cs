@@ -54,15 +54,14 @@ namespace DO
     [Serializable]
     public class BusLineStationNotFoundException : Exception
     {
-        public int Line_Number;
+        public string ID;
+        public BusLineStationNotFoundException(string id) : base() => ID = id;
 
-        public BusLineStationNotFoundException(int line_number) : base() => Line_Number = line_number;
+        public BusLineStationNotFoundException(string id, string messege) : base(messege) => ID = id;
 
-        public BusLineStationNotFoundException(int line_number, string messege) : base(messege) => Line_Number = line_number;
+        public BusLineStationNotFoundException(string id, string message, Exception inner) : base(message, inner) => ID = id;
 
-        public BusLineStationNotFoundException(int line_number, string message, Exception inner) : base(message, inner) => Line_Number = line_number;
-
-        public override string ToString() => base.ToString() + $"Line number: {Line_Number} doesn't stop at this station";
+        public override string ToString() => base.ToString() + $"BusLineStation number: {ID} doesn't stop at this station";
 
     }
     [Serializable]

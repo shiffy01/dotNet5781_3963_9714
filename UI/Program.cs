@@ -36,12 +36,18 @@ namespace PlConsole
 
             #region create and print lists
             try
-            List<BO.BusLine> busLines = bl.GetAllBusLines().ToList();
-            List<BO.BusStation> busStations = bl.GetAllBusStations().ToList();
-            Console.WriteLine("All Bus Lines:");
-            PrintLines(busLines);
-            Console.WriteLine("All Bus Stations:");
-            PrintStations(busStations);
+            {
+                List<BO.BusLine> busLines = bl.GetAllBusLines().ToList();
+                List<BO.BusStation> busStations = bl.GetAllBusStations().ToList();
+                Console.WriteLine("All Bus Lines:");
+                PrintLines(busLines);
+                Console.WriteLine("All Bus Stations:");
+                PrintStations(busStations);
+            }
+            catch (PairNotFoundException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
             #endregion
             //*********************
 
@@ -126,14 +132,28 @@ namespace PlConsole
 
 
             #region Delete line
-            bl.DeleteBusLine(32);
-            bl.GetBusLine(32);
+            try
+            {
+                bl.DeleteBusLine(32);
+                bl.GetBusLine(32);
+            }
+            catch (BusLineNotFoundException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
             #endregion
             //******************
 
             #region GET  BISLINES BY
-            List<BusLine> interCityLines = (bl.GetBusLineBy(line => line.InterCity == true)).ToList();
-            PrintLines(interCityLines);
+            try
+            {
+                List<BusLine> interCityLines = (bl.GetBusLineBy(line => line.InterCity == true)).ToList();
+                PrintLines(interCityLines);
+            }
+            catch (PairNotFoundException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
             #endregion//NOT DONE!!
 
 
@@ -141,10 +161,23 @@ namespace PlConsole
 
 
             #region BUS STATIONS
-            bl.UpdateBusStation(89, "נחל דולב ב");
+            try
+            {
+                bl.UpdateBusStation(89, "נחל דולב ב");
+            }
+            catch (StationNotFoundException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
             #region ADDSTATION
-                
-            bl.AddBusStation(4321, 4.764, 50.43, "מרכז מסחרי", "נחל שורק 55", "בית שמש");
+            try
+            {
+                bl.AddBusStation(4321, 4.764, 50.43, "מרכז מסחרי", "נחל שורק 55", "בית שמש");
+            }
+            catch (StationALreadyExistsException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
             #endregion
             #region gets
             Console.WriteLine("testing addBUSstation, and getBusStation "+bl.GetBusStation(4321));
@@ -161,15 +194,30 @@ namespace PlConsole
             #endregion
             #endregion
             Console.WriteLine("TESTING REMOVE STATION FROM LIST");
-            bl.RemoveBusStationFromLine(77, 32);
-            BusLine bline = bl.GetBusLine(32);
-            List<StationOnTheLine> stationlist = bline.Stations.ToList();
-            for (int i = 0; i< stationlist.Count; i++)
+            try
             {
-                Console.WriteLine("station number"+i+":"+stationlist[i]);
+                bl.RemoveBusStationFromLine(77, 32);
+                BusLine bline = bl.GetBusLine(32);
+
+                List<StationOnTheLine> stationlist = bline.Stations.ToList();
+                for (int i = 0; i < stationlist.Count; i++)
+                {
+                    Console.WriteLine("station number" + i + ":" + stationlist[i]);
+                }
+            }
+            catch (StationNotFoundException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (BusLineNotFoundException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (PairNotFoundException ex)
+            {
+                Console.WriteLine(ex.Message);
             }
 
-                    
 
 
 

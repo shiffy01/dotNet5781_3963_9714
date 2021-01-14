@@ -606,70 +606,70 @@ namespace DS
             #region line number 1 //this one's a route that makes sense
             Line_stations.Add(new BusLineStation {
                 StationID = 1522,
-                BusLineNumber = 2000000,
+                LineID = 2000000,
                 BusLineStationID = 1522.ToString()+ 2000000.ToString(),
                 Number_on_route = 1,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 1523,
-                BusLineNumber = 2000000,
+                LineID = 2000000,
                 BusLineStationID = 1523.ToString() + 2000000.ToString(),
                 Number_on_route = 2,
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 1512,
-                BusLineNumber = 2000000,
+                LineID = 2000000,
                 Number_on_route=3,
                 BusLineStationID = 1512.ToString() + 2000000.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 1511,
-                BusLineNumber = 2000000,
+                LineID = 2000000,
                 Number_on_route = 4,
                 BusLineStationID = 1511.ToString() + 2000000.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 1510,
-                BusLineNumber = 2000000,
+                LineID = 2000000,
                 Number_on_route = 5,
                 BusLineStationID = 1510.ToString() + 2000000.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 1491,
-                BusLineNumber = 2000000,
+                LineID = 2000000,
                 Number_on_route = 6,
                 BusLineStationID = 1491.ToString() + 2000000.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 1494,
-                BusLineNumber = 2000000,
+                LineID = 2000000,
                 Number_on_route = 7,
                 BusLineStationID = 1494.ToString() + 2000000.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 1493,
-                BusLineNumber = 2000000,
+                LineID = 2000000,
                 Number_on_route = 8,
                 BusLineStationID = 1493.ToString() + 2000000.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 1492,
-                BusLineNumber = 2000000,
+                LineID = 2000000,
                 Number_on_route = 9,
                 BusLineStationID = 1492.ToString() + 2000000.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 1514,
-                BusLineNumber = 2000000,
+                LineID = 2000000,
                 Number_on_route = 10,
                 BusLineStationID = 1514.ToString() + 2000000.ToString(),
                 Exists = true
@@ -678,142 +678,142 @@ namespace DS
             #region line number 2
             Line_stations.Add(new BusLineStation {
                 StationID = 73,
-                BusLineNumber = 2000001,
+                LineID = 2000001,
                 Number_on_route = 1,
                 BusLineStationID = 73.ToString() + 2000001.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 76,
-                BusLineNumber = 2000001,
+                LineID = 2000001,
                 Number_on_route = 2,
                 BusLineStationID = 76.ToString() + 2000001.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 77,
-                BusLineNumber = 2000001,
+                LineID = 2000001,
                 Number_on_route = 3,
                 BusLineStationID = 77.ToString() + 2000001.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 78,
-                BusLineNumber = 2000001,
+                LineID = 2000001,
                 Number_on_route = 4,
                 BusLineStationID = 78.ToString() + 2000001.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 83,
-                BusLineNumber = 2000001,
+                LineID = 2000001,
                 Number_on_route = 5,
                 BusLineStationID = 83.ToString() + 2000001.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 84,
-                BusLineNumber = 2000001,
+                LineID = 2000001,
                 Number_on_route = 6,
                 BusLineStationID = 84.ToString() + 2000001.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 85,
-                BusLineNumber = 2000001,
+                LineID = 2000001,
                 Number_on_route = 7,
                 BusLineStationID = 85.ToString() + 2000001.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 86,
-                BusLineNumber = 2000001,
+                LineID = 2000001,
                 Number_on_route = 8,
                 BusLineStationID = 86.ToString() + 2000001.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 88,
-                BusLineNumber = 2000001,
+                LineID = 2000001,
                 Number_on_route = 9,
                 BusLineStationID = 88.ToString() + 2000001.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 89,
-                BusLineNumber = 2000001,
+                LineID = 2000001,
                 Number_on_route = 10,
-                pairID = 89.ToString() + 2000001.ToString(),
+                BusLineStationID = 89.ToString() + 2000001.ToString(),
                 Exists = true
             });
             #endregion
             #region line number 3
             Line_stations.Add(new BusLineStation {
                 StationID = 91,
-                BusLineNumber = 2000002,
+                LineID = 2000002,
                 Number_on_route = 1,
                 BusLineStationID = 91.ToString() + 2000002.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 93,
-                BusLineNumber = 2000002,
+                LineID = 2000002,
                 Number_on_route = 2,
                 BusLineStationID = 93.ToString() + 2000002.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 84,
-                BusLineNumber = 2000002,
+                LineID = 2000002,
                 Number_on_route = 3,
                 BusLineStationID = 84.ToString() + 2000002.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 85,
-                BusLineNumber = 2000002,
+                LineID = 2000002,
                 Number_on_route = 4,
                 BusLineStationID = 85.ToString() + 2000002.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 86,
-                BusLineNumber = 2000002,
+                LineID = 2000002,
                 Number_on_route = 5,
                 BusLineStationID = 86.ToString() + 2000002.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 88,
-                BusLineNumber = 2000002,
+                LineID = 2000002,
                 Number_on_route = 6,
                 BusLineStationID = 88.ToString() + 2000002.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 89,
-                BusLineNumber = 2000002,
+                LineID = 2000002,
                 Number_on_route = 7,
                 BusLineStationID = 89.ToString() + 2000002.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 108,
-                BusLineNumber = 2000002,
+                LineID = 2000002,
                 Number_on_route = 8,
                 BusLineStationID = 108.ToString() + 2000002.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 109,
-                BusLineNumber = 2000002,
+                LineID = 2000002,
                 Number_on_route = 9,
                 BusLineStationID = 109.ToString() + 2000002.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 110,
-                BusLineNumber = 2000002,
+                LineID = 2000002,
                 Number_on_route = 10,
                 BusLineStationID = 110.ToString() + 2000002.ToString(),
                 Exists = true
@@ -822,70 +822,70 @@ namespace DS
             #region line number 4
             Line_stations.Add(new BusLineStation {
                 StationID = 108,
-                BusLineNumber = 2000003,
+                LineID = 2000003,
                 Number_on_route = 1,
                 BusLineStationID = 108.ToString() + 2000003.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 109,
-                BusLineNumber = 2000003,
+                LineID = 2000003,
                 Number_on_route = 2,
                 BusLineStationID = 109.ToString() + 2000003.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 110,
-                BusLineNumber = 2000003,
+                LineID = 2000003,
                 Number_on_route = 3,
                 BusLineStationID = 110.ToString() + 2000003.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 1485,
-                BusLineNumber = 2000003,
+                LineID = 2000003,
                 Number_on_route = 4,
                 BusLineStationID = 1485.ToString() + 2000003.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 1486,
-                BusLineNumber = 2000003,
+                LineID = 2000003,
                 Number_on_route = 5,
                 BusLineStationID = 1486.ToString() + 2000003.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 1487,
-                BusLineNumber = 2000003,
+                LineID = 2000003,
                 Number_on_route = 6,
                 BusLineStationID = 1487.ToString() + 2000003.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 1488,
-                BusLineNumber = 2000003,
+                LineID = 2000003,
                 Number_on_route = 7,
                 BusLineStationID = 1488.ToString() + 2000003.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 1490,
-                BusLineNumber = 2000003,
+                LineID = 2000003,
                 Number_on_route = 8,
                 BusLineStationID = 1490.ToString() + 2000003.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 1491,
-                BusLineNumber = 2000003,
+                LineID = 2000003,
                 Number_on_route = 9,
                 BusLineStationID = 1491.ToString() + 2000003.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 90,
-                BusLineNumber = 2000003,
+                LineID = 2000003,
                 Number_on_route = 10,
                 BusLineStationID = 90.ToString() + 2000003.ToString(),
                 Exists = true
@@ -894,142 +894,142 @@ namespace DS
             #region line number 5
             Line_stations.Add(new BusLineStation {
                 StationID = 1485,
-                BusLineNumber = 2000004,
+                LineID = 2000004,
                 Number_on_route = 1,
                 BusLineStationID = 1485.ToString() + 2000004.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 1486,
-                BusLineNumber = 2000004,
+                LineID = 2000004,
                 Number_on_route = 2,
                 BusLineStationID = 1486.ToString() + 2000004.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 1487,
-                BusLineNumber = 2000004,
+                LineID = 2000004,
                 Number_on_route = 3,
                 BusLineStationID = 1487.ToString() + 2000004.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 90,
-                BusLineNumber = 2000004,
+                LineID = 2000004,
                 Number_on_route = 4,
                 BusLineStationID = 90.ToString() + 2000004.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 105,
-                BusLineNumber = 2000004,
+                LineID = 2000004,
                 Number_on_route = 5,
                 BusLineStationID = 105.ToString() + 2000004.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 84,
-                BusLineNumber = 2000004,
+                LineID = 2000004,
                 Number_on_route = 6,
                 BusLineStationID = 84.ToString() + 2000004.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 78,
-                BusLineNumber = 2000004,
+                LineID = 2000004,
                 Number_on_route = 7,
                 BusLineStationID = 78.ToString() + 2000004.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 115,
-                BusLineNumber = 2000004,
+                LineID = 2000004,
                 Number_on_route = 8,
                 BusLineStationID = 115.ToString() + 2000004.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 117,
-                BusLineNumber = 2000004,
+                LineID = 2000004,
                 Number_on_route = 9,
                 BusLineStationID = 117.ToString() + 2000004.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 119,
-                BusLineNumber = 2000004,
+                LineID = 2000004,
                 Number_on_route = 10,
-                pairID = 119.ToString() + 5.ToString(),
+                BusLineStationID = 119.ToString() + 5.ToString(),
                 Exists = true
             });
             #endregion
             #region line number 6
             Line_stations.Add(new BusLineStation {
                 StationID = 1485,
-                BusLineNumber = 2000005,
+                LineID = 2000005,
                 Number_on_route = 1,
                 BusLineStationID = 1485.ToString() + 2000005.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 1486,
-                BusLineNumber = 2000005,
+                LineID = 2000005,
                 Number_on_route = 2,
                 BusLineStationID = 1486.ToString() + 2000005.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 1487,
-                BusLineNumber = 2000005,
+                LineID = 2000005,
                 Number_on_route = 3,
                 BusLineStationID = 1487.ToString() + 2000005.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 1488,
-                BusLineNumber = 2000005,
+                LineID = 2000005,
                 Number_on_route = 4,
                 BusLineStationID = 1488.ToString() + 2000005.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 1490,
-                BusLineNumber = 2000005,
+                LineID = 2000005,
                 Number_on_route = 5,
                 BusLineStationID = 1490.ToString() + 2000005.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 1510,
-                BusLineNumber = 2000005,
+                LineID = 2000005,
                 Number_on_route = 6,
                 BusLineStationID = 1510.ToString() + 2000005.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 1491,
-                BusLineNumber = 2000005,
+                LineID = 2000005,
                 Number_on_route = 7,
                 BusLineStationID = 1491.ToString() + 2000005.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 1493,
-                BusLineNumber = 2000005,
+                LineID = 2000005,
                 Number_on_route = 8,
                 BusLineStationID = 1493.ToString() + 2000005.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 1492,
-                BusLineNumber = 2000005,
+                LineID = 2000005,
                 Number_on_route = 9,
                 BusLineStationID = 1492.ToString() + 2000005.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 1511,
-                BusLineNumber = 2000005,
+                LineID = 2000005,
                 Number_on_route = 10,
                 BusLineStationID = 1511.ToString() + 2000005.ToString(),
                 Exists = true
@@ -1038,70 +1038,70 @@ namespace DS
             #region line number 7
             Line_stations.Add(new BusLineStation {
                 StationID = 1491,
-                BusLineNumber = 2000006,
+                LineID = 2000006,
                 Number_on_route = 1,
                 BusLineStationID = 1491.ToString() + 2000006.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 1494,
-                BusLineNumber = 2000006,
+                LineID = 2000006,
                 Number_on_route = 2,
                 BusLineStationID = 1494.ToString() + 2000006.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 78,
-                BusLineNumber = 2000006,
+                LineID = 2000006,
                 Number_on_route = 3,
                 BusLineStationID = 78.ToString() + 2000006.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 123,
-                BusLineNumber = 2000006,
+                LineID = 2000006,
                 Number_on_route = 4,
                 BusLineStationID = 123.ToString() + 2000006.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 119,
-                BusLineNumber = 2000006,
+                LineID = 2000006,
                 Number_on_route = 5,
                 BusLineStationID = 119.ToString() + 2000006.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 122,
-                BusLineNumber = 2000006,
+                LineID = 2000006,
                 Number_on_route = 6,
                 BusLineStationID = 122.ToString() + 2000006.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 1524,
-                BusLineNumber = 2000006,
+                LineID = 2000006,
                 Number_on_route = 7,
                 BusLineStationID = 1524.ToString() + 2000006.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 1493,
-                BusLineNumber = 2000006,
+                LineID = 2000006,
                 Number_on_route = 8,
                 BusLineStationID = 1493.ToString() + 2000006.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 1522,
-                BusLineNumber = 2000006,
+                LineID = 2000006,
                 Number_on_route = 9,
                 BusLineStationID = 1522.ToString() + 2000006.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 1512,
-                BusLineNumber = 2000006,
+                LineID = 2000006,
                 Number_on_route = 10,
                 BusLineStationID = 1512.ToString() + 2000006.ToString(),
                 Exists = true
@@ -1110,70 +1110,70 @@ namespace DS
             #region line number 8
             Line_stations.Add(new BusLineStation {
                 StationID = 90,
-                BusLineNumber = 2000007,
+                LineID = 2000007,
                 Number_on_route = 1,
                 BusLineStationID = 90.ToString() + 2000007.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 91,
-                BusLineNumber = 2000007,
+                LineID = 2000007,
                 Number_on_route = 2,
                 BusLineStationID = 91.ToString() + 2000007.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 92,
-                BusLineNumber = 2000007,
+                LineID = 2000007,
                 Number_on_route = 3,
                 BusLineStationID = 92.ToString() + 2000007.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 93,
-                BusLineNumber = 2000007,
+                LineID = 2000007,
                 Number_on_route = 4,
                 BusLineStationID = 93.ToString() + 2000007.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 94,
-                BusLineNumber = 2000007,
+                LineID = 2000007,
                 Number_on_route = 5,
                 BusLineStationID = 94.ToString() + 2000007.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 95,
-                BusLineNumber = 2000007,
+                LineID = 2000007,
                 Number_on_route = 6,
                 BusLineStationID = 95.ToString() + 2000007.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 97,
-                BusLineNumber = 2000007,
+                LineID = 2000007,
                 Number_on_route = 7,
                 BusLineStationID = 97.ToString() + 2000007.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 96,
-                BusLineNumber = 2000007,
+                LineID = 2000007,
                 Number_on_route = 8,
                 BusLineStationID = 96.ToString() + 2000007.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 83,
-                BusLineNumber = 2000007,
+                LineID = 2000007,
                 Number_on_route = 9,
                 BusLineStationID = 83.ToString()+ 2000007.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 85,
-                BusLineNumber = 2000007,
+                LineID = 2000007,
                 Number_on_route = 10,
                 BusLineStationID = 85.ToString() + 2000007.ToString(),
                 Exists = true
@@ -1182,70 +1182,70 @@ namespace DS
             #region line number 9
             Line_stations.Add(new BusLineStation {
                 StationID = 91,
-                BusLineNumber = 2000008,
+                LineID = 2000008,
                 Number_on_route = 1,
                 BusLineStationID = 91.ToString() + 2000008.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 93,
-                BusLineNumber = 2000008,
+                LineID = 2000008,
                 Number_on_route = 2,
                 BusLineStationID = 93.ToString() + 2000008.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 84,
-                BusLineNumber = 2000008,
+                LineID = 2000008,
                 Number_on_route = 3,
                 BusLineStationID = 84.ToString() + 2000008.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 85,
-                BusLineNumber = 2000008,
+                LineID = 2000008,
                 Number_on_route = 4,
                 BusLineStationID = 85.ToString() + 2000008.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 86,
-                BusLineNumber = 2000008,
+                LineID = 2000008,
                 Number_on_route = 5,
                 BusLineStationID = 86.ToString() + 2000008.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 1488,
-                BusLineNumber = 2000008,
+                LineID = 2000008,
                 Number_on_route = 6,
                 BusLineStationID = 1488.ToString() + 2000008.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 1490,
-                BusLineNumber = 2000008,
+                LineID = 2000008,
                 Number_on_route = 7,
                 BusLineStationID = 1490.ToString() + 2000008.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 1510,
-                BusLineNumber = 2000008,
+                LineID = 2000008,
                 Number_on_route = 8,
                 BusLineStationID = 1510.ToString() + 2000008.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 1491,
-                BusLineNumber = 2000008,
+                LineID = 2000008,
                 Number_on_route = 9,
                 BusLineStationID = 1491.ToString() + 2000008.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 1493,
-                BusLineNumber = 2000008,
+                LineID = 2000008,
                 Number_on_route = 10,
                 BusLineStationID = 1493.ToString() + 2000008.ToString(),
                 Exists = true
@@ -1254,70 +1254,70 @@ namespace DS
             #region line number 10
             Line_stations.Add(new BusLineStation {
                 StationID = 1491,
-                BusLineNumber = 2000009,
+                LineID = 2000009,
                 Number_on_route = 1,
                 BusLineStationID = 1491.ToString() + 2000009.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 1494,
-                BusLineNumber = 2000009,
+                LineID = 2000009,
                 Number_on_route = 2,
                 BusLineStationID = 1494.ToString() + 2000009.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 78,
-                BusLineNumber = 2000009,
+                LineID = 2000009,
                 Number_on_route = 3,
                 BusLineStationID = 78.ToString() + 2000009.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 123,
-                BusLineNumber = 2000009,
+                LineID = 2000009,
                 Number_on_route = 4,
                 BusLineStationID = 123.ToString() + 2000009.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 119,
-                BusLineNumber = 2000009,
+                LineID = 2000009,
                 Number_on_route = 5,
                 BusLineStationID = 119.ToString() + 2000009.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 84,
-                BusLineNumber = 2000009,
+                LineID = 2000009,
                 Number_on_route = 6,
                 BusLineStationID = 84.ToString() + 2000009.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 78,
-                BusLineNumber = 2000009,
+                LineID = 2000009,
                 Number_on_route = 7,
                 BusLineStationID = 78.ToString() + 2000009.ToString(),
                 Exists = true
             }) ;
             Line_stations.Add(new BusLineStation {
                 StationID = 115,
-                BusLineNumber = 2000009,
+                LineID = 2000009,
                 Number_on_route = 8,
                 BusLineStationID = 115.ToString() + 2000009.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 117,
-                BusLineNumber = 2000009,
+                LineID = 2000009,
                 Number_on_route = 9,
                 BusLineStationID = 117.ToString() + 2000009.ToString(),
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
                 StationID = 119,
-                BusLineNumber = 2000009,
+                LineID = 2000009,
                 Number_on_route = 10,
                 BusLineStationID = 119.ToString() + 2000009.ToString(),
                 Exists = true

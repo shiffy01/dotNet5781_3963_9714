@@ -33,7 +33,7 @@ namespace DLAPI
         #endregion
         
         #region BusLineStation  definition
-        void AddBusLineStation(int station_id, int line_id, int bus_line_number, int number_on_route);
+        void AddBusLineStation(int station_id, int line_id, int number_on_route);
         void UpdateBusLineStation(BusLineStation busLineStation);
         void DeleteBusLineStation(string ID);
         BusLineStation GetBusLineStation(string ID);
