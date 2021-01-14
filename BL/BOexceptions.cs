@@ -119,7 +119,15 @@ namespace BO
         public PairAlreadyExitsException(string message, Exception inner) : base(message, inner) { }
         public override string ToString() => base.ToString() + " Pair already exists in the system";
     }
-    
-    
+    [Serializable]
+    public class PairNotFoundException : Exception
+    {
+        public PairNotFoundException() : base() { }
+        public PairNotFoundException(string message) : base(message) { }
+        public PairNotFoundException(string message, Exception inner) : base(message, inner) { }
+        public override string ToString() => base.ToString() + " Pair not found in the system";
+    }
+
+
 
 }

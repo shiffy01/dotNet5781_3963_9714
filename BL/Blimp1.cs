@@ -69,8 +69,15 @@ namespace BL
 
             for (int i = 0; i < list.Count; i++)//add number on route for each stop
                 list[i].Number_on_route = i + 1;
-            for (int i = 0; i < (list.Count - 1); i++)//add distance to the next stop for each stop
-                list[i].Distance_to_the_next_stop = dal.GetTwoConsecutiveStops(list[i].ToString() + list[i + 1].ToString()).Distance;
+            try
+            {
+                for (int i = 0; i < (list.Count - 1); i++)//add distance to the next stop for each stop
+                    list[i].Distance_to_the_next_stop = dal.GetTwoConsecutiveStops(list[i].ToString() + list[i + 1].ToString()).Distance;
+            }
+            catch (DO.PairNotFoundException ex)
+            {
+                throw new PairNotFoundException("data error, all the pairs should be here", ex);
+            }
             BObusLine.Stations = list;
             return BObusLine;
         }
