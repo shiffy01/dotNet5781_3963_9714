@@ -35,8 +35,8 @@ namespace DLAPI
         #region BusLineStation  definition
         void AddBusLineStation(int station_id, int line_id, int bus_line_number, int number_on_route);
         void UpdateBusLineStation(BusLineStation busLineStation);
-        void DeleteBusLineStation(string pairID);
-        BusLineStation GetBusLineStation(string pairID);
+        void DeleteBusLineStation(string ID);
+        BusLineStation GetBusLineStation(string ID);
         //  IEnumerable<BusLineStation> GetStationsOfBusLine(int lineID);
         IEnumerable<BusLineStation> GetAllBusLineStationsBy(Predicate<BusLineStation> predicate);
         IEnumerable<BusLineStation> GetAllBusLineStations();

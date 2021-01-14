@@ -198,13 +198,13 @@ namespace DL
         #region BusLineStation CRUD 
         public void AddBusLineStation(int station_id, int line_id, int bus_line_number, int number_on_route)
         {
-            if (DataSource.Line_stations.FirstOrDefault(b => (b.StationID == station_id && b.Exists)) != null)
+            if (DataSource.Line_stations.FirstOrDefault(b => (b.BusLineStationID == (station_id.ToString()+line_id.ToString()) && b.Exists)) != null)
                 throw new DO.BusLineStationAlreadyExistsException("This bus line station is already in the system");
            
                 DataSource.Line_stations.Add(new BusLineStation {
                     StationID=station_id,
                     LineID=line_id,
-                    pairID=(station_id.ToString()+line_id.ToString()),
+                    BusLineStationID = (station_id.ToString()+line_id.ToString()),
                     BusLineNumber=bus_line_number,
                     Number_on_route=number_on_route,
                     Exists=true
@@ -212,7 +212,7 @@ namespace DL
         }
         public void UpdateBusLineStation(BusLineStation busLineStation)
         {
-            DO.BusLineStation station = DataSource.Line_stations.Find(s => (s.pairID== busLineStation.pairID && s.Exists));
+            DO.BusLineStation station = DataSource.Line_stations.Find(s => (s.BusLineStationID == busLineStation.BusLineStationID && s.Exists));
 
             if (station != null)
             {
@@ -222,9 +222,9 @@ namespace DL
             else
                 throw new DO.BusLineStationNotFoundException(busLineStation.BusLineNumber, $"Line number: {busLineStation.BusLineNumber} doesn't stop at this station");
         }
-        public void DeleteBusLineStation(string pairID)
+        public void DeleteBusLineStation(string ID)
         {
-            DO.BusLineStation station = DataSource.Line_stations.Find(s => (s.pairID==pairID && s.Exists));
+            DO.BusLineStation station = DataSource.Line_stations.Find(s => (s.BusLineStationID == ID && s.Exists));
 
             if (station != null)
             {
@@ -233,9 +233,9 @@ namespace DL
             else
                 throw new DO.BusLineStationNotFoundException(station.StationID, "The BusLineStation is not found in the system");
         }
-        public BusLineStation GetBusLineStation(string pairID)
+        public BusLineStation GetBusLineStation(string ID)
         {
-            DO.BusLineStation station = DataSource.Line_stations.Find(s => (s.pairID==pairID && s.Exists));
+            DO.BusLineStation station = DataSource.Line_stations.Find(s => (s.BusLineStationID == ID && s.Exists));
 
             if (station != null)
                 return station.Clone();
