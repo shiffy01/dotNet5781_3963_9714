@@ -73,7 +73,7 @@ namespace BL
             List<StationOnTheLine> list = (from station in dal.GetAllBusLineStationsBy(station => station.LineID == BObusLine.BusID)
                                            let stop = dal.GetBusStation(station.StationID)
                                            select DOtoBOstationOnTheLine(stop)).ToList();
-
+            
             for (int i = 0; i < list.Count; i++)//add number on route for each stop
                 list[i].Number_on_route = i + 1;
             try
@@ -243,18 +243,24 @@ namespace BL
         }//done
         public IEnumerable<BusLine> GetAllBusLines()
         {
-            IEnumerable<BusLine> list;
+            IEnumerable<DO.BusLine> list;
             try
             {
                 list =
             from bus in dal.GetAllBuslines()
-            select (DOtoBOBusLineAdapter(bus));
+            select bus;
+                
             }
             catch (PairNotFoundException ex)
             {
                 throw ex;
             }
-            return list;
+            List<BusLine> list2 = new List<BusLine>();
+            foreach (var item in list)
+            {
+                list2.Add(DOtoBOBusLineAdapter(item));
+            }
+            return list2;
         }//done
         public IEnumerable<BusLine> GetBusLineBy(Predicate<BusLine> predicate)
         {

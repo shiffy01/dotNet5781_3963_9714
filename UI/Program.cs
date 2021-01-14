@@ -217,9 +217,7 @@ namespace PlConsole
             {
                 Console.WriteLine(ex.Message);
             }
-
-
-
+            Console.ReadKey();
 
         }
     }

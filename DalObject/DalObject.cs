@@ -249,9 +249,9 @@ namespace DL
         }
         public IEnumerable<BusLineStation> GetAllBusLineStationsBy(Predicate<BusLineStation> predicate)
         {
-            return from busStation in DataSource.Line_stations
-                   orderby busStation.Number_on_route
+            return from busStation in DataSource.Line_stations          
                    where predicate(busStation)
+                   orderby busStation.Number_on_route
                    select busStation.Clone();
         }
         #endregion   
