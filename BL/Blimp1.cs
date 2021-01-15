@@ -86,6 +86,10 @@ namespace BL
                 throw new PairNotFoundException("data error, all the pairs should be here", ex);
             }
             BObusLine.Stations = list;
+            BObusLine.Origin = list[0].Address;
+            BObusLine.Destination = list[list.Count - 1].Address;
+            BObusLine.InterCity = (list[0].City == list[list.Count - 1].City);
+
             return BObusLine;
         }
         DO.BusLine BOtoDOBusLineAdapter(BusLine BObusline)//i think done

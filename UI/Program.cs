@@ -58,7 +58,12 @@ namespace PlConsole
             //{
             //    Console.WriteLine(ex.InnerException.Message);
             //}
-            Console.WriteLine("WORKS TILL HERE I CHECKED, EXCEPT THE RUNNING NUMBERS DONT WORK AND DESTINATION AND ORIGIN");
+            BusLine bb=bl.GetBusLine(2000000);
+            Console.WriteLine(bb.ToString());
+            List<StationOnTheLine> list2 = bb.Stations.ToList();
+            for (int j = 0; j < list2.Count; j++)
+                Console.WriteLine(list2[j].ToString());
+         
             #endregion
             //*********************
 
@@ -71,7 +76,7 @@ namespace PlConsole
             try
             {
                 neededDistances = bl.AddBusLine(35, stationsOnLine, new DateTime(2021, 1, 1, 8, 0, 0), new DateTime(2021, 1, 1, 22, 0, 0), new TimeSpan(1, 0, 0));
-                 Console.WriteLine(bl.GetBusLine(2000011).BusID);
+                 Console.WriteLine(bl.GetBusLine(2002).BusID);
                 List<BO.BusLine> busLines = bl.GetAllBusLines().ToList();
                 PrintLines(busLines);
             }
@@ -132,7 +137,7 @@ namespace PlConsole
             {
                 Console.WriteLine(ex.Message);
             }
-            Console.WriteLine("WORKS TILL HERE I CHECKED, btw all this with valid input so check after with wrong things to make sure the exceptions work");
+           
             try
             {
                 Console.WriteLine("Updated line:" + bl.GetBusLine(2000000).ToString());
@@ -149,7 +154,7 @@ namespace PlConsole
 
             //*********************
 
-            Console.WriteLine("WORKS TILL HERE I CHECKED");
+           
             #region Delete line
             try
             {
@@ -163,7 +168,7 @@ namespace PlConsole
             }
             #endregion
             //******************
-            Console.WriteLine("WORKS TILL HERE I CHECKED");
+            
             #region GET  BuSLINES BY
             try
             {
@@ -175,11 +180,10 @@ namespace PlConsole
                 Console.WriteLine(ex.Message);
             }
             #endregion//NOT DONE!!
-            Console.WriteLine("check city in bus station cuz it doesnt show up when printing bus stations");
-            Console.WriteLine("also check if when printing a station it can print the lines and the stations for each line");
-            Console.WriteLine("otherwise works till here");
+            Console.WriteLine("ALL THE BUS LINE FUNCTIONS WORK. THE ONLY THINGS LEFT TO CHECK ARE:");
 
-
+            Console.WriteLine("WHEN IT RETURNS DISTANCES FOR THE USER TO ENTER, AND IF IT CAN ACCESS STATIONS ON A LINE THAT IS ONE OF THE LINES OF A STATION WE HAVE");
+            Console.WriteLine("NEED TO MAKE SURE EVERYTHING IN BUS STATION IS ALSO HERE");
             #region BUS STATIONS
             try
             {
