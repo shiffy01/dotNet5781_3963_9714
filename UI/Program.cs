@@ -20,6 +20,12 @@ namespace PlConsole
                 for (int i = 0; i < lines1.Count; i++)
                 {
                     Console.WriteLine(lines1[i].ToString());
+                    List<StationOnTheLine> list = lines1[i].Stations.ToList();
+                    Console.WriteLine("stops:");
+                    for (int j = 0; j < list.Count(); j++)
+                    {
+                        Console.WriteLine(list[j].ToString());
+                    }
                     Console.WriteLine("               * * * *   ");
                 }
             }
@@ -31,23 +37,28 @@ namespace PlConsole
                 {
                     Console.WriteLine(stations[i].ToString());
                     Console.WriteLine("               * * * *   ");
+                    Console.WriteLine("lines:");
+                    List<BusLine> list = stations[i].Lines.ToList();
+                    for (int j = 0; j < list.Count; j++)
+                        Console.WriteLine(list[j].ToString());
                 }
             }
 
             #region create and print lists
-            try
-            {
-                List<BO.BusLine> busLines = bl.GetAllBusLines().ToList();
-                List<BO.BusStation> busStations = bl.GetAllBusStations().ToList();
-                Console.WriteLine("All Bus Lines:");
-                PrintLines(busLines);
-                Console.WriteLine("All Bus Stations:");
-                PrintStations(busStations);
-            }
-            catch (PairNotFoundException ex)
-            {
-                Console.WriteLine(ex.InnerException.Message);
-            }
+            //try
+            //{
+            //    List<BO.BusLine> busLines = bl.GetAllBusLines().ToList();
+            //    List<BO.BusStation> busStations = bl.GetAllBusStations().ToList();
+            //    Console.WriteLine("All Bus Lines:");
+            //    PrintLines(busLines);
+            //    Console.WriteLine("All Bus Stations:");
+            //    PrintStations(busStations);
+            //}
+            //catch (PairNotFoundException ex)
+            //{
+            //    Console.WriteLine(ex.InnerException.Message);
+            //}
+            Console.WriteLine("WORKS TILL HERE I CHECKED, EXCEPT THE RUNNING NUMBERS DONT WORK AND DESTINATION AND ORIGIN");
             #endregion
             //*********************
 
@@ -59,7 +70,14 @@ namespace PlConsole
             List<String> neededDistances = new List<string>();
             try
             {
-               neededDistances = bl.AddBusLine(35, stationsOnLine, new DateTime(2021, 1, 1, 8, 0, 0), new DateTime(2021, 1, 1, 22, 0, 0), new TimeSpan(1, 0, 0));
+                neededDistances = bl.AddBusLine(35, stationsOnLine, new DateTime(2021, 1, 1, 8, 0, 0), new DateTime(2021, 1, 1, 22, 0, 0), new TimeSpan(1, 0, 0));
+                 Console.WriteLine(bl.GetBusLine(2000011).BusID);
+                List<BO.BusLine> busLines = bl.GetAllBusLines().ToList();
+                PrintLines(busLines);
+            }
+            catch (BusLineNotFoundException ex)
+            {
+                Console.WriteLine(ex.Message); 
             }
             catch (FrequencyConflictException ex)
             {
@@ -99,12 +117,12 @@ namespace PlConsole
 
 
             #endregion
-
+            Console.WriteLine("WORKS TILL HERE I CHECKED");
 
             #region update line, and getline
             try
             {
-                bl.UpdateBusLine(new DateTime(2021, 1, 1, 6, 0, 0), new DateTime(2021, 1, 1, 12, 0, 0), new TimeSpan(30, 0, 0), 200011);
+                bl.UpdateBusLine(new DateTime(2021, 1, 1, 6, 0, 0), new DateTime(2021, 1, 1, 12, 0, 0), new TimeSpan(1, 0, 0), 2000000);
             }
             catch (BO.FrequencyConflictException ex)
             {
@@ -114,9 +132,10 @@ namespace PlConsole
             {
                 Console.WriteLine(ex.Message);
             }
+            Console.WriteLine("WORKS TILL HERE I CHECKED, btw all this with valid input so check after with wrong things to make sure the exceptions work");
             try
             {
-                Console.WriteLine("Updated line:" + bl.GetBusLine(200011));
+                Console.WriteLine("Updated line:" + bl.GetBusLine(2000000).ToString());
             }
             catch (BusLineNotFoundException ex)
             {
@@ -130,12 +149,13 @@ namespace PlConsole
 
             //*********************
 
-
+            Console.WriteLine("WORKS TILL HERE I CHECKED");
             #region Delete line
             try
             {
-                bl.DeleteBusLine(32);
-                bl.GetBusLine(32);
+                bl.GetBusLine(2000000);
+                bl.DeleteBusLine(2000000);
+                bl.GetBusLine(2000000);//should throw exception
             }
             catch (BusLineNotFoundException ex)
             {
@@ -143,21 +163,21 @@ namespace PlConsole
             }
             #endregion
             //******************
-
-            #region GET  BISLINES BY
+            Console.WriteLine("WORKS TILL HERE I CHECKED");
+            #region GET  BuSLINES BY
             try
             {
                 List<BusLine> interCityLines = (bl.GetBusLineBy(line => line.InterCity == true)).ToList();
                 PrintLines(interCityLines);
-            }
+            }         
             catch (PairNotFoundException ex)
             {
                 Console.WriteLine(ex.Message);
             }
             #endregion//NOT DONE!!
-
-
-
+            Console.WriteLine("check city in bus station cuz it doesnt show up when printing bus stations");
+            Console.WriteLine("also check if when printing a station it can print the lines and the stations for each line");
+            Console.WriteLine("otherwise works till here");
 
 
             #region BUS STATIONS
@@ -196,13 +216,22 @@ namespace PlConsole
             Console.WriteLine("TESTING REMOVE STATION FROM LIST");
             try
             {
-                bl.RemoveBusStationFromLine(77, 32);
-                BusLine bline = bl.GetBusLine(32);
+                BusLine bline = bl.GetBusLine(2000002);
 
                 List<StationOnTheLine> stationlist = bline.Stations.ToList();
                 for (int i = 0; i < stationlist.Count; i++)
                 {
-                    Console.WriteLine("station number" + i + ":" + stationlist[i]);
+                    Console.WriteLine("station number   " + i + ":   " + stationlist[i].Code);
+                }
+                bl.RemoveBusStationFromLine(91, 2000002);
+                bl.RemoveBusStationFromLine(77, 32);
+                
+                BusLine bline2 = bl.GetBusLine(2000002);
+
+                List<StationOnTheLine> stationlist2 = bline2.Stations.ToList();
+                for (int i = 0; i < stationlist2.Count; i++)
+                {
+                    Console.WriteLine("station number   " + i + ":   " + stationlist2[i].Code);
                 }
             }
             catch (StationNotFoundException ex)

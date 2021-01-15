@@ -69,15 +69,9 @@ namespace DL
 
             if (realBus != default(Bus))
             {
-                try
-                {
+               
                     realBus.Exists = false;
-                    UpdateBus(realBus);
-                }
-                catch (BusNotFoundException ex)
-                {
-                    throw ex;
-                }
+                   
             }
             else
                 throw new BusNotFoundException("Bus wasn't found in the system");
@@ -138,15 +132,8 @@ namespace DL
 
             if (bus != default(BusLine))
             {
-                try
-                {
+                
                     bus.Exists = false;
-                    UpdateBusLine(bus);
-                }
-                catch (BusLineNotFoundException ex)
-                {
-                    throw ex;
-                }
             }
             else
                 throw new DO.BusLineNotFoundException("The BusLine is not found in the system");
@@ -243,7 +230,7 @@ namespace DL
             if (station != default(BusLineStation))
             {
                 station.Exists = false;
-                UpdateBusLineStation(station);
+               
             }
             else
                 throw new DO.BusLineStationNotFoundException(station.BusLineStationID, "The BusLineStation is not found in the system");
@@ -313,15 +300,9 @@ namespace DL
 
             if (busStation != default(BusStation))
             {
-                try
-                {
+               
                     busStation.Exists = false;
-                    UpdateBusStation(busStation);
-                }
-                catch (StationNotFoundException ex)
-                {
-                    throw ex;
-                }
+                  
             }
             else
                 throw new StationNotFoundException(busStation.Code, $"Station :{code} wasn't found in the system");
@@ -385,15 +366,9 @@ namespace DL
             TwoConsecutiveStops findTwoStops = DataSource.Two_stops.FirstOrDefault(tmpTwo_stops => tmpTwo_stops.PairID == pairID&&tmpTwo_stops.Exists);
             if (findTwoStops != default(TwoConsecutiveStops))
             {
-                try
-                {
+              
                     findTwoStops.Exists = false;
-                    UpdateTwoConsecutiveStops(findTwoStops);
-                }
-                catch (PairNotFoundException ex)
-                {
-                    throw ex;
-                }
+                   
             }
             else
                 throw new PairNotFoundException("Pair not found in system");

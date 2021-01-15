@@ -393,6 +393,7 @@ namespace BL
                 busLineStationList[i].Number_on_route--;
                 dal.UpdateBusLineStation(busLineStationList[i]);
             }
+            dal.DeleteBusLineStation(id);
             if(! (dal.TwoConsecutiveStopsExists(busLineStationList[busLineStation.Number_on_route - 1].StationID.ToString()+ busLineStationList[busLineStation.Number_on_route + 1].StationID.ToString())))
             {
                 return busLineStationList[busLineStation.Number_on_route - 1].StationID + "*" + busLineStationList[busLineStation.Number_on_route + 1].StationID;
