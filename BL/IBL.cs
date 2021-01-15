@@ -15,7 +15,7 @@ namespace BlApi
         void DeleteBusLine(int lineID);
         BusLine GetBusLine(int lineID);
         IEnumerable<BusLine> GetAllBusLines();
-        IEnumerable<BusLine> GetBusLineBy(Predicate<BusLine> predicate);
+        IEnumerable<BusLine> GetAllBusLinesBy(Predicate<BusLine> predicate);
         #endregion
 
         #region BusStation
@@ -24,7 +24,8 @@ namespace BlApi
         void DeleteBusStation(int stationID); 
         BusStation GetBusStation(int stationID);
         IEnumerable<BusStation> GetAllBusStations();
-        IEnumerable<BusStation> GetBusStationBy(Predicate<BusStation> predicate);
+
+        IEnumerable<BusStation> GetAllBusStationsBy(Predicate<BusStation> predicate);
         List<string> AddStationToBusLine(int bus_number, int code, int place);
         string RemoveBusStationFromLine(int stationCode, int lineNumber);
         #endregion

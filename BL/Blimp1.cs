@@ -266,7 +266,7 @@ namespace BL
             }
             return list2;
         }//done
-        public IEnumerable<BusLine> GetBusLineBy(Predicate<BusLine> predicate)
+        public IEnumerable<BusLine> GetAllBusLinesBy(Predicate<BusLine> predicate)
         {
             IEnumerable<BusLine> answer;
             try
@@ -327,7 +327,7 @@ namespace BL
                 throw ex;
             }
         }//done
-        public IEnumerable<BusStation> GetBusStationBy(Predicate<BusStation> predicate)
+        public IEnumerable<BusStation> GetAllBusStationsBy(Predicate<BusStation> predicate)
         {
             return from station in dal.GetAllBusStations()
                    let BOStation = ConvertStationDOtoBO(station)

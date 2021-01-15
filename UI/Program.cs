@@ -172,7 +172,7 @@ namespace PlConsole
             #region GET  BuSLINES BY
             try
             {
-                List<BusLine> interCityLines = (bl.GetBusLineBy(line => line.InterCity == true)).ToList();
+                List<BusLine> interCityLines = (bl.GetAllBusLinesBy(line => line.InterCity == true)).ToList();
                 PrintLines(interCityLines);
             }         
             catch (PairNotFoundException ex)
@@ -214,7 +214,7 @@ namespace PlConsole
                 Console.WriteLine(ex.Message);
             }
             Console.WriteLine("testing  getBusStationBy ");
-            List<BusStation> lines= (bl.GetBusStationBy(station => (station.City=="ירושלים"))).ToList();
+            List<BusStation> lines= (bl.GetAllBusStationsBy(station => (station.City=="ירושלים"))).ToList();
             #endregion
             #endregion
             Console.WriteLine("TESTING REMOVE STATION FROM LIST");
