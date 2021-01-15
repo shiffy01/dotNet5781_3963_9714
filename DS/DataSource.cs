@@ -26,6 +26,11 @@ namespace DS
         public static List<BusDeparted> Departed{ get => departed; }
         public static double Distance_Between_Two_Stops(BusStation station1, BusStation station2)
         {
+            if (station1 == null || station2 == null)
+            {
+                return 0;
+
+            }
             return Math.Sqrt((station1.Latitude - station2.Latitude) * (station1.Latitude - station2.Latitude) +
                              (station1.Longitude - station2.Longitude) * (station1.Longitude - station2.Longitude));
         }
@@ -1123,7 +1128,7 @@ namespace DS
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 92,
+                StationID = 1485,
                 LineID = 2000007,
                 Number_on_route = 3,
                 BusLineStationID = 92.ToString() + 2000007.ToString(),
@@ -1158,7 +1163,7 @@ namespace DS
                 Exists = true
             });
             Line_stations.Add(new BusLineStation {
-                StationID = 96,
+                StationID = 76,
                 LineID = 2000007,
                 Number_on_route = 8,
                 BusLineStationID = 96.ToString() + 2000007.ToString(),
@@ -1328,7 +1333,7 @@ namespace DS
         {
             for (int i = 0; i < stations.Count; i++)
             {
-                if (code == stations[i].Code)
+                if (code == stations[i].Code&&stations[i].Exists)
                     return (stations[i]);
             }
             return null;
@@ -1337,9 +1342,11 @@ namespace DS
         {   
             for (int i = 0; i < 10; i++)
             {
-                for (int j = i*10; j < 9; j++)
+                for (int j = i*10; j < i*10+9; j++)
                 {
                     double distance = Distance_Between_Two_Stops(search(Line_stations[j].StationID), search(Line_stations[j + 1].StationID));
+                    if (distance == 0)
+                        distance = 1;
                     int minutes = (int)(6 * distance) / 5;//average speed is 50 km per hour
                     Two_stops.Add(new TwoConsecutiveStops 
                     {
@@ -1347,7 +1354,7 @@ namespace DS
                         Stop_1_code = Line_stations[j].StationID,
                         Stop_2_code= Line_stations[j + 1].StationID,
                         PairID = (Line_stations[j].StationID).ToString() +(Line_stations[j + 1].StationID).ToString(),
-                    Distance = distance,
+                        Distance = distance,
                         Average_drive_time=new TimeSpan(minutes/60, minutes%60, 0),
                         Exists=true
                     });

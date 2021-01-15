@@ -16,7 +16,6 @@ namespace BO
         public bool InterCity {get; set;}
         public string Destination {get; set;}
         public string Origin {get; set;}
-        public bool Exists{ get; set; }
         public DateTime First_bus{get; set;}
         public DateTime Last_bus{get; set;}
         public TimeSpan Frequency{get; set;}//time between each bus

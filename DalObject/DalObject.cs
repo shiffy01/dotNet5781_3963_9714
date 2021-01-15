@@ -43,7 +43,7 @@ namespace DL
         #region Bus implementation
         public void AddBus(Bus bus)
         {
-            if (DataSource.Buses.FirstOrDefault(tmpBus => tmpBus.License ==bus.License) != null)
+            if (DataSource.Buses.FirstOrDefault(tmpBus => tmpBus.License ==bus.License&&tmpBus.Exists) != default(Bus))
             {
                 throw new DuplicateBusException(bus.License, $", Bus with License number: {bus.License} already exists in the system"); 
             }
@@ -52,9 +52,9 @@ namespace DL
         public void UpdateBus(Bus bus)
         {
            
-              Bus realBus= DataSource.Buses.FirstOrDefault(tmpBus => tmpBus.License== bus.License);
+              Bus realBus= DataSource.Buses.FirstOrDefault(tmpBus => tmpBus.License== bus.License&&tmpBus.Exists);
 
-            if (realBus != null)
+            if (realBus!= default(Bus))
             {
                 DataSource.Buses.Remove(realBus);
                 DataSource.Buses.Add(bus.Clone());
@@ -65,20 +65,28 @@ namespace DL
         public void DeleteBus(int license)
         {
 
-            Bus realBus = DataSource.Buses.FirstOrDefault(tmpBus => tmpBus.License == license);
+            Bus realBus = DataSource.Buses.FirstOrDefault(tmpBus => tmpBus.License == license&&tmpBus.Exists);
 
-            if (realBus != null)
+            if (realBus != default(Bus))
             {
-                DataSource.Buses.Remove(realBus);
+                try
+                {
+                    realBus.Exists = false;
+                    UpdateBus(realBus);
+                }
+                catch (BusNotFoundException ex)
+                {
+                    throw ex;
+                }
             }
             else
                 throw new BusNotFoundException("Bus wasn't found in the system");
         }//done
         public Bus GetBus(int license)
         {
-           Bus sameBus= DataSource.Buses.Find(tmpBus => tmpBus.License == license);
+           Bus sameBus= DataSource.Buses.FirstOrDefault(tmpBus => tmpBus.License == license&&tmpBus.Exists);
 
-            if (sameBus != null)
+            if (sameBus!= default(Bus))
                 return sameBus.Clone();
             else
                 throw new BusNotFoundException("Bus wasn't found in the system");
@@ -87,12 +95,13 @@ namespace DL
         {
             return 
                 from bus in DataSource.Buses
+                where(bus.Exists)
                    select bus.Clone();
         }//done!!
         public IEnumerable<Bus> GetAllBussesBy(Predicate<Bus> predicate)
         {
             return from bus in DataSource.Buses
-                   where predicate(bus)
+                   where (predicate(bus)&&bus.Exists)
                    select bus.Clone();
         }    //Done!!
 
@@ -125,20 +134,28 @@ namespace DL
         }
        public  void DeleteBusLine(int busID)
         {
-            DO.BusLine bus = DataSource.Lines.Find(b => (b.BusID == busID && b.Exists));
+            BusLine bus = DataSource.Lines.FirstOrDefault(b => (b.BusID == busID && b.Exists));
 
-            if (bus != null)
+            if (bus != default(BusLine))
             {
-                bus.Exists = false;
+                try
+                {
+                    bus.Exists = false;
+                    UpdateBusLine(bus);
+                }
+                catch (BusLineNotFoundException ex)
+                {
+                    throw ex;
+                }
             }
             else
                 throw new DO.BusLineNotFoundException("The BusLine is not found in the system");
         }
        public void UpdateBusLine(BusLine busLine)
         {
-            DO.BusLine bus = DataSource.Lines.Find(b => (b.BusID == busLine.BusID && b.Exists));
+            DO.BusLine bus = DataSource.Lines.FirstOrDefault(b => (b.BusID == busLine.BusID && b.Exists));
 
-            if (bus != null)
+            if (bus != default(BusLine))
             {
                 DataSource.Lines.Remove(bus);
                 DataSource.Lines.Add(busLine.Clone());
@@ -157,9 +174,9 @@ namespace DL
         }
        public BusLine GetBusLine(int busID)
         {
-            DO.BusLine bus = DataSource.Lines.Find(b => (b.BusID == busID && b.Exists));
+            DO.BusLine bus = DataSource.Lines.FirstOrDefault(b => (b.BusID == busID && b.Exists));
 
-            if (bus != null)
+            if (bus != default(BusLine))
                 return bus.Clone();
             else
                 throw new DO.BusLineNotFoundException("Bus line is not in the system");
@@ -167,7 +184,7 @@ namespace DL
         public IEnumerable<BusLine> GetAllBusLinesBy(Predicate<BusLine> predicate)
         {
             return from line in DataSource.Lines
-                   where predicate(line)
+                   where (predicate(line)&&line.Exists)
                    select line.Clone();
         }   //done!!
         public IEnumerable<BusLine> GetBuslinesOfStation(int stationID)//gets all the bus lines with this station on the route
@@ -196,7 +213,7 @@ namespace DL
         #region BusLineStation CRUD 
         public void AddBusLineStation(int station_id, int line_id, int number_on_route)
         {
-            if (DataSource.Line_stations.FirstOrDefault(b => (b.BusLineStationID == (station_id.ToString()+line_id.ToString()) && b.Exists)) != null)
+            if (DataSource.Line_stations.FirstOrDefault(b => (b.BusLineStationID == (station_id.ToString()+line_id.ToString()) && b.Exists)) != default(BusLineStation))
                 throw new DO.BusLineStationAlreadyExistsException("This bus line station is already in the system");
            
                 DataSource.Line_stations.Add(new BusLineStation {
@@ -209,9 +226,9 @@ namespace DL
         }
         public void UpdateBusLineStation(BusLineStation busLineStation)
         {
-            DO.BusLineStation station = DataSource.Line_stations.Find(s => (s.BusLineStationID == busLineStation.BusLineStationID && s.Exists));
+            DO.BusLineStation station = DataSource.Line_stations.FirstOrDefault(s => (s.BusLineStationID == busLineStation.BusLineStationID && s.Exists));
 
-            if (station != null)
+            if (station != default(BusLineStation))
             {
                 DataSource.Line_stations.Remove(station);
                 DataSource.Line_stations.Add(busLineStation.Clone());
@@ -221,20 +238,21 @@ namespace DL
         }
         public void DeleteBusLineStation(string ID)
         {
-            DO.BusLineStation station = DataSource.Line_stations.Find(s => (s.BusLineStationID == ID && s.Exists));
+            DO.BusLineStation station = DataSource.Line_stations.FirstOrDefault(s => (s.BusLineStationID == ID && s.Exists));
 
-            if (station != null)
+            if (station != default(BusLineStation))
             {
                 station.Exists = false;
+                UpdateBusLineStation(station);
             }
             else
                 throw new DO.BusLineStationNotFoundException(station.BusLineStationID, "The BusLineStation is not found in the system");
         }
         public BusLineStation GetBusLineStation(string ID)
         {
-            DO.BusLineStation station = DataSource.Line_stations.Find(s => (s.BusLineStationID == ID && s.Exists));
+            BusLineStation station = DataSource.Line_stations.FirstOrDefault(s => (s.BusLineStationID == ID && s.Exists));
 
-            if (station != null)
+            if (station!= default(BusLineStation))
                 return station.Clone();
             else
                 throw new BusLineStationNotFoundException(ID, "Bus line station is not in the system");
@@ -250,7 +268,7 @@ namespace DL
         public IEnumerable<BusLineStation> GetAllBusLineStationsBy(Predicate<BusLineStation> predicate)
         {
             return from busStation in DataSource.Line_stations          
-                   where predicate(busStation)
+                   where predicate(busStation)&&busStation.Exists
                    orderby busStation.Number_on_route
                    select busStation.Clone();
         }
@@ -259,7 +277,7 @@ namespace DL
         #region  BusStation implementation
         public void AddBusStation(int code, double latitude, double longitude, string name, string address, string city)
         {
-            if (DataSource.Stations.FirstOrDefault(tmpBusStation => tmpBusStation.Code == code) != null)
+            if (DataSource.Stations.FirstOrDefault(tmpBusStation => tmpBusStation.Code == code&&tmpBusStation.Exists) !=default(BusStation))
             {
                 throw new StationAlreadyExistsException(code, $", Bus with License number: {code} already exists in the system");
 
@@ -272,15 +290,15 @@ namespace DL
                 Name=name,
                 Address=address,
                 City=city,
-                //Exists=true
+                Exists=true
             });
         }//done!!
         public void UpdateBusStation(BusStation busStation)
         {
 
-            BusStation findBusStation = DataSource.Stations.FirstOrDefault(tmpBusStation => tmpBusStation.Code == busStation.Code);
+            BusStation findBusStation = DataSource.Stations.FirstOrDefault(tmpBusStation => tmpBusStation.Code == busStation.Code&&tmpBusStation.Exists);
 
-            if (findBusStation != null)
+            if (findBusStation != default(BusStation))
             {
                 DataSource.Stations.Remove(findBusStation);
                 DataSource.Stations.Add(findBusStation.Clone());
@@ -291,20 +309,28 @@ namespace DL
         public void DeleteBusStation(int code)
         {
 
-            BusStation busStation = DataSource.Stations.FirstOrDefault(tmpBusStation => tmpBusStation.Code==code);
+            BusStation busStation = DataSource.Stations.FirstOrDefault(tmpBusStation => tmpBusStation.Code==code&&tmpBusStation.Exists);
 
-            if (busStation != null)
+            if (busStation != default(BusStation))
             {
-                DataSource.Stations.Remove(busStation);
+                try
+                {
+                    busStation.Exists = false;
+                    UpdateBusStation(busStation);
+                }
+                catch (StationNotFoundException ex)
+                {
+                    throw ex;
+                }
             }
             else
                 throw new StationNotFoundException(busStation.Code, $"Station :{code} wasn't found in the system");
         }//done!!
         public BusStation GetBusStation(int code)
         {
-            BusStation findBusStation = DataSource.Stations.Find(tmpBusStation => tmpBusStation.Code == code);
+            BusStation findBusStation = DataSource.Stations.Find(tmpBusStation => tmpBusStation.Code == code&&tmpBusStation.Exists);
 
-            if (findBusStation != null)
+            if (findBusStation != default(BusStation))
                 return findBusStation.Clone();
             else
                 throw new StationNotFoundException(code, $"Station :{code} wasn't found in the system");
@@ -313,12 +339,13 @@ namespace DL
         {
             return
                 from BusStation in DataSource.Stations
+                where(BusStation.Exists)
                 select BusStation.Clone();
         }//done!!
         public IEnumerable<BusStation> GetAllBusStationsBy(Predicate<BusStation> predicate)
         {
             return from busStation in DataSource.Stations
-                   where predicate(busStation)
+                   where predicate(busStation)&&busStation.Exists
                    select busStation.Clone();
         }   //done!!
         #endregion
@@ -326,7 +353,7 @@ namespace DL
         #region TwoConsecutiveStops  implementation
        public  void AddTwoConsecutiveStops(int code_1, int code_2, double distance, TimeSpan drive_time)
         {
-            if (DataSource.Two_stops.FirstOrDefault(tmpTwo_stops => tmpTwo_stops.PairID == (code_1.ToString()+code_2.ToString())) != null)
+            if (DataSource.Two_stops.FirstOrDefault(tmpTwo_stops => (tmpTwo_stops.PairID == (code_1.ToString()+code_2.ToString()))&&tmpTwo_stops.Exists) != default(TwoConsecutiveStops))
             {
                 throw new PairAlreadyExitsException(" Pair already exists in the system");
             }
@@ -336,15 +363,16 @@ namespace DL
                 Stop_2_code = code_2,
                 PairID = (code_1.ToString() + code_2.ToString()),
                 Distance = distance,
-                Average_drive_time = drive_time//CHANGE THIS!!FIGURE OUT HOW TO CALCULATE AVERAGE DRIVE TIME, SHOULD BE DONE IN BL UNLESS ITS A SET NUMBER!!!!!!!!
+                Average_drive_time = drive_time,
+                Exists=true
             }) ;
         }//done!!
         public void UpdateTwoConsecutiveStops(TwoConsecutiveStops twoConsecutiveStops)
         {
 
-            TwoConsecutiveStops findTwoStops = DataSource.Two_stops.FirstOrDefault(tmpTwo_stops => tmpTwo_stops.PairID == twoConsecutiveStops.PairID);
+            TwoConsecutiveStops findTwoStops = DataSource.Two_stops.FirstOrDefault(tmpTwo_stops => tmpTwo_stops.PairID == twoConsecutiveStops.PairID&&tmpTwo_stops.Exists);
 
-            if (findTwoStops != null)
+            if (findTwoStops != default(TwoConsecutiveStops))
             {
                 DataSource.Two_stops.Remove(findTwoStops);
                 DataSource.Two_stops.Add(findTwoStops.Clone());
@@ -354,10 +382,18 @@ namespace DL
         }//done!!
         public void DeleteTwoConsecutiveStops(string pairID)
         {
-            TwoConsecutiveStops findTwoStops = DataSource.Two_stops.FirstOrDefault(tmpTwo_stops => tmpTwo_stops.PairID == pairID);
-            if (findTwoStops != null)
+            TwoConsecutiveStops findTwoStops = DataSource.Two_stops.FirstOrDefault(tmpTwo_stops => tmpTwo_stops.PairID == pairID&&tmpTwo_stops.Exists);
+            if (findTwoStops != default(TwoConsecutiveStops))
             {
-                DataSource.Two_stops.Remove(findTwoStops);
+                try
+                {
+                    findTwoStops.Exists = false;
+                    UpdateTwoConsecutiveStops(findTwoStops);
+                }
+                catch (PairNotFoundException ex)
+                {
+                    throw ex;
+                }
             }
             else
                 throw new PairNotFoundException("Pair not found in system");
@@ -365,15 +401,16 @@ namespace DL
         public TwoConsecutiveStops GetTwoConsecutiveStops(string pairID)
         {
             string id = pairID;
-            TwoConsecutiveStops findTwoStops = DataSource.Two_stops.FirstOrDefault(tmpTwo_stops => tmpTwo_stops.PairID == id);
-            if (findTwoStops != null)
+            TwoConsecutiveStops findTwoStops = DataSource.Two_stops.FirstOrDefault(tmpTwo_stops => tmpTwo_stops.PairID == id&&tmpTwo_stops.Exists);
+            if (findTwoStops != default(TwoConsecutiveStops))
                 return findTwoStops.Clone();
             else
-                throw new PairNotFoundException("Pair not found in system");
+                throw new PairNotFoundException(pairID+"  Pair not found in system");
         }///done!! 
         public IEnumerable<TwoConsecutiveStops> GetAllPairs()
         {
             return from pair in DataSource.Two_stops
+                   where pair.Exists
                    select pair.Clone();
         }   //done!!
         public bool TwoConsecutiveStopsExists(string pairID)

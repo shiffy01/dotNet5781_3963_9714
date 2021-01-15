@@ -46,7 +46,7 @@ namespace PlConsole
             }
             catch (PairNotFoundException ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.InnerException.Message);
             }
             #endregion
             //*********************
