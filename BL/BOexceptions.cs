@@ -137,7 +137,21 @@ namespace BO
         public PairNotFoundException(string message, Exception inner) : base(message, inner) { }
         public override string ToString() => base.ToString() + " Pair not found in the system";
     }
+    [Serializable]
+    public class InvalidPlaceException : Exception
+    {
+        public InvalidPlaceException()
+        {
+        }
+        public InvalidPlaceException(string messege) : base(messege)
+        {
 
+        }
+        public InvalidPlaceException(string message, Exception inner) : base(message, inner)
+        {
+        }
+        public override string ToString() => base.ToString() + " ";
+    }
 
 
 }

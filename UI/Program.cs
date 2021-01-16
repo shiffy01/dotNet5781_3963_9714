@@ -282,7 +282,58 @@ namespace PlConsole
             //}
             try
             {
+                BusLine bline =bl.GetBusLine(2000002);
+                List<StationOnTheLine> stationlist = bline.Stations.ToList();
+                for (int i = 0; i < stationlist.Count; i++)
+                {
+                    Console.WriteLine("station number   " + stationlist[i].Number_on_route + ":   " + stationlist[i].Code);
+                }
                 List<string> distances = bl.AddStationToBusLine(2000002, 76, 5);
+                for (int i = 0; i < distances.Count; i++)
+                {
+                    int code1 = 0, code2 = 0;
+                    string[] codes = distances[i].Split('*');
+                    try
+                    {
+                        code1 = Int32.Parse(codes[0]);
+                    }
+                    catch (FormatException e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
+                    try
+                    {
+                        code2 = Int32.Parse(codes[1]);
+                    }
+                    catch (FormatException e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
+                    bl.AddTwoConsecutiveStops(code1, code2, rnd.Next(), new TimeSpan(6, 0, 0));
+                }
+                BusLine bline2 = bl.GetBusLine(2000002);
+                List<StationOnTheLine> stationlist2 = bline2.Stations.ToList();
+                for (int i = 0; i < stationlist2.Count; i++)
+                {
+                    Console.WriteLine("station number   " + stationlist2[i].Number_on_route + ":   " + stationlist2[i].Code);
+                }
+          //      List<string> distance = bl.AddStationToBusLine(20001, 76, 5);
+           //     List<string> distances5 = bl.AddStationToBusLine(2000002, 1111, 5);
+                //List<string> distances2 = bl.AddStationToBusLine(2000002, 88, 5);
+                //List<string> distances3 = bl.AddStationToBusLine(2000002, 76, 100);
+                List<string> distances4 = bl.AddStationToBusLine(2000002, 76, 0);
+            }
+            catch (InvalidPlaceException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (BusLineNotFoundException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (StationNotFoundException ex)
+            {
+                Console.WriteLine(ex.Message);
             }
             Console.ReadKey();
 

@@ -349,7 +349,20 @@ namespace BL
             {
                 throw new StationNotFoundException(ex.Code, "The Station is not in the system", ex);
             }
-
+            
+         
+            var list = dal.GetAllBusLineStationsBy(station => (station.LineID == bus_number && station.Number_on_route >= place));
+            if (place > list.Count() + 1)
+                throw new InvalidPlaceException("Place number is too high");
+            if (place < 1)
+                throw new InvalidPlaceException("Place number cannot be lower than 1");
+            
+          
+            foreach (var item in list)
+            {
+                item.Number_on_route++;
+                dal.UpdateBusLineStation(item);
+            }
             try
             {
                 dal.AddBusLineStation(code, bus_number, place);
@@ -357,12 +370,6 @@ namespace BL
             catch (DO.BusLineStationAlreadyExistsException ex)
             {
                 throw new StationAlreadyExistsOnTheLinexception(bus_number, code, "The station is already on the line", ex);
-            }
-            var list = dal.GetAllBusLineStationsBy(station => (station.LineID == bus_number && station.Number_on_route >= place));
-            foreach (var item in list)
-            {
-                item.Number_on_route++;
-                dal.UpdateBusLineStation(item);
             }
             //doesnt need exception because it just got it from the ds, its for sure there        
 
