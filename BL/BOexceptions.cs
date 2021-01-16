@@ -70,11 +70,21 @@ namespace BO
     public class StationAlreadyExistsOnTheLinexception : Exception
     {
 
-        public int LineNumber;
-        public StationAlreadyExistsOnTheLinexception(int lineNumber, int stationcode) : base() => LineNumber = lineNumber;
-        public StationAlreadyExistsOnTheLinexception(int lineNumber, int stationcode, string message) : base(message) => LineNumber = lineNumber;
-        public StationAlreadyExistsOnTheLinexception(int lineNumber, int stationcode, string message, Exception inner) : base(message, inner) => LineNumber = lineNumber;
-        public override string ToString() => base.ToString() + $",Line number: {LineNumber} already goes through that stop";
+        public int Code;
+        public StationAlreadyExistsOnTheLinexception(int code, int stationcode) : base() => Code = code;
+        public StationAlreadyExistsOnTheLinexception(int code, int stationcode, string message) : base(message) => Code = code;
+        public StationAlreadyExistsOnTheLinexception(int code, int stationcode, string message, Exception inner) : base(message, inner) => Code = code;
+        public override string ToString() => base.ToString() + $",Code number: {Code} already goes through that stop";
+    }
+    [Serializable]
+    public class StationDoesNotExistOnTheLinexception : Exception
+    {
+
+        public int Code;
+        public StationDoesNotExistOnTheLinexception(int code, int line) : base() => Code = code;
+        public StationDoesNotExistOnTheLinexception(int code, int line, string message) : base(message) => Code = code;
+        public StationDoesNotExistOnTheLinexception(int code, int line, string message, Exception inner) : base(message, inner) => Code = code;
+        public override string ToString() => base.ToString() + $",Code number: {Code} already goes through that stop";
     }
     [Serializable]
     public class NeedDistanceException : Exception

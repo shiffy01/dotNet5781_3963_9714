@@ -289,16 +289,16 @@ namespace BL
         public void UpdateBusStation(int code, string name)
         {
             DO.BusStation DOstation;
-            DOstation =dal.GetBusStation(code);
-            DOstation.Name = name;
             try
             {
-                dal.UpdateBusStation(DOstation);
+                DOstation = dal.GetBusStation(code);
             }
-            catch (DO.StationNotFoundException ex)
+            catch(DO.StationNotFoundException ex)
             {
                 throw new StationNotFoundException(code, $"Station :{code} wasn't found in the system", ex);
             }
+            DOstation.Name = name;    
+                dal.UpdateBusStation(DOstation);  
         }
         public BusStation GetBusStation(int stationID)
         {
@@ -349,6 +349,7 @@ namespace BL
             {
                 throw new StationNotFoundException(ex.Code, "The Station is not in the system", ex);
             }
+
             try
             {
                 dal.AddBusLineStation(code, bus_number, place);
@@ -387,7 +388,7 @@ namespace BL
             }
             catch (DO.BusLineStationNotFoundException ex)
             {
-                throw new StationNotFoundException(stationCode, $",station number: {stationCode} is not on this route", ex);
+                throw new StationDoesNotExistOnTheLinexception(stationCode, lineNumber, $",station number: {stationCode} is not on this route", ex);
             }
             var lineStations = from lineStation in dal.GetAllBusLineStationsBy(l => l.LineID == busLineStation.LineID)
                                select lineStation;
@@ -400,7 +401,7 @@ namespace BL
             dal.DeleteBusLineStation(id);
             if(! (dal.TwoConsecutiveStopsExists(busLineStationList[busLineStation.Number_on_route - 1].StationID.ToString()+ busLineStationList[busLineStation.Number_on_route + 1].StationID.ToString())))
             {
-                return busLineStationList[busLineStation.Number_on_route - 1].StationID + "*" + busLineStationList[busLineStation.Number_on_route + 1].StationID;
+                return busLineStationList[busLineStation.Number_on_route - 2].StationID + "*" + busLineStationList[busLineStation.Number_on_route].StationID;
             }
             return null;
         }

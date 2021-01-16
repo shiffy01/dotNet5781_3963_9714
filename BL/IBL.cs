@@ -19,12 +19,11 @@ namespace BlApi
         #endregion
 
         #region BusStation
-        void AddBusStation(int code, double latitude, double longitude, string name, string address, string city);//DO WE NEED THIS SINCE THEY CANT ADD BUS STATIONS???
+        void AddBusStation(int code, double latitude, double longitude, string name, string address, string city);
         void UpdateBusStation(int code, string name);
         void DeleteBusStation(int stationID); 
         BusStation GetBusStation(int stationID);
         IEnumerable<BusStation> GetAllBusStations();
-
         IEnumerable<BusStation> GetAllBusStationsBy(Predicate<BusStation> predicate);
         List<string> AddStationToBusLine(int bus_number, int code, int place);
         string RemoveBusStationFromLine(int stationCode, int lineNumber);

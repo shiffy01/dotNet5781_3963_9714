@@ -10,8 +10,7 @@ using DO;
 namespace BO
 {
     public class BusStation
-    {
-        public int StationID {get; set;}
+    {       
         public int Code{ get; set; }        
         public double Latitude{ get; set; }
         public double Longitude{ get; set; }

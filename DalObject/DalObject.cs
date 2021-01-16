@@ -288,7 +288,7 @@ namespace DL
             if (findBusStation != default(BusStation))
             {
                 DataSource.Stations.Remove(findBusStation);
-                DataSource.Stations.Add(findBusStation.Clone());
+                DataSource.Stations.Add(busStation.Clone());
             }
             else
                 throw new StationNotFoundException(busStation.Code, $"Station :{busStation.Code} wasn't found in the system");
@@ -356,7 +356,7 @@ namespace DL
             if (findTwoStops != default(TwoConsecutiveStops))
             {
                 DataSource.Two_stops.Remove(findTwoStops);
-                DataSource.Two_stops.Add(findTwoStops.Clone());
+                DataSource.Two_stops.Add(twoConsecutiveStops.Clone());
             }
             else
                 throw new PairNotFoundException("Pair not found in system");
