@@ -1,0 +1,15 @@
+﻿<Window x:Class="PL.ManagementWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL"
+        mc:Ignorable="d"
+        Title="ManagementWindow" Height="450" Width="800">
+    <Grid>
+        <Button x:Name="bus_display" Content="אוטובוסים" HorizontalAlignment="Left" Height="82" Margin="412,88,0,0" VerticalAlignment="Top" Width="140"/>
+        <Button x:Name="station_display" Content="תחנות אוטובוסים" HorizontalAlignment="Left" Margin="150,134,0,0" VerticalAlignment="Top" Width="75" Height="83" Click="station_display_Click"/>
+        <Button x:Name="line_display" Content="קווים" HorizontalAlignment="Left" Margin="249,301,0,0" VerticalAlignment="Top" Width="126" Height="64" Click="line_display_Click"/>
+
+    </Grid>
+</Window>

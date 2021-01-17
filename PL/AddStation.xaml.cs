@@ -10,25 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for AddStation.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AddStation : Window
     {
-        public MainWindow()
+        public AddStation()
         {
             InitializeComponent();
-        }
-
-        private void manegment_window_Click(object sender, RoutedEventArgs e)
-        {
-            ManagementWindow managementWindow = new ManagementWindow();
-            managementWindow.Show();
         }
     }
 }

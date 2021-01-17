@@ -1,0 +1,14 @@
+﻿<Window x:Class="PL.LineDetails"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL"
+        mc:Ignorable="d"
+        Title="LineDetails" Height="450" Width="800">
+    <Grid>
+        <Button x:Name="update_line" Content="עדכון פרטים" HorizontalAlignment="Left" Margin="229,331,0,0" VerticalAlignment="Top" Width="159" Height="62" Click="update_line_Click"/>
+        <Button x:Name="delete_line"  Content="מחיקת קו" HorizontalAlignment="Left" Margin="330,150,0,0" VerticalAlignment="Top" Width="231" Height="113"/>
+
+    </Grid>
+</Window>

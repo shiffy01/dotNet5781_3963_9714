@@ -7,6 +7,8 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <Button x:Name="manegment_window" Content="ניהול מערכת" HorizontalAlignment="Left" Margin="107,189,0,0" VerticalAlignment="Top" Width="166" Height="130" Click="manegment_window_Click"/>
+        <Button x:Name="passenger_window" Content="תכנון נסיעה" HorizontalAlignment="Left" Margin="544,233,0,0" VerticalAlignment="Top" Width="75"/>
+
     </Grid>
 </Window>

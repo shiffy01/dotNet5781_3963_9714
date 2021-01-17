@@ -10,25 +10,24 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for LineDetails.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class LineDetails : Window
     {
-        public MainWindow()
+        public LineDetails()
         {
             InitializeComponent();
         }
 
-        private void manegment_window_Click(object sender, RoutedEventArgs e)
+        private void update_line_Click(object sender, RoutedEventArgs e)
         {
-            ManagementWindow managementWindow = new ManagementWindow();
-            managementWindow.Show();
+            UpdateLine updateLine = new UpdateLine();
+            updateLine.Show();
         }
     }
 }
