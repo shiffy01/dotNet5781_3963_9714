@@ -58,6 +58,7 @@
     <Compile Include="AddStation.xaml.cs">
       <DependentUpon>AddStation.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Class1.cs" />
     <Compile Include="StationDetails.xaml.cs">
       <DependentUpon>StationDetails.xaml</DependentUpon>
     </Compile>
