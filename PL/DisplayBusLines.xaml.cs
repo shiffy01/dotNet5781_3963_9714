@@ -57,5 +57,11 @@ namespace PL
         {
 
         }
+        private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            DataGridRow row = sender as DataGridRow;
+            LineDetails line = new LineDetails(row.DataContext as BusLine);
+            line.Show();
+        }
     }
 }

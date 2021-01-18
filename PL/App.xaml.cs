@@ -13,5 +13,10 @@ namespace PL
     /// </summary>
     public partial class App : Application
     {
+        //private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
+        //{
+        //    DataGridRow row = sender as DataGridRow;
+        //    // Some operations with this row
+        //}
     }
 }

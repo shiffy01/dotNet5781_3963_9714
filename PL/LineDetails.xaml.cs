@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BlApi;
+using BO;
 
 namespace PL
 {
@@ -19,9 +21,12 @@ namespace PL
     /// </summary>
     public partial class LineDetails : Window
     {
-        public LineDetails()
+        BusLine Line;
+        public LineDetails(BusLine line)
         {
             InitializeComponent();
+            Line = line;
+
         }
 
         private void update_line_Click(object sender, RoutedEventArgs e)
