@@ -1,13 +1,50 @@
-﻿<Window x:Class="PL.DisplayBusLines"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
+        xmlns:BO="clr-namespace:BO;assembly=BL" x:Class="PL.DisplayBusLines"
         mc:Ignorable="d"
-        Title="DisplayBusLines" Height="450" Width="800">
-    <Grid>
-        <Button x:Name="add_line"  Content="הוספה" HorizontalAlignment="Left" Margin="148,320,0,0" VerticalAlignment="Top" Width="161" Height="43" Click="add_line_Click"/>
+        Title="DisplayBusLines" Height="450" Width="800" Loaded="Window_Loaded">
+    <Window.Resources>
+        <CollectionViewSource x:Key="busLineViewSource" d:DesignSource="{d:DesignInstance {x:Type BO:BusLine}, CreateList=True}"/>
+    </Window.Resources>
+    <Grid DataContext="{StaticResource busLineViewSource}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80*"/>
+            <ColumnDefinition Width="26*"/>
+            <ColumnDefinition Width="39*"/>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="645*"/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="add_line"  Content="הוספה" HorizontalAlignment="Left" Margin="10,368,0,0" VerticalAlignment="Top" Width="113" Height="43" Click="add_line_Click" Grid.ColumnSpan="3"/>
+
+        <DataGrid x:Name="busLineDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="0,0,188.333,75.667" RowDetailsVisibilityMode="VisibleWhenSelected" SelectionChanged="busLineDataGrid_SelectionChanged" Grid.ColumnSpan="5">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn x:Name="bus_line_numberColumn" Header="Bus line number" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Bus_line_number}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn x:Name="destinationColumn" Header="Destination" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Destination}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn x:Name="originColumn" Header="Origin" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Origin}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
 
     </Grid>
 </Window>
