@@ -1,13 +1,36 @@
-﻿<Window x:Class="PL.DisplayStations"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
+        xmlns:BO="clr-namespace:BO;assembly=BL" x:Class="PL.DisplayStations"
         mc:Ignorable="d"
-        Title="DisplayStations" Height="450" Width="800">
-    <Grid>
-        <Button x:Name="add_station" Content="הוספת תחנה" HorizontalAlignment="Left" Margin="190,201,0,0" VerticalAlignment="Top" Width="242" Height="75" Click="add_station_Click"/>
+        Title="DisplayStations" Height="450" Width="800" Loaded="Window_Loaded">
+    <Window.Resources>
+        <CollectionViewSource x:Key="busStationViewSource" d:DesignSource="{d:DesignInstance {x:Type BO:BusStation}, CreateList=True}"/>
+    </Window.Resources>
+    <Grid DataContext="{StaticResource busStationViewSource}">
+        <Button x:Name="add_station" Content="הוספת תחנה" HorizontalAlignment="Left" Margin="174,318,0,0" VerticalAlignment="Top" Width="242" Height="75" Click="add_station_Click"/>
+        <DataGrid x:Name="busStationDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="False" ItemsSource="{Binding}" Margin="140,57,253.333,163.667" RowDetailsVisibilityMode="VisibleWhenSelected">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn x:Name="codeColumn" Header="Code" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Code}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn x:Name="nameColumn" Header="Name" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
 
     </Grid>
 </Window>
