@@ -11,7 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
+using BO;
+using BlApi;
 namespace PL
 {
     /// <summary>
@@ -19,9 +20,42 @@ namespace PL
     /// </summary>
     public partial class AddStation : Window
     {
+        private bool canUpdate()
+        {
+            double latresult;
+            double longresult;
+            int intresult;
+            
+            if (string.IsNullOrWhiteSpace(codeTextBox.Text) || !(int.TryParse(codeTextBox.Text, out intresult)))
+                return false;
+            if (string.IsNullOrWhiteSpace(latitudeTextBox.Text)|| !(double.TryParse(latitudeTextBox.Text, out latresult)))
+                return false;
+            if (string.IsNullOrWhiteSpace(longitudeTextBox.Text) || !(double.TryParse(longitudeTextBox.Text, out longresult)))
+                return false;
+            if (string.IsNullOrWhiteSpace(nameTextBox.Text))
+                return false;
+            if (string.IsNullOrWhiteSpace(addressTextBox.Text))
+                return false;
+            if (string.IsNullOrWhiteSpace(cityTextBox.Text))
+                return false;
+            return true;
+        }
+        static IBL bl;
+        BusStation station;
+        private bool enable_update;
+        bool Enable_update
+        {
+            get
+            {
+                return canUpdate();
+            }
+           
+        }
         public AddStation()
         {
             InitializeComponent();
+            bl = BlFactory.GetBl();
+            //this.KeyDown += new KeyEventHandler(drive_grid_KeyDown);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -31,5 +65,38 @@ namespace PL
             // Load data by setting the CollectionViewSource.Source property:
             // busStationViewSource.Source = [generic data source]
         }
+       
+       
+
+        private void TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (canUpdate())
+                update.IsEnabled = true;
+            else
+                update.IsEnabled = false;
+        }
+
+        private void update_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                bl.AddBusStation(int.Parse(codeTextBox.Text), double.Parse(latitudeTextBox.Text), double.Parse(longitudeTextBox.Text), nameTextBox.Text, addressTextBox.Text, cityTextBox.Text);
+                MessageBoxResult mb = MessageBox.Show("The station was successfully added to the system");
+            }
+            catch (StationALreadyExistsException ex)
+            {
+                MessageBoxResult mb = MessageBox.Show(ex.Message);
+               
+            }
+            this.Close();
+        }
+        //private void drive_grid_KeyDown(object sender, KeyEventArgs e)
+        //{
+
+        //    e.Handled = true;
+        //    if (canUpdate())
+        //        update.IsEnabled = true;
+
+        //}
     }
 }
