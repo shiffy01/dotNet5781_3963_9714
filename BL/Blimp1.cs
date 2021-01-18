@@ -318,8 +318,8 @@ namespace BL
             try
             {
                 var list =
-               from bus in dal.GetAllBusStations()
-               select (ConvertStationDOtoBO(bus));
+               (from bus in dal.GetAllBusStations()
+               select (ConvertStationDOtoBO(bus)));
                 return list;
             }
             catch (PairNotFoundException ex)

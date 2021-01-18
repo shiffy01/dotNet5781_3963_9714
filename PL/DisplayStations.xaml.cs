@@ -45,6 +45,14 @@ namespace PL
         {
             AddStation addStation = new AddStation();
             addStation.Show();
+            addStation.Closed += AddStationWindow_Closed;
+        }
+        private void AddStationWindow_Closed(object sender, EventArgs e)
+        {
+ 
+            IEnumerable<BusStation> stationIenumerable = bl.GetAllBusStations();
+            stations = new ObservableCollection<BusStation>(stationIenumerable);
+            busStationDataGrid.DataContext = stations;
         }
         private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
         {

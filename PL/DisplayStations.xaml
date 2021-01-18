@@ -12,7 +12,7 @@
     </Window.Resources>
     <Grid DataContext="{StaticResource busStationViewSource}">
         <Button x:Name="add_station" Content="הוספת תחנה" HorizontalAlignment="Left" Margin="174,318,0,0" VerticalAlignment="Top" Width="242" Height="75" Click="add_station_Click"/>
-        <DataGrid x:Name="busStationDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="False" ItemsSource="{Binding}" Margin="140,57,253.333,163.667" RowDetailsVisibilityMode="VisibleWhenSelected">
+        <DataGrid x:Name="busStationDataGrid" IsSynchronizedWithCurrentItem="true" AutoGenerateColumns="False" EnableRowVirtualization="False" ItemsSource="{Binding}" Margin="140,57,253.333,163.667" RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Resources>
                 <Style TargetType="DataGridRow">
                     <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>

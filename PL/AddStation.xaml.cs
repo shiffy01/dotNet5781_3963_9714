@@ -41,16 +41,8 @@ namespace PL
             return true;
         }
         static IBL bl;
-        BusStation station;
-        private bool enable_update;
-        bool Enable_update
-        {
-            get
-            {
-                return canUpdate();
-            }
-           
-        }
+        public BusStation station;
+      
         public AddStation()
         {
             InitializeComponent();
@@ -71,23 +63,26 @@ namespace PL
         private void TextChanged(object sender, TextChangedEventArgs e)
         {
             if (canUpdate())
-                update.IsEnabled = true;
+                add.IsEnabled = true;
             else
-                update.IsEnabled = false;
+                add.IsEnabled = false;
         }
 
-        private void update_Click(object sender, RoutedEventArgs e)
+        private void add_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 bl.AddBusStation(int.Parse(codeTextBox.Text), double.Parse(latitudeTextBox.Text), double.Parse(longitudeTextBox.Text), nameTextBox.Text, addressTextBox.Text, cityTextBox.Text);
                 MessageBoxResult mb = MessageBox.Show("The station was successfully added to the system");
+               
+                
             }
             catch (StationALreadyExistsException ex)
             {
                 MessageBoxResult mb = MessageBox.Show(ex.Message);
                
             }
+           
             this.Close();
         }
         //private void drive_grid_KeyDown(object sender, KeyEventArgs e)

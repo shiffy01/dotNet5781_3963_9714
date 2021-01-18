@@ -320,7 +320,8 @@ namespace DL
         {
             return
                 from BusStation in DataSource.Stations
-                where(BusStation.Exists)
+                where (BusStation.Exists)
+                orderby BusStation.Code
                 select BusStation.Clone();
         }//done!!
         public IEnumerable<BusStation> GetAllBusStationsBy(Predicate<BusStation> predicate)
