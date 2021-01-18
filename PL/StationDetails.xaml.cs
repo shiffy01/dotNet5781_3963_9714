@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BO;
+using BlApi;
 
 namespace PL
 {
@@ -20,16 +21,21 @@ namespace PL
     /// </summary>
     public partial class StationDetails : Window
     {
+        static IBL bl;
+        BusStation station;
         public StationDetails(BusStation busstation)
         {
+            InitializeComponent();
+            bl = BlFactory.GetBl();
+            station = busstation;
             BusLineDataGrid.DataContext = busstation.Lines;
             Station_details.DataContext = busstation;
-            InitializeComponent();
+            
         }
 
         private void update_station_Click(object sender, RoutedEventArgs e)
         {
-            UpdateStation updateStation = new UpdateStation();
+            UpdateStation updateStation = new UpdateStation(station);
             updateStation.Show();
         }
 
@@ -42,6 +48,36 @@ namespace PL
             System.Windows.Data.CollectionViewSource busLineViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("busLineViewSource")));
             // Load data by setting the CollectionViewSource.Source property:
             // busLineViewSource.Source = [generic data source]
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            nameTextBox.IsReadOnly = false;
+        }
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+        private void drive_grid_KeyDown(object sender, KeyEventArgs e)
+        {
+           
+                e.Handled = true;
+  
+            if (e.Key == Key.Return)
+            {
+                try
+                {
+                    bl.UpdateBusStation(station.Code, nameTextBox.Text);
+                    MessageBoxResult mb = MessageBox.Show("This station's name was changed successfully");
+                }
+                catch (StationNotFoundException ex)
+                {
+                    MessageBoxResult mb = MessageBox.Show(ex.Message);
+                }
+                
+                
+            }
+
         }
     }
 };

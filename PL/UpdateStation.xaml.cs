@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BO;
 
 namespace PL
 {
@@ -19,9 +20,12 @@ namespace PL
     /// </summary>
     public partial class UpdateStation : Window
     {
-        public UpdateStation()
+        BusStation station;
+        public UpdateStation(BusStation busstation)
         {
             InitializeComponent();
+            station = busstation;
         }
+
     }
 }

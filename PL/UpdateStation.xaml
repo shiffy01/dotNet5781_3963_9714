@@ -7,6 +7,8 @@
         mc:Ignorable="d"
         Title="UpdateStation" Height="450" Width="800">
     <Grid>
-        
+        <TextBox x:Name="name_label" HorizontalAlignment="Left" Height="51" Margin="130,200,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="364"/>
+        <Label x:Name="new_name" Content="Please enter the new name" HorizontalAlignment="Left" Margin="130,86,0,0" VerticalAlignment="Top" Height="83" Width="364"/>
+
     </Grid>
 </Window>

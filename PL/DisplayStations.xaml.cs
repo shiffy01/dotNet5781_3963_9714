@@ -46,7 +46,12 @@ namespace PL
             AddStation addStation = new AddStation();
             addStation.Show();
         }
-
+        private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            DataGridRow row = sender as DataGridRow;
+            StationDetails line = new StationDetails(row.DataContext as BusStation);
+            line.Show();
+        }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 

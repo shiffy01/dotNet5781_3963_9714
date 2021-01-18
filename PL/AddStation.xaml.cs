@@ -23,5 +23,13 @@ namespace PL
         {
             InitializeComponent();
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+
+            System.Windows.Data.CollectionViewSource busStationViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("busStationViewSource")));
+            // Load data by setting the CollectionViewSource.Source property:
+            // busStationViewSource.Source = [generic data source]
+        }
     }
 }
