@@ -4,6 +4,16 @@
              xmlns:local="clr-namespace:PL"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <!--<Style TargetType="DataGridRow">
+            <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
+            --><!--<Style.Triggers>
+                <EventTrigger RoutedEvent="MouseDoubleClick">
+                    <EventTrigger.Actions>
+                        <BeginAction TargetName="SomeAction" />
+                    </EventTrigger.Actions>
+                </EventTrigger>
+            </Style.Triggers>-->
+
+        <!--</Style>-->
     </Application.Resources>
 </Application>
