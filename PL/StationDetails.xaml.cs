@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BO;
 
 namespace PL
 {
@@ -19,9 +20,10 @@ namespace PL
     /// </summary>
     public partial class StationDetails : Window
     {
-        public StationDetails()
+        public StationDetails(BusStation busstation)
         {
-            
+            BusLineDataGrid.DataContext = busstation.Lines;
+            Station_details.DataContext = busstation;
             InitializeComponent();
         }
 
@@ -29,6 +31,17 @@ namespace PL
         {
             UpdateStation updateStation = new UpdateStation();
             updateStation.Show();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+
+            System.Windows.Data.CollectionViewSource busStationViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("busStationViewSource")));
+            // Load data by setting the CollectionViewSource.Source property:
+            // busStationViewSource.Source = [generic data source]
+            System.Windows.Data.CollectionViewSource busLineViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("busLineViewSource")));
+            // Load data by setting the CollectionViewSource.Source property:
+            // busLineViewSource.Source = [generic data source]
         }
     }
 };
