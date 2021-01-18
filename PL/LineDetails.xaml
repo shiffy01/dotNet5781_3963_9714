@@ -1,14 +1,44 @@
-﻿<Window x:Class="PL.LineDetails"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
+        xmlns:BO="clr-namespace:BO;assembly=BL" x:Class="PL.LineDetails"
         mc:Ignorable="d"
-        Title="LineDetails" Height="450" Width="800">
+        Title="LineDetails" Height="450" Width="800" Loaded="Window_Loaded">
+    <Window.Resources>
+        <CollectionViewSource x:Key="busLineViewSource" d:DesignSource="{d:DesignInstance {x:Type BO:BusLine}, CreateList=True}"/>
+    </Window.Resources>
     <Grid>
-        <Button x:Name="update_line" Content="עדכון פרטים" HorizontalAlignment="Left" Margin="229,331,0,0" VerticalAlignment="Top" Width="159" Height="62" Click="update_line_Click"/>
-        <Button x:Name="delete_line"  Content="מחיקת קו" HorizontalAlignment="Left" Margin="330,150,0,0" VerticalAlignment="Top" Width="231" Height="113"/>
+        <Button x:Name="update_line" Content="עדכון פרטים" HorizontalAlignment="Left" Margin="229,349,0,0" VerticalAlignment="Top" Width="159" Height="44" Click="update_line_Click"/>
+        <Button x:Name="delete_line"  Content="מחיקת קו" HorizontalAlignment="Left" Margin="514,349,0,0" VerticalAlignment="Top" Width="193" Height="44" Click="delete_line_click"/>
+        <Grid x:Name="lineGrid" DataContext="{StaticResource busLineViewSource}" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="198" Width="294">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label Content="Bus line number:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
+            <TextBlock x:Name="bus_line_numberTextBlock" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="0" Text="{Binding Bus_line_number}" VerticalAlignment="Center"/>
+            <Label Content="Destination:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="1" VerticalAlignment="Center"/>
+            <TextBlock x:Name="destinationTextBlock" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="1" Text="{Binding Destination}" VerticalAlignment="Center"/>
+            <Label Content="First bus:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="2" VerticalAlignment="Center"/>
+            <TextBlock x:Name="first_busTextBlock" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="2" Text="{Binding First_bus}" VerticalAlignment="Center"/>
+            <Label Content="Frequency:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="3" VerticalAlignment="Center"/>
+            <TextBlock x:Name="frequencyTextBlock" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="3" Text="{Binding Frequency}" VerticalAlignment="Center"/>
+            <Label Content="Last bus:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="4" VerticalAlignment="Center"/>
+            <TextBlock x:Name="last_busTextBlock" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="4" Text="{Binding Last_bus}" VerticalAlignment="Center"/>
+            <Label Content="Origin:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="5" VerticalAlignment="Center"/>
+            <TextBlock x:Name="originTextBlock" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="5" Text="{Binding Origin}" VerticalAlignment="Center"/>
+        </Grid>
 
     </Grid>
 </Window>

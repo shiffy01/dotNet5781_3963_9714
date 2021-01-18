@@ -11,16 +11,22 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BO;
+using BlApi;
 
 namespace PL
 {
     /// <summary>
     /// Interaction logic for UpdateLine.xaml
     /// </summary>
+ 
+    
     public partial class UpdateLine : Window
     {
-        public UpdateLine()
+        static IBL bl;
+        public UpdateLine(BusLine Line)
         {
+            bl = BlFactory.GetBl();
             InitializeComponent();
         }
     }
