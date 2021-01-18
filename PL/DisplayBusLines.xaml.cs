@@ -62,6 +62,13 @@ namespace PL
             DataGridRow row = sender as DataGridRow;
             LineDetails line = new LineDetails(row.DataContext as BusLine);
             line.Show();
+            line.Closed += LineDetails_Closed;
+        }
+        private void LineDetails_Closed(object sender, EventArgs e)
+        {
+            IEnumerable<BusLine> lineIenumerable = bl.GetAllBusLines();
+            Lines = new ObservableCollection<BusLine>(lineIenumerable);
+            busLineDataGrid.DataContext = Lines;
         }
     }
 }

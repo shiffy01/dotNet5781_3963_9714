@@ -61,6 +61,7 @@ namespace PL
                 {
                     MessageBoxResult msgBox2 = MessageBox.Show(ex.Message, " Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+                this.Close();
             }
         }
     }
