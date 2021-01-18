@@ -21,18 +21,47 @@ namespace PL
     /// </summary>
     public partial class LineDetails : Window
     {
-        BusLine Line;
+        static IBL bl;
+      
+       
+            BusLine Line;
         public LineDetails(BusLine line)
         {
+            bl = BlFactory.GetBl();
             InitializeComponent();
             Line = line;
-
+            lineGrid.DataContext = Line;
         }
 
         private void update_line_Click(object sender, RoutedEventArgs e)
         {
-            UpdateLine updateLine = new UpdateLine();
+            UpdateLine updateLine = new UpdateLine(Line);
             updateLine.Show();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+
+            System.Windows.Data.CollectionViewSource busLineViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("busLineViewSource")));
+            // Load data by setting the CollectionViewSource.Source property:
+            // busLineViewSource.Source = [generic data source]
+        }
+
+        private void delete_line_click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to delete this line?", " Alert", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                //BusLine line = sender as BusLine;
+                try
+                {
+                    bl.DeleteBusLine(Line.BusID);
+                }
+                catch (BusLineNotFoundException ex)
+                {
+                    MessageBoxResult msgBox2 = MessageBox.Show(ex.Message, " Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
     }
 }

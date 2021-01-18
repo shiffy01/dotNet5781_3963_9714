@@ -20,7 +20,7 @@
         </Grid.ColumnDefinitions>
         <Button x:Name="add_line"  Content="הוספה" HorizontalAlignment="Left" Margin="10,368,0,0" VerticalAlignment="Top" Width="113" Height="43" Click="add_line_Click" Grid.ColumnSpan="3"/>
 
-        <DataGrid x:Name="busLineDataGrid" IsSynchronizedWithCurrentItem="True" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="0,0,188.333,75.667" RowDetailsVisibilityMode="VisibleWhenSelected" SelectionChanged="busLineDataGrid_SelectionChanged" Grid.ColumnSpan="5">
+        <DataGrid x:Name="busLineDataGrid" IsSynchronizedWithCurrentItem="True" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="0,0,579.333,234.667" RowDetailsVisibilityMode="VisibleWhenSelected" SelectionChanged="busLineDataGrid_SelectionChanged" Grid.ColumnSpan="5">
             <DataGrid.Resources>
                 <Style TargetType="DataGridRow">
                     <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
