@@ -26,24 +26,32 @@ namespace PL
     {
         static IBL bl;
         BusLine Line;
-        DateTime first;
-        DateTime last;
-        TimeSpan frequency;
-        int hr, min;
-        List<Time> hrs;
-        List<Time> mins;
+        //DateTime first;
+        //DateTime last;
+        TimeSpan Frequency;
+        int First_hr;
+        int First_min;
+        int Last_hr;
+        int Last_min;
+        int Frequency_hr;
+        int Frequency_min;
+        //List<Time> hrs;
+        //List<Time> mins;
         public UpdateLine(BusLine line)
         {
             bl = BlFactory.GetBl();
             InitializeComponent();
             Line = line;
             bus_line_numberTextBox.DataContext = Line.Bus_line_number;
-            mins = new List<Time>();
-            hrs= new List<Time>();
-            first = Line.First_bus.Date;
-            last = Line.Last_bus.Date;
-            frequency = new TimeSpan();
-            
+            first_bus_hrs_tb.DataContext = Line.First_bus.Hour;
+            //mins = new List<Time>();
+            //hrs= new List<Time>();
+            //first = Line.First_bus.Date;
+            //last = Line.Last_bus.Date;
+            //frequency = new TimeSpan();
+            //first_busHr.ItemsSource = hrs;
+            //first_busHr.DisplayMemberPath = "First_Bus_hour";
+            //first_busHr.SelectedIndex = 0;
 
         }
 
@@ -93,14 +101,33 @@ namespace PL
             updateButton.IsEnabled = true;
         }
 
-        private void updateButton_Click(object sender, RoutedEventArgs e)
+        private void first_bus_hrs_tb_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string stringHrs = sender as string;
+            if (Int32.TryParse(stringHrs, out int hrs))
+            {
+                if (hrs > 0 && hrs <= 23)
+                {
+                    First_hr = hrs;
+                }
+                else
+                {
+                    first_bus_hrs_tb.Text.Replace(stringHrs, Line.First_bus.Hour.ToString());
+                }
+                
+            }
+
+
+        }
+        private void First_hrs_LostFocus(object sender, RoutedEventArgs e)
+        {
+        
+        }
+        private void UpdateButton_Click(object sender, RoutedEventArgs e)
         {
            // bl.UpdateBusLine()
         }
+        
 
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
     }
 }

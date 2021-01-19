@@ -29,9 +29,9 @@
             </Grid.RowDefinitions>
             <Label  Content="Bus line number:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
             <TextBox x:Name="bus_line_numberTextBox" PreviewKeyDown="bus_line_number_previewKeyDown" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="0" Text="{Binding Bus_line_number, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120" TextChanged="bus_line_numberTextBox_TextChanged"/>
+            <TextBox x:Name="first_bus_hrs_tb" HorizontalAlignment="Left" Height="Auto" Margin="71,43,0,-28.667" TextWrapping="Wrap" Text="{Binding First_bus}" MaxLength="2" LostFocus="First_hrs_LostFocus" VerticalAlignment="Stretch" Width="30" TextChanged="first_bus_hrs_tb_TextChanged"/>
         </Grid>
-        <Button x:Name="updateButton" Content="Update" IsEnabled="False" HorizontalAlignment="Left" Margin="586,326,0,0" VerticalAlignment="Top" Width="121" Height="43" Click="updateButton_Click"/>
+        <Button x:Name="updateButton" Content="Update" IsEnabled="False" HorizontalAlignment="Left" Margin="586,326,0,0" VerticalAlignment="Top" Width="121" Height="43" Click="UpdateButton_Click"/>
         <Label Content="First Bus: " HorizontalAlignment="Left" VerticalAlignment="Top" Height="29" Width="61" Margin="39,68,0,0"/>
-        <ComboBox x:Name="fisrt_busHr" ItemsSource="" HorizontalAlignment="Left" Margin="105,68,0,0" VerticalAlignment="Top" Width="36" SelectionChanged="ComboBox_SelectionChanged"/>
     </Grid>
 </Window>
