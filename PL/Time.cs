@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PL
 {
-    public class Class1
+    public class Time
     {
         public List<string> Hours()
         {
