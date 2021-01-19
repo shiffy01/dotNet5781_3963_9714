@@ -31,9 +31,7 @@ namespace PL
             InitializeComponent();
             Line = line;
             lineGrid.DataContext = Line;
-           // busStationDataGrid.DataContext = Line.Stations;
-            first_busTextBlock.DataContext = Line.First_bus.TimeOfDay;
-            last_busTextBlock.DataContext = Line.Last_bus.TimeOfDay;
+            busStationDataGrid.DataContext = Line.Stations;
         }
 
         private void update_line_Click(object sender, RoutedEventArgs e)
@@ -69,6 +67,11 @@ namespace PL
                 }
                 this.Close();
             }
+        }
+
+        private void busStationDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
