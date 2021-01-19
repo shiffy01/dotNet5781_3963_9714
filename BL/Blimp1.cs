@@ -105,7 +105,7 @@ namespace BL
             if (frequency > totalTime)
                 throw new FrequencyConflictException("The bus doesn't come frequently enough");
            if(totalTime.Ticks%frequency.Ticks!=0)
-                throw new FrequencyConflictException("Frequencey doesnt match with time frame");
+                throw new FrequencyConflictException("Frequencey doesnt match time frame");
         }
         #region BusLine functions
         public List<string> AddBusLine(int line_number, List<int> stations, DateTime first_bus, DateTime last_bus, TimeSpan frequency)
@@ -116,7 +116,7 @@ namespace BL
             }
             catch (FrequencyConflictException ex)
             {
-                throw ex;
+                throw new FrequencyConflictException("This bus cannot be added, because the frequency does not match the times of the fist and last buses");
             }
             bool in_city;
             try
@@ -134,7 +134,7 @@ namespace BL
             }
             catch (DO.BusLineAlreadyExistsException ex)
             {
-                throw new BusLineAlreadyExistsException(line_number, "Cannot add the bus line because it is already in the system", ex);
+                throw new BusLineAlreadyExistsException(line_number, "This bus cannot be added because a busline with this number is already in the system", ex);
             }
             List<string> needed_distances=new List<string>();
             try

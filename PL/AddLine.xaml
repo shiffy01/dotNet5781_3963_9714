@@ -15,26 +15,34 @@
 
         <DataGrid x:Name="busStationDataGrid" RowDetailsVisibilityMode="VisibleWhenSelected" Margin="344,77,49.333,143.667" ItemsSource="{Binding}" EnableRowVirtualization="True" AutoGenerateColumns="False">
             <DataGrid.Columns>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox Checked="got_checked" Unchecked="got_unchecked"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn x:Name="addressColumn" Width="SizeToHeader" Header="Address" Binding="{Binding Address}"/>
                 <DataGridTextColumn x:Name="codeColumn" Width="SizeToHeader" Header="Code" Binding="{Binding Code}"/>
                 <DataGridTextColumn x:Name="nameColumn" Width="SizeToHeader" Header="Name" Binding="{Binding Name}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <TextBox HorizontalAlignment="Left" Height="27" Margin="50,174,0,0" TextWrapping="Wrap" Text="06" VerticalAlignment="Top" Width="56"/>
+        <TextBox x:Name="first_hours" LostFocus="lost_focus_hours" MaxLength="2" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" TextChanged="TextChanged" HorizontalAlignment="Left" Height="27" Margin="50,174,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="56"/>
         <TextBlock Text=":" HorizontalAlignment="Left" Margin="106,168,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="36" Width="18"/>
-        <TextBox HorizontalAlignment="Left" Height="34" Margin="129,167,0,0" TextWrapping="Wrap" Text="00" VerticalAlignment="Top" Width="47"/>
-        <TextBox HorizontalAlignment="Left" Height="27" Margin="49,263,0,0" TextWrapping="Wrap" Text="06" VerticalAlignment="Top" Width="56" RenderTransformOrigin="0.531,3.008"/>
+        <TextBox x:Name="first_minutes" LostFocus="lost_focus_minutes" MaxLength="2" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown"  TextChanged="TextChanged" HorizontalAlignment="Left" Height="34" Margin="129,167,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="47"/>
+        <TextBox x:Name="second_hours" LostFocus="lost_focus_hours" MaxLength="2" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown"  TextChanged="TextChanged" HorizontalAlignment="Left" Height="27" Margin="49,263,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="56" RenderTransformOrigin="0.531,3.008"/>
         <TextBlock Text=":" HorizontalAlignment="Left" Margin="110,263,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="36" Width="18"/>
-        <TextBox HorizontalAlignment="Left" Height="34" Margin="134,262,0,0" TextWrapping="Wrap" Text="00" VerticalAlignment="Top" Width="47"/>
+        <TextBox x:Name="second_minutes" LostFocus="lost_focus_minutes" MaxLength="2" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" TextChanged="TextChanged" HorizontalAlignment="Left" Height="34" Margin="134,262,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="47"/>
         <TextBlock HorizontalAlignment="Left" Margin="55,110,0,0" TextWrapping="Wrap" Text=":בחר את שעת היציאה של האוטובוס הראשון" VerticalAlignment="Top" Height="53" Width="126"/>
         <TextBlock HorizontalAlignment="Left" Margin="55,215,0,0" TextWrapping="Wrap" Text=":בחר את שעת היציאה של האוטובוס האחרון" VerticalAlignment="Top" Height="48" Width="126"/>
         <TextBlock HorizontalAlignment="Left" Margin="37,27,0,0" TextWrapping="Wrap" Text="choose a number for your line:" VerticalAlignment="Top" Height="56" Width="97"/>
         <TextBlock HorizontalAlignment="Left" Margin="49,300,0,0" TextWrapping="Wrap" Text="Enter frequency:" VerticalAlignment="Top" Height="51" Width="126"/>
-        <TextBox HorizontalAlignment="Left" Height="33" Margin="49,345,0,0" TextWrapping="Wrap" Text="00" VerticalAlignment="Top" Width="57" />
-        <TextBox HorizontalAlignment="Left" Height="33" Margin="139,342,0,0" TextWrapping="Wrap" Text="30" VerticalAlignment="Top" Width="62" RenderTransformOrigin="0.646,0.592"/>
+        <TextBox x:Name="freq_hours" LostFocus="lost_focus_hours" MaxLength="2" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" TextChanged="TextChanged" HorizontalAlignment="Left" Height="33" Margin="49,345,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="57" />
+        <TextBox x:Name="freq_minutes" LostFocus="lost_focus_minutes" MaxLength="2" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" TextChanged="TextChanged" HorizontalAlignment="Left" Height="33" Margin="139,342,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="62" RenderTransformOrigin="0.646,0.592"/>
         <TextBlock HorizontalAlignment="Left" Margin="111,345,0,0" TextWrapping="Wrap" Text=":" VerticalAlignment="Top" Height="40" Width="23"/>
-        <TextBox HorizontalAlignment="Left" Height="47" Margin="158,27,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="91" RenderTransformOrigin="0.273,0.634" TextChanged="TextBox_TextChanged"/>
-        <Button Content="ADD" IsEnabled="False" HorizontalAlignment="Left" Margin="344,318,0,0" VerticalAlignment="Top" Width="223" Height="78" Click="Button_Click"/>
+        <TextBox x:Name="line_number" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" TextChanged="TextChanged" HorizontalAlignment="Left" Height="47" Margin="158,27,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="91" RenderTransformOrigin="0.273,0.634" />
+        <Button x:Name="add_button"  Content="ADD" IsEnabled="False" HorizontalAlignment="Left" Margin="344,318,0,0" VerticalAlignment="Top" Width="223" Height="78" Click="Button_Click"/>
+        <TextBlock Text="Please choose at least two stations to go on your line:" HorizontalAlignment="Left" Margin="344,27,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="45" Width="400"/>
 
 
 

@@ -42,7 +42,7 @@ namespace PL
         {
             AddLine addLine = new AddLine();
             addLine.Show();
-
+            addLine.Closed += LineDetails_Closed;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
