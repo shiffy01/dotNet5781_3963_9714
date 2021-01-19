@@ -9,8 +9,9 @@
         Title="LineDetails" Height="450" Width="800" Loaded="Window_Loaded">
     <Window.Resources>
         <CollectionViewSource x:Key="busLineViewSource" d:DesignSource="{d:DesignInstance {x:Type BO:BusLine}, CreateList=True}"/>
+        <CollectionViewSource x:Key="busStationViewSource" d:DesignSource="{d:DesignInstance {x:Type BO:BusStation}, CreateList=True}"/>
     </Window.Resources>
-    <Grid>
+    <Grid DataContext="{StaticResource busStationViewSource}">
         <Button x:Name="update_line" Content="עדכון פרטים" HorizontalAlignment="Left" Margin="229,349,0,0" VerticalAlignment="Top" Width="159" Height="44" Click="update_line_Click"/>
         <Button x:Name="delete_line"  Content="מחיקת קו" HorizontalAlignment="Left" Margin="514,349,0,0" VerticalAlignment="Top" Width="193" Height="44" Click="delete_line_click"/>
         <Grid x:Name="lineGrid" DataContext="{StaticResource busLineViewSource}" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="198" Width="294">
@@ -31,14 +32,40 @@
             <Label Content="Destination:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="1" VerticalAlignment="Center"/>
             <TextBlock x:Name="destinationTextBlock" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="1" Text="{Binding Destination}" VerticalAlignment="Center"/>
             <Label Content="First bus:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="2" VerticalAlignment="Center"/>
-            <TextBlock x:Name="first_busTextBlock" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="2" Text="{Binding First_bus}" VerticalAlignment="Center"/>
+            <TextBlock x:Name="first_busTextBlock" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="2" Text="{Binding}" VerticalAlignment="Center"/>
             <Label Content="Frequency:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="3" VerticalAlignment="Center"/>
             <TextBlock x:Name="frequencyTextBlock" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="3" Text="{Binding Frequency}" VerticalAlignment="Center"/>
             <Label Content="Last bus:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="4" VerticalAlignment="Center"/>
-            <TextBlock x:Name="last_busTextBlock" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="4" Text="{Binding Last_bus}" VerticalAlignment="Center"/>
+            <TextBlock x:Name="last_busTextBlock" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="4" Text="{Binding}" VerticalAlignment="Center"/>
             <Label Content="Origin:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="5" VerticalAlignment="Center"/>
             <TextBlock x:Name="originTextBlock" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="5" Text="{Binding Origin}" VerticalAlignment="Center"/>
         </Grid>
+        <DataGrid x:Name="busStationDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="352,123,41.333,97.667" RowDetailsVisibilityMode="VisibleWhenSelected">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn x:Name="addressColumn" Header="Address" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Address}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn x:Name="codeColumn" Header="Code" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Code}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn x:Name="nameColumn" Header="Name" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label Content="stations:" HorizontalAlignment="Left" Margin="440,42,0,0" VerticalAlignment="Top" Height="57" Width="186"/>
 
     </Grid>
 </Window>

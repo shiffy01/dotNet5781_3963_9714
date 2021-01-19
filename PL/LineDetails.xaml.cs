@@ -31,6 +31,9 @@ namespace PL
             InitializeComponent();
             Line = line;
             lineGrid.DataContext = Line;
+            busStationDataGrid.DataContext = Line.Stations;
+            first_busTextBlock.DataContext = Line.First_bus.TimeOfDay;
+            last_busTextBlock.DataContext = Line.Last_bus.TimeOfDay;
         }
 
         private void update_line_Click(object sender, RoutedEventArgs e)
@@ -45,6 +48,9 @@ namespace PL
             System.Windows.Data.CollectionViewSource busLineViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("busLineViewSource")));
             // Load data by setting the CollectionViewSource.Source property:
             // busLineViewSource.Source = [generic data source]
+            System.Windows.Data.CollectionViewSource busStationViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("busStationViewSource")));
+            // Load data by setting the CollectionViewSource.Source property:
+            // busStationViewSource.Source = [generic data source]
         }
 
         private void delete_line_click(object sender, RoutedEventArgs e)
