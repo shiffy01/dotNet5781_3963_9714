@@ -55,8 +55,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddDistances.xaml.cs">
+      <DependentUpon>AddDistances.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AddStation.xaml.cs">
       <DependentUpon>AddStation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AddStationToLine.xaml.cs">
+      <DependentUpon>AddStationToLine.xaml</DependentUpon>
     </Compile>
     <Compile Include="Time.cs" />
     <Compile Include="StationDetails.xaml.cs">
@@ -68,11 +74,19 @@
     <Compile Include="UpdateStation.xaml.cs">
       <DependentUpon>UpdateStation.xaml</DependentUpon>
     </Compile>
+    <Page Include="AddDistances.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AddLine.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AddStation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AddStationToLine.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -77,10 +77,11 @@ namespace PL
             if (text.Name == "latitudeTextBox" || text.Name == "longitudeTextBox")
                 if (e.Key == Key.OemPeriod)
                 {
-                    string str
-                }
-                        return; //let this key be written inside the textbox
+                    if (!(text.Text).Contains("."))
+                        return;//if there is not already a decimal point in the textbox, let this key be written in the textbox
 
+                }
+                     
             //forbid letters and signs (#,$, %, ...)
             e.Handled = true; //ignore this key. mark event as handled, will not be routed to other controls
             return;
