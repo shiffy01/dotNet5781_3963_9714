@@ -24,10 +24,12 @@ namespace PL
     public partial class UpdateLine : Window
     {
         static IBL bl;
-        public UpdateLine(BusLine Line)
+        BusLine Line;
+        public UpdateLine(BusLine line)
         {
             bl = BlFactory.GetBl();
             InitializeComponent();
+            Line = line;
         }
     }
 }

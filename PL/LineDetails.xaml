@@ -9,8 +9,9 @@
         Title="LineDetails" Height="450" Width="800" Loaded="Window_Loaded">
     <Window.Resources>
         <CollectionViewSource x:Key="busLineViewSource" d:DesignSource="{d:DesignInstance {x:Type BO:BusLine}, CreateList=True}"/>
+        <CollectionViewSource x:Key="busStationViewSource" d:DesignSource="{d:DesignInstance {x:Type BO:BusStation}, CreateList=True}"/>
     </Window.Resources>
-    <Grid>
+    <Grid DataContext="{StaticResource busStationViewSource}">
         <Button x:Name="update_line" Content="עדכון פרטים" HorizontalAlignment="Left" Margin="229,349,0,0" VerticalAlignment="Top" Width="159" Height="44" Click="update_line_Click"/>
         <Button x:Name="delete_line"  Content="מחיקת קו" HorizontalAlignment="Left" Margin="514,349,0,0" VerticalAlignment="Top" Width="193" Height="44" Click="delete_line_click"/>
         <Grid x:Name="lineGrid" DataContext="{StaticResource busLineViewSource}" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="198" Width="294">
@@ -39,6 +40,14 @@
             <Label Content="Origin:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="5" VerticalAlignment="Center"/>
             <TextBlock x:Name="originTextBlock" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="5" Text="{Binding Origin}" VerticalAlignment="Center"/>
         </Grid>
+        <DataGrid x:Name="busStationDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="391,68,10.333,153.667" RowDetailsVisibilityMode="VisibleWhenSelected" SelectionChanged="busStationDataGrid_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="codeColumn" Binding="{Binding Code}" Header="Code" />
+                <DataGridTextColumn x:Name="nameColumn" Binding="{Binding Name}" Header="Name" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label Content="Stations:" HorizontalAlignment="Left" Margin="376,0,0,368.667" VerticalAlignment="Bottom" RenderTransformOrigin="0.401,1.801" Height="23" Width="59"/>
+        
 
     </Grid>
 </Window>
