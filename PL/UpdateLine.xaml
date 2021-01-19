@@ -11,7 +11,7 @@
         <CollectionViewSource x:Key="busLineViewSource" d:DesignSource="{d:DesignInstance {x:Type BO:BusLine}, CreateList=True}"/>
     </Window.Resources>
     <Grid DataContext="{StaticResource busLineViewSource}">
-        <Grid x:Name="grid1" HorizontalAlignment="Left" Margin="33,27,0,0" VerticalAlignment="Top" Height="91" Width="298" RenderTransformOrigin="0.5,0.5">
+        <Grid x:Name="grid1" HorizontalAlignment="Left" Margin="33,27,0,0" VerticalAlignment="Top" Height="207" Width="284" RenderTransformOrigin="0.5,0.5">
             <Grid.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -26,12 +26,29 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="12*"/>
+                <RowDefinition Height="35*"/>
             </Grid.RowDefinitions>
-            <Label  Content="Bus line number:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
-            <TextBox x:Name="bus_line_numberTextBox" PreviewKeyDown="bus_line_number_previewKeyDown" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="0" Text="{Binding Bus_line_number, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120" TextChanged="bus_line_numberTextBox_TextChanged"/>
-            <TextBox x:Name="first_bus_hrs_tb" HorizontalAlignment="Left" Height="Auto" Margin="71,43,0,-28.667" TextWrapping="Wrap" Text="{Binding First_bus}" MaxLength="2" LostFocus="First_hrs_LostFocus" VerticalAlignment="Stretch" Width="30" TextChanged="first_bus_hrs_tb_TextChanged"/>
+            <Label  Content="Bus line number:" Grid.Column="0" HorizontalAlignment="Left" Margin="-3,18,0,68" Grid.Row="0" VerticalAlignment="Center"/>
+            <TextBox x:Name="bus_line_numberTextBox" PreviewKeyDown="bus_line_previewKeyDown" HorizontalAlignment="Left" Height="23" Margin="100,21,0,68" Grid.Row="0" Text="{Binding Bus_line_number, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="43" TextChanged="bus_line_numberTextBox_TextChanged" Grid.ColumnSpan="2"/>
+            <TextBox x:Name="first_bus_hrs_tb" PreviewKeyDown="bus_line_previewKeyDown" HorizontalAlignment="Left" Height="Auto" Margin="63,52,0,32" TextWrapping="Wrap" MaxLength="2" LostFocus="First_hrs_LostFocus" VerticalAlignment="Stretch" Width="23" TextChanged="first_bus_hrs_tb_TextChanged" Text="{Binding Mode=OneWay}"/>
+            <Label Content=":" HorizontalAlignment="Left" Margin="91,46,0,0" VerticalAlignment="Top" Height="34" Width="12"/>
+            <TextBox x:Name="first_bus_min_tb"  PreviewKeyDown="bus_line_previewKeyDown" MaxLength="2" LostFocus="First_min_LostFocus"  Text="{Binding First_bus.Hour, Mode=OneWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" TextChanged="first_bus_min_tb_TextChanged"  Grid.Column="1" HorizontalAlignment="Right" Height="22" Margin="0,52,98.333,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="25"/>
+            <Label Content="Frequency:" HorizontalAlignment="Left" Margin="0,80,0,0" VerticalAlignment="Top" Height="39" Grid.RowSpan="2"/>
+            <TextBox x:Name="frequency_hr_tb"  PreviewKeyDown="bus_line_previewKeyDown" MaxLength="2" LostFocus="Frequency_hrs_LostFocus"  Text="{Binding Mode=OneWay}" Height="23" Margin="67,86,8.333,0" TextWrapping="Wrap"  VerticalAlignment="Top" TextChanged="frequency_hr_tb_TextChanged"/>
+            <Label Content=":" Grid.Column="1" HorizontalAlignment="Left" Margin="0.667,86,0,0" VerticalAlignment="Top" Width="16" RenderTransformOrigin="-0.625,0.485"/>
+            <TextBox x:Name="frequency_min_tb"  PreviewKeyDown="bus_line_previewKeyDown" MaxLength="2" LostFocus="Frequency_min_LostFocus"  Text="{Binding Mode=OneWay}" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="16.667,86,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="23"/>
         </Grid>
         <Button x:Name="updateButton" Content="Update" IsEnabled="False" HorizontalAlignment="Left" Margin="586,326,0,0" VerticalAlignment="Top" Width="121" Height="43" Click="UpdateButton_Click"/>
-        <Label Content="First Bus: " HorizontalAlignment="Left" VerticalAlignment="Top" Height="29" Width="61" Margin="39,68,0,0"/>
+        <Label Content="First Bus: " HorizontalAlignment="Left" VerticalAlignment="Top" Height="29" Width="61" Margin="37,69,0,0" RenderTransformOrigin="0.525,4.776">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.301"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
     </Grid>
 </Window>
