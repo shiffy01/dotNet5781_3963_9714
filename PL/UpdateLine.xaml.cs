@@ -29,6 +29,7 @@ namespace PL
         //DateTime first;
         //DateTime last;
         TimeSpan Frequency;
+        bool First_MinTxtChange, First_HourTxtChange;
         int First_hr;
         int First_min;
         int Last_hr;
@@ -43,7 +44,14 @@ namespace PL
             InitializeComponent();
             Line = line;
             bus_line_numberTextBox.DataContext = Line.Bus_line_number;
+
             first_bus_hrs_tb.DataContext = Line.First_bus.Hour;
+            first_bus_min_tb.DataContext = Line.First_bus.Minute;
+            frequency_hr_tb.DataContext = Line.Frequency.Hours;
+            frequency_min_tb.DataContext = Line.Frequency.Minutes;
+
+            First_MinTxtChange = false;
+            First_HourTxtChange = false;
             //mins = new List<Time>();
             //hrs= new List<Time>();
             //first = Line.First_bus.Date;
@@ -64,7 +72,7 @@ namespace PL
         }
 
       
-        private void bus_line_number_previewKeyDown(object sender, KeyEventArgs e)
+        private void bus_line_previewKeyDown(object sender, KeyEventArgs e)
         {
              TextBox text = sender as TextBox;
                 if (text == null) return;
@@ -98,31 +106,113 @@ namespace PL
         }
         private void bus_line_numberTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            updateButton.IsEnabled = true;
+          
         }
 
         private void first_bus_hrs_tb_TextChanged(object sender, TextChangedEventArgs e)
         {
+
+
+            
+        }
+        private void First_hrs_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox text = sender as TextBox;
+            if (text == null) return;
+            if (e == null) return;
+
             string stringHrs = sender as string;
             if (Int32.TryParse(stringHrs, out int hrs))
             {
                 if (hrs > 0 && hrs <= 23)
                 {
                     First_hr = hrs;
+                    updateButton.IsEnabled = true;
                 }
                 else
                 {
                     first_bus_hrs_tb.Text.Replace(stringHrs, Line.First_bus.Hour.ToString());
                 }
-                
+
+            }
+        }
+        private void First_min_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox text = sender as TextBox;
+            if (text == null) return;
+            if (e == null) return;
+
+            string stringMin = sender as string;
+            if (Int32.TryParse(stringMin, out int minutes))
+            {
+                if (minutes > 0 && minutes <= 59)
+                {
+                    First_min = minutes;
+                    updateButton.IsEnabled = true;
+                }
+                else
+                {
+                    first_bus_min_tb.Text.Replace(stringMin, Line.First_bus.Minute.ToString());
+                }
+
             }
 
+        }
+
+
+        private void Frequency_hrs_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox text = sender as TextBox;
+            if (text == null) return;
+            if (e == null) return;
+
+            string stringHrs = sender as string;
+            if (Int32.TryParse(stringHrs, out int hrs))
+            {
+                if (hrs > 0 && hrs <= 23)
+                {
+                    Frequency_hr = hrs;
+                    updateButton.IsEnabled = true;
+                }
+                else
+                {
+                frequency_hr_tb.Text.Replace(stringHrs, Line.Frequency.Hours.ToString());
+                }
+
+            }
+        }
+        private void Frequency_min_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox text = sender as TextBox;
+            if (text == null) return;
+            if (e == null) return;
+
+            string stringMin = sender as string;
+            if (Int32.TryParse(stringMin, out int minutes))
+            {
+                if (minutes > 0 && minutes <= 59)
+                {
+                    Frequency_min = minutes;
+                    updateButton.IsEnabled = true;
+                }
+                else
+                {
+                    frequency_min_tb.Text.Replace(stringMin, Line.Frequency.Minutes.ToString());
+                }
+
+            }
 
         }
-        private void First_hrs_LostFocus(object sender, RoutedEventArgs e)
+        private void first_bus_min_tb_TextChanged(object sender, TextChangedEventArgs e)
         {
-        
+
         }
+
+        private void frequency_hr_tb_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
         private void UpdateButton_Click(object sender, RoutedEventArgs e)
         {
            // bl.UpdateBusLine()
