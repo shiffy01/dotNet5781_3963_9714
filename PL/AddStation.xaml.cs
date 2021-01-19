@@ -49,7 +49,42 @@ namespace PL
             bl = BlFactory.GetBl();
             //this.KeyDown += new KeyEventHandler(drive_grid_KeyDown);
         }
+        private void TextBox_OnlyNumbers_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            TextBox text = sender as TextBox;
+            if (text == null) return;
+            if (e == null) return;
 
+            //allow get out of the text box
+            if (e.Key == Key.Enter || e.Key == Key.Return || e.Key == Key.Tab)
+                return;
+
+            //allow list of system keys (add other key here if you want to allow)
+            if (e.Key == Key.Escape || e.Key == Key.Back || e.Key == Key.Delete ||
+                  e.Key == Key.Home
+             || e.Key == Key.End || e.Key == Key.Insert || e.Key == Key.Down || e.Key == Key.Right)
+                return;
+
+            char c = (char)KeyInterop.VirtualKeyFromKey(e.Key);
+
+            //allow control system keys
+            if (Char.IsControl(c)) return;
+
+            //allow digits (without Shift or Alt)
+            if (Char.IsDigit(c))
+                if (!(Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightAlt)))
+                    return; //let this key be written inside the textbox
+            if (text.Name == "latitudeTextBox" || text.Name == "longitudeTextBox")
+                if (e.Key == Key.OemPeriod)
+                {
+                    string str
+                }
+                        return; //let this key be written inside the textbox
+
+            //forbid letters and signs (#,$, %, ...)
+            e.Handled = true; //ignore this key. mark event as handled, will not be routed to other controls
+            return;
+        }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
@@ -57,9 +92,6 @@ namespace PL
             // Load data by setting the CollectionViewSource.Source property:
             // busStationViewSource.Source = [generic data source]
         }
-       
-       
-
         private void TextChanged(object sender, TextChangedEventArgs e)
         {
             if (canUpdate())
@@ -67,7 +99,6 @@ namespace PL
             else
                 add.IsEnabled = false;
         }
-
         private void add_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -85,13 +116,5 @@ namespace PL
            
             this.Close();
         }
-        //private void drive_grid_KeyDown(object sender, KeyEventArgs e)
-        //{
-
-        //    e.Handled = true;
-        //    if (canUpdate())
-        //        update.IsEnabled = true;
-
-        //}
     }
 }

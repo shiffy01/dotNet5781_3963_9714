@@ -30,15 +30,15 @@
             <Label VerticalAlignment="Center" Grid.Row="1" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="City:"/>
             <TextBox x:Name="cityTextBox" TextWrapping="WrapWithOverflow" TextChanged="TextChanged"  Width="120" VerticalAlignment="Center" Text="{Binding City, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="1" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
             <Label VerticalAlignment="Center" Grid.Row="2" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Code:"/>
-            <TextBox x:Name="codeTextBox" TextWrapping="WrapWithOverflow" TextChanged="TextChanged" Width="120" VerticalAlignment="Center" Text="{Binding Code, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="2" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
+            <TextBox x:Name="codeTextBox" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" TextWrapping="WrapWithOverflow" TextChanged="TextChanged" Width="120" VerticalAlignment="Center" Text="{Binding Code, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="2" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
             <Label VerticalAlignment="Center" Grid.Row="3" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Latitude:"/>
-            <TextBox x:Name="latitudeTextBox" TextWrapping="WrapWithOverflow" TextChanged="TextChanged" Width="120" VerticalAlignment="Center" Text="{Binding Latitude, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="3" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
+            <TextBox x:Name="latitudeTextBox" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" TextWrapping="WrapWithOverflow" TextChanged="TextChanged" Width="120" VerticalAlignment="Center" Text="{Binding Latitude, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="3" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
             <Label VerticalAlignment="Center" Grid.Row="4" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Longitude:"/>
-            <TextBox x:Name="longitudeTextBox" TextWrapping="WrapWithOverflow" TextChanged="TextChanged" Width="120" VerticalAlignment="Center" Text="{Binding Longitude, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="4" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
+            <TextBox x:Name="longitudeTextBox" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" TextWrapping="WrapWithOverflow" TextChanged="TextChanged" Width="120" VerticalAlignment="Center" Text="{Binding Longitude, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="4" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
             <Label VerticalAlignment="Center" Grid.Row="5" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Name:"/>
             <TextBox x:Name="nameTextBox" TextChanged="TextChanged" Width="120" VerticalAlignment="Center" Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="5" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
         </Grid>
-        <Button x:Name="add" IsEnabled="False" Content="הוסף" HorizontalAlignment="Left" Margin="258,321,0,0" VerticalAlignment="Top" Width="222" Height="72" Click="add_Click"/>
+        <Button x:Name="add" IsEnabled="False" Content="ADD" HorizontalAlignment="Left" Margin="258,321,0,0" VerticalAlignment="Top" Width="222" Height="72" Click="add_Click"/>
 
     </Grid>
 </Window>
