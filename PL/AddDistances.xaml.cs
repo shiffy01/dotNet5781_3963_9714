@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BO;
+using BlApi;
 
 namespace PL
 {
@@ -19,9 +21,74 @@ namespace PL
     /// </summary>
     public partial class AddDistances : Window
     {
-        public AddDistances(List<string> distances)
+        //public AddDistances(List<string> distances)
+        //{
+        //   
+        //InitializeComponent();
+        //}
+        static IBL bl;
+        int Index;
+        int Code1;
+        int Code2;
+        string askForDistance;
+
+        List<string> PairIds;
+        public AddDistances(List<string> pairIds)
         {
+            bl = BlFactory.GetBl();
             InitializeComponent();
+            Index = 0;
+            PairIds = pairIds;
+            createDialogeContent();
+        }
+        private void createDialogeContent()
+        {
+            string[] codes = PairIds[Index].Split('*');
+            try
+            {
+                Code1 = Int32.Parse(codes[0]);
+            }
+            catch (FormatException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            try
+            {
+                Code2 = Int32.Parse(codes[1]);
+            }
+            catch (FormatException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            askForDistance = $"Please enter the distance between station:{Code1} and station:{Code2}";
+            ask_for_distance_label.Content = askForDistance;
+            txtAnswer.Text = null;
+           
+        }
+
+        private void btnDialogOk_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                bl.AddTwoConsecutiveStops(Code1, Code2, new TimeSpan())
+            }
+            createDi
+            this.DialogResult = true;
+
+        }
+
+        private void Window_ContentRendered(object sender, EventArgs e)
+        {
+            txtAnswer.SelectAll();
+            txtAnswer.Focus();
+        }
+
+        public string Answer
+        {
+            get
+            {
+                return txtAnswer.Text;
+            }
         }
     }
 }
