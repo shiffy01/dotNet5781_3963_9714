@@ -403,10 +403,24 @@ namespace BL
             for (int i = busLineStation.Number_on_route + 1; i < busLineStationList.Count; i++)
             {
                 busLineStationList[i].Number_on_route--;
-                dal.UpdateBusLineStation(busLineStationList[i]);
+                try
+                {
+                    dal.UpdateBusLineStation(busLineStationList[i]);
+                }
+                catch (DO.BusLineStationNotFoundException ex)
+                {
+                    throw new StationDoesNotExistOnTheLinexception(stationCode, lineNumber, $",station number: {stationCode} is not on this route", ex);
+                }
             }
-            dal.DeleteBusLineStation(id);
-            if(! (dal.TwoConsecutiveStopsExists(busLineStationList[busLineStation.Number_on_route - 1].StationID.ToString()+ busLineStationList[busLineStation.Number_on_route + 1].StationID.ToString())))
+            try
+            {
+                dal.DeleteBusLineStation(id);
+            }
+            catch (DO.BusLineStationNotFoundException ex)
+            {
+                throw new StationDoesNotExistOnTheLinexception(stationCode, lineNumber, $",station number: {stationCode} is not on this route", ex);
+            }
+            if (! (dal.TwoConsecutiveStopsExists(busLineStationList[busLineStation.Number_on_route - 1].StationID.ToString()+ busLineStationList[busLineStation.Number_on_route + 1].StationID.ToString())))
             {
                 return busLineStationList[busLineStation.Number_on_route - 2].StationID + "*" + busLineStationList[busLineStation.Number_on_route].StationID;
             }

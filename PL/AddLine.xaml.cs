@@ -172,5 +172,10 @@ namespace PL
                 this.Close();
             }
         }
+
+        private void busStationDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

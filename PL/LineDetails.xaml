@@ -42,7 +42,7 @@
         </Grid>
       
         <Label Content="Stations:" HorizontalAlignment="Left" Margin="376,0,0,368.667" VerticalAlignment="Bottom" RenderTransformOrigin="0.401,1.801" Height="23" Width="59"/>
-        <DataGrid x:Name="busStationDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="357,73,36.333,147.667" RowDetailsVisibilityMode="VisibleWhenSelected">
+        <DataGrid x:Name="busStationDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="357,73,36.333,147.667" RowDetailsVisibilityMode="VisibleWhenSelected" SelectionChanged="busStationDataGrid_SelectionChanged_1">
             <DataGrid.Columns>
                 <DataGridTemplateColumn x:Name="codeColumn" Header="Code" Width="SizeToHeader">
                     <DataGridTemplateColumn.CellTemplate>

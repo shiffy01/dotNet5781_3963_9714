@@ -13,7 +13,7 @@
     </Window.Resources>
     <Grid DataContext="{StaticResource busStationViewSource}">
 
-        <DataGrid x:Name="busStationDataGrid" RowDetailsVisibilityMode="VisibleWhenSelected" Margin="344,77,49.333,143.667" ItemsSource="{Binding}" EnableRowVirtualization="True" AutoGenerateColumns="False">
+        <DataGrid x:Name="busStationDataGrid" RowDetailsVisibilityMode="VisibleWhenSelected" Margin="344,77,49.333,143.667" ItemsSource="{Binding}" EnableRowVirtualization="True" AutoGenerateColumns="False" SelectionChanged="busStationDataGrid_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
@@ -22,7 +22,6 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn x:Name="addressColumn" Width="SizeToHeader" Header="Address" Binding="{Binding Address}"/>
                 <DataGridTextColumn x:Name="codeColumn" Width="SizeToHeader" Header="Code" Binding="{Binding Code}"/>
                 <DataGridTextColumn x:Name="nameColumn" Width="SizeToHeader" Header="Name" Binding="{Binding Name}"/>
             </DataGrid.Columns>

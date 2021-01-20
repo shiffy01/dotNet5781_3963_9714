@@ -24,29 +24,24 @@
         <TextBox x:Name="lastBus_minutes" Text="{Binding Mode=OneWay}" LostFocus="MinutesLostFocus" MaxLength="2" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" TextChanged="TextChanged" HorizontalAlignment="Left" Height="34" Margin="134,262,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="47"/>
         <TextBlock HorizontalAlignment="Left" Margin="55,110,0,0" TextWrapping="Wrap" Text="first bus departs at:" VerticalAlignment="Top" Height="53" Width="126"/>
         <TextBlock HorizontalAlignment="Left" Margin="55,215,0,0" TextWrapping="Wrap" Text="last bus departs at:" VerticalAlignment="Top" Height="48" Width="126"/>
-
         <TextBlock HorizontalAlignment="Left" Margin="49,300,0,0" TextWrapping="Wrap" Text="time between each bus:" VerticalAlignment="Top" Height="51" Width="126"/>
         <TextBox x:Name="frequency_hr_tb" Text="{Binding Mode=OneWay}" LostFocus="HoursLostFocus" MaxLength="2" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" TextChanged="TextChanged" HorizontalAlignment="Left" Height="33" Margin="49,345,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="57" />
         <TextBox x:Name="frequency_min_tb" Text="{Binding Mode=OneWay}" LostFocus="MinutesLostFocus" MaxLength="2" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" TextChanged="TextChanged" HorizontalAlignment="Left" Height="33" Margin="139,342,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="62" RenderTransformOrigin="0.646,0.592"/>
         <TextBlock HorizontalAlignment="Left" Margin="111,345,0,0" TextWrapping="Wrap" Text=":" VerticalAlignment="Top" Height="40" Width="23"/>
         <TextBox x:Name="bus_line_numberTextBox" Text="{Binding Mode=OneWay}" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" TextChanged="TextChanged" HorizontalAlignment="Left" Height="42" Margin="158,63,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="71" RenderTransformOrigin="0.273,0.634" />
         <Label x:Name="bus_line_number_label" Content="line number:" HorizontalAlignment="Left" Margin="55,63,0,0" VerticalAlignment="Top" Height="42" Width="69"/>
-        <DataGrid x:Name="busStationDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource busStationViewSource}}" Margin="390,63,46.333,157.667" RowDetailsVisibilityMode="VisibleWhenSelected">
+
+        <DataGrid x:Name="busStationDataGrid" RowDetailsVisibilityMode="VisibleWhenSelected" Margin="344,77,49.333,143.667" ItemsSource="{Binding}" EnableRowVirtualization="True" AutoGenerateColumns="False" SelectionChanged="busStationDataGrid_SelectionChanged">
             <DataGrid.Columns>
-                <DataGridTemplateColumn x:Name="codeColumn" Header="Code" Width="SizeToHeader">
+                <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Code}"/>
+                            <Button x:Name="remove_station_from_line_button" Click="remove_station_from_line_buttonClick" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn x:Name="nameColumn" Header="Name" Width="SizeToHeader">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Name}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                <DataGridTextColumn x:Name="codeColumn" Width="SizeToHeader" Header="Code" Binding="{Binding Code}"/>
+                <DataGridTextColumn x:Name="nameColumn" Width="SizeToHeader" Header="Name" Binding="{Binding Name}"/>
             </DataGrid.Columns>
         </DataGrid>
         <Button Content="Add stops" HorizontalAlignment="Left" Margin="451,300,0,0" VerticalAlignment="Top" Width="260" Height="65" Click="Button_Click"/>

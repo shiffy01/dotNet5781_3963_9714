@@ -75,5 +75,10 @@ namespace PL
         {
 
         }
+
+        private void busStationDataGrid_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

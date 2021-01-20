@@ -26,9 +26,9 @@ namespace PL
     {
         static IBL bl;
         BusLine Line;
-        bool first_bus_changed=false;
-        bool last_bus_changed=false;
-       
+        bool first_bus_changed = false;
+        bool last_bus_changed = false;
+
         public UpdateLine(BusLine line)
         {
             bl = BlFactory.GetBl();
@@ -104,7 +104,7 @@ namespace PL
         {
             if ((sender as TextBox).Name == "first_bus_hrs_tb" || (sender as TextBox).Name == "first_bus_min_tb")
                 first_bus_changed = true;
-            if ((sender as TextBox).Name == "lastBus_hours"|| (sender as TextBox).Name == "lastBus_minutes")
+            if ((sender as TextBox).Name == "lastBus_hours" || (sender as TextBox).Name == "lastBus_minutes")
                 last_bus_changed = true;
             updateButton.IsEnabled = true;
         }
@@ -134,7 +134,7 @@ namespace PL
         }
         private void UpdateButton_Click(object sender, RoutedEventArgs e)
         {
-            int first_year=2021, first_month=01, first_day=01, last_year= 2021, last_month = 01, last_day = 01;
+            int first_year = 2021, first_month = 01, first_day = 01, last_year = 2021, last_month = 01, last_day = 01;
 
             if (first_bus_changed || !last_bus_changed)
             {
@@ -171,60 +171,98 @@ namespace PL
             addStationToLine.Show();
         }
 
-        //private void Frequency_hrs_LostFocus(object sender, RoutedEventArgs e)
-        //{
-        //    TextBox text = sender as TextBox;
-        //    if (text == null) return;
-        //    if (e == null) return;
+        private void busStationDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
 
-        //    string stringHrs = sender as string;
-        //    if (Int32.TryParse(stringHrs, out int hrs))
-        //    {
-        //        if (hrs > 0 && hrs <= 23)
-        //        {
-        //            Frequency_hr = hrs;
-        //            updateButton.IsEnabled = true;
-        //        }
-        //        else
-        //        {
-        //        frequency_hr_tb.Text.Replace(stringHrs, Line.Frequency.Hours.ToString());
-        //        }
+        }
+        private void remove_station_from_line_buttonClick(Object sender, RoutedEventArgs e)
+        {
+            string distance = null;
+            
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to remove this station?", " Alert", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                for (var vis = sender as Visual; vis != null; vis = VisualTreeHelper.GetParent(vis) as Visual)
+                    if (vis is DataGridRow)
+                    {
+                        var row = (DataGridRow)vis;
+                        
+                        try
+                        {
+                            distance = bl.RemoveBusStationFromLine((row.DataContext as StationOnTheLine).Code, Line.BusID);
+                        }
+                        catch (StationDoesNotExistOnTheLinexception ex)
+                        {
+                            MessageBoxResult msgBox2 = MessageBox.Show(ex.Message, " Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                        if (distance != null)
+                        {
+                            List<string> distances = new List<string>();
+                            distances.Add(distance);
+                            AddDistances addDistances = new AddDistances(distances);
+                            addDistances.Show();
+                        }
+                        break;
+                    }
 
-        //    }
-        //}
-        //private void Frequency_min_LostFocus(object sender, RoutedEventArgs e)
-        //{
-        //    TextBox text = sender as TextBox;
-        //    if (text == null) return;
-        //    if (e == null) return;
+            }
 
-        //    string stringMin = sender as string;
-        //    if (Int32.TryParse(stringMin, out int minutes))
-        //    {
-        //        if (minutes > 0 && minutes <= 59)
-        //        {
-        //            Frequency_min = minutes;
-        //            updateButton.IsEnabled = true;
-        //        }
-        //        else
-        //        {
-        //            frequency_min_tb.Text.Replace(stringMin, Line.Frequency.Minutes.ToString());
-        //        }
+          
 
-        //    }
+        }
+       
+
+
 
     }
-    //private void first_bus_min_tb_TextChanged(object sender, TextChangedEventArgs e)
-    //{
-
-    //}
-
-    //private void frequency_hr_tb_TextChanged(object sender, TextChangedEventArgs e)
-    //{
-
-    //}
-
-    
-
 }
-  
+//private void Frequency_hrs_LostFocus(object sender, RoutedEventArgs e)
+//{
+//    TextBox text = sender as TextBox;
+//    if (text == null) return;
+//    if (e == null) return;
+
+//    string stringHrs = sender as string;
+//    if (Int32.TryParse(stringHrs, out int hrs))
+//    {
+//        if (hrs > 0 && hrs <= 23)
+//        {
+//            Frequency_hr = hrs;
+//            updateButton.IsEnabled = true;
+//        }
+//        else
+//        {
+//        frequency_hr_tb.Text.Replace(stringHrs, Line.Frequency.Hours.ToString());
+//        }
+
+//    }
+//}
+//private void Frequency_min_LostFocus(object sender, RoutedEventArgs e)
+//{
+//    TextBox text = sender as TextBox;
+//    if (text == null) return;
+//    if (e == null) return;
+
+//    string stringMin = sender as string;
+//    if (Int32.TryParse(stringMin, out int minutes))
+//    {
+//        if (minutes > 0 && minutes <= 59)
+//        {
+//            Frequency_min = minutes;
+//            updateButton.IsEnabled = true;
+//        }
+//        else
+//        {
+//            frequency_min_tb.Text.Replace(stringMin, Line.Frequency.Minutes.ToString());
+//        }
+
+//    }
+//private void first_bus_min_tb_TextChanged(object sender, TextChangedEventArgs e)
+//{
+
+//}
+
+//private void frequency_hr_tb_TextChanged(object sender, TextChangedEventArgs e)
+//{
+
+//}
