@@ -37,7 +37,8 @@ namespace PL
             lastBus_minutes.DataContext = Line.Last_bus.Minute;
             frequency_hr_tb.DataContext = Line.Frequency.Hours;
             frequency_min_tb.DataContext = Line.Frequency.Minutes;
-            busStationDataGrid.DataContext = Line.Stations;
+            busStationDataGrid.DataContext = Line.Stations.OrderBy(station=>station.Number_on_route);
+            
         }
         public UpdateLine(BusLine line)
         {
@@ -45,6 +46,7 @@ namespace PL
             InitializeComponent();
             Line = line;
             initialize();
+            
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

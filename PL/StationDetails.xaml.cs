@@ -23,6 +23,7 @@ namespace PL
     {
         static IBL bl;
         BusStation station;
+        bool update_name = false;
         public StationDetails(BusStation busstation)
         {
             InitializeComponent();
@@ -33,11 +34,7 @@ namespace PL
             
         }
 
-        private void update_station_Click(object sender, RoutedEventArgs e)
-        {
-            UpdateStation updateStation = new UpdateStation(station);
-            updateStation.Show();
-        }
+      
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -78,6 +75,19 @@ namespace PL
                 
             }
 
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                bl.UpdateBusStation(station.Code, nameTextBox.Text);
+                MessageBoxResult mb = MessageBox.Show("This station's name was changed successfully");
+            }
+            catch (StationNotFoundException ex)
+            {
+                MessageBoxResult mb = MessageBox.Show(ex.Message);
+            }
         }
     }
 };

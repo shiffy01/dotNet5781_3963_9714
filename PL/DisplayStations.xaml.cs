@@ -56,8 +56,13 @@ namespace PL
         private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
         {
             DataGridRow row = sender as DataGridRow;
-            StationDetails line = new StationDetails(row.DataContext as BusStation);
-            line.Show();
+            StationDetails station = new StationDetails(row.DataContext as BusStation);
+            station.Show();
+            station.Closed += stationWindowClosed;
+        }
+        private void stationWindowClosed(object sender, EventArgs e)
+        {
+            initialize_station_collection();
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
