@@ -104,8 +104,9 @@ namespace BL
             TimeSpan totalTime = lastBus - firstBus;
             if (frequency > totalTime)
                 throw new FrequencyConflictException("The bus doesn't come frequently enough");
-           if(totalTime.Ticks%frequency.Ticks!=0)
-                throw new FrequencyConflictException("Frequencey doesnt match time frame");
+            if(frequency.Ticks != 0)
+              if(totalTime.Ticks%frequency.Ticks!=0)
+                throw new FrequencyConflictException("Frequencey doesnt match time frame");          
         }
         #region BusLine functions
         public List<string> AddBusLine(int line_number, List<int> stations, DateTime first_bus, DateTime last_bus, TimeSpan frequency)

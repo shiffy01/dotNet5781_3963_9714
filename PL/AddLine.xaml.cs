@@ -147,6 +147,14 @@ namespace PL
             {
                 needed_distances=bl.AddBusLine(int.Parse(line_number.Text), stationsToAdd, new DateTime(2021, 01, 01, int.Parse(first_hours.Text), int.Parse(first_minutes.Text), 0), new DateTime(2021, 01, 01, int.Parse(second_hours.Text), int.Parse(second_minutes.Text), 0), new TimeSpan(int.Parse(freq_hours.Text), int.Parse(freq_minutes.Text), 0));
                 MessageBoxResult mb = MessageBox.Show("The bus was added to the system");
+                if (needed_distances == null)
+                    this.Close();
+                else
+                {
+                    AddDistances addDistances = new AddDistances(needed_distances);
+                    addDistances.Show();
+                    this.Close();
+                }
             }
             catch (FrequencyConflictException ex)
             {
@@ -161,16 +169,10 @@ namespace PL
             catch (Exception)
             {
                 MessageBoxResult mb = MessageBox.Show("Something has gone wrong. For an unknown reason, this busline cannot be added to the system. We regret the error");
-             
-            }
-            if (needed_distances == null)
-                this.Close();
-            else
-            {
-                AddDistances addDistances = new AddDistances(needed_distances);
-                addDistances.Show();
                 this.Close();
             }
+           
+           
         }
 
         private void busStationDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)

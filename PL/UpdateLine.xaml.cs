@@ -169,6 +169,7 @@ namespace PL
         {
             AddStationToLine addStationToLine = new AddStationToLine(Line);
             addStationToLine.Show();
+            
         }
 
         private void busStationDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
