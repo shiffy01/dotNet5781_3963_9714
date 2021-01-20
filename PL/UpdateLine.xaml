@@ -12,8 +12,7 @@
         <CollectionViewSource x:Key="busStationViewSource" d:DesignSource="{d:DesignInstance {x:Type BO:BusStation}, CreateList=True}"/>
     </Window.Resources>
     <Grid DataContext="{StaticResource busLineViewSource}">
-        <!--<Line X1="260" Y1="400" X2="260" Y2="10" Stroke="black" StrokeThickness="5"/>
-        <Line X1="510" Y1="400" X2="510" Y2="10" Stroke="black" StrokeThickness="5"/>-->
+        
         <Button x:Name="updateButton" Content="Update" IsEnabled="False" HorizontalAlignment="Left" Margin="243,359,0,0" VerticalAlignment="Top" Width="88" Height="43" Click="UpdateButton_Click"/>
         <Label Content="Update times and line number: " HorizontalAlignment="Left" Margin="28,27,0,0" VerticalAlignment="Top" Height="31" Width="179"/>
         <TextBox x:Name="first_bus_hrs_tb" Text="{Binding Mode=OneWay}" LostFocus="HoursLostFocus" MaxLength="2" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" TextChanged="TextChanged" HorizontalAlignment="Left" Height="27" Margin="50,174,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="56"/>
@@ -33,13 +32,7 @@
 
         <DataGrid x:Name="busStationDataGrid" RowDetailsVisibilityMode="VisibleWhenSelected" Margin="344,77,49.333,143.667" ItemsSource="{Binding}" EnableRowVirtualization="True" AutoGenerateColumns="False" SelectionChanged="busStationDataGrid_SelectionChanged">
             <DataGrid.Columns>
-                <DataGridTemplateColumn>
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button x:Name="remove_station_from_line_button" Click="remove_station_from_line_buttonClick" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -49,6 +42,13 @@
                 </DataGridTemplateColumn>
                 <DataGridTextColumn x:Name="codeColumn" Width="SizeToHeader" Header="Code" Binding="{Binding Code}"/>
                 <DataGridTextColumn x:Name="nameColumn" Width="SizeToHeader" Header="Name" Binding="{Binding Name}"/>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="remove_station_from_line_button" Click="remove_station_from_line_buttonClick" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Button Content="Add stops" HorizontalAlignment="Left" Margin="451,300,0,0" VerticalAlignment="Top" Width="260" Height="65" Click="Button_Click"/>
