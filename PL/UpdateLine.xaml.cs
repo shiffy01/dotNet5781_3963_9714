@@ -28,12 +28,8 @@ namespace PL
         BusLine Line;
         bool first_bus_changed = false;
         bool last_bus_changed = false;
-
-        public UpdateLine(BusLine line)
+        private void initialize()
         {
-            bl = BlFactory.GetBl();
-            InitializeComponent();
-            Line = line;
             bus_line_numberTextBox.DataContext = Line.Bus_line_number;
             first_bus_hrs_tb.DataContext = Line.First_bus.Hour;
             first_bus_min_tb.DataContext = Line.First_bus.Minute;
@@ -42,6 +38,13 @@ namespace PL
             frequency_hr_tb.DataContext = Line.Frequency.Hours;
             frequency_min_tb.DataContext = Line.Frequency.Minutes;
             busStationDataGrid.DataContext = Line.Stations;
+        }
+        public UpdateLine(BusLine line)
+        {
+            bl = BlFactory.GetBl();
+            InitializeComponent();
+            Line = line;
+            initialize();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -169,7 +172,12 @@ namespace PL
         {
             AddStationToLine addStationToLine = new AddStationToLine(Line);
             addStationToLine.Show();
-            
+            addStationToLine.Closed += AddStationToLine_Closed;
+        }
+
+        private void AddStationToLine_Closed(object sender, EventArgs e)
+        {
+            initialize();
         }
 
         private void busStationDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)

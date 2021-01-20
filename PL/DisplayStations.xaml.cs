@@ -24,21 +24,22 @@ namespace PL
     
     public partial class DisplayStations : Window
     {
-        static IBL bl;
+        static IBL bl = BlFactory.GetBl();
 
         ObservableCollection<BusStation> stations;
 
             void initialize_station_collection()
         {
-             bl = BlFactory.GetBl();
+             
             IEnumerable<BusStation> stationIenumerable = bl.GetAllBusStations();
             stations = new ObservableCollection<BusStation>(stationIenumerable);
+            busStationDataGrid.DataContext = stations;
         }//shallow copies from Ienumerable to observable, so might be an issue
         public DisplayStations()
         {
             InitializeComponent();
             initialize_station_collection();
-            busStationDataGrid.DataContext = stations;
+            
         }
 
         private void add_station_Click(object sender, RoutedEventArgs e)
@@ -49,10 +50,8 @@ namespace PL
         }
         private void AddStationWindow_Closed(object sender, EventArgs e)
         {
- 
-            IEnumerable<BusStation> stationIenumerable = bl.GetAllBusStations();
-            stations = new ObservableCollection<BusStation>(stationIenumerable);
-            busStationDataGrid.DataContext = stations;
+
+            initialize_station_collection();
         }
         private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
         {
