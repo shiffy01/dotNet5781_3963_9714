@@ -79,7 +79,7 @@ namespace BL
             try
             {
                 for (int i = 0; i < (list.Count - 1); i++)//add distance to the next stop for each stop
-                    list[i].Distance_to_the_next_stop = dal.GetTwoConsecutiveStops(list[i].Code.ToString() + list[i + 1].Code.ToString()).Distance;
+                    list[i].Distance_to_the_next_stop = dal.GetAdjacentStations(list[i].Code.ToString() + list[i + 1].Code.ToString()).Distance;
             }
             catch (DO.PairNotFoundException ex)
             {
@@ -146,7 +146,7 @@ namespace BL
                     dal.GetBusStation(stations[i]);//throws an exception if this bus station doesn't exist
                     dal.AddBusLineStation(stations[i], newBus.BusID, i);
                     if (i != 0)
-                        if (!dal.TwoConsecutiveStopsExists(stations[i - 1].ToString() + stations[i].ToString()))
+                        if (!dal.AdjacentStationsExists(stations[i - 1].ToString() + stations[i].ToString()))
                             needed_distances.Add(stations[i - 1] +"*" +stations[i]);
                 }
             }
@@ -379,9 +379,9 @@ namespace BL
             int code_before = (dal.GetAllBusLineStationsBy(station => (station.LineID == bus_number)).FirstOrDefault(ss => (ss.Number_on_route == place - 1))).StationID;
             int code_after = (dal.GetAllBusLineStationsBy(station => (station.LineID == bus_number)).FirstOrDefault(ss => (ss.Number_on_route == place + 1))).StationID;
             
-            if (!(dal.TwoConsecutiveStopsExists(code_before.ToString() + code.ToString())))
+            if (!(dal.AdjacentStationsExists(code_before.ToString() + code.ToString())))
                 needed_distances.Add(code_before + "*" + code);
-            if (!(dal.TwoConsecutiveStopsExists(code.ToString() + code_after.ToString())))
+            if (!(dal.AdjacentStationsExists(code.ToString() + code_after.ToString())))
                 needed_distances.Add(code + "*" + code_after);
             return needed_distances;
         
@@ -421,7 +421,7 @@ namespace BL
             {
                 throw new StationDoesNotExistOnTheLinexception(stationCode, lineNumber, $",station number: {stationCode} is not on this route", ex);
             }
-            if (! (dal.TwoConsecutiveStopsExists(busLineStationList[busLineStation.Number_on_route - 1].StationID.ToString()+ busLineStationList[busLineStation.Number_on_route + 1].StationID.ToString())))
+            if (! (dal.AdjacentStationsExists(busLineStationList[busLineStation.Number_on_route - 1].StationID.ToString()+ busLineStationList[busLineStation.Number_on_route + 1].StationID.ToString())))
             {
                 return busLineStationList[busLineStation.Number_on_route - 2].StationID + "*" + busLineStationList[busLineStation.Number_on_route].StationID;
             }
@@ -443,11 +443,11 @@ namespace BL
             throw new NotImplementedException();
         }
         #endregion
-        public void AddTwoConsecutiveStops(int codeA, int codeB, double distance, TimeSpan drive_time)
+        public void AddAdjacentStations(int codeA, int codeB, double distance, TimeSpan drive_time)
         {
             try
             {
-                dal.AddTwoConsecutiveStops(codeA, codeB, distance, drive_time);
+                dal.AddAdjacentStations(codeA, codeB, distance, drive_time);
             }
             catch (DO.PairAlreadyExitsException ex)
             {

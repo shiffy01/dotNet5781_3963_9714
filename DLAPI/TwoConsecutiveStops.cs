@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DO
 {
-    public class TwoConsecutiveStops
+    public class AdjacentStations
     {
        public string PairID{get; set;}
         public int Stop_1_code {get; set;}

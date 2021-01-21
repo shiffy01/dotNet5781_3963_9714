@@ -51,13 +51,13 @@ namespace DLAPI
         IEnumerable<BusStation> GetAllBusStations();
         #endregion
 
-        #region TwoConsecutiveStops  definition
-        void AddTwoConsecutiveStops(int code_1, int code_2, double distance, TimeSpan drive_time);
-        void UpdateTwoConsecutiveStops(TwoConsecutiveStops twoConsecutiveStops);
-        void DeleteTwoConsecutiveStops(string pairID);
-        TwoConsecutiveStops GetTwoConsecutiveStops(string pairID);
-        bool TwoConsecutiveStopsExists(string pairID);
-        IEnumerable<TwoConsecutiveStops> GetAllPairs();
+        #region AdjacentStations  definition
+        void AddAdjacentStations(int code_1, int code_2, double distance, TimeSpan drive_time);
+        void UpdateAdjacentStations(AdjacentStations AdjacentStations);
+        void DeleteAdjacentStations(string pairID);
+        AdjacentStations GetAdjacentStations(string pairID);
+        bool AdjacentStationsExists(string pairID);
+        IEnumerable<AdjacentStations> GetAllPairs();
         #endregion
 
         //#region BusDeparted  definition

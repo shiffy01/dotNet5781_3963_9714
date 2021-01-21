@@ -32,6 +32,9 @@ namespace PL
         int Code1;
         int Code2;
         string askForDistance;
+        string askForTime;
+        int Hour;
+        int Minute;
 
         List<string> PairIds;
         public AddDistances(List<string> pairIds)
@@ -40,6 +43,8 @@ namespace PL
             InitializeComponent();
             Index = 0;
             PairIds = pairIds;
+            askForTime = "Please enter average drive time between these two stations";
+            ask_for_driveTime_label.Content = askForTime;
             createDialogeContent();
         }
         private void createDialogeContent()
@@ -69,9 +74,15 @@ namespace PL
 
         private void btnDialogOk_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                bl.AddAdjacentStations(Code1, Code2, distanceTB.Text, new TimeSpan(Hour, Minute, 00));
+            }
+            if(Index==PairIds.Count)
+            Index++;
             //try
             //{
-            //    bl.AddTwoConsecutiveStops(Code1, Code2, new TimeSpan())
+            //    bl.AddAdjacentStations(Code1, Code2, new TimeSpan())
             //}
             //createDi
             this.DialogResult = true;

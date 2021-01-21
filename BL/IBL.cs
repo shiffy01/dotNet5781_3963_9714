@@ -28,6 +28,6 @@ namespace BlApi
         List<string> AddStationToBusLine(int bus_number, int code, int place);
         string RemoveBusStationFromLine(int stationCode, int lineNumber);
         #endregion
-         void AddTwoConsecutiveStops(int codeA, int codeB, double distance, TimeSpan drive_time);
+         void AddAdjacentStations(int codeA, int codeB, double distance, TimeSpan drive_time);
     }
 }

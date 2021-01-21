@@ -332,15 +332,15 @@ namespace DL
         }   //done!!
         #endregion
                
-        #region TwoConsecutiveStops  implementation
-       public  void AddTwoConsecutiveStops(int code_1, int code_2, double distance, TimeSpan drive_time)
+        #region AdjacentStations  implementation
+       public  void AddAdjacentStations(int code_1, int code_2, double distance, TimeSpan drive_time)
         {
-            if (DataSource.Two_stops.FirstOrDefault(tmpTwo_stops => (tmpTwo_stops.PairID == (code_1.ToString()+code_2.ToString()))&&tmpTwo_stops.Exists) != default(TwoConsecutiveStops))
+            if (DataSource.Two_stops.FirstOrDefault(tmpTwo_stops => (tmpTwo_stops.PairID == (code_1.ToString()+code_2.ToString()))&&tmpTwo_stops.Exists) != default(AdjacentStations))
             {
                 throw new PairAlreadyExitsException(" Pair already exists in the system");
             }
 
-            DataSource.Two_stops.Add(new TwoConsecutiveStops {
+            DataSource.Two_stops.Add(new AdjacentStations {
                 Stop_1_code = code_1,
                 Stop_2_code = code_2,
                 PairID = (code_1.ToString() + code_2.ToString()),
@@ -349,23 +349,23 @@ namespace DL
                 Exists=true
             }) ;
         }//done!!
-        public void UpdateTwoConsecutiveStops(TwoConsecutiveStops twoConsecutiveStops)
+        public void UpdateAdjacentStations(AdjacentStations AdjacentStations)
         {
 
-            TwoConsecutiveStops findTwoStops = DataSource.Two_stops.FirstOrDefault(tmpTwo_stops => tmpTwo_stops.PairID == twoConsecutiveStops.PairID&&tmpTwo_stops.Exists);
+            AdjacentStations findTwoStops = DataSource.Two_stops.FirstOrDefault(tmpTwo_stops => tmpTwo_stops.PairID == AdjacentStations.PairID&&tmpTwo_stops.Exists);
 
-            if (findTwoStops != default(TwoConsecutiveStops))
+            if (findTwoStops != default(AdjacentStations))
             {
                 DataSource.Two_stops.Remove(findTwoStops);
-                DataSource.Two_stops.Add(twoConsecutiveStops.Clone());
+                DataSource.Two_stops.Add(AdjacentStations.Clone());
             }
             else
                 throw new PairNotFoundException("Pair not found in system");
         }//done!!
-        public void DeleteTwoConsecutiveStops(string pairID)
+        public void DeleteAdjacentStations(string pairID)
         {
-            TwoConsecutiveStops findTwoStops = DataSource.Two_stops.FirstOrDefault(tmpTwo_stops => tmpTwo_stops.PairID == pairID&&tmpTwo_stops.Exists);
-            if (findTwoStops != default(TwoConsecutiveStops))
+            AdjacentStations findTwoStops = DataSource.Two_stops.FirstOrDefault(tmpTwo_stops => tmpTwo_stops.PairID == pairID&&tmpTwo_stops.Exists);
+            if (findTwoStops != default(AdjacentStations))
             {
               
                     findTwoStops.Exists = false;
@@ -374,26 +374,26 @@ namespace DL
             else
                 throw new PairNotFoundException("Pair not found in system");
         }//done!!
-        public TwoConsecutiveStops GetTwoConsecutiveStops(string pairID)
+        public AdjacentStations GetAdjacentStations(string pairID)
         {
             string id = pairID;
-            TwoConsecutiveStops findTwoStops = DataSource.Two_stops.FirstOrDefault(tmpTwo_stops => tmpTwo_stops.PairID == id&&tmpTwo_stops.Exists);
-            if (findTwoStops != default(TwoConsecutiveStops))
+            AdjacentStations findTwoStops = DataSource.Two_stops.FirstOrDefault(tmpTwo_stops => tmpTwo_stops.PairID == id&&tmpTwo_stops.Exists);
+            if (findTwoStops != default(AdjacentStations))
                 return findTwoStops.Clone();
             else
                 throw new PairNotFoundException(pairID+"  Pair not found in system");
         }///done!! 
-        public IEnumerable<TwoConsecutiveStops> GetAllPairs()
+        public IEnumerable<AdjacentStations> GetAllPairs()
         {
             return from pair in DataSource.Two_stops
                    where pair.Exists
                    select pair.Clone();
         }   //done!!
-        public bool TwoConsecutiveStopsExists(string pairID)
+        public bool AdjacentStationsExists(string pairID)
         {
             try
             {
-                GetTwoConsecutiveStops(pairID);
+                GetAdjacentStations(pairID);
                 return true;
             }
             catch (PairNotFoundException)
