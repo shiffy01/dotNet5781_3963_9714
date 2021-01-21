@@ -161,7 +161,7 @@ namespace DL
         }
        public BusLine GetBusLine(int busID)
         {
-            DO.BusLine bus = DataSource.Lines.FirstOrDefault(b => (b.BusID == busID && b.Exists));
+            BusLine bus = DataSource.Lines.FirstOrDefault(b => (b.BusID == busID && b.Exists));
 
             if (bus != default(BusLine))
                 return bus.Clone();

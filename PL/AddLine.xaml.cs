@@ -133,7 +133,8 @@ namespace PL
             List<string> needed_distances=null;
             try
             {
-                needed_distances=bl.AddBusLine(int.Parse(line_number.Text), stationsToAdd, new DateTime(2021, 01, 01, int.Parse(first_bus.Value), int.Parse(first_minutes.Text), 0), new DateTime(2021, 01, 01, int.Parse(second_hours.Text), int.Parse(second_minutes.Text), 0), new TimeSpan(int.Parse(freq_hours.Text), int.Parse(freq_minutes.Text), 0));
+                TimeSpan frequency = new TimeSpan(freq.Value.Value.Hour, freq.Value.Value.Minute, 0);
+                needed_distances=bl.AddBusLine(int.Parse(line_number.Text), stationsToAdd, first_bus.Value.Value, last_bus.Value.Value, frequency);
                 MessageBoxResult mb = MessageBox.Show("The bus was added to the system");
                 if (needed_distances == null)
                     this.Close();
