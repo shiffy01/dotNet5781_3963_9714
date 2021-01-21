@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
-        xmlns:BO="clr-namespace:BO;assembly=BL" x:Class="PL.UpdateLine"
+        xmlns:BO="clr-namespace:BO;assembly=BL" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:ms="http://namespaces.mindscape.co.nz/wpf" x:Class="PL.UpdateLine"
         mc:Ignorable="d"
         Title="UpdateLine" Height="450" Width="800" Loaded="Window_Loaded">
     <Window.Resources>
@@ -16,19 +16,14 @@
 
         <Button x:Name="updateButton" Content="Update" IsEnabled="False" HorizontalAlignment="Left" Margin="243,359,0,0" VerticalAlignment="Top" Width="88" Height="43" Click="UpdateButton_Click"/>
         <Label Content="Update times and line number: " HorizontalAlignment="Left" Margin="28,27,0,0" VerticalAlignment="Top" Height="31" Width="179"/>
-        <TextBox x:Name="first_bus_hrs_tb" Text="{Binding Mode=OneWay}" LostFocus="HoursLostFocus" MaxLength="2" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" TextChanged="TextChanged" HorizontalAlignment="Left" Height="27" Margin="50,174,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="56"/>
-        <TextBlock Text=":" HorizontalAlignment="Left" Margin="106,168,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="36" Width="18"/>
-        <TextBox x:Name="first_bus_min_tb" Text="{Binding Mode=OneWay}" LostFocus="MinutesLostFocus" MaxLength="2" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown"  TextChanged="TextChanged" HorizontalAlignment="Left" Height="34" Margin="129,167,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="47"/>
-        <TextBox x:Name="lastBus_hours" Text="{Binding Mode=OneWay}" LostFocus="HoursLostFocus" MaxLength="2" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown"  TextChanged="TextChanged" HorizontalAlignment="Left" Height="27" Margin="49,263,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="56" RenderTransformOrigin="0.531,3.008"/>
-        <TextBlock Text=":" HorizontalAlignment="Left" Margin="110,263,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="36" Width="18"/>
-        <TextBox x:Name="lastBus_minutes" Text="{Binding Mode=OneWay}" LostFocus="MinutesLostFocus" MaxLength="2" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" TextChanged="TextChanged" HorizontalAlignment="Left" Height="34" Margin="134,262,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="47"/>
+
         <TextBlock HorizontalAlignment="Left" Margin="55,110,0,0" TextWrapping="Wrap" Text="first bus departs at:" VerticalAlignment="Top" Height="53" Width="126"/>
         <TextBlock HorizontalAlignment="Left" Margin="55,215,0,0" TextWrapping="Wrap" Text="last bus departs at:" VerticalAlignment="Top" Height="48" Width="126"/>
         <TextBlock HorizontalAlignment="Left" Margin="49,300,0,0" TextWrapping="Wrap" Text="time between each bus:" VerticalAlignment="Top" Height="51" Width="126"/>
-        <TextBox x:Name="frequency_hr_tb" Text="{Binding Mode=OneWay}" LostFocus="HoursLostFocus" MaxLength="2" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" TextChanged="TextChanged" HorizontalAlignment="Left" Height="33" Margin="49,345,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="57" />
-        <TextBox x:Name="frequency_min_tb" Text="{Binding Mode=OneWay}" LostFocus="MinutesLostFocus" MaxLength="2" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" TextChanged="TextChanged" HorizontalAlignment="Left" Height="33" Margin="139,342,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="62" RenderTransformOrigin="0.646,0.592"/>
-        <TextBlock HorizontalAlignment="Left" Margin="111,345,0,0" TextWrapping="Wrap" Text=":" VerticalAlignment="Top" Height="40" Width="23"/>
-        <TextBox x:Name="bus_line_numberTextBox" Text="{Binding Mode=OneWay}" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" TextChanged="TextChanged" HorizontalAlignment="Left" Height="42" Margin="158,63,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="71" RenderTransformOrigin="0.273,0.634" />
+
+
+
+        <TextBox x:Name="bus_line_numberTextBox" Text="{Binding Mode=OneWay}" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" HorizontalAlignment="Left" Height="42" Margin="158,63,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="71" RenderTransformOrigin="0.273,0.634" />
         <Label x:Name="bus_line_number_label" Content="line number:" HorizontalAlignment="Left" Margin="55,63,0,0" VerticalAlignment="Top" Height="42" Width="69"/>
 
 
@@ -49,8 +44,8 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-               
-               
+
+
                 <DataGridTemplateColumn x:Name="nameColumn" Header="Name" Width="SizeToHeader">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -74,6 +69,16 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
+
+
+        <xctk:TimePicker x:Name="last_bus" TimeInterval="00:01"  HorizontalAlignment="Left" Margin="83,268,0,0" VerticalAlignment="Top"/>
+
+        <xctk:TimePicker x:Name="first_bus"  TimeInterval="00:01"   HorizontalAlignment="Left" Margin="83,168,0,0" VerticalAlignment="Top"/>
+
+
+        <ms:TimeSpanPicker HorizontalAlignment="Left" Margin="66,356,0,0" VerticalAlignment="Top"/>
+        <xctk:MaskedTextBox x:Name="freq"  TextChanged="text_changed" Mask="00:00" HorizontalAlignment="Left" Height="23" Margin="243,289,0,0" TextWrapping="Wrap" Text="MaskedTextBox" VerticalAlignment="Top" Width="48"/>
+        
 
 
     </Grid>
