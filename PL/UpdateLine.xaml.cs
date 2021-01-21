@@ -37,7 +37,7 @@ namespace PL
             lastBus_minutes.DataContext = Line.Last_bus.Minute;
             frequency_hr_tb.DataContext = Line.Frequency.Hours;
             frequency_min_tb.DataContext = Line.Frequency.Minutes;
-            busStationDataGrid.DataContext = Line.Stations.OrderBy(station=>station.Number_on_route);
+            stationOnTheLineDataGrid.DataContext = Line.Stations.OrderBy(station=>station.Number_on_route);
             
         }
         public UpdateLine(BusLine line)
@@ -58,6 +58,9 @@ namespace PL
             System.Windows.Data.CollectionViewSource busStationViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("busStationViewSource")));
             // Load data by setting the CollectionViewSource.Source property:
             // busStationViewSource.Source = [generic data source]
+            System.Windows.Data.CollectionViewSource stationOnTheLineViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("stationOnTheLineViewSource")));
+            // Load data by setting the CollectionViewSource.Source property:
+            // stationOnTheLineViewSource.Source = [generic data source]
         }
 
 

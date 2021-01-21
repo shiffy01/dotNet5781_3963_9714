@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BO;
 using BlApi;
-using Xceed.Wpf.Toolkit;
+//using Xceed.Wpf.Toolkit;
 
 namespace PL
 {
@@ -63,33 +63,33 @@ namespace PL
             }
             askForDistance = $"Please enter the distance between station:{Code1} and station:{Code2}";
             ask_for_distance_label.Content = askForDistance;
-            txtAnswer.Text = null;
+           // txtAnswer.Text = null;
            
         }
 
         private void btnDialogOk_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                bl.AddTwoConsecutiveStops(Code1, Code2, new TimeSpan())
-            }
-            createDi
+            //try
+            //{
+            //    bl.AddTwoConsecutiveStops(Code1, Code2, new TimeSpan())
+            //}
+            //createDi
             this.DialogResult = true;
 
         }
 
         private void Window_ContentRendered(object sender, EventArgs e)
         {
-            txtAnswer.SelectAll();
-            txtAnswer.Focus();
+            //txtAnswer.SelectAll();
+            //txtAnswer.Focus();
         }
 
-        public string Answer
-        {
-            get
-            {
-                return txtAnswer.Text;
-            }
-        }
+        //public string Answer
+        //{
+        //    get
+        //    {
+        //       // return txtAnswer.Text;
+        //    }
+        //}
     }
 }

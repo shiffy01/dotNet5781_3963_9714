@@ -9,6 +9,7 @@
         Title="AddStationToLine" Height="450" Width="800" Loaded="Window_Loaded">
     <Window.Resources>
         <CollectionViewSource x:Key="busStationViewSource" d:DesignSource="{d:DesignInstance {x:Type BO:BusStation}, CreateList=True}"/>
+        <CollectionViewSource x:Key="stationOnTheLineViewSource" d:DesignSource="{d:DesignInstance {x:Type BO:StationOnTheLine}, CreateList=True}"/>
     </Window.Resources>
     <Grid DataContext="{StaticResource busStationViewSource}">
 
@@ -38,35 +39,45 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid x:Name="busStationsOnLineDataGrid" IsEnabled="False" SelectionChanged="select_place_changed" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="420,103,108.333,117.667" RowDetailsVisibilityMode="VisibleWhenSelected">
+
+
+        <Button x:Name="select" Content="Choose this station" IsEnabled="False" HorizontalAlignment="Left" Margin="55,342,0,0" VerticalAlignment="Top" Width="255" Height="45" Click="select_Click"/>
+        <TextBlock Text="Please select the station for the new station to go after, and then press add" TextWrapping="Wrap"  HorizontalAlignment="Left" Margin="420,36,0,0" VerticalAlignment="Top" Height="44" Width="265"/>
+        <Button x:Name="add_button" Content="Add" IsEnabled="False" HorizontalAlignment="Left" Margin="420,342,0,0" VerticalAlignment="Top" Width="265" Height="45" Click="add_button_Click"/>
+        <DataGrid x:Name="stationOnTheLineDataGrid" SelectionChanged="select_place_changed" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="361,103,32.333,117.667" RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
-                <DataGridTemplateColumn x:Name="addressColumn1" Header="Address" Width="SizeToHeader">
+                <DataGridTemplateColumn x:Name="number_on_routeColumn" Header="Number" Width="SizeToHeader">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Address}"/>
+                            <Label Content="{Binding Number_on_route}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn x:Name="code_Column" Header="Code" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding Code}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn x:Name="codeColumn1" Header="Code" Width="SizeToHeader">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Code}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn x:Name="nameColumn1" Header="Name" Width="SizeToHeader">
+
+                <DataGridTemplateColumn x:Name="name_Column" Header="Name" Width="SizeToHeader">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Name}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
+                <DataGridTemplateColumn x:Name="address_Column" Header="Address" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Address}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="select" Content="Choose this station" IsEnabled="False" HorizontalAlignment="Left" Margin="55,342,0,0" VerticalAlignment="Top" Width="255" Height="45" Click="select_Click"/>
-        <TextBlock Text="Please select the station for the new station to go after, and then press add" TextWrapping="Wrap"  HorizontalAlignment="Left" Margin="420,36,0,0" VerticalAlignment="Top" Height="44" Width="265"/>
-        <Button x:Name="add_button" Content="Add" IsEnabled="False" HorizontalAlignment="Left" Margin="420,342,0,0" VerticalAlignment="Top" Width="265" Height="45" Click="add_button_Click"/>
 
     </Grid>
 </Window>

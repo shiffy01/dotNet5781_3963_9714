@@ -10,9 +10,10 @@
     <Window.Resources>
         <CollectionViewSource x:Key="busLineViewSource" d:DesignSource="{d:DesignInstance {x:Type BO:BusLine}, CreateList=True}"/>
         <CollectionViewSource x:Key="busStationViewSource" d:DesignSource="{d:DesignInstance {x:Type BO:BusStation}, CreateList=True}"/>
+        <CollectionViewSource x:Key="stationOnTheLineViewSource" d:DesignSource="{d:DesignInstance {x:Type BO:StationOnTheLine}, CreateList=True}"/>
     </Window.Resources>
     <Grid DataContext="{StaticResource busLineViewSource}">
-        
+
         <Button x:Name="updateButton" Content="Update" IsEnabled="False" HorizontalAlignment="Left" Margin="243,359,0,0" VerticalAlignment="Top" Width="88" Height="43" Click="UpdateButton_Click"/>
         <Label Content="Update times and line number: " HorizontalAlignment="Left" Margin="28,27,0,0" VerticalAlignment="Top" Height="31" Width="179"/>
         <TextBox x:Name="first_bus_hrs_tb" Text="{Binding Mode=OneWay}" LostFocus="HoursLostFocus" MaxLength="2" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" TextChanged="TextChanged" HorizontalAlignment="Left" Height="27" Margin="50,174,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="56"/>
@@ -30,18 +31,40 @@
         <TextBox x:Name="bus_line_numberTextBox" Text="{Binding Mode=OneWay}" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" TextChanged="TextChanged" HorizontalAlignment="Left" Height="42" Margin="158,63,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="71" RenderTransformOrigin="0.273,0.634" />
         <Label x:Name="bus_line_number_label" Content="line number:" HorizontalAlignment="Left" Margin="55,63,0,0" VerticalAlignment="Top" Height="42" Width="69"/>
 
-        <DataGrid x:Name="busStationDataGrid" RowDetailsVisibilityMode="VisibleWhenSelected" Margin="344,77,49.333,143.667" ItemsSource="{Binding}" EnableRowVirtualization="True" AutoGenerateColumns="False" SelectionChanged="busStationDataGrid_SelectionChanged">
+
+        <Button Content="Add stops" HorizontalAlignment="Left" Margin="451,300,0,0" VerticalAlignment="Top" Width="260" Height="65" Click="Button_Click"/>
+        <DataGrid x:Name="stationOnTheLineDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="311,63,82.333,157.667" RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
-                
-                <DataGridTemplateColumn>
+                <DataGridTemplateColumn x:Name="number_on_routeColumn" Header="Number" Width="SizeToHeader">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Label x:Name="route_number_label" Content="number will go here"/>
+                            <Label Content="{Binding Number_on_route}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn x:Name="codeColumn" Width="SizeToHeader" Header="Code" Binding="{Binding Code}"/>
-                <DataGridTextColumn x:Name="nameColumn" Width="SizeToHeader" Header="Name" Binding="{Binding Name}"/>
+                <DataGridTemplateColumn x:Name="codeColumn" Header="Code" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding Code}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+               
+               
+                <DataGridTemplateColumn x:Name="nameColumn" Header="Name" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn x:Name="addressColumn" Header="Address" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Address}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -51,7 +74,6 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Add stops" HorizontalAlignment="Left" Margin="451,300,0,0" VerticalAlignment="Top" Width="260" Height="65" Click="Button_Click"/>
 
 
     </Grid>

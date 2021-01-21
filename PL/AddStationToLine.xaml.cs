@@ -39,7 +39,7 @@ namespace PL
                 stations.Remove(find_station);
             }
             allbusStationsDataGrid.DataContext = stations;
-            busStationsOnLineDataGrid.DataContext = Line.Stations.OrderBy(station=> station.Number_on_route);
+            stationOnTheLineDataGrid.DataContext = Line.Stations.OrderBy(station=> station.Number_on_route);
         }
         public AddStationToLine(BusLine busLine)
         {
@@ -55,6 +55,9 @@ namespace PL
             System.Windows.Data.CollectionViewSource busStationViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("busStationViewSource")));
             // Load data by setting the CollectionViewSource.Source property:
             // busStationViewSource.Source = [generic data source]
+            System.Windows.Data.CollectionViewSource stationOnTheLineViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("stationOnTheLineViewSource")));
+            // Load data by setting the CollectionViewSource.Source property:
+            // stationOnTheLineViewSource.Source = [generic data source]
         }
         private void selection_changed(object sender, RoutedEventArgs e)
         {
@@ -64,7 +67,7 @@ namespace PL
 
         private void select_Click(object sender, RoutedEventArgs e)
         {
-            busStationsOnLineDataGrid.IsEnabled = true;
+            stationOnTheLineDataGrid.IsEnabled = true;
 
         }
         private void select_place_changed(object sender, SelectionChangedEventArgs e)
