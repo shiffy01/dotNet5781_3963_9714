@@ -5,7 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
-        xmlns:BO="clr-namespace:BO;assembly=BL" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="PL.AddLine"
+        xmlns:BO="clr-namespace:BO;assembly=BL" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:ms="http://namespaces.mindscape.co.nz/wpf" x:Class="PL.AddLine"
         mc:Ignorable="d"
         Title="AddLine" Height="450" Width="800" Loaded="Window_Loaded">
     <Window.Resources>
@@ -45,10 +45,15 @@
 
 
 
-        <xctk:TimePicker x:Name="first_bus" TimeInterval="00:01" DefaultValue="8:00" HorizontalAlignment="Left" Margin="49,351,0,0" VerticalAlignment="Top" Height="45" Width="132"/>
-        <xctk:TimePicker x:Name="freq" DefaultValue="1:00" HorizontalAlignment="Left" Margin="49,150,0,0" VerticalAlignment="Top" Height="44" Width="132"/>
+        <xctk:TimePicker x:Name="first_bus" TimeInterval="00:01" DefaultValue="8:00" HorizontalAlignment="Left" Margin="55,163,0,0" VerticalAlignment="Top" Height="45" Width="132"/>
+       
         <xctk:TimePicker x:Name="last_bus" TimeInterval="00:01" DefaultValue="22:00" HorizontalAlignment="Left" Margin="55,256,0,0" VerticalAlignment="Top" Height="39" Width="120"/>
-        
+
+
+
+
+        <ms:TimeSpanPicker  HorizontalAlignment="Left" Margin="73,351,0,0" VerticalAlignment="Top"/>
+
 
 
 

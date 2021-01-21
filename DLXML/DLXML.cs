@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using DLAPI;
 using DO;
 
@@ -42,61 +43,67 @@ namespace DL
         string twoConsecutiveStopsPath = @"twoConsecutiveStopsXml.xml";
         string busLineStationPath = @"busLineStationXml.xml";
         #endregion
-        #region Bus implementation
+        #region Bus implementation finished
         public void AddBus(Bus bus)
         {
-            if (DataSource.Buses.FirstOrDefault(tmpBus => tmpBus.License == bus.License && tmpBus.Exists) != default(Bus))
+            List<Bus> Listbus = XMLtools.LoadListFromXMLSerializer<Bus>(busPath);
+            if (Listbus.FirstOrDefault(tmpBus => tmpBus.License == bus.License && tmpBus.Exists) != default(Bus))
             {
                 throw new DuplicateBusException(bus.License, $", Bus with License number: {bus.License} already exists in the system");
             }
-            DataSource.Buses.Add(bus.Clone());
+            Listbus.Add(bus);
+            XMLtools.SaveListToXMLSerializer(Listbus, busPath);
         }//done
         public void UpdateBus(Bus bus)
         {
-
-            Bus realBus = DataSource.Buses.FirstOrDefault(tmpBus => tmpBus.License == bus.License && tmpBus.Exists);
+            List<Bus> Listbus = XMLtools.LoadListFromXMLSerializer<Bus>(busPath);
+            Bus realBus = Listbus.FirstOrDefault(tmpBus => tmpBus.License == bus.License && tmpBus.Exists);
 
             if (realBus != default(Bus))
             {
-                DataSource.Buses.Remove(realBus);
-                DataSource.Buses.Add(bus.Clone());
+                Listbus.Remove(realBus);
+                Listbus.Add(bus);
+                XMLtools.SaveListToXMLSerializer(Listbus, busPath);
             }
             else
                 throw new BusNotFoundException("Bus wasn't found in the system");
         }//done
         public void DeleteBus(int license)
         {
-
-            Bus realBus = DataSource.Buses.FirstOrDefault(tmpBus => tmpBus.License == license && tmpBus.Exists);
+            List<Bus> Listbus = XMLtools.LoadListFromXMLSerializer<Bus>(busPath);
+            Bus realBus = Listbus.FirstOrDefault(tmpBus => tmpBus.License == license && tmpBus.Exists);
 
             if (realBus != default(Bus))
             {
 
                 realBus.Exists = false;
-
+                XMLtools.SaveListToXMLSerializer(Listbus, busPath);
             }
             else
                 throw new BusNotFoundException("Bus wasn't found in the system");
         }//done
         public Bus GetBus(int license)
         {
-            Bus sameBus = DataSource.Buses.FirstOrDefault(tmpBus => tmpBus.License == license && tmpBus.Exists);
+            List<Bus> Listbus = XMLtools.LoadListFromXMLSerializer<Bus>(busPath);
+            Bus sameBus = Listbus.FirstOrDefault(tmpBus => tmpBus.License == license && tmpBus.Exists);
 
             if (sameBus != default(Bus))
-                return sameBus.Clone();
+                return sameBus;
             else
                 throw new BusNotFoundException("Bus wasn't found in the system");
         } //done
         public IEnumerable<Bus> GetAllBusses()
         {
+            List<Bus> Listbus = XMLtools.LoadListFromXMLSerializer<Bus>(busPath);
             return
-                from bus in DataSource.Buses
+                from bus in Listbus
                 where (bus.Exists)
-                select bus.Clone();
+                select bus;
         }//done!!
         public IEnumerable<Bus> GetAllBussesBy(Predicate<Bus> predicate)
         {
-            return from bus in DataSource.Buses
+            List<Bus> Listbus = XMLtools.LoadListFromXMLSerializer<Bus>(busPath);
+            return from bus in Listbus
                    where (predicate(bus) && bus.Exists)
                    select bus.Clone();
         }    //Done!!
@@ -361,6 +368,7 @@ namespace DL
         #region TwoConsecutiveStops  implementation
         public void AddTwoConsecutiveStops(int code_1, int code_2, double distance, TimeSpan drive_time)
         {
+           
             if (DataSource.Two_stops.FirstOrDefault(tmpTwo_stops => (tmpTwo_stops.PairID == (code_1.ToString() + code_2.ToString())) && tmpTwo_stops.Exists) != default(TwoConsecutiveStops))
             {
                 throw new PairAlreadyExitsException(" Pair already exists in the system");
@@ -402,12 +410,39 @@ namespace DL
         }//done!!
         public TwoConsecutiveStops GetTwoConsecutiveStops(string pairID)
         {
-            string id = pairID;
-            TwoConsecutiveStops findTwoStops = DataSource.Two_stops.FirstOrDefault(tmpTwo_stops => tmpTwo_stops.PairID == id && tmpTwo_stops.Exists);
-            if (findTwoStops != default(TwoConsecutiveStops))
-                return findTwoStops.Clone();
-            else
-                throw new PairNotFoundException(pairID + "  Pair not found in system");
+            /*
+            *  XElement personsRootElem = XMLTools.LoadListFromXMLElement(personsPath);
+
+           Person p =  (from per in personsRootElem.Elements()
+                           where int.Parse(per.Element("ID").Value) == id
+                           select new Person()
+                           {
+                               ID = Int32.Parse(per.Element("ID").Value),
+                               Name = per.Element("Name").Value,
+                               Street = per.Element("Street").Value,
+                               HouseNumber = Int32.Parse(per.Element("HouseNumber").Value),
+                               City = per.Element("City").Value,
+                               BirthDate = DateTime.Parse(per.Element("BirthDate").Value),
+                               PersonalStatus = (PersonalStatus)Enum.Parse(typeof(PersonalStatus), per.Element("PersonalStatus").Value),
+                               Duration = TimeSpan.ParseExact(per.Element("Duration").Value,"hh\\:mm\\:ss", CultureInfo.InvariantCulture)
+                           
+                       ).FirstOrDefault();
+
+           if (p == null)
+               throw new DO.BadPersonIdException(id, $"bad person id: {id}");
+
+           return p;
+            */
+            XElement stopsRoot = XMLtools.LoadListFromXMLElement(twoConsecutiveStopsPath);
+            TwoConsecutiveStops stops=(from stop in stopsRoot.Elements()
+                                       where stop.Element("PairID").Value==pairID
+                                       select new tw
+            //string id = pairID;
+            //TwoConsecutiveStops findTwoStops = DataSource.Two_stops.FirstOrDefault(tmpTwo_stops => tmpTwo_stops.PairID == id && tmpTwo_stops.Exists);
+            //if (findTwoStops != default(TwoConsecutiveStops))
+            //    return findTwoStops.Clone();
+            //else
+            //    throw new PairNotFoundException(pairID + "  Pair not found in system");
         }///done!! 
         public IEnumerable<TwoConsecutiveStops> GetAllPairs()
         {

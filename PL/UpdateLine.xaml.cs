@@ -32,9 +32,9 @@ namespace PL
         private void initialize()
         {
             bus_line_numberTextBox.DataContext = Line.Bus_line_number;
-            
             stationOnTheLineDataGrid.DataContext = Line.Stations.OrderBy(station=>station.Number_on_route);
-            
+            first_bus.DefaultValue = Line.First_bus;
+            last_bus.DefaultValue = Line.Last_bus;
         }
         public UpdateLine(BusLine line)
         {
@@ -92,10 +92,10 @@ namespace PL
 
 
         }
-        //private void bus_line_numberTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        //{
+        private void bus_line_numberTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
 
-        //}
+        }
 
         //private void first_bus_hrs_tb_TextChanged(object sender, TextChangedEventArgs e)
         //{
@@ -104,13 +104,26 @@ namespace PL
 
 
         //}
-        private void TextChanged(object sender, TextChangedEventArgs e)
+        private void text_changed(object sender, TextChangedEventArgs e)
         {
-            if ((sender as TextBox).Name == "first_bus_hrs_tb" || (sender as TextBox).Name == "first_bus_min_tb")
-                first_bus_changed = true;
-            if ((sender as TextBox).Name == "lastBus_hours" || (sender as TextBox).Name == "lastBus_minutes")
-                last_bus_changed = true;
-            updateButton.IsEnabled = true;
+            string hour="", minutes="";
+            if (freq.Text == "__:__")
+                return;
+            string []numbers= freq.Text.Split(':');
+            if (numbers[0].Contains("_"))
+            {
+               hour=numbers[0].Replace("_", "");
+            }
+            if (numbers[1].Contains("_"))
+            {
+               minutes= numbers[1].Replace("_", "");
+            }
+            if (!(numbers[0]==""))
+                if (int.Parse(hour) > 23)
+                    freq.Text = "__:__";
+            if (!(numbers[0] == ""))
+                if (int.Parse(minutes) > 59)
+                    freq.Text = "__:__";
         }
         private void HoursLostFocus(object sender, RoutedEventArgs e)
         {
@@ -154,7 +167,7 @@ namespace PL
             }
             try
             {
-                DateTime dd = first_bus.Value.Value;
+                
                 TimeSpan frequency = new TimeSpan(0, 0, 0);
                bl.UpdateBusLine(first_bus.Value.Value, last_bus.Value.Value, frequency, Line.BusID, int.Parse(bus_line_numberTextBox.Text));
                 MessageBoxResult mb = MessageBox.Show("The bus line was updated successfully");

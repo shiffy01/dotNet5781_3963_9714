@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
-        xmlns:BO="clr-namespace:BO;assembly=BL" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="PL.UpdateLine"
+        xmlns:BO="clr-namespace:BO;assembly=BL" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:ms="http://namespaces.mindscape.co.nz/wpf" x:Class="PL.UpdateLine"
         mc:Ignorable="d"
         Title="UpdateLine" Height="450" Width="800" Loaded="Window_Loaded">
     <Window.Resources>
@@ -23,7 +23,7 @@
 
 
 
-        <TextBox x:Name="bus_line_numberTextBox" Text="{Binding Mode=OneWay}" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" TextChanged="TextChanged" HorizontalAlignment="Left" Height="42" Margin="158,63,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="71" RenderTransformOrigin="0.273,0.634" />
+        <TextBox x:Name="bus_line_numberTextBox" Text="{Binding Mode=OneWay}" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" HorizontalAlignment="Left" Height="42" Margin="158,63,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="71" RenderTransformOrigin="0.273,0.634" />
         <Label x:Name="bus_line_number_label" Content="line number:" HorizontalAlignment="Left" Margin="55,63,0,0" VerticalAlignment="Top" Height="42" Width="69"/>
 
 
@@ -71,9 +71,14 @@
         </DataGrid>
 
 
-        <xctk:TimePicker x:Name="last_bus" TimeInterval="00:01"  DefaultValue="22:00" HorizontalAlignment="Left" Margin="83,268,0,0" VerticalAlignment="Top"/>
-        <xctk:TimePicker  TimeInterval="00:01"  HorizontalAlignment="Left" Margin="83,330,0,0" VerticalAlignment="Top"/>
-        <xctk:TimePicker x:Name="first_bus"  TimeInterval="00:01"  DefaultValue="8:00" HorizontalAlignment="Left" Margin="83,168,0,0" VerticalAlignment="Top"/>
+        <xctk:TimePicker x:Name="last_bus" TimeInterval="00:01"  HorizontalAlignment="Left" Margin="83,268,0,0" VerticalAlignment="Top"/>
+
+        <xctk:TimePicker x:Name="first_bus"  TimeInterval="00:01"   HorizontalAlignment="Left" Margin="83,168,0,0" VerticalAlignment="Top"/>
+
+
+        <ms:TimeSpanPicker HorizontalAlignment="Left" Margin="66,356,0,0" VerticalAlignment="Top"/>
+        <xctk:MaskedTextBox x:Name="freq"  TextChanged="text_changed" Mask="00:00" HorizontalAlignment="Left" Height="23" Margin="243,289,0,0" TextWrapping="Wrap" Text="MaskedTextBox" VerticalAlignment="Top" Width="48"/>
+        
 
 
     </Grid>
