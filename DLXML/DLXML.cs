@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DLAPI;
 using DO;
-using DS;
+
 
 namespace DL
 {
@@ -36,11 +36,11 @@ namespace DL
 
         #endregion singleton
         #region XML FILES
-        string busLine = @"busLineXml.xml";
-        string busStation = @"busLineXml.xml";
-        string bus = @"busLineXml.xml";
-        string twoConsecutiveStops = @"busLineXml.xml";
-        string busLineStation = @"busLineXml.xml";
+        string busLinePath = @"busLineXml.xml";
+        string busStationPath = @"busStationXml.xml";
+        string busPath = @"busXml.xml";
+        string twoConsecutiveStopsPath = @"twoConsecutiveStopsXml.xml";
+        string busLineStationPath = @"busLineStationXml.xml";
         #endregion
         #region Bus implementation
         public void AddBus(Bus bus)
@@ -103,11 +103,12 @@ namespace DL
 
         #endregion
 
-        #region BusLine implementation
+        #region BusLine implementation finished!
         public BusLine AddBusLine(int line_number, bool inter_city, string dest, string org, DateTime first, DateTime last, TimeSpan freq)
         {
+            List<BusLine> ListLines = XMLtools.LoadListFromXMLSerializer<BusLine>(busLinePath);
             bool exists =
-               DataSource.Lines.Any(p => p.Exists == true && p.BusID == line_number);
+               ListLines.Any(p => p.Exists == true && p.BusID == line_number);
             if (exists)
                 throw new BusLineAlreadyExistsException();//does it need to say something inside?
 
@@ -125,75 +126,68 @@ namespace DL
 
 
             //dont need to clone bec i built it here
-            DataSource.Lines.Add(newBus);
+            ListLines.Add(newBus);
+            XMLtools.SaveListToXMLSerializer(ListLines, busLinePath);
             return newBus;
         }
         public void DeleteBusLine(int busID)
         {
-            BusLine bus = DataSource.Lines.FirstOrDefault(b => (b.BusID == busID && b.Exists));
+            List<BusLine> ListLines = XMLtools.LoadListFromXMLSerializer<BusLine>(busLinePath);
+            BusLine line = ListLines.FirstOrDefault(b => (b.BusID == busID && b.Exists));
 
-            if (bus != default(BusLine))
+            if (line != default(BusLine))
             {
-
-                bus.Exists = false;
+                line.Exists = false;
+                XMLtools.SaveListToXMLSerializer(ListLines, busLinePath);
             }
             else
                 throw new DO.BusLineNotFoundException("The BusLine is not found in the system");
         }
         public void UpdateBusLine(BusLine busLine)
         {
-            DO.BusLine bus = DataSource.Lines.FirstOrDefault(b => (b.BusID == busLine.BusID && b.Exists));
+            List<BusLine> ListLines = XMLtools.LoadListFromXMLSerializer<BusLine>(busLinePath);
+            DO.BusLine line = ListLines.FirstOrDefault(b => (b.BusID == busLine.BusID && b.Exists));
 
-            if (bus != default(BusLine))
+            if (line != default(BusLine))
             {
-                DataSource.Lines.Remove(bus);
-                DataSource.Lines.Add(busLine.Clone());
+                //we dont really need the remove/add now... because it loads new copies from the file anyway 
+                ListLines.Remove(line);
+                ListLines.Add(busLine);
+                XMLtools.SaveListToXMLSerializer(ListLines, busLinePath);
             }
             else
                 throw new DO.BusLineNotFoundException("Bus line is not in the system");
         }
         public IEnumerable<BusLine> GetAllBuslines()
         {
-            var list =
-             from bus in DataSource.Lines
-             where (bus.Exists)
-             select (bus.Clone());
-            return list;
+            List<BusLine> ListLines = XMLtools.LoadListFromXMLSerializer<BusLine>(busLinePath);
+            return from line in ListLines
+                   where line.Exists
+                   select line;
 
         }
         public BusLine GetBusLine(int busID)
         {
-            XElement personsRootElem = XMLTools.LoadListFromXMLElement(personsPath);
-
-            Person p = (from per in personsRootElem.Elements()
-                        where int.Parse(per.Element("ID").Value) == id
-                        select new Person() {
-                            ID = Int32.Parse(per.Element("ID").Value),
-                            Name = per.Element("Name").Value,
-                            Street = per.Element("Street").Value,
-                            HouseNumber = Int32.Parse(per.Element("HouseNumber").Value),
-                            City = per.Element("City").Value,
-                            BirthDate = DateTime.Parse(per.Element("BirthDate").Value),
-                            PersonalStatus = (PersonalStatus)Enum.Parse(typeof(PersonalStatus), per.Element("PersonalStatus").Value),
-                            Duration = TimeSpan.ParseExact(per.Element("Duration").Value, "hh\\:mm\\:ss", CultureInfo.InvariantCulture)
-                        }
-                        ).FirstOrDefault();
-
-            if (p == null)
-                throw new DO.BadPersonIdException(id, $"bad person id: {id}");
-
-            return p;
+            List<BusLine> ListLines = XMLtools.LoadListFromXMLSerializer<BusLine>(busLinePath);
+            BusLine line = ListLines.FirstOrDefault();
+            if (line != default(BusLine))
+                return line;
+            else
+                throw new DO.BusLineNotFoundException("Bus line is not in the system");
         }
         public IEnumerable<BusLine> GetAllBusLinesBy(Predicate<BusLine> predicate)
         {
-            return from line in DataSource.Lines
-                   where (predicate(line) && line.Exists)
-                   select line.Clone();
-        }   //done!!
+            List<BusLine> ListLines = XMLtools.LoadListFromXMLSerializer<BusLine>(busLinePath);
+            return from line in ListLines
+                   where line.Exists&&predicate(line)
+                   select line;
+        }  
         public IEnumerable<BusLine> GetBuslinesOfStation(int stationID)//gets all the bus lines with this station on the route
         {
+             List<BusLine> ListLines = XMLtools.LoadListFromXMLSerializer<BusLine>(busLinePath);
+             List<BusLineStation> bus_line_station_list=XMLtools.LoadListFromXMLSerializer<BusLineStation>(busLineStationPath);
             var list =
-             from station in DataSource.Line_stations
+             from station in bus_line_station_list
              where (station.Exists && station.StationID == stationID)
              select (station.LineID);
             List<BusLine> returnList = new List<BusLine>();
@@ -211,82 +205,92 @@ namespace DL
             }
             return returnList;
         }
-        #endregion
+        #endregion //finished! 
 
-        #region BusLineStation CRUD 
+        #region BusLineStation CRUD finished!
         public void AddBusLineStation(int station_id, int line_id, int number_on_route)
         {
-            if (DataSource.Line_stations.FirstOrDefault(b => (b.BusLineStationID == (station_id.ToString() + line_id.ToString()) && b.Exists)) != default(BusLineStation))
+            List<BusLineStation> ListLineStations = XMLtools.LoadListFromXMLSerializer<BusLineStation>(busLineStationPath);
+            if (ListLineStations.FirstOrDefault(b => (b.BusLineStationID == (station_id.ToString() + line_id.ToString()) && b.Exists)) != default(BusLineStation))
                 throw new DO.BusLineStationAlreadyExistsException("This bus line station is already in the system");
 
-            DataSource.Line_stations.Add(new BusLineStation {
+            ListLineStations.Add(new BusLineStation {
                 StationID = station_id,
                 LineID = line_id,
                 BusLineStationID = (station_id.ToString() + line_id.ToString()),
                 Number_on_route = number_on_route,
                 Exists = true
             });
+            XMLtools.SaveListToXMLSerializer(ListLineStations, busLineStationPath);
         }
         public void UpdateBusLineStation(BusLineStation busLineStation)
         {
-            DO.BusLineStation station = DataSource.Line_stations.FirstOrDefault(s => (s.BusLineStationID == busLineStation.BusLineStationID && s.Exists));
+            List<BusLineStation> ListLineStations = XMLtools.LoadListFromXMLSerializer<BusLineStation>(busLineStationPath);
+            BusLineStation station = ListLineStations.FirstOrDefault(s => (s.BusLineStationID == busLineStation.BusLineStationID && s.Exists));
 
             if (station != default(BusLineStation))
             {
-                DataSource.Line_stations.Remove(station);
-                DataSource.Line_stations.Add(busLineStation.Clone());
+                //dont need add remove ?
+                ListLineStations.Remove(station);
+                ListLineStations.Add(busLineStation);
+                XMLtools.SaveListToXMLSerializer(ListLineStations, busLineStationPath);
             }
             else
                 throw new DO.BusLineStationNotFoundException(busLineStation.BusLineStationID, $"ID number: {busLineStation.LineID} doesn't stop at this station");
         }
         public void DeleteBusLineStation(string ID)
         {
-            DO.BusLineStation station = DataSource.Line_stations.FirstOrDefault(s => (s.BusLineStationID == ID && s.Exists));
+            List<BusLineStation> ListLineStations = XMLtools.LoadListFromXMLSerializer<BusLineStation>(busLineStationPath);
+            DO.BusLineStation station = ListLineStations.FirstOrDefault(s => (s.BusLineStationID == ID && s.Exists));
 
             if (station != default(BusLineStation))
             {
                 station.Exists = false;
-
+                XMLtools.SaveListToXMLSerializer(ListLineStations, busLineStationPath);
             }
             else
                 throw new DO.BusLineStationNotFoundException(station.BusLineStationID, "The BusLineStation is not found in the system");
         }
         public BusLineStation GetBusLineStation(string ID)
         {
-            BusLineStation station = DataSource.Line_stations.FirstOrDefault(s => (s.BusLineStationID == ID && s.Exists));
+            List<BusLineStation> ListLineStations = XMLtools.LoadListFromXMLSerializer<BusLineStation>(busLineStationPath);
+            BusLineStation station = ListLineStations.FirstOrDefault(s => (s.BusLineStationID == ID && s.Exists));
 
             if (station != default(BusLineStation))
-                return station.Clone();
+                return station;
             else
                 throw new BusLineStationNotFoundException(ID, "Bus line station is not in the system");
         }
         public IEnumerable<BusLineStation> GetAllBusLineStations()
         {
+            List<BusLineStation> ListLineStations = XMLtools.LoadListFromXMLSerializer<BusLineStation>(busLineStationPath);
             var list =
-            from station in DataSource.Line_stations
+            from station in ListLineStations
             where (station.Exists)
-            select (station.Clone());
+            select (station);
             return list;
         }
         public IEnumerable<BusLineStation> GetAllBusLineStationsBy(Predicate<BusLineStation> predicate)
         {
-            return from busStation in DataSource.Line_stations
+            List<BusLineStation> ListLineStations = XMLtools.LoadListFromXMLSerializer<BusLineStation>(busLineStationPath);
+            return from busStation in ListLineStations
                    where predicate(busStation) && busStation.Exists
                    orderby busStation.Number_on_route
-                   select busStation.Clone();
+                   select busStation;
         }
         #endregion   
 
-        #region  BusStation implementation
+        #region  BusStation implementation finished!
         public void AddBusStation(int code, double latitude, double longitude, string name, string address, string city)
         {
-            if (DataSource.Stations.FirstOrDefault(tmpBusStation => tmpBusStation.Code == code && tmpBusStation.Exists) != default(BusStation))
+            List<BusStation> ListStations = XMLtools.LoadListFromXMLSerializer<BusStation>(busStationPath);
+            if (ListStations.FirstOrDefault(tmpBusStation => tmpBusStation.Code == code && tmpBusStation.Exists) != default(BusStation))
             {
                 throw new StationAlreadyExistsException(code, $", Bus with License number: {code} already exists in the system");
 
             }
 
-            DataSource.Stations.Add(new BusStation {
+            ListStations.Add(new BusStation {
                 Code = code,
                 Latitude = latitude,
                 Longitude = longitude,
@@ -295,56 +299,62 @@ namespace DL
                 City = city,
                 Exists = true
             });
+            XMLtools.SaveListToXMLSerializer(ListStations, busStationPath);
         }//done!!
         public void UpdateBusStation(BusStation busStation)
         {
-
-            BusStation findBusStation = DataSource.Stations.FirstOrDefault(tmpBusStation => tmpBusStation.Code == busStation.Code && tmpBusStation.Exists);
+            List<BusStation> ListStations = XMLtools.LoadListFromXMLSerializer<BusStation>(busStationPath);
+            BusStation findBusStation = ListStations.FirstOrDefault(tmpBusStation => tmpBusStation.Code == busStation.Code && tmpBusStation.Exists);
 
             if (findBusStation != default(BusStation))
             {
-                DataSource.Stations.Remove(findBusStation);
-                DataSource.Stations.Add(busStation.Clone());
+                //dont need add/remove but leaving it anyway... easier this way
+                ListStations.Remove(findBusStation);
+                ListStations.Add(busStation);
+                XMLtools.SaveListToXMLSerializer(ListStations, busStationPath);
             }
             else
                 throw new StationNotFoundException(busStation.Code, $"Station :{busStation.Code} wasn't found in the system");
         }//done!!
         public void DeleteBusStation(int code)
         {
-
-            BusStation busStation = DataSource.Stations.FirstOrDefault(tmpBusStation => tmpBusStation.Code == code && tmpBusStation.Exists);
+            List<BusStation> ListStations = XMLtools.LoadListFromXMLSerializer<BusStation>(busStationPath);
+            BusStation busStation = ListStations.FirstOrDefault(tmpBusStation => tmpBusStation.Code == code && tmpBusStation.Exists);
 
             if (busStation != default(BusStation))
             {
 
                 busStation.Exists = false;
-
+                XMLtools.SaveListToXMLSerializer(ListStations, busStationPath);
             }
             else
                 throw new StationNotFoundException(busStation.Code, $"Station :{code} wasn't found in the system");
         }//done!!
         public BusStation GetBusStation(int code)
         {
-            BusStation findBusStation = DataSource.Stations.Find(tmpBusStation => tmpBusStation.Code == code && tmpBusStation.Exists);
+            List<BusStation> ListStations = XMLtools.LoadListFromXMLSerializer<BusStation>(busStationPath);
+            BusStation findBusStation = ListStations.Find(tmpBusStation => tmpBusStation.Code == code && tmpBusStation.Exists);
 
             if (findBusStation != default(BusStation))
-                return findBusStation.Clone();
+                return findBusStation;
             else
                 throw new StationNotFoundException(code, $"Station :{code} wasn't found in the system");
         }///done!!
         public IEnumerable<BusStation> GetAllBusStations()
         {
+            List<BusStation> ListStations = XMLtools.LoadListFromXMLSerializer<BusStation>(busStationPath);
             return
-                from BusStation in DataSource.Stations
+                from BusStation in ListStations
                 where (BusStation.Exists)
                 orderby BusStation.Code
-                select BusStation.Clone();
+                select BusStation;
         }//done!!
         public IEnumerable<BusStation> GetAllBusStationsBy(Predicate<BusStation> predicate)
         {
-            return from busStation in DataSource.Stations
+            List<BusStation> ListStations = XMLtools.LoadListFromXMLSerializer<BusStation>(busStationPath);
+            return from busStation in ListStations
                    where predicate(busStation) && busStation.Exists
-                   select busStation.Clone();
+                   select busStation;
         }   //done!!
         #endregion
 
