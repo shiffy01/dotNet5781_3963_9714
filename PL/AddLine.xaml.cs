@@ -41,19 +41,7 @@ namespace PL
         }
 
         private bool canUpdate()
-        {
-            if (string.IsNullOrWhiteSpace(first_hours.Text))
-                return false;
-            if (string.IsNullOrWhiteSpace(first_minutes.Text))
-                return false;
-            if (string.IsNullOrWhiteSpace(second_hours.Text))
-                return false;
-            if (string.IsNullOrWhiteSpace(second_minutes.Text))
-                return false;
-            if (string.IsNullOrWhiteSpace(freq_hours.Text))
-                return false;
-            if (string.IsNullOrWhiteSpace(freq_minutes.Text))
-                return false;
+        {   
             if (string.IsNullOrWhiteSpace(line_number.Text))
                 return false;
             if (stationsToAdd.Count < 2)
@@ -128,24 +116,24 @@ namespace PL
                     break;
                 }
         }
-        private void lost_focus_minutes(object sender, RoutedEventArgs e)
-        {
-            TextBox text = sender as TextBox;
-            if (int.Parse(text.Text) > 59)
-                ; //change border to red
-        }
-        private void lost_focus_hours(object sender, RoutedEventArgs e)
-        {
-            TextBox text = sender as TextBox;
-            if (int.Parse(text.Text) > 23)
-                ; //change border to red
-        }
+        //private void lost_focus_minutes(object sender, RoutedEventArgs e)
+        //{
+        //    TextBox text = sender as TextBox;
+        //    if (int.Parse(text.Text) > 59)
+        //        ; //change border to red
+        //}
+        //private void lost_focus_hours(object sender, RoutedEventArgs e)
+        //{
+        //    TextBox text = sender as TextBox;
+        //    if (int.Parse(text.Text) > 23)
+        //        ; //change border to red
+        //}
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             List<string> needed_distances=null;
             try
             {
-                needed_distances=bl.AddBusLine(int.Parse(line_number.Text), stationsToAdd, new DateTime(2021, 01, 01, int.Parse(first_hours.Text), int.Parse(first_minutes.Text), 0), new DateTime(2021, 01, 01, int.Parse(second_hours.Text), int.Parse(second_minutes.Text), 0), new TimeSpan(int.Parse(freq_hours.Text), int.Parse(freq_minutes.Text), 0));
+                needed_distances=bl.AddBusLine(int.Parse(line_number.Text), stationsToAdd, new DateTime(2021, 01, 01, int.Parse(first_bus.Value), int.Parse(first_minutes.Text), 0), new DateTime(2021, 01, 01, int.Parse(second_hours.Text), int.Parse(second_minutes.Text), 0), new TimeSpan(int.Parse(freq_hours.Text), int.Parse(freq_minutes.Text), 0));
                 MessageBoxResult mb = MessageBox.Show("The bus was added to the system");
                 if (needed_distances == null)
                     this.Close();
@@ -158,17 +146,17 @@ namespace PL
             }
             catch (FrequencyConflictException ex)
             {
-                MessageBoxResult mb = MessageBox.Show(ex.Message);
+                System.Windows.MessageBoxResult mb = MessageBox.Show(ex.Message);
               
             }
             catch (BusLineAlreadyExistsException ex)
             {
-                MessageBoxResult mb = MessageBox.Show(ex.Message);
+                System.Windows.MessageBoxResult mb = MessageBox.Show(ex.Message);
             
             }
             catch (Exception)
             {
-                MessageBoxResult mb = MessageBox.Show("Something has gone wrong. For an unknown reason, this busline cannot be added to the system. We regret the error");
+                System.Windows.MessageBoxResult mb = MessageBox.Show("Something has gone wrong. For an unknown reason, this busline cannot be added to the system. We regret the error");
                 this.Close();
             }
            
