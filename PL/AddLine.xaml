@@ -45,10 +45,10 @@
 
 
 
-        <xctk:TimePicker x:Name="first_bus" DefaultValue="8:00" HorizontalAlignment="Left" Margin="49,351,0,0" VerticalAlignment="Top" Height="45" Width="132"/>
+        <xctk:TimePicker x:Name="first_bus" TimeInterval="00:01" DefaultValue="8:00" HorizontalAlignment="Left" Margin="49,351,0,0" VerticalAlignment="Top" Height="45" Width="132"/>
         <xctk:TimePicker x:Name="freq" DefaultValue="1:00" HorizontalAlignment="Left" Margin="49,150,0,0" VerticalAlignment="Top" Height="44" Width="132"/>
-        <xctk:TimePicker x:Name="last_bus" DefaultValue="22:00" HorizontalAlignment="Left" Margin="55,256,0,0" VerticalAlignment="Top" Height="39" Width="120"/>
-        <xctk:TimelinePanel HorizontalAlignment="Left" Height="100" Margin="275,307,0,0" VerticalAlignment="Top" Width="100"/>
+        <xctk:TimePicker x:Name="last_bus" TimeInterval="00:01" DefaultValue="22:00" HorizontalAlignment="Left" Margin="55,256,0,0" VerticalAlignment="Top" Height="39" Width="120"/>
+        
 
 
 

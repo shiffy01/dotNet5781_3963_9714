@@ -32,12 +32,7 @@ namespace PL
         private void initialize()
         {
             bus_line_numberTextBox.DataContext = Line.Bus_line_number;
-            first_bus_hrs_tb.DataContext = Line.First_bus.Hour;
-            first_bus_min_tb.DataContext = Line.First_bus.Minute;
-            lastBus_hours.DataContext = Line.Last_bus.Hour;
-            lastBus_minutes.DataContext = Line.Last_bus.Minute;
-            frequency_hr_tb.DataContext = Line.Frequency.Hours;
-            frequency_min_tb.DataContext = Line.Frequency.Minutes;
+            
             stationOnTheLineDataGrid.DataContext = Line.Stations.OrderBy(station=>station.Number_on_route);
             
         }
@@ -159,8 +154,9 @@ namespace PL
             }
             try
             {
-
-                bl.UpdateBusLine(new DateTime(first_year, first_month, first_day, int.Parse(first_bus_hrs_tb.Text), int.Parse(first_bus_min_tb.Text), 0), new DateTime(last_year, last_month, last_day, int.Parse(lastBus_hours.Text), int.Parse(lastBus_minutes.Text), 0), new TimeSpan(int.Parse(frequency_hr_tb.Text), int.Parse(frequency_min_tb.Text), 0), Line.BusID, int.Parse(bus_line_numberTextBox.Text));
+                DateTime dd = first_bus.Value.Value;
+                TimeSpan frequency = new TimeSpan(0, 0, 0);
+               bl.UpdateBusLine(first_bus.Value.Value, last_bus.Value.Value, frequency, Line.BusID, int.Parse(bus_line_numberTextBox.Text));
                 MessageBoxResult mb = MessageBox.Show("The bus line was updated successfully");
                 updateButton.IsEnabled = false;
             }
