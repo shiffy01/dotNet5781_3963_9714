@@ -122,5 +122,11 @@ namespace DO
         public StationNotFoundException(int code, string message, Exception inner) : base(message, inner) => Code = code;
         public override string ToString() => base.ToString() + $",Station number: {Code} wasn't found in the system";
     }
+    [Serializable]
+    public class XMLFileLoadCreateException : Exception
+    {
+        string Filepath;
+        public XMLFileLoadCreateException(string filepath, string messege, Exception inner) : base(messege, inner) => Filepath = filepath;
+    }
 
 }
