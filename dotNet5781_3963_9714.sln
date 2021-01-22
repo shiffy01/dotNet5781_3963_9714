@@ -28,6 +28,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DLXML", "DLXML\DLXML.csproj", "{C48E27AD-BA4A-4120-BFDF-AD1F00982A72}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Folder", "Solution Folder", "{5F79BD95-8BA8-4F23-BCDF-3FAF041F24AA}"
+	ProjectSection(SolutionItems) = preProject
+		bin\config.xml = bin\config.xml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

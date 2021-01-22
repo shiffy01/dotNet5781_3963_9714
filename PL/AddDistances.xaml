@@ -1,9 +1,10 @@
-﻿<Window x:Class="PL.AddDistances"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
+        xmlns:ms="http://namespaces.mindscape.co.nz/wpf" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="PL.AddDistances"
         mc:Ignorable="d"
         Title="AddDistances"  SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen"
     ContentRendered="Window_ContentRendered">
@@ -20,14 +21,18 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Label Name="ask_for_distance_label"  Grid.Column="1">Question:</Label>
-        <TextBox Name="distanceTB" Grid.Column="1" Grid.Row="1" MinWidth="250">Answer</TextBox>
-        <Label Name="ask_for_driveTime_label" Grid.Row="3"  Grid.Column="1">Question:</Label>
-        <TextBox Name="timeTB" Grid.Column="1" Grid.Row="4"  MinWidth="250">Answer</TextBox>
-        <WrapPanel Grid.Row="6" Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="0,15,0,0">
+        <Label x:Name="ask_for_distance_label"  Grid.Column="1" >Question:</Label>
+        <xctk:MaskedTextBox x:Name="distanceTB"  Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="0,5.333,0,0" Grid.Row="5" TextWrapping="Wrap" Text="MaskedTextBox" VerticalAlignment="Top" Width="120" Mask="HH:MM"/>
+        <!--<TextBox x:Name="distanceTB" Grid.Column="1" Grid.Row="1" MinWidth="250" >Answer:</TextBox>-->
+        <Label x:Name="ask_for_driveTime_label" Grid.Row="4"  Grid.Column="1">Question:</Label>
+
+
+        <WrapPanel Grid.Row="7" Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="0,15,0,0">
             <Button IsDefault="True" x:Name="btnDialogOk" Click="btnDialogOk_Click" MinWidth="60" Margin="0,0,10,0" Content="_Ok"/>
             <Button IsCancel="True" MinWidth="60" Content="_Cancel"/>
         </WrapPanel>
+        <xctk:MaskedTextBox Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="0,5.333,0,0" Grid.Row="5" TextWrapping="Wrap" Text="MaskedTextBox" VerticalAlignment="Top" Width="120" Mask="HH:MM"/>
     </Grid>
 </Window>
