@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BO;
 using BlApi;
-//using Xceed.Wpf.Toolkit;
+using Xceed.Wpf.Toolkit;
 
 namespace PL
 {
@@ -102,7 +102,7 @@ namespace PL
                 }
                 catch (BO.PairAlreadyExistsException ex)
                 {
-                    MessageBoxResult result = MessageBox.Show(ex.Message, " Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBoxResult result = System.Windows.MessageBox.Show(ex.Message, " Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 Index++;
                 if (Index == PairIds.Count)
@@ -140,7 +140,7 @@ namespace PL
         private void cancel_btn_click(object sender, RoutedEventArgs e)
         {
             
-            MessageBoxResult result = MessageBox.Show(@"             Are you sure you want to cancel?
+            MessageBoxResult result = System.Windows.MessageBox.Show(@"             Are you sure you want to cancel?
                                                          By canceling, the remaining distances will be set to random values.", " Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
             if (result == MessageBoxResult.Yes)
             {
@@ -152,7 +152,7 @@ namespace PL
                     }
                     catch (BO.PairAlreadyExistsException ex)
                     {
-                        MessageBoxResult result2 = MessageBox.Show(ex.Message, " Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBoxResult result2 = System.Windows.MessageBox.Show(ex.Message, " Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
                 this.DialogResult = true;

@@ -30,7 +30,7 @@ namespace BL
 
             get => blInstance;
         }
-        #endregion//what is bl factory then? isnt that the implementation?//what is bl factory then? isnt that the implementation?
+        #endregion
 
         #region convert functions
         readonly IDAL dal = DalFactory.GetDal();
@@ -65,7 +65,7 @@ namespace BL
             //otherwise i think its fine
             return BOstation;
         }
-        //if we need to convert station on the line to anything in do add it here, im not sure we do
+        
         BusLine DOtoBOBusLineAdapter(DO.BusLine DObusLine)//done :)
         {
             BusLine BObusLine = new BusLine();
@@ -117,7 +117,7 @@ namespace BL
             }
             catch (FrequencyConflictException ex)
             {
-                throw new FrequencyConflictException("This bus cannot be added, because the frequency does not match the times of the fist and last buses");
+                throw new FrequencyConflictException("This bus cannot be added, because the frequency does not match the times of the fist and last buses", ex);
             }
             bool in_city;
             try

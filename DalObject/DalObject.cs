@@ -20,7 +20,7 @@ namespace DL
             DS.DataSource.initialize_Stations();
             DS.DataSource.initialize_Lines();
             DS.DataSource.initialize_Bus_line_stations();
-            DS.DataSource.initialize_two_consecutive_stations();
+            DS.DataSource.initialize_two_adjacent_stations();
         }
 
         static DalObject()
@@ -102,7 +102,7 @@ namespace DL
         #endregion
 
         #region BusLine implementation
-       public BusLine AddBusLine(int line_number, bool inter_city, string dest, string org, DateTime first, DateTime last, TimeSpan freq)
+        public BusLine AddBusLine(int line_number, bool inter_city, string dest, string org, DateTime first, DateTime last, TimeSpan freq)
         {
             bool exists =
                DataSource.Lines.Any(p => p.Exists == true && p.BusID == line_number);
@@ -126,7 +126,7 @@ namespace DL
             DataSource.Lines.Add(newBus);
             return newBus;
         }
-       public  void DeleteBusLine(int busID)
+        public  void DeleteBusLine(int busID)
         {
             BusLine bus = DataSource.Lines.FirstOrDefault(b => (b.BusID == busID && b.Exists));
 
@@ -138,7 +138,7 @@ namespace DL
             else
                 throw new DO.BusLineNotFoundException("The BusLine is not found in the system");
         }
-       public void UpdateBusLine(BusLine busLine)
+        public void UpdateBusLine(BusLine busLine)
         {
             DO.BusLine bus = DataSource.Lines.FirstOrDefault(b => (b.BusID == busLine.BusID && b.Exists));
 
@@ -150,7 +150,7 @@ namespace DL
             else
                 throw new DO.BusLineNotFoundException("Bus line is not in the system");
         }
-       public  IEnumerable<BusLine> GetAllBuslines()
+        public  IEnumerable<BusLine> GetAllBuslines()
         {
             var list =
              from bus in DataSource.Lines
@@ -159,7 +159,7 @@ namespace DL
             return list;
 
         }
-       public BusLine GetBusLine(int busID)
+        public BusLine GetBusLine(int busID)
         {
             BusLine bus = DataSource.Lines.FirstOrDefault(b => (b.BusID == busID && b.Exists));
 
@@ -333,7 +333,7 @@ namespace DL
         #endregion
                
         #region AdjacentStations  implementation
-       public  void AddAdjacentStations(int code_1, int code_2, double distance, TimeSpan drive_time)
+        public  void AddAdjacentStations(int code_1, int code_2, double distance, TimeSpan drive_time)
         {
             if (DataSource.Two_stops.FirstOrDefault(tmpTwo_stops => (tmpTwo_stops.PairID == (code_1.ToString()+code_2.ToString()))) != default(AdjacentStations))
             {

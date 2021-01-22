@@ -15,5 +15,14 @@
             </Style.Triggers>-->
 
         <!--</Style>-->
+        <Style TargetType="Button">
+            
+        </Style>
+        <Style TargetType="DataGrid">
+
+        </Style>
+        <Style TargetType="TextBox">
+
+        </Style>
     </Application.Resources>
 </Application>

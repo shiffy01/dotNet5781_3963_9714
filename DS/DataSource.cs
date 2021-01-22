@@ -1338,7 +1338,7 @@ namespace DS
             }
             return null;
         }
-        public static void initialize_two_consecutive_stations()
+        public static void initialize_two_adjacent_stations()
         {   
             for (int i = 0; i < 10; i++)
             {
@@ -1356,7 +1356,7 @@ namespace DS
                         PairID = (Line_stations[j].StationID).ToString() +(Line_stations[j + 1].StationID).ToString(),
                         Distance = distance,
                         Average_drive_time=new TimeSpan(minutes/60, minutes%60, 0),
-                        Exists=true
+                        
                     });
                     
                    
