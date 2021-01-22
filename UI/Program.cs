@@ -117,7 +117,7 @@ namespace PlConsole
             //    {
             //        Console.WriteLine(e.Message);
             //    }
-            //    bl.AddTwoConsecutiveStops(code1, code2, rnd.Next(), new TimeSpan(6, 0, 0));
+            //    bl.AddAdjacentStations(code1, code2, rnd.Next(), new TimeSpan(6, 0, 0));
             //}
 
 
@@ -256,7 +256,7 @@ namespace PlConsole
             //        {
             //            Console.WriteLine(e.Message);
             //        }
-            //        bl.AddTwoConsecutiveStops(code1, code2, rnd.Next(), new TimeSpan(6, 0, 0));
+            //        bl.AddAdjacentStations(code1, code2, rnd.Next(), new TimeSpan(6, 0, 0));
             //    }
             //    BusLine bline2 = bl.GetBusLine(2000002);
 
@@ -309,7 +309,7 @@ namespace PlConsole
           //          {
           //              Console.WriteLine(e.Message);
           //          }
-          //          bl.AddTwoConsecutiveStops(code1, code2, rnd.Next(), new TimeSpan(6, 0, 0));
+          //          bl.AddAdjacentStations(code1, code2, rnd.Next(), new TimeSpan(6, 0, 0));
           //      }
           //      BusLine bline2 = bl.GetBusLine(2000002);
           //      List<StationOnTheLine> stationlist2 = bline2.Stations.ToList();

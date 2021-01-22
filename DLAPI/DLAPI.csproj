@@ -55,7 +55,7 @@
     <Compile Include="IDal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BusStation.cs" />
-    <Compile Include="TwoConsecutiveStops.cs" />
+    <Compile Include="AdjacentStations.cs" />
     <Compile Include="User.cs" />
     <Compile Include="UserRide.cs" />
   </ItemGroup>

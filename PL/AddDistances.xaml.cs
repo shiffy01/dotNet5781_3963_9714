@@ -71,7 +71,7 @@ namespace PL
         {
             //try
             //{
-            //    bl.AddTwoConsecutiveStops(Code1, Code2, new TimeSpan())
+            //    bl.AddAdjacentStations(Code1, Code2, new TimeSpan())
             //}
             //createDi
             this.DialogResult = true;

@@ -20,8 +20,8 @@ namespace DS
         public static List<BusLine> Lines { get => lines; }
         private static List<BusLineStation> line_stations = new List<BusLineStation>();
         public static List<BusLineStation> Line_stations{ get => line_stations; }
-        private static List<TwoConsecutiveStops> two_stops = new List<TwoConsecutiveStops>();
-        public static List<TwoConsecutiveStops> Two_stops{ get => two_stops; }
+        private static List<AdjacentStations> two_stops = new List<AdjacentStations>();
+        public static List<AdjacentStations> Two_stops{ get => two_stops; }
         private static List<BusDeparted> departed = new List<BusDeparted>();
         public static List<BusDeparted> Departed{ get => departed; }
         public static double Distance_Between_Two_Stops(BusStation station1, BusStation station2)
@@ -1348,7 +1348,7 @@ namespace DS
                     if (distance == 0)
                         distance = 1;
                     int minutes = (int)(6 * distance) / 5;//average speed is 50 km per hour
-                    Two_stops.Add(new TwoConsecutiveStops 
+                    Two_stops.Add(new AdjacentStations 
                     {
                         
                         Stop_1_code = Line_stations[j].StationID,

@@ -12,7 +12,7 @@ namespace DL
     public class XMLtools
     {
         static string dir = @"xml\";
-        static XMLTools()
+        static XMLtools()
         {
             if (!Directory.Exists(dir))
                 Directory.CreateDirectory(dir);

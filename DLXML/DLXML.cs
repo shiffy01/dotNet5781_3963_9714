@@ -40,7 +40,7 @@ namespace DL
         string busLinePath = @"busLineXml.xml";
         string busStationPath = @"busStationXml.xml";
         string busPath = @"busXml.xml";
-        string twoConsecutiveStopsPath = @"twoConsecutiveStopsXml.xml";
+        string adjacentStationsPath = @"twoConsecutiveStopsXml.xml";
         string busLineStationPath = @"busLineStationXml.xml";
         #endregion
         #region Bus implementation finished
@@ -105,7 +105,7 @@ namespace DL
             List<Bus> Listbus = XMLtools.LoadListFromXMLSerializer<Bus>(busPath);
             return from bus in Listbus
                    where (predicate(bus) && bus.Exists)
-                   select bus.Clone();
+                   select bus;
         }    //Done!!
 
         #endregion
@@ -113,14 +113,16 @@ namespace DL
         #region BusLine implementation finished!
         public BusLine AddBusLine(int line_number, bool inter_city, string dest, string org, DateTime first, DateTime last, TimeSpan freq)
         {
-            List<BusLine> ListLines = XMLtools.LoadListFromXMLSerializer<BusLine>(busLinePath);
+            IEnumerable<BusLine> ListLines = XMLtools.LoadListFromXMLSerializer<BusLine>(busLinePath).OrderBy(line => line.BusID);
+            List<BusLine> list = ListLines.ToList();
+
             bool exists =
                ListLines.Any(p => p.Exists == true && p.BusID == line_number);
             if (exists)
                 throw new BusLineAlreadyExistsException();//does it need to say something inside?
 
             BusLine newBus = new BusLine {
-                BusID = DS.Config.BusLineCounter,
+                BusID = ++list[list.Count()].BusID,
                 Bus_line_number = line_number,
                 InterCity = inter_city,
                 Destination = dest,
@@ -133,8 +135,8 @@ namespace DL
 
 
             //dont need to clone bec i built it here
-            ListLines.Add(newBus);
-            XMLtools.SaveListToXMLSerializer(ListLines, busLinePath);
+            list.Add(newBus);
+            XMLtools.SaveListToXMLSerializer(list, busLinePath);
             return newBus;
         }
         public void DeleteBusLine(int busID)
@@ -365,103 +367,114 @@ namespace DL
         }   //done!!
         #endregion
 
-        #region TwoConsecutiveStops  implementation
-        public void AddTwoConsecutiveStops(int code_1, int code_2, double distance, TimeSpan drive_time)
+        #region AdjacentStations  implementation
+        public void AddAdjacentStations(int code_1, int code_2, double distance, TimeSpan drive_time)
+        {
+
+            XElement StationsRootElem = XMLtools.LoadListFromXMLElement(adjacentStationsPath);
+
+            XElement station1 = (from s in StationsRootElem.Elements()
+                             where s.Element("PairID").Value == code_1.ToString()+code_2.ToString()
+                             select s).FirstOrDefault();
+
+            if (station1 != null)
+                throw new PairAlreadyExitsException(" Pair already exists in the system");
+
+            XElement stationElem = new XElement("AdjacentStations", new XElement("PairID", code_1.ToString() + code_2.ToString()),
+                                  new XElement("Stop_1_code", code_1),
+                                  new XElement("Stop_2_code", code_2),
+                                  new XElement("Distance", distance),
+                                  new XElement("Average_drive_time", (int)drive_time.TotalMinutes)
+                                );
+
+            StationsRootElem.Add(stationElem);
+
+            XMLtools.SaveListToXMLElement(StationsRootElem, adjacentStationsPath);
+        }//done!!
+        public void UpdateAdjacentStations(AdjacentStations adjacentStations)
+        {
+
+            XElement stationsRootElem = XMLtools.LoadListFromXMLElement(adjacentStationsPath);
+
+            XElement stations = (from s in stationsRootElem.Elements()
+                            where s.Element("PairID").Value== adjacentStations.PairID
+                            select s).FirstOrDefault();
+
+            if (stations != null)
+            {
+                stations.Element("PairID").Value = adjacentStations.PairID;
+                stations.Element("Stop_1_code").Value = adjacentStations.Stop_1_code.ToString();
+                stations.Element("Stop_2_code").Value = adjacentStations.Stop_2_code.ToString();
+                stations.Element("Distance").Value = adjacentStations.Distance.ToString();
+                stations.Element("Average_drive_time").Value = ((int)(adjacentStations.Average_drive_time.TotalMinutes)).ToString();
+
+                XMLtools.SaveListToXMLElement(stationsRootElem, adjacentStationsPath);
+            }
+            else
+                throw new PairNotFoundException("Pair not found in system");
+        }//done!!
+        public void DeleteAdjacentStations(string pairID)
+        {
+            XElement stationsRootElem = XMLtools.LoadListFromXMLElement(adjacentStationsPath);
+
+            XElement stations = (from s in stationsRootElem.Elements()
+                            where s.Element("PairID").Value == pairID
+                            select s).FirstOrDefault();
+
+            if (stations != null)
+            {
+                stations.Remove(); 
+
+                XMLtools.SaveListToXMLElement(stationsRootElem, adjacentStationsPath);
+            }
+            else
+                throw new PairNotFoundException("Pair not found in system");
+        }//done!!
+        public AdjacentStations GetAdjacentStations(string pairID)
         {
            
-            if (DataSource.Two_stops.FirstOrDefault(tmpTwo_stops => (tmpTwo_stops.PairID == (code_1.ToString() + code_2.ToString())) && tmpTwo_stops.Exists) != default(TwoConsecutiveStops))
-            {
-                throw new PairAlreadyExitsException(" Pair already exists in the system");
-            }
+            XElement stopsRoot = XMLtools.LoadListFromXMLElement(adjacentStationsPath);
+            AdjacentStations stops = (from stop in stopsRoot.Elements()
+                                      where stop.Element("PairID").Value == pairID
+                                      select new AdjacentStations() {
+                                          PairID=stop.Element("PairID").Value,
+                                          Stop_1_code=int.Parse(stop.Element("Stop_1_code").Value),
+                                          Stop_2_code = int.Parse(stop.Element("Stop_2_code").Value),
+                                          Distance=double.Parse(stop.Element("Distance").Value),
+                                          Average_drive_time = new TimeSpan((int.Parse(stop.Element("Average_drive_time").Value) / 60), (int.Parse(stop.Element("Average_drive_time").Value) % 60), 0)
 
-            DataSource.Two_stops.Add(new TwoConsecutiveStops {
-                Stop_1_code = code_1,
-                Stop_2_code = code_2,
-                PairID = (code_1.ToString() + code_2.ToString()),
-                Distance = distance,
-                Average_drive_time = drive_time,
-                Exists = true
-            });
-        }//done!!
-        public void UpdateTwoConsecutiveStops(TwoConsecutiveStops twoConsecutiveStops)
-        {
-
-            TwoConsecutiveStops findTwoStops = DataSource.Two_stops.FirstOrDefault(tmpTwo_stops => tmpTwo_stops.PairID == twoConsecutiveStops.PairID && tmpTwo_stops.Exists);
-
-            if (findTwoStops != default(TwoConsecutiveStops))
-            {
-                DataSource.Two_stops.Remove(findTwoStops);
-                DataSource.Two_stops.Add(twoConsecutiveStops.Clone());
-            }
-            else
-                throw new PairNotFoundException("Pair not found in system");
-        }//done!!
-        public void DeleteTwoConsecutiveStops(string pairID)
-        {
-            TwoConsecutiveStops findTwoStops = DataSource.Two_stops.FirstOrDefault(tmpTwo_stops => tmpTwo_stops.PairID == pairID && tmpTwo_stops.Exists);
-            if (findTwoStops != default(TwoConsecutiveStops))
-            {
-
-                findTwoStops.Exists = false;
-
-            }
-            else
-                throw new PairNotFoundException("Pair not found in system");
-        }//done!!
-        public TwoConsecutiveStops GetTwoConsecutiveStops(string pairID)
-        {
-            /*
-            *  XElement personsRootElem = XMLTools.LoadListFromXMLElement(personsPath);
-
-           Person p =  (from per in personsRootElem.Elements()
-                           where int.Parse(per.Element("ID").Value) == id
-                           select new Person()
-                           {
-                               ID = Int32.Parse(per.Element("ID").Value),
-                               Name = per.Element("Name").Value,
-                               Street = per.Element("Street").Value,
-                               HouseNumber = Int32.Parse(per.Element("HouseNumber").Value),
-                               City = per.Element("City").Value,
-                               BirthDate = DateTime.Parse(per.Element("BirthDate").Value),
-                               PersonalStatus = (PersonalStatus)Enum.Parse(typeof(PersonalStatus), per.Element("PersonalStatus").Value),
-                               Duration = TimeSpan.ParseExact(per.Element("Duration").Value,"hh\\:mm\\:ss", CultureInfo.InvariantCulture)
-                           
-                       ).FirstOrDefault();
-
-           if (p == null)
-               throw new DO.BadPersonIdException(id, $"bad person id: {id}");
-
-           return p;
-            */
-            XElement stopsRoot = XMLtools.LoadListFromXMLElement(twoConsecutiveStopsPath);
-            TwoConsecutiveStops stops=(from stop in stopsRoot.Elements()
-                                       where stop.Element("PairID").Value==pairID
-                                       select new tw
-            //string id = pairID;
-            //TwoConsecutiveStops findTwoStops = DataSource.Two_stops.FirstOrDefault(tmpTwo_stops => tmpTwo_stops.PairID == id && tmpTwo_stops.Exists);
-            //if (findTwoStops != default(TwoConsecutiveStops))
-            //    return findTwoStops.Clone();
-            //else
-            //    throw new PairNotFoundException(pairID + "  Pair not found in system");
+                                      }).FirstOrDefault();
+            if(stops==null)
+                throw new PairNotFoundException(pairID + "  Pair not found in system");
+            return stops;
         }///done!! 
-        public IEnumerable<TwoConsecutiveStops> GetAllPairs()
+        public IEnumerable<AdjacentStations> GetAllPairs()
         {
-            return from pair in DataSource.Two_stops
-                   where pair.Exists
-                   select pair.Clone();
-        }   //done!!
-        public bool TwoConsecutiveStopsExists(string pairID)
+            XElement stopsRoot = XMLtools.LoadListFromXMLElement(adjacentStationsPath);
+            IEnumerable<AdjacentStations> stops = (from stop in stopsRoot.Elements()
+                                      select new AdjacentStations() {
+                                          PairID = stop.Element("PairID").Value,
+                                          Stop_1_code = int.Parse(stop.Element("Stop_1_code").Value),
+                                          Stop_2_code = int.Parse(stop.Element("Stop_2_code").Value),
+                                          Distance = double.Parse(stop.Element("Distance").Value),
+                                         Average_drive_time=new TimeSpan((int.Parse(stop.Element("Average_drive_time").Value)/60), (int.Parse(stop.Element("Average_drive_time").Value) % 60), 0)
+
+                                      });
+            return stops;
+            
+        }   //done!! 
+        public bool AdjacentStationsExists(string pairID)
         {
             try
             {
-                GetTwoConsecutiveStops(pairID);
+                GetAdjacentStations(pairID);
                 return true;
             }
             catch (PairNotFoundException)
             {
                 return false;
             }
-        }
+        }//done
         #endregion
     }
 }
