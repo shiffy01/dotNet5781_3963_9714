@@ -451,7 +451,7 @@ namespace BL
             }
             catch (DO.PairAlreadyExitsException ex)
             {
-                throw new PairAlreadyExitsException("the pair already exists in the system", ex);
+                throw new PairAlreadyExistsException("the pair already exists in the system", ex);
             }
         }
 

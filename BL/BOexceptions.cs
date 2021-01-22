@@ -122,7 +122,7 @@ namespace BO
         public override string ToString() => base.ToString() + $",Codes: {CodeA} and {CodeB} already have a distance between them";
     }
     [Serializable]
-    public class PairAlreadyExitsException : Exception
+    public class PairAlreadyExistsException : Exception
     {
         public PairAlreadyExitsException() : base() { }
         public PairAlreadyExitsException(string message) : base(message) { }
