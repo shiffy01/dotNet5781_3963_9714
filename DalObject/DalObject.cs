@@ -364,7 +364,7 @@ namespace DL
         }//done!!
         public void DeleteAdjacentStations(string pairID)
         {
-            AdjacentStations findTwoStops = DataSource.Two_stops.FirstOrDefault(tmpTwo_stops => tmpTwo_stops.PairID == pairID&&tmpTwo_stops.Exists);
+            AdjacentStations findTwoStops = DataSource.Two_stops.FirstOrDefault(tmpTwo_stops => tmpTwo_stops.PairID == pairID);
             if (findTwoStops != default(AdjacentStations))
             {
                 DataSource.Two_stops.Remove(findTwoStops);

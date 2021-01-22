@@ -124,9 +124,9 @@ namespace BO
     [Serializable]
     public class PairAlreadyExistsException : Exception
     {
-        public PairAlreadyExitsException() : base() { }
-        public PairAlreadyExitsException(string message) : base(message) { }
-        public PairAlreadyExitsException(string message, Exception inner) : base(message, inner) { }
+        public PairAlreadyExistsException() : base() { }
+        public PairAlreadyExistsException(string message) : base(message) { }
+        public PairAlreadyExistsException(string message, Exception inner) : base(message, inner) { }
         public override string ToString() => base.ToString() + " Pair already exists in the system";
     }
     [Serializable]
