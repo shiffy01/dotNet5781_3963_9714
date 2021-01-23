@@ -86,7 +86,8 @@ namespace PL
                 if (distances != null)
                 {
                     AddDistances addDistances = new AddDistances(distances);
-                    addDistances.Show();
+                    addDistances.ShowDialog();
+                    this.Close();
                 }
             }
             catch (BusLineNotFoundException ex)

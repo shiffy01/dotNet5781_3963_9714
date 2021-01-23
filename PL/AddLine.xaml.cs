@@ -25,7 +25,7 @@ namespace PL
         static IBL bl;
         ObservableCollection<BusStation> all_stations;
         List<int> stationsToAdd;
-        
+        int Hours, Minutes;
         void initialize()
         {
             bl = BlFactory.GetBl();
@@ -38,13 +38,38 @@ namespace PL
             InitializeComponent();
             initialize();
             busStationDataGrid.DataContext = all_stations;
+            freq.Text = "00:00";
         }
-
+        private void splitStringTOTwoInts(string str, ref int num1, ref int num2, char splitHere)
+        {
+            string[] codes = str.Split(splitHere);
+            try
+            {
+                num1 = Int32.Parse(codes[0]);
+            }
+            catch (FormatException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            try
+            {
+                num2 = Int32.Parse(codes[1]);
+            }
+            catch (FormatException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
         private bool canUpdate()
         {   
             if (string.IsNullOrWhiteSpace(line_number.Text))
                 return false;
             if (stationsToAdd.Count < 2)
+                return false;
+            if (!freq.IsMaskFull)
+                return false;
+            splitStringTOTwoInts(freq.Text, ref Hours, ref Minutes, ':');
+            if (Minutes > 59 || (Minutes == 0 && Hours == 0))
                 return false;
             return true;
         }
@@ -134,14 +159,14 @@ namespace PL
             try
             {
                // TimeSpan frequency = new TimeSpan(freq.Value.Value.Hour, freq.Value.Value.Minute, 0);
-               // needed_distances=bl.AddBusLine(int.Parse(line_number.Text), stationsToAdd, first_bus.Value.Value, last_bus.Value.Value, frequency);
+               needed_distances=bl.AddBusLine(int.Parse(line_number.Text), stationsToAdd, first_bus.Value.Value, last_bus.Value.Value, new TimeSpan(0, 10, 0));
                 MessageBoxResult mb = MessageBox.Show("The bus was added to the system");
-                if (needed_distances == null)
+                if (needed_distances == null||needed_distances.Count==0)
                     this.Close();
                 else
                 {
                     AddDistances addDistances = new AddDistances(needed_distances);
-                    addDistances.Show();
+                    addDistances.ShowDialog();
                     this.Close();
                 }
             }
@@ -160,10 +185,16 @@ namespace PL
                 System.Windows.MessageBoxResult mb = MessageBox.Show("Something has gone wrong. For an unknown reason, this busline cannot be added to the system. We regret the error");
                 this.Close();
             }
-           
-           
-        }
 
+
+        }
+        private void freqChanged(object sender, RoutedEventArgs e)
+        {
+            if (canUpdate())
+                add_button.IsEnabled = true;
+            else
+                add_button.IsEnabled = false;
+        }
         private void busStationDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 

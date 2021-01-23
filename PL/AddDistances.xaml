@@ -27,14 +27,14 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Label x:Name="ask_for_distance_label"  Grid.Column="1" >Question:</Label>
-        <xctk:MaskedTextBox x:Name="distanceMTB"  Grid.Column="1" Grid.Row="1" MinWidth="250" ValueDataType="{x:Type s:Double}"  BeepOnError="True"/>
+        <xctk:MaskedTextBox x:Name="distanceMTB" TextChanged="distance_textChanged"  Grid.Column="1" Grid.Row="1" MinWidth="250" ValueDataType="{x:Type s:Double}"/>
         <!--<TextBox x:Name="distanceTB" Grid.Column="1" Grid.Row="1" MinWidth="250" >Answer:</TextBox>-->
         <Label x:Name="ask_for_driveTime_label" Grid.Row="4"  Grid.Column="1">Question:</Label>
         <WrapPanel Grid.Row="9" Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="0,15,0,0">
             <Button IsDefault="True" x:Name="btnDialogOk"  Click="btnDialogOk_Click" MinWidth="60" Margin="0,0,10,0" Content="_Ok"/>
             <Button IsCancel="False" x:Name="cancel_btn" Click="cancel_btn_click" MinWidth="60" Content="_Cancel"/>
         </WrapPanel>
-        <xctk:MaskedTextBox x:Name="averageDriveTimeMSB"  Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="0,5.333,0,0" Grid.Row="5" TextWrapping="Wrap" ValueDataType="{x:Type s:Int32}" Text="MaskedTextBox" VerticalAlignment="Top" Width="Auto" Mask="HH:MM" Grid.RowSpan="3" TextChanged="averageDriveTimeMSB_TextChanged"/>
+        <xctk:MaskedTextBox x:Name="averageDriveTimeMSB"  Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="0,5.333,0,0" Grid.Row="5" TextWrapping="Wrap" ValueDataType="{x:Type s:Int32}" Text="MaskedTextBox" VerticalAlignment="Top" Width="Auto" Mask="00:00" Grid.RowSpan="3" TextChanged="averageDriveTimeMSB_TextChanged"/>
         <Label x:Name="errorLabel" Content="Incorrect format"  Grid.Row="8" Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Top" Foreground="#FFDC1F1F" FontStyle="Italic" Visibility="Hidden"/>
     </Grid>
 </Window>

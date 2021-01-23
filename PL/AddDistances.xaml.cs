@@ -33,7 +33,6 @@ namespace PL
         int Code2;
         string askForDistance;
         string askForTime;
-        int Days;
         int Hours;
         int Minutes;
 
@@ -75,23 +74,40 @@ namespace PL
         private void createDialogeContent()
         {
             splitStringTOTwoInts(PairIds[Index], ref Code1, ref Code2, '*');
-            askForDistance = $"Please enter the distance between station:{Code1} and station:{Code2}";
+            distanceMTB.Text = "";
+            averageDriveTimeMSB.Text="00:00";
+             askForDistance = $"Please enter the distance between station: {Code1} and station: {Code2}";
             ask_for_distance_label.Content = askForDistance;
         }
         private bool correctTimeFormat()
         {
             splitStringTOTwoInts(averageDriveTimeMSB.Text, ref Hours, ref Minutes, ':');
 
-            if (Minutes > 59)
+            if (Minutes > 59 || distanceMTB.Text == null || distanceMTB.Text == ""||(Minutes==0&&Hours==0))
             {
                 //throw trigger to change text to red
                 errorLabel.Visibility = Visibility.Visible;
                 return false;
             }
+            try 
+            {
+                if (double.Parse(distanceMTB.Text) == 0)
+                {
+                    errorLabel.Visibility = Visibility.Visible;
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                errorLabel.Visibility = Visibility.Visible;
+                return false;
+            }
+            errorLabel.Visibility = Visibility.Hidden;
             return true;
-        }
+            }
         private void btnDialogOk_Click(object sender, RoutedEventArgs e)
         {
+          
             if (averageDriveTimeMSB.IsMaskFull)
             {
                 if (!correctTimeFormat())
@@ -124,28 +140,33 @@ namespace PL
             }
 
         }
-
         private void Window_ContentRendered(object sender, EventArgs e)
         {
             distanceMTB.SelectAll();
             distanceMTB.Focus();
         }
-
         private void averageDriveTimeMSB_TextChanged(object sender, TextChangedEventArgs e)
         {
+            
+            
             if (averageDriveTimeMSB.IsMaskFull)
                 correctTimeFormat();
         }
-
+        private void distance_textChanged(object sender, TextChangedEventArgs e)
+        {
+            correctTimeFormat();
+        }
         private void cancel_btn_click(object sender, RoutedEventArgs e)
         {
             
             MessageBoxResult result = System.Windows.MessageBox.Show(@"             Are you sure you want to cancel?
-                                                         By canceling, the remaining distances will be set to random values.", " Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                                             By canceling, the remaining distances will be set to random values.", " Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
             if (result == MessageBoxResult.Yes)
             {
+                
                 for (int i = Index; i < PairIds.Count; i++)
                 {
+                   splitStringTOTwoInts(PairIds[i], ref Code1, ref Code2, '*');
                     try
                     {
                         bl.AddAdjacentStations(Code1, Code2, 200, new TimeSpan(00, 12, 00));

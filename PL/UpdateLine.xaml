@@ -23,11 +23,11 @@
 
 
 
-        <TextBox x:Name="bus_line_numberTextBox" Text="{Binding Mode=OneWay}" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" HorizontalAlignment="Left" Height="42" Margin="158,63,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="71" RenderTransformOrigin="0.273,0.634" />
+        <TextBox x:Name="bus_line_numberTextBox" TextChanged="change" Text="{Binding Mode=OneWay}" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" HorizontalAlignment="Left" Height="27" Margin="158,63,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="49" RenderTransformOrigin="0.273,0.634" />
         <Label x:Name="bus_line_number_label" Content="line number:" HorizontalAlignment="Left" Margin="55,63,0,0" VerticalAlignment="Top" Height="42" Width="69"/>
 
 
-        <Button Content="Add stops" HorizontalAlignment="Left" Margin="451,300,0,0" VerticalAlignment="Top" Width="260" Height="65" Click="Button_Click"/>
+        <Button Content="Add stops" HorizontalAlignment="Left" Margin="451,300,0,0" VerticalAlignment="Top" Width="260" Height="65" Click="Add_Stations_Button_Click"/>
         <DataGrid x:Name="stationOnTheLineDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="311,63,82.333,157.667" RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
                 <DataGridTemplateColumn x:Name="number_on_routeColumn" Header="Number" Width="SizeToHeader">
@@ -71,14 +71,18 @@
         </DataGrid>
 
 
-        <xctk:TimePicker x:Name="last_bus" TimeInterval="00:01"  HorizontalAlignment="Left" Margin="83,268,0,0" VerticalAlignment="Top"/>
+        <xctk:TimePicker x:Name="last_bus" ValueChanged="change" TimeInterval="00:01"  HorizontalAlignment="Left" Margin="83,268,0,0" VerticalAlignment="Top" Width="92"/>
 
-        <xctk:TimePicker x:Name="first_bus"  TimeInterval="00:01"   HorizontalAlignment="Left" Margin="83,168,0,0" VerticalAlignment="Top"/>
+        <xctk:TimePicker x:Name="first_bus" ValueChanged="change" TimeInterval="00:01"  HorizontalAlignment="Left" Margin="83,168,0,0" VerticalAlignment="Top" Width="92"/>
+        <xctk:MaskedTextBox x:Name="freq" Mask="00:00" TextChanged="change" HorizontalAlignment="Left" Height="22" Margin="74,345,0,0" TextWrapping="Wrap" Text="MaskedTextBox" VerticalAlignment="Top" Width="50"/>
+       
 
 
-        <ms:TimeSpanPicker HorizontalAlignment="Left" Margin="66,356,0,0" VerticalAlignment="Top"/>
-        <xctk:MaskedTextBox x:Name="freq"  TextChanged="text_changed" Mask="00:00" HorizontalAlignment="Left" Height="23" Margin="243,289,0,0" TextWrapping="Wrap" Text="MaskedTextBox" VerticalAlignment="Top" Width="48"/>
-        
+
+
+
+
+
 
 
     </Grid>

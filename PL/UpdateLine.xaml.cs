@@ -27,14 +27,17 @@ namespace PL
     {
         static IBL bl;
         BusLine Line;
-        bool first_bus_changed = false;
-        bool last_bus_changed = false;
+        int Hours;
+        int Minutes;
+
         private void initialize()
         {
             bus_line_numberTextBox.DataContext = Line.Bus_line_number;
-            stationOnTheLineDataGrid.DataContext = Line.Stations.OrderBy(station=>station.Number_on_route);
+            Line = bl.GetBusLine(Line.BusID);
+            stationOnTheLineDataGrid.DataContext = Line.Stations.OrderBy(station => station.Number_on_route);
             first_bus.DefaultValue = Line.First_bus;
             last_bus.DefaultValue = Line.Last_bus;
+            //frequencyPicker.
         }
         public UpdateLine(BusLine line)
         {
@@ -42,9 +45,28 @@ namespace PL
             InitializeComponent();
             Line = line;
             initialize();
-            
-        }
 
+        }
+        private void splitStringTOTwoInts(string str, ref int num1, ref int num2, char splitHere)
+        {
+            string[] codes = str.Split(splitHere);
+            try
+            {
+                num1 = Int32.Parse(codes[0]);
+            }
+            catch (FormatException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            try
+            {
+                num2 = Int32.Parse(codes[1]);
+            }
+            catch (FormatException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
@@ -59,7 +81,15 @@ namespace PL
             // stationOnTheLineViewSource.Source = [generic data source]
         }
 
+        private void change(object sender, EventArgs e)
+        {
+            splitStringTOTwoInts(freq.Text, ref Hours, ref Minutes, ':');
 
+            if (Minutes <= 59||(Minutes==0&&Hours==0))
+            {
+                updateButton.IsEnabled = true;
+            }
+        }
         private void TextBox_OnlyNumbers_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             TextBox text = sender as TextBox;
@@ -92,10 +122,10 @@ namespace PL
 
 
         }
-        private void bus_line_numberTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
+        //private void bus_line_numberTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        //{
 
-        }
+        //}
 
         //private void first_bus_hrs_tb_TextChanged(object sender, TextChangedEventArgs e)
         //{
@@ -104,92 +134,104 @@ namespace PL
 
 
         //}
-        private void text_changed(object sender, TextChangedEventArgs e)
-        {
-            string hour="", minutes="";
-            if (freq.Text == "__:__")
-                return;
-            string []numbers= freq.Text.Split(':');
-            if (numbers[0].Contains("_"))
-            {
-               hour=numbers[0].Replace("_", "");
-            }
-            if (numbers[1].Contains("_"))
-            {
-               minutes= numbers[1].Replace("_", "");
-            }
-            if (!(numbers[0]==""))
-                if (int.Parse(hour) > 23)
-                    freq.Text = "__:__";
-            if (!(numbers[0] == ""))
-                if (int.Parse(minutes) > 59)
-                    freq.Text = "__:__";
-        }
-        private void HoursLostFocus(object sender, RoutedEventArgs e)
-        {
-            TextBox text = sender as TextBox;
-            if (text == null) return;
-            if (e == null) return;
+        //private void text_changed(object sender, TextChangedEventArgs e)
+        //{
+        //    string hour="", minutes="";
+        //    if (freq.Text == "__:__")
+        //        return;
+        //    string []numbers= freq.Text.Split(':');
+        //    if (numbers[0].Contains("_"))
+        //    {
+        //       hour=numbers[0].Replace("_", "");
+        //    }
+        //    if (numbers[1].Contains("_"))
+        //    {
+        //       minutes= numbers[1].Replace("_", "");
+        //    }
+        //    if (!(numbers[0]==""))
+        //        if (int.Parse(hour) > 23)
+        //            freq.Text = "__:__";
+        //    if (!(numbers[0] == ""))
+        //        if (int.Parse(minutes) > 59)
+        //            freq.Text = "__:__";
+        //}
+        //private void HoursLostFocus(object sender, RoutedEventArgs e)
+        //{
+        //    TextBox text = sender as TextBox;
+        //    if (text == null) return;
+        //    if (e == null) return;
 
-            if (int.Parse(text.Text) > 23)
-            {
-                updateButton.IsEnabled = false;
-                text.Text.Replace(text.Text, text.DataContext.ToString());
-            }
-        }
-        private void MinutesLostFocus(object sender, RoutedEventArgs e)
-        {
-            TextBox text = sender as TextBox;
-            if (text == null) return;
-            if (e == null) return;
+        //    if (int.Parse(text.Text) > 23)
+        //    {
+        //        updateButton.IsEnabled = false;
+        //        text.Text.Replace(text.Text, text.DataContext.ToString());
+        //    }
+        //}
+        //private void MinutesLostFocus(object sender, RoutedEventArgs e)
+        //{
+        //    TextBox text = sender as TextBox;
+        //    if (text == null) return;
+        //    if (e == null) return;
 
-            if (int.Parse(text.Text) > 23)
-            {
-                updateButton.IsEnabled = false;
-                text.Text.Replace(text.Text, text.DataContext.ToString());
-            }
-        }
-        private void UpdateButton_Click(object sender, RoutedEventArgs e)
-        {
-            int first_year = 2021, first_month = 01, first_day = 01, last_year = 2021, last_month = 01, last_day = 01;
+        //    if (int.Parse(text.Text) > 23)
+        //    {
+        //        updateButton.IsEnabled = false;
+        //        text.Text.Replace(text.Text, text.DataContext.ToString());
+        //    }
+        //}
+        //private void UpdateButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    int first_year = 2021, first_month = 01, first_day = 01, last_year = 2021, last_month = 01, last_day = 01;
 
-            if (first_bus_changed || !last_bus_changed)
-            {
-                first_year = Line.Last_bus.Year;
-                first_month = Line.Last_bus.Month;
-                first_day = Line.Last_bus.Day;
-            }
-            if (!first_bus_changed || last_bus_changed)
-            {
-                last_year = Line.First_bus.Year;
-                last_month = Line.First_bus.Month;
-                last_day = Line.First_bus.Day;
-            }
-            try
-            {
+        //    if (first_bus_changed || !last_bus_changed)
+        //    {
+        //        first_year = Line.Last_bus.Year;
+        //        first_month = Line.Last_bus.Month;
+        //        first_day = Line.Last_bus.Day;
+        //    }
+        //    if (!first_bus_changed || last_bus_changed)
+        //    {
+        //        last_year = Line.First_bus.Year;
+        //        last_month = Line.First_bus.Month;
+        //        last_day = Line.First_bus.Day;
+        //    }
+        //    try
+        //    {
                 
-                TimeSpan frequency = new TimeSpan(0, 0, 0);
-               bl.UpdateBusLine(first_bus.Value.Value, last_bus.Value.Value, frequency, Line.BusID, int.Parse(bus_line_numberTextBox.Text));
-                MessageBoxResult mb = MessageBox.Show("The bus line was updated successfully");
-                updateButton.IsEnabled = false;
-            }
-            catch (FrequencyConflictException ex)
-            {
-                MessageBoxResult mb = MessageBox.Show(ex.Message);
-            }
-            catch (BusLineNotFoundException)
-            {
-                MessageBoxResult mb = MessageBox.Show("Something has gone wrong. For an unknown reason, this busline cannot be added to the system. We regret the error");
-            }
-        }
+        //        TimeSpan frequency = new TimeSpan(0, 0, 0);
+        //       bl.UpdateBusLine(first_bus.Value.Value, last_bus.Value.Value, frequency, Line.BusID, int.Parse(bus_line_numberTextBox.Text));
+        //        MessageBoxResult mb = MessageBox.Show("The bus line was updated successfully");
+        //        updateButton.IsEnabled = false;
+        //    }
+        //    catch (FrequencyConflictException ex)
+        //    {
+        //        MessageBoxResult mb = MessageBox.Show(ex.Message);
+        //    }
+        //    catch (BusLineNotFoundException)
+        //    {
+        //        MessageBoxResult mb = MessageBox.Show("Something has gone wrong. For an unknown reason, this busline cannot be added to the system. We regret the error");
+        //    }
+        //}
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Add_Stations_Button_Click(object sender, RoutedEventArgs e)
         {
             AddStationToLine addStationToLine = new AddStationToLine(Line);
             addStationToLine.Show();
             addStationToLine.Closed += AddStationToLine_Closed;
         }
-
+        private void UpdateButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                splitStringTOTwoInts(freq.Text, ref Hours, ref Minutes, ':');
+                bl.UpdateBusLine(first_bus.Value.Value, last_bus.Value.Value, new TimeSpan(Hours, Minutes, 0), Line.BusID, int.Parse(bus_line_numberTextBox.Text));
+                System.Windows.MessageBoxResult mb = MessageBox.Show("Bus updated successfully");
+            }
+            catch (FrequencyConflictException ex) 
+            {
+                System.Windows.MessageBoxResult mb = MessageBox.Show("Cannot update, frequency is not valid");
+            }
+        }
         private void AddStationToLine_Closed(object sender, EventArgs e)
         {
             initialize();
@@ -224,7 +266,7 @@ namespace PL
                             List<string> distances = new List<string>();
                             distances.Add(distance);
                             AddDistances addDistances = new AddDistances(distances);
-                            addDistances.Show();
+                            addDistances.ShowDialog();
                         }
                         break;
                     }

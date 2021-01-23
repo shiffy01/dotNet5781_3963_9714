@@ -18,7 +18,7 @@
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <CheckBox Checked="got_checked" Unchecked="got_unchecked"/>
+                            <CheckBox IsChecked="False" Checked="got_checked" Unchecked="got_unchecked"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -48,11 +48,12 @@
         <xctk:TimePicker x:Name="first_bus" TimeInterval="00:01" DefaultValue="8:00" HorizontalAlignment="Left" Margin="55,163,0,0" VerticalAlignment="Top" Height="45" Width="132"/>
        
         <xctk:TimePicker x:Name="last_bus" TimeInterval="00:01" DefaultValue="22:00" HorizontalAlignment="Left" Margin="55,256,0,0" VerticalAlignment="Top" Height="39" Width="120"/>
+        <xctk:MaskedTextBox x:Name="freq" Mask="00:00" TextChanged="freqChanged" HorizontalAlignment="Left" Height="23" Margin="104,356,0,0" TextWrapping="Wrap" Text="MaskedTextBox" VerticalAlignment="Top" Width="120"/>
 
 
 
 
-        <ms:TimeSpanPicker  HorizontalAlignment="Left" Margin="73,351,0,0" VerticalAlignment="Top"/>
+
 
 
 

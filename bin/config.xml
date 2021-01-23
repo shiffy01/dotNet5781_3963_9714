@@ -2,8 +2,8 @@
 <config>
   <dal>data</dal>
   <dal-packages>
-    <data>DLXML</data>
-    <xml namespace="DL" class="DLXML"> DLXML</xml>
+    <data>DalObject</data>
+    <xml namespace="DL" class="DalObject"> DalObject</xml>
     </dal-packages>
 </config>
 
