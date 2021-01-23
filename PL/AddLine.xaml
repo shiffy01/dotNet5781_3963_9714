@@ -29,26 +29,26 @@
 
 
 
-        <TextBlock HorizontalAlignment="Left" Margin="55,110,0,0" TextWrapping="Wrap" Text=":בחר את שעת היציאה של האוטובוס הראשון" VerticalAlignment="Top" Height="53" Width="126"/>
-        <TextBlock HorizontalAlignment="Left" Margin="55,215,0,0" TextWrapping="Wrap" Text=":בחר את שעת היציאה של האוטובוס האחרון" VerticalAlignment="Top" Height="48" Width="126"/>
-        <TextBlock HorizontalAlignment="Left" Margin="37,27,0,0" TextWrapping="Wrap" Text="choose a number for your line:" VerticalAlignment="Top" Height="56" Width="97"/>
-        <TextBlock HorizontalAlignment="Left" Margin="49,300,0,0" TextWrapping="Wrap" Text="Enter frequency:" VerticalAlignment="Top" Height="51" Width="126"/>
+        <TextBlock HorizontalAlignment="Left" Margin="55,110,0,0" TextWrapping="Wrap" Text="Choose the time of the first bus" VerticalAlignment="Top" Height="53" Width="177"/>
+        <TextBlock HorizontalAlignment="Left" Margin="55,215,0,0" TextWrapping="Wrap" Text="Choose the time of the first bus" VerticalAlignment="Top" Height="48" Width="177"/>
+        <TextBlock HorizontalAlignment="Left" Margin="37,27,0,0" TextWrapping="Wrap" Text="choose a number for your line:" VerticalAlignment="Top" Height="25" Width="195"/>
+        <TextBlock HorizontalAlignment="Left" Margin="49,300,0,0" TextWrapping="Wrap" Text="Enter the time between each bus" VerticalAlignment="Top" Height="32" Width="183"/>
         <!--<TextBox x:Name="freq_hours" LostFocus="lost_focus_hours" MaxLength="2" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" TextChanged="TextChanged" HorizontalAlignment="Left" Height="33" Margin="49,345,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="57" />
         <TextBox x:Name="freq_minutes" LostFocus="lost_focus_minutes" MaxLength="2" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" TextChanged="TextChanged" HorizontalAlignment="Left" Height="33" Margin="139,342,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="62" RenderTransformOrigin="0.646,0.592"/>
         <TextBlock HorizontalAlignment="Left" Margin="111,345,0,0" TextWrapping="Wrap" Text=":" VerticalAlignment="Top" Height="40" Width="23"/>-->
 
 
-        <TextBox x:Name="line_number" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" TextChanged="TextChanged" HorizontalAlignment="Left" Height="47" Margin="158,27,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="91" RenderTransformOrigin="0.273,0.634" />
-        <Button x:Name="add_button"  Content="ADD" IsEnabled="False" HorizontalAlignment="Left" Margin="560,307,0,0" VerticalAlignment="Top" Width="223" Height="78" Click="Button_Click"/>
+        <TextBox x:Name="line_number" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" TextChanged="TextChanged" HorizontalAlignment="Left" Height="35" Margin="79,57,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="91" RenderTransformOrigin="0.273,0.634" />
+        <Button x:Name="add_button"  Content="ADD" IsEnabled="False" HorizontalAlignment="Left" Margin="419,307,0,0" VerticalAlignment="Top" Width="223" Height="78" Click="Button_Click"/>
         <TextBlock Text="Please choose at least two stations to go on your line:" HorizontalAlignment="Left" Margin="344,27,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="45" Width="400"/>
 
 
 
 
-        <xctk:TimePicker x:Name="first_bus" TimeInterval="00:01" DefaultValue="8:00" HorizontalAlignment="Left" Margin="55,163,0,0" VerticalAlignment="Top" Height="45" Width="132"/>
-       
-        <xctk:TimePicker x:Name="last_bus" TimeInterval="00:01" DefaultValue="22:00" HorizontalAlignment="Left" Margin="55,256,0,0" VerticalAlignment="Top" Height="39" Width="120"/>
-        <xctk:MaskedTextBox x:Name="freq" Mask="00:00" TextChanged="freqChanged" HorizontalAlignment="Left" Height="23" Margin="104,356,0,0" TextWrapping="Wrap" Text="MaskedTextBox" VerticalAlignment="Top" Width="120"/>
+        <xctk:TimePicker x:Name="first_bus" TimeInterval="00:01" DefaultValue="8:00" HorizontalAlignment="Left" Margin="70,165,0,0" VerticalAlignment="Top" Height="45" Width="132"/>
+
+        <xctk:TimePicker x:Name="last_bus" TimeInterval="00:01" DefaultValue="22:00" HorizontalAlignment="Left" Margin="70,249,0,0" VerticalAlignment="Top" Height="46" Width="132"/>
+        <xctk:MaskedTextBox x:Name="freq" Mask="00:00" TextChanged="freqChanged" HorizontalAlignment="Left" Height="31" Margin="85,337,0,0" TextWrapping="Wrap" Text="MaskedTextBox" VerticalAlignment="Top" Width="85"/>
 
 
 

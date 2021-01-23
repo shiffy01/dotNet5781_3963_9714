@@ -12,8 +12,8 @@
         <CollectionViewSource x:Key="busStationViewSource" d:DesignSource="{d:DesignInstance {x:Type BO:BusStation}, CreateList=True}"/>
     </Window.Resources>
     <Grid DataContext="{StaticResource busStationViewSource}">
-        <Button x:Name="update_line" Content="עדכון פרטים" HorizontalAlignment="Left" Margin="229,349,0,0" VerticalAlignment="Top" Width="159" Height="44" Click="update_line_Click"/>
-        <Button x:Name="delete_line"  Content="מחיקת קו" HorizontalAlignment="Left" Margin="514,349,0,0" VerticalAlignment="Top" Width="193" Height="44" Click="delete_line_click"/>
+        <Button x:Name="update_line" Content="Update details of this line" HorizontalAlignment="Left" Margin="177,349,0,0" VerticalAlignment="Top" Width="159" Height="44" Click="update_line_Click"/>
+        <Button x:Name="delete_line"  Content="Delete this line" HorizontalAlignment="Left" Margin="460,349,0,0" VerticalAlignment="Top" Width="193" Height="44" Click="delete_line_click"/>
         <Grid x:Name="lineGrid" DataContext="{StaticResource busLineViewSource}" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="198" Width="294">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -29,19 +29,20 @@
             </Grid.RowDefinitions>
             <Label Content="Bus line number:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
             <TextBlock x:Name="bus_line_numberTextBlock" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="0" Text="{Binding Bus_line_number}" VerticalAlignment="Center"/>
-            <Label Content="Destination:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="1" VerticalAlignment="Center"/>
-            <TextBlock x:Name="destinationTextBlock" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="1" Text="{Binding Destination}" VerticalAlignment="Center"/>
-            <Label Content="First bus:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="2" VerticalAlignment="Center"/>
-            <TextBlock x:Name="first_busTextBlock" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="2" Text="{Binding}" VerticalAlignment="Center"/>
+           
+            <Label Content="First bus:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="1" VerticalAlignment="Center"/>
+            <TextBlock x:Name="first_busTextBlock" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="1" Text="{Binding}" VerticalAlignment="Center"/>
             <Label Content="Frequency:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="3" VerticalAlignment="Center"/>
             <TextBlock x:Name="frequencyTextBlock" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="3" Text="{Binding Frequency}" VerticalAlignment="Center"/>
-            <Label Content="Last bus:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="4" VerticalAlignment="Center"/>
-            <TextBlock x:Name="last_busTextBlock" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="4" Text="{Binding}" VerticalAlignment="Center"/>
-            <Label Content="Origin:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="5" VerticalAlignment="Center"/>
-            <TextBlock x:Name="originTextBlock" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="5" Text="{Binding Origin}" VerticalAlignment="Center"/>
+            <Label Content="Last bus:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="2" VerticalAlignment="Center"/>
+            <TextBlock x:Name="last_busTextBlock" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="2" Text="{Binding}" VerticalAlignment="Center"/>
+            <Label Content="Origin:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="4" VerticalAlignment="Center"/>
+            <TextBlock x:Name="originTextBlock" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="4" Text="{Binding Origin}" VerticalAlignment="Center"/>
+            <Label Content="Destination:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="5" VerticalAlignment="Center"/>
+            <TextBlock x:Name="destinationTextBlock" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="5" Text="{Binding Destination}" VerticalAlignment="Center"/>
         </Grid>
       
-        <Label Content="Stations:" HorizontalAlignment="Left" Margin="376,0,0,368.667" VerticalAlignment="Bottom" RenderTransformOrigin="0.401,1.801" Height="23" Width="59"/>
+        <Label Content="Stations:" HorizontalAlignment="Left" Margin="376,0,0,368.667" VerticalAlignment="Bottom" RenderTransformOrigin="0.401,1.801" Height="23" Width="122"/>
         <DataGrid x:Name="busStationDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="357,73,36.333,147.667" RowDetailsVisibilityMode="VisibleWhenSelected" SelectionChanged="busStationDataGrid_SelectionChanged_1">
             <DataGrid.Columns>
                 <DataGridTemplateColumn x:Name="codeColumn" Header="Code" Width="SizeToHeader">

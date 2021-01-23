@@ -18,30 +18,30 @@
             <ColumnDefinition Width="4*"/>
             <ColumnDefinition Width="645*"/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="add_line"  Content="הוספה" HorizontalAlignment="Left" Margin="10,368,0,0" VerticalAlignment="Top" Width="113" Height="43" Click="add_line_Click" Grid.ColumnSpan="3"/>
+        <Button x:Name="add_line"  Content="Add a bus line" HorizontalAlignment="Left" Margin="160.333,329,0,0" VerticalAlignment="Top" Width="113" Height="43" Click="add_line_Click" Grid.Column="4"/>
 
-        <DataGrid x:Name="busLineDataGrid" IsSynchronizedWithCurrentItem="True" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="0,0,579.333,234.667" RowDetailsVisibilityMode="VisibleWhenSelected" SelectionChanged="busLineDataGrid_SelectionChanged" Grid.ColumnSpan="5">
+        <DataGrid x:Name="busLineDataGrid" FrozenColumnCount="3" IsSynchronizedWithCurrentItem="True" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="44.333,35,221.333,139.667" RowDetailsVisibilityMode="VisibleWhenSelected" SelectionChanged="busLineDataGrid_SelectionChanged" Grid.Column="4">
             <DataGrid.Resources>
                 <Style TargetType="DataGridRow">
                     <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
                 </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTemplateColumn x:Name="bus_line_numberColumn" Header="Bus line number" Width="SizeToHeader">
+                <DataGridTemplateColumn x:Name="bus_line_numberColumn" IsReadOnly="True" Header="Bus line number" Width="SizeToHeader">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Bus_line_number}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn x:Name="destinationColumn" Header="Destination" Width="SizeToHeader">
+                <DataGridTemplateColumn x:Name="destinationColumn" IsReadOnly="True" Header="Destination" Width="SizeToHeader">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Destination}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn x:Name="originColumn" Header="Origin" Width="SizeToHeader">
+                <DataGridTemplateColumn x:Name="originColumn" IsReadOnly="True" Header="Origin" Width="SizeToHeader">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Origin}"/>

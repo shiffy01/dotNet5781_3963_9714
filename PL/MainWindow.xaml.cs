@@ -24,7 +24,10 @@ namespace PL
         {
             InitializeComponent();
         }
-
+        private void planRideClick(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult mb = MessageBox.Show("Sorry! Planning a ride is not available right now");
+        }
         private void manegment_window_Click(object sender, RoutedEventArgs e)
         {
             ManagementWindow managementWindow = new ManagementWindow();

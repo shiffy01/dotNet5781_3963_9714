@@ -37,5 +37,9 @@ namespace PL
             DisplayBusLines displayBusLines = new DisplayBusLines();
             displayBusLines.Show();
         }
+        private void Buses_click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult mb = MessageBox.Show("Sorry! Buses are not available right now");
+        }
     }
 }

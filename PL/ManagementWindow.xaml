@@ -7,9 +7,11 @@
         mc:Ignorable="d"
         Title="ManagementWindow" Height="450" Width="800">
     <Grid>
-        <Button x:Name="bus_display" Content="אוטובוסים" HorizontalAlignment="Left" Height="82" Margin="412,88,0,0" VerticalAlignment="Top" Width="140"/>
-        <Button x:Name="station_display" Content="תחנות אוטובוסים" HorizontalAlignment="Left" Margin="150,134,0,0" VerticalAlignment="Top" Width="75" Height="83" Click="station_display_Click"/>
-        <Button x:Name="line_display" Content="קווים" HorizontalAlignment="Left" Margin="249,301,0,0" VerticalAlignment="Top" Width="126" Height="64" Click="line_display_Click"/>
+
+        <Button x:Name="station_display" Style="{StaticResource BigButton}" Content="Bus stations" HorizontalAlignment="Left" Margin="47,134,0,0" VerticalAlignment="Top" Width="185" Height="83" Click="station_display_Click"/>
+        <Button x:Name="bus_display" Click="Buses_click" Style="{StaticResource BigButton}" Content="Buses" HorizontalAlignment="Left" Height="83" Margin="512,134,0,0" VerticalAlignment="Top" Width="185"/>
+        <Button x:Name="line_display" Style="{StaticResource BigButton}" Content="Bus lines" HorizontalAlignment="Left" Margin="281,134,0,0" VerticalAlignment="Top" Width="185" Height="83" Click="line_display_Click"/>
+        <TextBlock TextAlignment="Center" FontSize="25" HorizontalAlignment="Left" Margin="225,62,0,0" TextWrapping="Wrap" Text="Please choose an option:" VerticalAlignment="Top" Height="67" Width="314"/>
 
     </Grid>
 </Window>
