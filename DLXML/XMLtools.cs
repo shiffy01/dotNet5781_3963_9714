@@ -81,7 +81,12 @@ namespace DL
                     return list;
                 }
                 else
+                {
+                    FileStream file = new FileStream(dir + filePath, FileMode.Create);         
+                    file.Close();
                     return new List<T>();
+                }
+                    
             }
             catch (Exception ex)
             {
