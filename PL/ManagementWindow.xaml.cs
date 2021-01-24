@@ -40,5 +40,10 @@ namespace PL
         {
             MessageBoxResult mb = MessageBox.Show("Sorry! Buses are not available right now");
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

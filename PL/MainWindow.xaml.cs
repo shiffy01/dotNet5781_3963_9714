@@ -33,5 +33,7 @@ namespace PL
             ManagementWindow managementWindow = new ManagementWindow();
             managementWindow.ShowDialog();
         }
+
+       
     }
 }

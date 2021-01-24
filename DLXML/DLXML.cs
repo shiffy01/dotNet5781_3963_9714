@@ -107,7 +107,7 @@ namespace DL
         #endregion
 
         #region BusLine implementation finished!
-        public BusLine AddBusLine(int line_number, bool inter_city, string dest, string org, DateTime first, DateTime last, TimeSpan freq)
+        public BusLine AddBusLine(int line_number, string dest, string org, DateTime first, DateTime last, TimeSpan freq)
         {
             IEnumerable<BusLine> ListLines = XMLtools.LoadListFromXMLSerializer<BusLine>(busLinePath).OrderBy(line => line.BusID);
             List<BusLine> list = ListLines.ToList();
@@ -120,7 +120,6 @@ namespace DL
             BusLine newBus = new BusLine {
                 BusID = ++list[list.Count()].BusID,
                 Bus_line_number = line_number,
-                InterCity = inter_city,
                 Destination = dest,
                 Origin = org,
                 First_bus = first,
@@ -361,6 +360,15 @@ namespace DL
                    where predicate(busStation) && busStation.Exists
                    select busStation;
         }   //done!!
+        public IEnumerable<IGrouping<string, BusStation>> getStationsByCity()
+        {
+            List<BusStation> ListStations = XMLtools.LoadListFromXMLSerializer<BusStation>(busStationPath);
+            var list =
+                  from station in ListStations
+                  where station.Exists
+                  group station by station.City;
+            return list;
+        }
         #endregion
 
         #region AdjacentStations  implementation

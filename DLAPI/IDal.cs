@@ -23,7 +23,7 @@ namespace DLAPI
         //#endregion
 
         #region BusLine  definition
-        BusLine AddBusLine(int line_number, bool inter_city, string dest, string org, DateTime first, DateTime last, TimeSpan freq);
+        BusLine AddBusLine(int line_number, string dest, string org, DateTime first, DateTime last, TimeSpan freq);
         void UpdateBusLine(BusLine busLine);
         void DeleteBusLine(int busID);
         IEnumerable<BusLine> GetAllBuslines();
@@ -49,6 +49,7 @@ namespace DLAPI
         BusStation GetBusStation(int code);
         IEnumerable<BusStation> GetAllBusStationsBy(Predicate<BusStation> predicate);
         IEnumerable<BusStation> GetAllBusStations();
+        IEnumerable<IGrouping<string, BusStation>> getStationsByCity();
         #endregion
 
         #region AdjacentStations  definition

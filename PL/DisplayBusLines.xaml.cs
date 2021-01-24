@@ -30,6 +30,7 @@ namespace PL
             bl = BlFactory.GetBl();
             IEnumerable<BusLine> lineIenumerable = bl.GetAllBusLines();
              Lines =new ObservableCollection<BusLine>(lineIenumerable);
+
         }//shallow copies from Ienumerable to observab
         public DisplayBusLines()
         {

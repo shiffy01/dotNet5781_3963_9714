@@ -130,8 +130,8 @@ namespace BL
             }
             DO.BusLine newBus;
             try
-            {
-                newBus = dal.AddBusLine(line_number, in_city, dal.GetBusStation(stations[stations.Count - 1]).Address, dal.GetBusStation(stations[0]).Address, first_bus, last_bus, frequency);
+            { 
+                newBus = dal.AddBusLine(line_number, dal.GetBusStation(stations[stations.Count - 1]).Address, dal.GetBusStation(stations[0]).Address, first_bus, last_bus, frequency);
             }
             catch (DO.BusLineAlreadyExistsException ex)
             {
@@ -316,6 +316,8 @@ namespace BL
         }//done
         public IEnumerable<BusStation> GetAllBusStations()
         {
+           
+                
             try
             {
                 var list =
@@ -328,6 +330,16 @@ namespace BL
                 throw ex;
             }
         }//done
+        public List<string> getCities()
+        {
+            List<string> returnlist = new List<string>();
+            foreach (var item in dal.getStationsByCity())
+            {
+                if (!returnlist.Contains(item.Key))
+                    returnlist.Add(item.Key);
+            }
+            return returnlist;
+        }//returns a list of all the cities that have bus stations in them
         public IEnumerable<BusStation> GetAllBusStationsBy(Predicate<BusStation> predicate)
         {
             return from station in dal.GetAllBusStations()

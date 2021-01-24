@@ -34,7 +34,8 @@ namespace PL
             IEnumerable<BusStation> stationIenumerable = bl.GetAllBusStations();
             stations = new ObservableCollection<BusStation>(stationIenumerable);
             busStationDataGrid.DataContext = stations;
-        }//shallow copies from Ienumerable to observable, so might be an issue
+            Cities.DataContext = bl.getCities();
+        }
         public DisplayStations()
         {
             InitializeComponent();
@@ -47,6 +48,10 @@ namespace PL
             AddStation addStation = new AddStation();
             addStation.ShowDialog();
             addStation.Closed += AddStationWindow_Closed;
+        }
+        private void All_click(object sender, RoutedEventArgs e)
+        {
+            busStationDataGrid.DataContext = bl.GetAllBusStations();
         }
         private void AddStationWindow_Closed(object sender, EventArgs e)
         {
@@ -71,6 +76,9 @@ namespace PL
             // Load data by setting the CollectionViewSource.Source property:
             // busStationViewSource.Source = [generic data source]
         }
+        private void Cities_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {          
+            busStationDataGrid.DataContext = bl.GetAllBusStationsBy(station => station.City ==Cities.SelectedValue.ToString());
+        }
     }
-}
-;
+};

@@ -102,17 +102,17 @@ namespace DL
         #endregion
 
         #region BusLine implementation
-        public BusLine AddBusLine(int line_number, bool inter_city, string dest, string org, DateTime first, DateTime last, TimeSpan freq)
+        public BusLine AddBusLine(int line_number, string dest, string org, DateTime first, DateTime last, TimeSpan freq)
         {
             bool exists =
                DataSource.Lines.Any(p => p.Exists == true && p.BusID == line_number);
             if (exists)
-                throw new BusLineAlreadyExistsException();//does it need to say something inside?
+                throw new BusLineAlreadyExistsException();
 
             BusLine newBus = new BusLine {
                 BusID = DS.Config.BusLineCounter,
                 Bus_line_number =line_number,
-                InterCity=inter_city,
+               
                 Destination=dest,
                 Origin=org,
                 First_bus=first,
@@ -179,13 +179,16 @@ namespace DL
             var list =
              from station in DataSource.Line_stations
              where (station.Exists && station.StationID == stationID)
-             select (station.LineID);
+             select new {
+                id= station.LineID,
+                name=station.StationID
+             };
             List<BusLine> returnList = new List<BusLine>();
             try
             {
                 foreach (var item in list)
                 {
-                    returnList.Add(GetBusLine(item));
+                    returnList.Add(GetBusLine(item.id));
 
                 }
             }
@@ -195,6 +198,7 @@ namespace DL
             }
             return returnList;
         }
+       
         #endregion
 
         #region BusLineStation CRUD 
@@ -324,6 +328,14 @@ namespace DL
                 orderby BusStation.Code
                 select BusStation.Clone();
         }//done!!
+        public IEnumerable<IGrouping<string, BusStation>> getStationsByCity()
+        {
+           var list=
+                from station in DataSource.Stations
+                where station.Exists
+                group station by station.City;
+            return list;
+        }
         public IEnumerable<BusStation> GetAllBusStationsBy(Predicate<BusStation> predicate)
         {
             return from busStation in DataSource.Stations

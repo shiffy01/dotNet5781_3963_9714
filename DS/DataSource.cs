@@ -41,7 +41,7 @@ namespace DS
                 Code = 73,
                 Name = "שדרות גולדה מאיר/המשורר אצ''ג",
                 Address = "רחוב:שדרות גולדה מאיר עיר: ירושלים ",
-                City = "ירושלים",
+                City = "תל אביב",
                 Latitude = 31.825302,
                 Longitude = 35.188624,
                 Exists = true
@@ -61,7 +61,7 @@ namespace DS
             Code = 77,
                 Name = "בית ספר אבן רשד/אלמדינה אלמונוורה",
                 Address = "רחוב:אל מדינה אל מונאוורה עיר: ירושלים ",
-                City = "ירושלים",
+                City = "תל אביב",
                 Latitude = 31.738676,
                 Longitude = 35.226704,
                 Exists = true
@@ -81,7 +81,7 @@ namespace DS
                 Code = 83,
                 Name = "בטן אלהווא/חוש אל מרג",
                 Address = "רחוב:בטן אל הווא עיר: ירושלים",
-                City = "ירושלים",
+                City = "תל אביב",
                 Latitude = 31.766358,
                 Longitude = 35.240417,
                 Exists = true
@@ -91,7 +91,7 @@ namespace DS
                 Code = 84,
                 Name = "מלכי ישראל/הטורים",
                 Address = " רחוב:מלכי ישראל 77 עיר: ירושלים ",
-                City = "ירושלים",
+                City = "תל אביב",
                 Latitude = 31.790758,
                 Longitude = 35.209791,
                 Exists = true
@@ -161,7 +161,7 @@ namespace DS
                 Code = 93,
                 Name = "חוש סלימה 1",
                 Address = " רחוב:דרך בית לחם הישנה עיר: ירושלים",
-                City = "ירושלים",
+                City = "תל אביב",
                 Latitude = 31.767265,
                 Longitude = 35.246594,
                 Exists = true
@@ -191,7 +191,7 @@ namespace DS
                 Code = 97,
                 Name = "שכונת בזבז 2",
                 Address = " רחוב:דרך בית לחם הישנה עיר: ירושלים",
-                City = "ירושלים",
+                City = "תל אביב",
                 Latitude = 31.77002,
                 Longitude = 35.24348,
                 Exists = true
@@ -201,7 +201,7 @@ namespace DS
                 Code = 102,
                 Name = "גולדה/שלמה הלוי",
                 Address = " רחוב:שדרות גולדה מאיר עיר: ירושלים",
-                City = "ירושלים",
+                City = "תל אביב",
                 Latitude = 31.8003,
                 Longitude = 35.208257,
                 Exists = true
