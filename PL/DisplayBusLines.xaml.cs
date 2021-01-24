@@ -41,7 +41,7 @@ namespace PL
         private void add_line_Click(object sender, RoutedEventArgs e)
         {
             AddLine addLine = new AddLine();
-            addLine.Show();
+            addLine.ShowDialog();
             addLine.Closed += LineDetails_Closed;
         }
 
@@ -61,7 +61,7 @@ namespace PL
         {
             DataGridRow row = sender as DataGridRow;
             LineDetails line = new LineDetails(row.DataContext as BusLine);
-            line.Show();
+            line.ShowDialog();
             line.Closed += LineDetails_Closed;
         }
         private void LineDetails_Closed(object sender, EventArgs e)

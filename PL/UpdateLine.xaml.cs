@@ -122,101 +122,15 @@ namespace PL
 
 
         }
-        //private void bus_line_numberTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        //{
-
-        //}
-
-        //private void first_bus_hrs_tb_TextChanged(object sender, TextChangedEventArgs e)
-        //{
-
-
-
-
-        //}
-        //private void text_changed(object sender, TextChangedEventArgs e)
-        //{
-        //    string hour="", minutes="";
-        //    if (freq.Text == "__:__")
-        //        return;
-        //    string []numbers= freq.Text.Split(':');
-        //    if (numbers[0].Contains("_"))
-        //    {
-        //       hour=numbers[0].Replace("_", "");
-        //    }
-        //    if (numbers[1].Contains("_"))
-        //    {
-        //       minutes= numbers[1].Replace("_", "");
-        //    }
-        //    if (!(numbers[0]==""))
-        //        if (int.Parse(hour) > 23)
-        //            freq.Text = "__:__";
-        //    if (!(numbers[0] == ""))
-        //        if (int.Parse(minutes) > 59)
-        //            freq.Text = "__:__";
-        //}
-        //private void HoursLostFocus(object sender, RoutedEventArgs e)
-        //{
-        //    TextBox text = sender as TextBox;
-        //    if (text == null) return;
-        //    if (e == null) return;
-
-        //    if (int.Parse(text.Text) > 23)
-        //    {
-        //        updateButton.IsEnabled = false;
-        //        text.Text.Replace(text.Text, text.DataContext.ToString());
-        //    }
-        //}
-        //private void MinutesLostFocus(object sender, RoutedEventArgs e)
-        //{
-        //    TextBox text = sender as TextBox;
-        //    if (text == null) return;
-        //    if (e == null) return;
-
-        //    if (int.Parse(text.Text) > 23)
-        //    {
-        //        updateButton.IsEnabled = false;
-        //        text.Text.Replace(text.Text, text.DataContext.ToString());
-        //    }
-        //}
-        //private void UpdateButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    int first_year = 2021, first_month = 01, first_day = 01, last_year = 2021, last_month = 01, last_day = 01;
-
-        //    if (first_bus_changed || !last_bus_changed)
-        //    {
-        //        first_year = Line.Last_bus.Year;
-        //        first_month = Line.Last_bus.Month;
-        //        first_day = Line.Last_bus.Day;
-        //    }
-        //    if (!first_bus_changed || last_bus_changed)
-        //    {
-        //        last_year = Line.First_bus.Year;
-        //        last_month = Line.First_bus.Month;
-        //        last_day = Line.First_bus.Day;
-        //    }
-        //    try
-        //    {
-                
-        //        TimeSpan frequency = new TimeSpan(0, 0, 0);
-        //       bl.UpdateBusLine(first_bus.Value.Value, last_bus.Value.Value, frequency, Line.BusID, int.Parse(bus_line_numberTextBox.Text));
-        //        MessageBoxResult mb = MessageBox.Show("The bus line was updated successfully");
-        //        updateButton.IsEnabled = false;
-        //    }
-        //    catch (FrequencyConflictException ex)
-        //    {
-        //        MessageBoxResult mb = MessageBox.Show(ex.Message);
-        //    }
-        //    catch (BusLineNotFoundException)
-        //    {
-        //        MessageBoxResult mb = MessageBox.Show("Something has gone wrong. For an unknown reason, this busline cannot be added to the system. We regret the error");
-        //    }
-        //}
-
+     
+      
+     
+       
+       
         private void Add_Stations_Button_Click(object sender, RoutedEventArgs e)
         {
             AddStationToLine addStationToLine = new AddStationToLine(Line);
-            addStationToLine.Show();
+            addStationToLine.ShowDialog();
             addStationToLine.Closed += AddStationToLine_Closed;
         }
         private void UpdateButton_Click(object sender, RoutedEventArgs e)

@@ -18,9 +18,9 @@
             <ColumnDefinition Width="4*"/>
             <ColumnDefinition Width="645*"/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="add_line"  Content="Add a bus line" HorizontalAlignment="Left" Margin="160.333,329,0,0" VerticalAlignment="Top" Width="113" Height="43" Click="add_line_Click" Grid.Column="4"/>
+        <Button x:Name="add_line" Style="{StaticResource NewGameButtonStyle}" Content="Add a bus line" HorizontalAlignment="Left" Margin="160.333,329,0,0" VerticalAlignment="Top" Width="148" Height="43" Click="add_line_Click" Grid.Column="4"/>
 
-        <DataGrid x:Name="busLineDataGrid" FrozenColumnCount="3" IsSynchronizedWithCurrentItem="True" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="44.333,35,221.333,139.667" RowDetailsVisibilityMode="VisibleWhenSelected" SelectionChanged="busLineDataGrid_SelectionChanged" Grid.Column="4">
+        <DataGrid x:Name="busLineDataGrid" Style="{DynamicResource DataGridStyle1}" FrozenColumnCount="3" IsSynchronizedWithCurrentItem="True" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="44.333,35,221.333,139.667" RowDetailsVisibilityMode="VisibleWhenSelected" SelectionChanged="busLineDataGrid_SelectionChanged" Grid.Column="4">
             <DataGrid.Resources>
                 <Style TargetType="DataGridRow">
                     <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>

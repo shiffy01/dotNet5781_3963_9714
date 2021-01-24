@@ -39,7 +39,7 @@ namespace PL
         private void update_line_Click(object sender, RoutedEventArgs e)
         {
             UpdateLine updateLine = new UpdateLine(Line);
-            updateLine.Show();
+            updateLine.ShowDialog();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

@@ -29,13 +29,12 @@ namespace PL
         private void station_display_Click(object sender, RoutedEventArgs e)
         {
             DisplayStations displayStations = new DisplayStations();
-            displayStations.Show();
+            displayStations.ShowDialog();
         }
-
         private void line_display_Click(object sender, RoutedEventArgs e)
         {
             DisplayBusLines displayBusLines = new DisplayBusLines();
-            displayBusLines.Show();
+            displayBusLines.ShowDialog();
         }
         private void Buses_click(object sender, RoutedEventArgs e)
         {

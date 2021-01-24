@@ -14,21 +14,21 @@
     </Window.Resources>
     <Grid DataContext="{StaticResource busLineViewSource}">
 
-        <Button x:Name="updateButton" Content="Update" IsEnabled="False" HorizontalAlignment="Left" Margin="243,359,0,0" VerticalAlignment="Top" Width="88" Height="43" Click="UpdateButton_Click"/>
-        <Label Content="Update times and line number: " HorizontalAlignment="Left" Margin="28,27,0,0" VerticalAlignment="Top" Height="31" Width="179"/>
+        <Button x:Name="updateButton" Style="{StaticResource NewGameButtonStyle}" Content="Update" IsEnabled="False" HorizontalAlignment="Left" Margin="58,353,0,0" VerticalAlignment="Top" Width="92" Height="58" Click="UpdateButton_Click"/>
+        <Label Content="Update times and line number: " HorizontalAlignment="Left" Margin="49,27,0,0" VerticalAlignment="Top" Height="31" Width="179"/>
 
-        <TextBlock HorizontalAlignment="Left" Margin="55,110,0,0" TextWrapping="Wrap" Text="first bus departs at:" VerticalAlignment="Top" Height="53" Width="126"/>
-        <TextBlock HorizontalAlignment="Left" Margin="55,215,0,0" TextWrapping="Wrap" Text="last bus departs at:" VerticalAlignment="Top" Height="48" Width="126"/>
-        <TextBlock HorizontalAlignment="Left" Margin="49,300,0,0" TextWrapping="Wrap" Text="time between each bus:" VerticalAlignment="Top" Height="51" Width="126"/>
-
-
-
-        <TextBox x:Name="bus_line_numberTextBox" TextChanged="change" Text="{Binding Mode=OneWay}" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" HorizontalAlignment="Left" Height="27" Margin="158,63,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="49" RenderTransformOrigin="0.273,0.634" />
-        <Label x:Name="bus_line_number_label" Content="line number:" HorizontalAlignment="Left" Margin="55,63,0,0" VerticalAlignment="Top" Height="42" Width="69"/>
+        <TextBlock HorizontalAlignment="Left" Margin="49,95,0,0" TextWrapping="Wrap" Text=" first bus departs at:" VerticalAlignment="Top" Height="36" Width="126"/>
+        <TextBlock HorizontalAlignment="Left" Margin="49,174,0,0" TextWrapping="Wrap" Text="last bus departs at:" VerticalAlignment="Top" Height="34" Width="120"/>
+        <TextBlock HorizontalAlignment="Left" Margin="49,250,0,0" TextWrapping="Wrap" Text="time between each bus:" VerticalAlignment="Top" Height="40" Width="126"/>
 
 
-        <Button Content="Add stops" HorizontalAlignment="Left" Margin="451,300,0,0" VerticalAlignment="Top" Width="260" Height="65" Click="Add_Stations_Button_Click"/>
-        <DataGrid x:Name="stationOnTheLineDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="311,63,82.333,157.667" RowDetailsVisibilityMode="VisibleWhenSelected">
+
+        <TextBox x:Name="bus_line_numberTextBox" TextChanged="change" Text="{Binding Mode=OneWay}" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" HorizontalAlignment="Left" Height="27" Margin="136,63,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="70" RenderTransformOrigin="0.273,0.634" />
+        <Label x:Name="bus_line_number_label" Content="line number:" HorizontalAlignment="Left" Margin="49,63,0,0" VerticalAlignment="Top" Height="27" Width="82"/>
+
+
+        <Button Content="Add stops" Style="{StaticResource NewGameButtonStyle}" HorizontalAlignment="Left" Margin="451,300,0,0" VerticalAlignment="Top" Width="260" Height="65" Click="Add_Stations_Button_Click"/>
+        <DataGrid x:Name="stationOnTheLineDataGrid" AutoGenerateColumns="False" Style="{DynamicResource DataGridStyle1}" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="311,63,51.333,157.667" Height="auto" Width="auto" RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
                 <DataGridTemplateColumn x:Name="number_on_routeColumn" Header="Number" Width="SizeToHeader">
                     <DataGridTemplateColumn.CellTemplate>
@@ -63,7 +63,7 @@
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button x:Name="remove_station_from_line_button" Click="remove_station_from_line_buttonClick" />
+                            <Button x:Name="remove_station_from_line_button" Content="delete" Click="remove_station_from_line_buttonClick" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -71,11 +71,11 @@
         </DataGrid>
 
 
-        <xctk:TimePicker x:Name="last_bus" ValueChanged="change" TimeInterval="00:01"  HorizontalAlignment="Left" Margin="83,268,0,0" VerticalAlignment="Top" Width="92"/>
+        <xctk:TimePicker x:Name="last_bus" ValueChanged="change" TimeInterval="00:01"  HorizontalAlignment="Left" Margin="49,213,0,0" VerticalAlignment="Top" Width="101"/>
 
-        <xctk:TimePicker x:Name="first_bus" ValueChanged="change" TimeInterval="00:01"  HorizontalAlignment="Left" Margin="83,168,0,0" VerticalAlignment="Top" Width="92"/>
-        <xctk:MaskedTextBox x:Name="freq" Mask="00:00" TextChanged="change" HorizontalAlignment="Left" Height="22" Margin="74,345,0,0" TextWrapping="Wrap" Text="MaskedTextBox" VerticalAlignment="Top" Width="50"/>
-       
+        <xctk:TimePicker x:Name="first_bus" ValueChanged="change" TimeInterval="00:01"  HorizontalAlignment="Left" Margin="49,131,0,0" VerticalAlignment="Top" Width="92"/>
+        <xctk:MaskedTextBox x:Name="freq" FontSize="30" Mask="00:00" TextChanged="change" HorizontalAlignment="Left" Height="41" Margin="58,290,0,0" TextWrapping="Wrap" Text="MaskedTextBox" VerticalAlignment="Top" Width="92"/>
+
 
 
 

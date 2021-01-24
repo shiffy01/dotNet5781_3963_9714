@@ -31,7 +31,7 @@ namespace PL
         private void manegment_window_Click(object sender, RoutedEventArgs e)
         {
             ManagementWindow managementWindow = new ManagementWindow();
-            managementWindow.Show();
+            managementWindow.ShowDialog();
         }
     }
 }

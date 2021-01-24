@@ -13,7 +13,7 @@
     </Window.Resources>
     <Grid DataContext="{StaticResource busStationViewSource}">
 
-        <DataGrid x:Name="allbusStationsDataGrid" SelectionChanged="selection_changed" RowDetailsVisibilityMode="VisibleWhenSelected" Margin="55,103,483.333,117.667" ItemsSource="{Binding}" EnableRowVirtualization="True" AutoGenerateColumns="False">
+        <DataGrid x:Name="allbusStationsDataGrid" Style="{DynamicResource DataGridStyle1}" SelectionChanged="selection_changed" RowDetailsVisibilityMode="VisibleWhenSelected" Margin="55,103,421.333,117.667" ItemsSource="{Binding}" EnableRowVirtualization="True" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTemplateColumn x:Name="addressColumn" Width="SizeToHeader" Header="Address">
                     <DataGridTemplateColumn.CellTemplate>
@@ -41,10 +41,10 @@
         </DataGrid>
 
 
-        <Button x:Name="select" Content="Choose this station" IsEnabled="False" HorizontalAlignment="Left" Margin="55,342,0,0" VerticalAlignment="Top" Width="255" Height="45" Click="select_Click"/>
-        <TextBlock Text="Please select the station for the new station to go after, and then press add" TextWrapping="Wrap"  HorizontalAlignment="Left" Margin="420,36,0,0" VerticalAlignment="Top" Height="44" Width="265"/>
-        <Button x:Name="add_button" Content="Add" IsEnabled="False" HorizontalAlignment="Left" Margin="420,342,0,0" VerticalAlignment="Top" Width="265" Height="45" Click="add_button_Click"/>
-        <DataGrid x:Name="stationOnTheLineDataGrid" SelectionChanged="select_place_changed" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="361,103,32.333,117.667" RowDetailsVisibilityMode="VisibleWhenSelected">
+        <Button x:Name="select" Style="{StaticResource NewGameButtonStyle}" Content="Choose this station" IsEnabled="False" HorizontalAlignment="Left" Margin="80,342,0,0" VerticalAlignment="Top" Width="264" Height="45" Click="select_Click"/>
+        <TextBlock TextAlignment="Center" Text="Please select the station for the new station to go after, and then press add" TextWrapping="Wrap"  HorizontalAlignment="Left" Margin="395,36,0,0" VerticalAlignment="Top" Height="44" Width="366"/>
+        <Button x:Name="add_button" Style="{StaticResource NewGameButtonStyle}" Content="Add" IsEnabled="False" HorizontalAlignment="Left" Margin="455,342,0,0" VerticalAlignment="Top" Width="265" Height="45" Click="add_button_Click"/>
+        <DataGrid x:Name="stationOnTheLineDataGrid" Style="{DynamicResource DataGridStyle1}" SelectionChanged="select_place_changed" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="395,103,32.333,117.667" RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
                 <DataGridTemplateColumn x:Name="number_on_routeColumn" Header="Number" Width="SizeToHeader">
                     <DataGridTemplateColumn.CellTemplate>
@@ -78,6 +78,7 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
+        <TextBlock TextAlignment="Center" HorizontalAlignment="Left" Margin="55,36,0,0" TextWrapping="Wrap" Text="Please choose a station to add to the route, then press choose this station" VerticalAlignment="Top" Height="49" Width="317"/>
 
     </Grid>
 </Window>

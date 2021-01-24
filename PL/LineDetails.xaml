@@ -12,8 +12,8 @@
         <CollectionViewSource x:Key="busStationViewSource" d:DesignSource="{d:DesignInstance {x:Type BO:BusStation}, CreateList=True}"/>
     </Window.Resources>
     <Grid DataContext="{StaticResource busStationViewSource}">
-        <Button x:Name="update_line" Content="Update details of this line" HorizontalAlignment="Left" Margin="177,349,0,0" VerticalAlignment="Top" Width="159" Height="44" Click="update_line_Click"/>
-        <Button x:Name="delete_line"  Content="Delete this line" HorizontalAlignment="Left" Margin="460,349,0,0" VerticalAlignment="Top" Width="193" Height="44" Click="delete_line_click"/>
+        <Button x:Name="update_line" Style="{StaticResource NewGameButtonStyle}" Content="Update details of this line" HorizontalAlignment="Left" Margin="177,349,0,0" VerticalAlignment="Top" Width="159" Height="44" Click="update_line_Click"/>
+        <Button x:Name="delete_line" Style="{StaticResource NewGameButtonStyle}"  Content="Delete this line" HorizontalAlignment="Left" Margin="460,349,0,0" VerticalAlignment="Top" Width="193" Height="44" Click="delete_line_click"/>
         <Grid x:Name="lineGrid" DataContext="{StaticResource busLineViewSource}" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="198" Width="294">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -43,7 +43,7 @@
         </Grid>
       
         <Label Content="Stations:" HorizontalAlignment="Left" Margin="376,0,0,368.667" VerticalAlignment="Bottom" RenderTransformOrigin="0.401,1.801" Height="23" Width="122"/>
-        <DataGrid x:Name="busStationDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="357,73,36.333,147.667" RowDetailsVisibilityMode="VisibleWhenSelected" SelectionChanged="busStationDataGrid_SelectionChanged_1">
+        <DataGrid x:Name="busStationDataGrid" Style="{DynamicResource DataGridStyle1}" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="357,73,36.333,147.667" RowDetailsVisibilityMode="VisibleWhenSelected" SelectionChanged="busStationDataGrid_SelectionChanged_1">
             <DataGrid.Columns>
                 <DataGridTemplateColumn x:Name="codeColumn" Header="Code" Width="SizeToHeader">
                     <DataGridTemplateColumn.CellTemplate>

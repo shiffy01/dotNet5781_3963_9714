@@ -45,7 +45,7 @@ namespace PL
         private void add_station_Click(object sender, RoutedEventArgs e)
         {
             AddStation addStation = new AddStation();
-            addStation.Show();
+            addStation.ShowDialog();
             addStation.Closed += AddStationWindow_Closed;
         }
         private void AddStationWindow_Closed(object sender, EventArgs e)
@@ -57,7 +57,7 @@ namespace PL
         {
             DataGridRow row = sender as DataGridRow;
             StationDetails station = new StationDetails(row.DataContext as BusStation);
-            station.Show();
+            station.ShowDialog();
             station.Closed += stationWindowClosed;
         }
         private void stationWindowClosed(object sender, EventArgs e)
