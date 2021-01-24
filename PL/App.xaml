@@ -16,11 +16,10 @@
             </Style.Triggers>-->
 
         <!--</Style>-->
-        <Style TargetType="Button" x:Key="BigButton">
-            <Setter Property="FontSize" Value="26"/>
-            <Setter Property="Height" Value="5"/>
-            <Setter Property="Width" Value="10"/>
+        <Style TargetType="Window" x:Key="WinowBackGround">
+            <Setter Property="Background" Value="Cyan"/>
         </Style>
+      
         <Style TargetType="DataGrid" >
 
         </Style>

@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:PL"
         xmlns:ms="http://namespaces.mindscape.co.nz/wpf" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="PL.AddDistances"
         mc:Ignorable="d"
-        Title="AddDistances"  SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen"
+        Title="AddDistances"  SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" Style="{StaticResource WinowBackGround}"
     ContentRendered="Window_ContentRendered">
     <Grid Margin="15">
         <Grid.ColumnDefinitions>
