@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="ManagementWindow" WindowState="Maximized" Height="450" Width="800">
+        Title="ManagementWindow" WindowState="Maximized" Height="450" Width="800" Style="{StaticResource WinowBackGround}">
     <Grid>
 
         <Button x:Name="station_display" Style="{StaticResource NewGameButtonStyle}" Content="Bus stations" HorizontalAlignment="Left" Margin="47,134,0,0" VerticalAlignment="Top" Width="185" Height="83" Click="station_display_Click"/>

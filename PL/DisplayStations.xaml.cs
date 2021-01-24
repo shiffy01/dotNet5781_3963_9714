@@ -80,5 +80,10 @@ namespace PL
         {          
             busStationDataGrid.DataContext = bl.GetAllBusStationsBy(station => station.City ==Cities.SelectedValue.ToString());
         }
+
+        private void busStationDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 };

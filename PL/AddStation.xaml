@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PL"
         xmlns:BO="clr-namespace:BO;assembly=BL" x:Class="PL.AddStation"
         mc:Ignorable="d"
-        Title="AddStation" Height="450" Width="800" Loaded="Window_Loaded">
+        Title="AddStation" Height="450" Width="800" Loaded="Window_Loaded" Style="{StaticResource WinowBackGround}">
     <Window.Resources>
         <CollectionViewSource x:Key="busStationViewSource" d:DesignSource="{d:DesignInstance {x:Type BO:BusStation}, CreateList=True}"/>
     </Window.Resources>

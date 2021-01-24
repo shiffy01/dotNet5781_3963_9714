@@ -6,13 +6,13 @@
         xmlns:local="clr-namespace:PL"
         xmlns:BO="clr-namespace:BO;assembly=BL" x:Class="PL.DisplayStations"
         mc:Ignorable="d"
-        Title="DisplayStations" Height="450" Width="800" Loaded="Window_Loaded">
+        Title="DisplayStations" Height="450" Width="800" Loaded="Window_Loaded" Style="{StaticResource WinowBackGround}">
     <Window.Resources>
         <CollectionViewSource x:Key="busStationViewSource" d:DesignSource="{d:DesignInstance {x:Type BO:BusStation}, CreateList=True}"/>
     </Window.Resources>
     <Grid DataContext="{StaticResource busStationViewSource}">
         <Button x:Name="add_station" Style="{StaticResource NewGameButtonStyle}" Content="Add a stop" HorizontalAlignment="Left" Margin="174,318,0,0" VerticalAlignment="Top" Width="146" Height="75" Click="add_station_Click"/>
-        <DataGrid x:Name="busStationDataGrid" Style="{DynamicResource DataGridStyle1}" IsSynchronizedWithCurrentItem="true" AutoGenerateColumns="False" EnableRowVirtualization="False" ItemsSource="{Binding}" Margin="277,64,116.333,156.667" RowDetailsVisibilityMode="VisibleWhenSelected">
+        <DataGrid x:Name="busStationDataGrid" Style="{DynamicResource DataGridStyle1}" IsSynchronizedWithCurrentItem="true" AutoGenerateColumns="False" EnableRowVirtualization="False" ItemsSource="{Binding}" Margin="277,64,168.333,226.667" RowDetailsVisibilityMode="VisibleWhenSelected" SelectionChanged="busStationDataGrid_SelectionChanged">
             <DataGrid.Resources>
                 <Style TargetType="DataGridRow">
                     <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
@@ -26,7 +26,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn x:Name="nameColumn" Header="Name" Width="SizeToHeader">
+                <DataGridTemplateColumn x:Name="nameColumn" Header="Name" Width="SizeT">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Name}"/>
