@@ -30,7 +30,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Folder", "Solution Folder", "{5F79BD95-8BA8-4F23-BCDF-3FAF041F24AA}"
 	ProjectSection(SolutionItems) = preProject
 		bin\config.xml = bin\config.xml
-		stops.xml = stops.xml
 	EndProjectSection
 EndProject
 Global
