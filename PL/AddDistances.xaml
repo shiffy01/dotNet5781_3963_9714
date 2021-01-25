@@ -34,7 +34,7 @@
             <Button IsDefault="True" x:Name="btnDialogOk"  Click="btnDialogOk_Click" MinWidth="60" Margin="0,0,10,0" Content="_Ok"/>
             <Button IsCancel="False" x:Name="cancel_btn" Click="cancel_btn_click" MinWidth="60" Content="_Cancel"/>
         </WrapPanel>
-        <xctk:MaskedTextBox x:Name="averageDriveTimeMSB"  Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="0,5.333,0,0" Grid.Row="5" TextWrapping="Wrap" ValueDataType="{x:Type s:Int32}" Text="MaskedTextBox" VerticalAlignment="Top" Width="Auto" Mask="00:00" Grid.RowSpan="3" TextChanged="averageDriveTimeMSB_TextChanged"/>
+        <xctk:MaskedTextBox x:Name="averageDriveTimeMSB"  Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="0,3.333,0,0" Grid.Row="8" TextWrapping="Wrap" ValueDataType="{x:Type s:Int32}" Text="MaskedTextBox" VerticalAlignment="Top" Width="32" Mask="00:00" Grid.RowSpan="2" TextChanged="averageDriveTimeMSB_TextChanged"/>
         <Label x:Name="errorLabel" Content="Incorrect format"  Grid.Row="8" Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Top" Foreground="#FFDC1F1F" FontStyle="Italic" Visibility="Hidden"/>
     </Grid>
 </Window>

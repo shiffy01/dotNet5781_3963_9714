@@ -5,13 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="ManagementWindow" WindowState="Maximized" Height="450" Width="800" Style="{StaticResource WinowBackGround}">
+        Title="ManagementWindow"  Height="450" Width="800" Style="{StaticResource WinowBackGround}">
     <Grid>
 
-        <Button x:Name="station_display" Style="{StaticResource NewGameButtonStyle}" Content="Bus stations" HorizontalAlignment="Left" Margin="47,134,0,0" VerticalAlignment="Top" Width="185" Height="83" Click="station_display_Click"/>
-        <Button x:Name="bus_display" Click="Buses_click" Style="{StaticResource NewGameButtonStyle}" Content="Buses" HorizontalAlignment="Left" Height="83" Margin="512,134,0,0" VerticalAlignment="Top" Width="185"/>
-        <Button x:Name="line_display" Style="{StaticResource NewGameButtonStyle}" Content="Bus lines" HorizontalAlignment="Left" Margin="281,134,0,0" VerticalAlignment="Top" Width="185" Height="83" Click="line_display_Click"/>
+        <Button x:Name="station_display" Style="{StaticResource NewGameButtonStyle}" Content="Bus stations" HorizontalAlignment="Left" Margin="47,182,0,0" VerticalAlignment="Top" Width="185" Height="35" Click="station_display_Click"/>
+        <Button x:Name="bus_display" Click="Buses_click" Style="{StaticResource NewGameButtonStyle}" Content="Buses" HorizontalAlignment="Left" Height="35" Margin="512,182,0,0" VerticalAlignment="Top" Width="185"/>
+        <Button x:Name="line_display" Style="{StaticResource NewGameButtonStyle}" Content="Bus lines" HorizontalAlignment="Left" Margin="281,182,0,0" VerticalAlignment="Top" Width="185" Height="35" Click="line_display_Click"/>
         <TextBlock TextAlignment="Center" FontSize="25" HorizontalAlignment="Left" Margin="225,62,0,0" TextWrapping="Wrap" Text="Please choose an option:" VerticalAlignment="Top" Height="67" Width="314"/>
-        <Button Content="back" HorizontalAlignment="Left" VerticalAlignment="Top" Width="108" Height="43" Click="Button_Click"/>
     </Grid>
 </Window>

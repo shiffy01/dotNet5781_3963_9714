@@ -190,10 +190,11 @@ namespace PL
           
 
         }
-       
 
+        private void stationOnTheLineDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
 
-
+        }
     }
 }
 //private void Frequency_hrs_LostFocus(object sender, RoutedEventArgs e)

@@ -14,7 +14,7 @@
     </Window.Resources>
     <Grid DataContext="{StaticResource busLineViewSource}">
 
-        <Button x:Name="updateButton" Style="{StaticResource NewGameButtonStyle}" Content="Update" IsEnabled="False" HorizontalAlignment="Left" Margin="58,353,0,0" VerticalAlignment="Top" Width="92" Height="58" Click="UpdateButton_Click"/>
+        <Button x:Name="updateButton" Style="{StaticResource NewGameButtonStyle}" Content="Update" IsEnabled="False" HorizontalAlignment="Left" Margin="58,378,0,0" VerticalAlignment="Top" Width="73" Height="33" Click="UpdateButton_Click"/>
         <Label Content="Update times and line number: " HorizontalAlignment="Left" Margin="49,27,0,0" VerticalAlignment="Top" Height="31" Width="179"/>
 
         <TextBlock HorizontalAlignment="Left" Margin="49,95,0,0" TextWrapping="Wrap" Text=" first bus departs at:" VerticalAlignment="Top" Height="36" Width="126"/>
@@ -27,8 +27,8 @@
         <Label x:Name="bus_line_number_label" Content="line number:" HorizontalAlignment="Left" Margin="49,63,0,0" VerticalAlignment="Top" Height="27" Width="82"/>
 
 
-        <Button Content="Add stops" Style="{StaticResource NewGameButtonStyle}" HorizontalAlignment="Left" Margin="451,300,0,0" VerticalAlignment="Top" Width="260" Height="65" Click="Add_Stations_Button_Click"/>
-        <DataGrid x:Name="stationOnTheLineDataGrid" AutoGenerateColumns="False" Style="{DynamicResource DataGridStyle1}" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="311,63,51.333,157.667" Height="auto" Width="auto" RowDetailsVisibilityMode="VisibleWhenSelected">
+        <Button Content="Add stops" Style="{StaticResource NewGameButtonStyle}" HorizontalAlignment="Left" Margin="451,327,0,0" VerticalAlignment="Top" Width="121" Height="38" Click="Add_Stations_Button_Click" Background="#FFC394C2"/>
+        <DataGrid x:Name="stationOnTheLineDataGrid" AutoGenerateColumns="False" Style="{DynamicResource DataGridStyle1}" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="311,63,65.333,186.667" Height="auto" Width="auto" RowDetailsVisibilityMode="VisibleWhenSelected" SelectionChanged="stationOnTheLineDataGrid_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTemplateColumn x:Name="number_on_routeColumn" Header="Number" Width="SizeToHeader">
                     <DataGridTemplateColumn.CellTemplate>
@@ -53,17 +53,11 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn x:Name="addressColumn" Header="Address" Width="SizeToHeader">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Address}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button x:Name="remove_station_from_line_button" Content="delete" Click="remove_station_from_line_buttonClick" />
+                            <Button x:Name="remove_station_from_line_button" Background="#FFE5C5ED" Content="delete" Click="remove_station_from_line_buttonClick" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -71,10 +65,10 @@
         </DataGrid>
 
 
-        <xctk:TimePicker x:Name="last_bus" ValueChanged="change" TimeInterval="00:01"  HorizontalAlignment="Left" Margin="49,213,0,0" VerticalAlignment="Top" Width="101"/>
+        <xctk:TimePicker x:Name="last_bus" ValueChanged="change" TimeInterval="00:01"  HorizontalAlignment="Left" Margin="49,208,0,0" VerticalAlignment="Top" Width="92" Height="26"/>
 
         <xctk:TimePicker x:Name="first_bus" ValueChanged="change" TimeInterval="00:01"  HorizontalAlignment="Left" Margin="49,131,0,0" VerticalAlignment="Top" Width="92"/>
-        <xctk:MaskedTextBox x:Name="freq" FontSize="30" Mask="00:00" TextChanged="change" HorizontalAlignment="Left" Height="41" Margin="58,290,0,0" TextWrapping="Wrap" Text="MaskedTextBox" VerticalAlignment="Top" Width="92"/>
+        <xctk:MaskedTextBox x:Name="freq" FontSize="30" Mask="00:00" TextChanged="change" HorizontalAlignment="Left" Height="49" Margin="58,295,0,0" TextWrapping="Wrap" Text="MaskedTextBox" VerticalAlignment="Top" Width="73"/>
 
 
 

@@ -12,8 +12,8 @@
         <CollectionViewSource x:Key="busStationViewSource" d:DesignSource="{d:DesignInstance {x:Type BO:BusStation}, CreateList=True}"/>
     </Window.Resources>
     <Grid DataContext="{StaticResource busStationViewSource}">
-        <Button x:Name="update_line" Style="{StaticResource NewGameButtonStyle}" Content="Update details of this line" HorizontalAlignment="Left" Margin="177,349,0,0" VerticalAlignment="Top" Width="159" Height="44" Click="update_line_Click"/>
-        <Button x:Name="delete_line" Style="{StaticResource NewGameButtonStyle}"  Content="Delete this line" HorizontalAlignment="Left" Margin="460,349,0,0" VerticalAlignment="Top" Width="193" Height="44" Click="delete_line_click"/>
+        <Button x:Name="update_line" Style="{StaticResource NewGameButtonStyle}" Content="Update details" HorizontalAlignment="Left" Margin="177,349,0,0" VerticalAlignment="Top" Width="149" Height="44" Click="update_line_Click"/>
+        <Button x:Name="delete_line" Style="{StaticResource NewGameButtonStyle}"  Content="Delete line" HorizontalAlignment="Left" Margin="460,349,0,0" VerticalAlignment="Top" Width="193" Height="44" Click="delete_line_click"/>
         <Grid x:Name="lineGrid" DataContext="{StaticResource busLineViewSource}" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="198" Width="294">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>

@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="MainWindow" WindowState="Maximized" Height="450" Width="800">
+        Title="MainWindow"  Height="450" Width="800" Style="{StaticResource WinowBackGround}">
     <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-        
-        <Button x:Name="manegment_window" Style="{StaticResource NewGameButtonStyle}" Content="Manage the system" HorizontalAlignment="Left" Margin="158,233,0,0" VerticalAlignment="Top" Width="182" Height="86" Click="manegment_window_Click"/>
-        <Button x:Name="passenger_window" Click="planRideClick" Style="{StaticResource NewGameButtonStyle}" Content="Plan a ride" HorizontalAlignment="Left" Margin="488,233,0,0" VerticalAlignment="Top" Width="113" Height="86"/>
+
+        <Button x:Name="manegment_window" Style="{StaticResource NewGameButtonStyle}" Content="Manage the system" HorizontalAlignment="Left" Margin="158,280,0,0" VerticalAlignment="Top" Width="182" Height="39" Click="manegment_window_Click"/>
+        <Button x:Name="passenger_window" Click="planRideClick" Style="{StaticResource NewGameButtonStyle}" Content="Plan a ride" HorizontalAlignment="Left" Margin="439,280,0,0" VerticalAlignment="Top" Width="162" Height="39"/>
         <TextBlock TextAlignment="Center" FontSize="26" Text="Welcome to our busing system" HorizontalAlignment="Left" Margin="199,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="82" Width="417"/>
-       
+
 
     </Grid>
 </Window>
