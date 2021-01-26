@@ -64,21 +64,7 @@ namespace DO
         public override string ToString() => base.ToString() + $"BusLineStation number: {ID} doesn't stop at this station";
 
     }
-    [Serializable]
-    public class BusNotFoundException : Exception
-    {
-        public BusNotFoundException()
-        {
-        }
-        public BusNotFoundException(string messege) : base(messege)
-        {
-
-        }
-        public BusNotFoundException(string message, Exception inner) : base(message, inner)
-        {
-        }
-        public override string ToString() => base.ToString() + "Bus doesn't exist in the system";
-    }
+   
     [Serializable]
     public class DuplicateBusException : Exception
     {
@@ -127,6 +113,21 @@ namespace DO
     {
         string Filepath;
         public XMLFileLoadCreateException(string filepath, string messege, Exception inner) : base(messege, inner) => Filepath = filepath;
+    }
+    [Serializable]
+    public class BusNotFoundException : Exception
+    {
+        public BusNotFoundException()
+        {
+        }
+        public BusNotFoundException(string messege) : base(messege)
+        {
+
+        }
+        public BusNotFoundException(string message, Exception inner) : base(message, inner)
+        {
+        }
+        public override string ToString() => base.ToString() + "Bus line doesn't exist in the system";
     }
 
 }

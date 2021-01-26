@@ -45,6 +45,7 @@
     <Compile Include="BIFactory.cs" />
     <Compile Include="Blimp1.cs" />
     <Compile Include="BOexceptions.cs" />
+    <Compile Include="Bus.cs" />
     <Compile Include="BusLine.cs" />
     <Compile Include="BusStation.cs" />
     <Compile Include="DeepCopyUtilities.cs" />

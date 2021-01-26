@@ -286,7 +286,7 @@ namespace BL
         }//done
         #endregion
 
-        #region BusStation function
+        #region BusStation functions
         public void UpdateBusStation(int code, string name)
         {
             DO.BusStation DOstation;
@@ -454,6 +454,29 @@ namespace BL
         {
             throw new NotImplementedException();
         }
+        #endregion
+
+        #region Bus functions
+        //TO THIS DELETE FUNCTION ADD: IF THE BUS IS IN MIDDLE OF DRIVING, SEND A MESSEGE AND ONLY DELETE IT WHEN ITS FINISHED DRIVING
+       // (IF WE'RE DOING THE תהליכון )
+        public void DeleteBus(int license)
+        {
+
+            try
+            {
+                dal.DeleteBus(license);
+            }
+            catch (DO.BusNotFoundException ex)
+            {
+                throw new BusNotFoundException("The bus line cannot be deleted because it is not in the system", ex);
+            }
+           
+           
+        }
+        //public BusLine GetBus(int license)
+        //{
+            
+        //}
         #endregion
         public void AddAdjacentStations(int codeA, int codeB, double distance, TimeSpan drive_time)
         {

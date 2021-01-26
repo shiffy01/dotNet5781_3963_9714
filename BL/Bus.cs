@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DO;
 
-namespace DO
+namespace BO
 {
-   public class Bus
+    class Bus
     {
-        
-        public enum Status_ops
+         public enum Status_ops
         {
             Ready,
             On_the_road,
@@ -20,20 +20,18 @@ namespace DO
         public int License { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime Last_tune_up { get; set; }
-        public int Totalkilometerage { get; set; }     
+        public int Totalkilometerage { get; set; }
         public int kilometerage { get; set; }
         public int Gas { get; set; }
         public bool IsAccessible { get; set; }
         public bool HasWifi { get; set; }
         public bool HasDVD { get; set; }
-        public bool Exists{ get; set; }
+    
 
         public override string ToString()
         {
             return this.ToStringProperty();
         }
-
-
 
     }
 }

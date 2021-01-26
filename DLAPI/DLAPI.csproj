@@ -48,7 +48,6 @@
     <Compile Include="BusLineStation.cs" />
     <Compile Include="DalConfig.cs" />
     <Compile Include="DalFactory.cs" />
-    <Compile Include="DO.cs" />
     <Compile Include="DOExceptions.cs" />
     <Compile Include="HelpFunctions.cs" />
     <Compile Include="IClonable.cs" />

@@ -26,7 +26,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn x:Name="nameColumn" Header="Name" Width="SizeT">
+                <DataGridTemplateColumn x:Name="nameColumn" Header="Name">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Name}"/>
