@@ -60,12 +60,14 @@ namespace BL
         {
             StationOnTheLine BOstation = new StationOnTheLine();
             DOstation.CopyPropertiesTo(BOstation);
-            //this function is missing number on route and distance from last stop
-            //those will have to be filled in somewhere else
-            //otherwise i think its fine
             return BOstation;
         }
-        
+        Bus ConvertDOtoBOBus(DO.Bus DOBus)
+        {
+            Bus BOBus = new Bus();
+            DOBus.CopyPropertiesTo(BOBus);
+            return BOBus;
+        }
         BusLine DOtoBOBusLineAdapter(DO.BusLine DObusLine)//done :)
         {
             BusLine BObusLine = new BusLine();
@@ -458,7 +460,22 @@ namespace BL
 
         #region Bus functions
         //TO THIS DELETE FUNCTION ADD: IF THE BUS IS IN MIDDLE OF DRIVING, SEND A MESSEGE AND ONLY DELETE IT WHEN ITS FINISHED DRIVING
-       // (IF WE'RE DOING THE תהליכון )
+        // (IF WE'RE DOING THE תהליכון )
+        public void AddBus(bool access, bool wifi)
+        {
+            dal.AddBus(access, wifi);
+        }
+        public void UpdateBus(int license, bool access, bool wifi)
+        {
+            try
+            {
+                dal.UpdateBus(license, access, wifi);
+            }
+            catch (DO.BusNotFoundException ex)
+            {
+                throw new BusNotFoundException("You cannot update a bus that doesn't exist", ex);
+            }
+        }
         public void DeleteBus(int license)
         {
 
@@ -473,10 +490,31 @@ namespace BL
            
            
         }
-        //public BusLine GetBus(int license)
-        //{
-            
-        //}
+        public Bus GetBus(int license)
+        {
+            try
+            {
+                return ConvertDOtoBOBus(dal.GetBus(license));
+            }
+            catch (DO.BusNotFoundException ex)
+            {
+                throw new BusNotFoundException("This bus is not in the system", ex);
+            }
+        }
+        public IEnumerable<Bus> GetAllBuses()
+        {
+                return
+                from bus in dal.GetAllBuses()
+                select (ConvertDOtoBOBus(bus));
+        }
+        public IEnumerable<Bus> GetAllBusesBy(Predicate<Bus> predicate)
+        {  
+            return
+               from bus in dal.GetAllBuses()
+               let BOBus=ConvertDOtoBOBus(bus)
+               where predicate(BOBus)
+               select (ConvertDOtoBOBus(bus));
+        }
         #endregion
         public void AddAdjacentStations(int codeA, int codeB, double distance, TimeSpan drive_time)
         {

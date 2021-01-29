@@ -13,12 +13,12 @@ namespace DLAPI
        
     {
         #region Bus  definition
-        void AddBus(Bus bus);
-        void UpdateBus(Bus bus);
+        void AddBus(bool access, bool wifi);
+        void UpdateBus(int license, bool access, bool wifi);
         void DeleteBus(int license);
-        IEnumerable<Bus> GetAllBusses();
+        IEnumerable<Bus> GetAllBuses();
         Bus GetBus(int license);
-        IEnumerable<Bus> GetAllBussesBy(Predicate<Bus> predicate);
+        IEnumerable<Bus> GetAllBusesBy(Predicate<Bus> predicate);
         #endregion
 
         #region BusLine  definition

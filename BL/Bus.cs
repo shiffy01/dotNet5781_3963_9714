@@ -25,7 +25,6 @@ namespace BO
         public int Gas { get; set; }
         public bool IsAccessible { get; set; }
         public bool HasWifi { get; set; }
-        public bool HasDVD { get; set; }
     
 
         public override string ToString()

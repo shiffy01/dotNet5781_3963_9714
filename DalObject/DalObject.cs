@@ -41,23 +41,44 @@ namespace DL
        // int BusLineRunningNumber=2000010;
 
         #region Bus implementation
-        public void AddBus(Bus bus)
+        public void AddBus(bool access, bool wifi)
         {
-            if (DataSource.Buses.FirstOrDefault(tmpBus => tmpBus.License ==bus.License&&tmpBus.Exists) != default(Bus))
-            {
-                throw new DuplicateBusException(bus.License, $", Bus with License number: {bus.License} already exists in the system"); 
-            }
-            DataSource.Buses.Add(bus.Clone());
-        }//done
-        public void UpdateBus(Bus bus)
+            
+            DataSource.Buses.Add(new Bus {
+                Status=Bus.Status_ops.Ready,
+               License=DS.Config.BusLicenseCounter,
+               StartDate=DateTime.Now, 
+               Last_tune_up=DateTime.Now,
+               Totalkilometerage=0,
+               kilometerage=0,
+               Gas=1200,
+               IsAccessible=access,
+               HasWifi=wifi,
+               Exists=true
+
+            });
+        }//doesn't throw an exception, doesn't need one
+        public void UpdateBus(int license, bool access, bool wifi)
         {
            
-              Bus realBus= DataSource.Buses.FirstOrDefault(tmpBus => tmpBus.License== bus.License&&tmpBus.Exists);
+              Bus realBus= DataSource.Buses.FirstOrDefault(tmpBus => tmpBus.License== license&&tmpBus.Exists);
 
             if (realBus!= default(Bus))
             {
+                Bus newBus = new Bus {
+                    Status = realBus.Status,
+                    License = realBus.License,
+                    StartDate = realBus.StartDate,
+                    Last_tune_up = realBus.Last_tune_up,
+                    Totalkilometerage = realBus.Totalkilometerage,
+                    kilometerage = realBus.kilometerage,
+                    Gas = realBus.Gas,
+                    IsAccessible = access,
+                    HasWifi = wifi,
+                    Exists = true
+                };
                 DataSource.Buses.Remove(realBus);
-                DataSource.Buses.Add(bus.Clone());
+                DataSource.Buses.Add(newBus);
             }
             else
                 throw new BusNotFoundException("Bus wasn't found in the system");
@@ -85,14 +106,14 @@ namespace DL
             else
                 throw new BusNotFoundException("Bus wasn't found in the system");
         } //done
-        public IEnumerable<Bus> GetAllBusses()
+        public IEnumerable<Bus> GetAllBuses()
         {
             return 
                 from bus in DataSource.Buses
                 where(bus.Exists)
                    select bus.Clone();
         }//done!!
-        public IEnumerable<Bus> GetAllBussesBy(Predicate<Bus> predicate)
+        public IEnumerable<Bus> GetAllBusesBy(Predicate<Bus> predicate)
         {
             return from bus in DataSource.Buses
                    where (predicate(bus)&&bus.Exists)
@@ -112,7 +133,6 @@ namespace DL
             BusLine newBus = new BusLine {
                 BusID = DS.Config.BusLineCounter,
                 Bus_line_number =line_number,
-               
                 Destination=dest,
                 Origin=org,
                 First_bus=first,
