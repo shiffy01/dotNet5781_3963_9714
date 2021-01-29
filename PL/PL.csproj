@@ -210,6 +210,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\BO.Bus.datasource" />
     <None Include="Properties\DataSources\BO.BusLine.datasource" />
     <None Include="Properties\DataSources\BO.BusStation.datasource" />
     <None Include="Properties\DataSources\BO.StationOnTheLine.datasource" />

@@ -40,25 +40,46 @@ namespace DL
         string busLineStationPath = @"busLineStationXml.xml";
         #endregion
         #region Bus implementation finished
-        public void AddBus(Bus bus)
+        public void AddBus(bool access, bool wifi)
         {
-            List<Bus> Listbus = XMLtools.LoadListFromXMLSerializer<Bus>(busPath);
-            if (Listbus.FirstOrDefault(tmpBus => tmpBus.License == bus.License && tmpBus.Exists) != default(Bus))
-            {
-                throw new DuplicateBusException(bus.License, $", Bus with License number: {bus.License} already exists in the system");
-            }
-            Listbus.Add(bus);
+            IEnumerable<Bus> Listbus = XMLtools.LoadListFromXMLSerializer<Bus>(busPath).OrderBy(bus=>bus.License);
+            List<Bus> list = Listbus.ToList();
+            list.Add(new Bus {
+                Status = Bus.Status_ops.Ready,
+                License = ++list[list.Count()].License,
+                StartDate = DateTime.Now,
+                Last_tune_up = DateTime.Now,
+                Totalkilometerage = 0,
+                kilometerage = 0,
+                Gas = 1200,
+                IsAccessible = access,
+                HasWifi = wifi,
+                Exists = true
+
+            });
             XMLtools.SaveListToXMLSerializer(Listbus, busPath);
         }//done
-        public void UpdateBus(Bus bus)
+        public void UpdateBus(int license, bool access, bool wifi)
         {
             List<Bus> Listbus = XMLtools.LoadListFromXMLSerializer<Bus>(busPath);
-            Bus realBus = Listbus.FirstOrDefault(tmpBus => tmpBus.License == bus.License && tmpBus.Exists);
+            Bus realBus = Listbus.FirstOrDefault(tmpBus => tmpBus.License == license && tmpBus.Exists);
 
             if (realBus != default(Bus))
             {
+                Bus newBus = new Bus {
+                    Status = realBus.Status,
+                    License = realBus.License,
+                    StartDate = realBus.StartDate,
+                    Last_tune_up = realBus.Last_tune_up,
+                    Totalkilometerage = realBus.Totalkilometerage,
+                    kilometerage = realBus.kilometerage,
+                    Gas = realBus.Gas,
+                    IsAccessible = access,
+                    HasWifi = wifi,
+                    Exists = true
+                };
                 Listbus.Remove(realBus);
-                Listbus.Add(bus);
+                Listbus.Add(newBus);
                 XMLtools.SaveListToXMLSerializer(Listbus, busPath);
             }
             else
@@ -71,7 +92,6 @@ namespace DL
 
             if (realBus != default(Bus))
             {
-
                 realBus.Exists = false;
                 XMLtools.SaveListToXMLSerializer(Listbus, busPath);
             }
@@ -88,7 +108,7 @@ namespace DL
             else
                 throw new BusNotFoundException("Bus wasn't found in the system");
         } //done
-        public IEnumerable<Bus> GetAllBusses()
+        public IEnumerable<Bus> GetAllBuses()
         {
             List<Bus> Listbus = XMLtools.LoadListFromXMLSerializer<Bus>(busPath);
             return
@@ -96,7 +116,7 @@ namespace DL
                 where (bus.Exists)
                 select bus;
         }//done!!
-        public IEnumerable<Bus> GetAllBussesBy(Predicate<Bus> predicate)
+        public IEnumerable<Bus> GetAllBusesBy(Predicate<Bus> predicate)
         {
             List<Bus> Listbus = XMLtools.LoadListFromXMLSerializer<Bus>(busPath);
             return from bus in Listbus

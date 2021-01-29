@@ -119,7 +119,6 @@ namespace DL
                    where (predicate(bus)&&bus.Exists)
                    select bus.Clone();
         }    //Done!!
-
         #endregion
 
         #region BusLine implementation
@@ -431,8 +430,6 @@ namespace DL
             }
         }
         #endregion
-
-    
 
         #endregion
 

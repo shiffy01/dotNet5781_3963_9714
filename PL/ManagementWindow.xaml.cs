@@ -38,7 +38,8 @@ namespace PL
         }
         private void Buses_click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult mb = MessageBox.Show("Sorry! Buses are not available right now");
+            DisplayBuses displayBuses = new DisplayBuses();
+            displayBuses.ShowDialog();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

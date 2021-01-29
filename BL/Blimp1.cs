@@ -32,6 +32,71 @@ namespace BL
         }
         #endregion
 
+        string license_format(int license)
+        {
+            string finalLicense;
+            if (license < 10000000)//license plate hase 7 digits
+            {
+                int tmpLicense = license / 100000;//this gives us the first 2 digits of license
+                finalLicense = (" " + tmpLicense + "-");
+                tmpLicense = license % 100000;
+                if (tmpLicense < 100)// if it has 2 or less digits
+                {
+                    finalLicense += "000-";
+                }
+                else
+                {
+                    if (tmpLicense < 1000)//if it has 3 digits
+                        finalLicense += "00";
+                    if (tmpLicense < 10000 && tmpLicense > 999)//if it has 4 digits
+                        finalLicense += "0";
+                    finalLicense += tmpLicense / 100;
+                    finalLicense += "-";
+                }
+
+                tmpLicense = tmpLicense % 100;
+                if (tmpLicense == 0)
+                    finalLicense += "00";
+                else
+                {
+                    if (tmpLicense < 10)//if it has one digit
+                        finalLicense += "0";
+                    finalLicense += tmpLicense;
+                }
+
+            }
+            else
+            //license plate has 8 digits
+            {
+                int tmpLicense = license / 100000;//this gives us the first 3 digits of license
+                finalLicense = (tmpLicense + "-");
+                tmpLicense = license % 100000;
+                if (tmpLicense < 1000)//if it has 3 digits or less
+                {
+                    finalLicense += "00-";
+                }
+                else
+                {
+                    if (tmpLicense < 10000)// if it has 4 digits
+                        finalLicense += "0";
+                    finalLicense += (tmpLicense / 1000) + "-";
+                    tmpLicense = tmpLicense % 1000;//gets last 3
+                }
+                if (tmpLicense == 0)
+                    finalLicense += "000";
+                else
+                {
+                    if (tmpLicense < 10)// has only 1 digit
+                        finalLicense += "00";
+                    if (tmpLicense < 100 && tmpLicense > 9)//has only 2 digits
+                        finalLicense += "0";
+                    finalLicense += tmpLicense;
+                }
+            }
+            finalLicense += " ";
+            return finalLicense;
+        }
+
         #region convert functions
         readonly IDAL dal = DalFactory.GetDal();
         BO.BusStation ConvertStationDOtoBO(DO.BusStation DOstation)
@@ -66,6 +131,7 @@ namespace BL
         {
             Bus BOBus = new Bus();
             DOBus.CopyPropertiesTo(BOBus);
+            BOBus.License = license_format(DOBus.License);
             return BOBus;
         }
         BusLine DOtoBOBusLineAdapter(DO.BusLine DObusLine)//done :)
