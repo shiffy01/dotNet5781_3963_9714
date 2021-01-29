@@ -7,7 +7,7 @@ using DO;
 
 namespace BO
 {
-    class Bus
+    public class Bus
     {
          public enum Status_ops
         {

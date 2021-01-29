@@ -15,12 +15,12 @@ namespace BlApi
       //only the last three things i guess... but they're kind of useless on public transportation anyway, the buses just come and 
       //no one gets to have special requests. so fill in add and update functions later.
 
-         void AddBus(bool access, bool wifi);//
-          void UpdateBus(int license, bool access, bool wifi);
+        void AddBus(bool access, bool wifi);//
+        void UpdateBus(int license, bool access, bool wifi);
         void DeleteBus(int license);
         Bus GetBus(int license);
         IEnumerable<Bus> GetAllBuses();
-        IEnumerable<Bus> GetAllBusesBy(Predicate<BusLine> predicate);
+        IEnumerable<Bus> GetAllBusesBy(Predicate<Bus> predicate);
         #endregion
         #region BusLine
         List<string> AddBusLine(int line_number, List<int> stations, DateTime first_bus, DateTime last_bus, TimeSpan frequency);
