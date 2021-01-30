@@ -25,7 +25,7 @@ namespace PL
         void initialize()
         {
             bl = BlFactory.GetBl();
-            busDataGrid.DataContext = bl.GetAllBuses().OrderBy(bus=>bus.License);
+            busDataGrid.DataContext = bl.GetAllBuses().OrderBy(bus=>bus.LicensePlate);
         }
         //string license_format()
         public DisplayBuses()
@@ -60,6 +60,20 @@ namespace PL
         private void deleteBus(object sender, RoutedEventArgs e)
         {
             //DO THIS!!!
+        }
+
+        private void AddBus(object sender, RoutedEventArgs e)
+        {
+            AddBus addBus = new AddBus();
+            addBus.ShowDialog();
+            initialize();
+        }
+        private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            DataGridRow row = sender as DataGridRow;
+            BusDetails line = new BusDetails(row.DataContext as Bus);
+            line.ShowDialog();
+            initialize();
         }
     }
 }

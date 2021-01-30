@@ -13,7 +13,7 @@ namespace DLAPI
        
     {
         #region Bus  definition
-        void AddBus(bool access, bool wifi);
+        int AddBus(bool access, bool wifi);
         void UpdateBus(int license, bool access, bool wifi);
         void DeleteBus(int license);
         IEnumerable<Bus> GetAllBuses();

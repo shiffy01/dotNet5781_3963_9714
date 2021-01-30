@@ -16,11 +16,16 @@
     <Grid DataContext="{StaticResource busViewSource}">
 
         <DataGrid x:Name="busDataGrid" Width="Auto" Style="{DynamicResource DataGridStyle1}" IsSynchronizedWithCurrentItem="True" ItemsSource="{Binding}" RowDetailsVisibilityMode="VisibleWhenSelected" Margin="198,34,195.333,186.667" Height="Auto" EnableRowVirtualization="True" AutoGenerateColumns="False">
+            <DataGrid.Resources>
+                <Style TargetType="DataGridRow">
+                    <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
+                </Style>
+            </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTemplateColumn x:Name="licenseColumn" Width="SizeToHeader" Header="License">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding License}"/>
+                            <TextBlock Text="{Binding LicensePlate}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -47,7 +52,7 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Add a bus" Style="{StaticResource NewGameButtonStyle}" HorizontalAlignment="Left" Margin="198,302,0,0" VerticalAlignment="Top" Width="400" Height="83"/>
+        <Button Content="Add a bus" Style="{StaticResource NewGameButtonStyle}" HorizontalAlignment="Left" Margin="198,302,0,0" VerticalAlignment="Top" Width="400" Height="83" Click="AddBus"/>
 
     </Grid>
 </Window>

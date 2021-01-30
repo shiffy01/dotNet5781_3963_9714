@@ -40,13 +40,13 @@ namespace DL
         string busLineStationPath = @"busLineStationXml.xml";
         #endregion
         #region Bus implementation finished
-        public void AddBus(bool access, bool wifi)
+        public int AddBus(bool access, bool wifi)
         {
             IEnumerable<Bus> Listbus = XMLtools.LoadListFromXMLSerializer<Bus>(busPath).OrderBy(bus=>bus.License);
             List<Bus> list = Listbus.ToList();
             list.Add(new Bus {
                 Status = Bus.Status_ops.Ready,
-                License = ++list[list.Count()].License,
+                License = ++list[list.Count()-1].License,
                 StartDate = DateTime.Now,
                 Last_tune_up = DateTime.Now,
                 Totalkilometerage = 0,
@@ -57,7 +57,8 @@ namespace DL
                 Exists = true
 
             });
-            XMLtools.SaveListToXMLSerializer(Listbus, busPath);
+            XMLtools.SaveListToXMLSerializer(list, busPath);
+            return ++list[list.Count() - 1].License;
         }//done
         public void UpdateBus(int license, bool access, bool wifi)
         {

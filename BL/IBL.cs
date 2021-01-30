@@ -15,7 +15,7 @@ namespace BlApi
       //only the last three things i guess... but they're kind of useless on public transportation anyway, the buses just come and 
       //no one gets to have special requests. so fill in add and update functions later.
 
-        void AddBus(bool access, bool wifi);//
+        string AddBus(bool access, bool wifi);//
         void UpdateBus(int license, bool access, bool wifi);
         void DeleteBus(int license);
         Bus GetBus(int license);

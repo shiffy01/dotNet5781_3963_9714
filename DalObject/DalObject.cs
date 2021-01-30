@@ -41,12 +41,12 @@ namespace DL
        // int BusLineRunningNumber=2000010;
 
         #region Bus implementation
-        public void AddBus(bool access, bool wifi)
+        public int AddBus(bool access, bool wifi)
         {
-            
+            int license = DS.Config.BusLicenseCounter;
             DataSource.Buses.Add(new Bus {
                 Status=Bus.Status_ops.Ready,
-               License=DS.Config.BusLicenseCounter,
+               License=license,
                StartDate=DateTime.Now, 
                Last_tune_up=DateTime.Now,
                Totalkilometerage=0,
@@ -57,6 +57,7 @@ namespace DL
                Exists=true
 
             });
+            return license;
         }//doesn't throw an exception, doesn't need one
         public void UpdateBus(int license, bool access, bool wifi)
         {

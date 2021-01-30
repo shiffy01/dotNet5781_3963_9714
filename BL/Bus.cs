@@ -17,7 +17,7 @@ namespace BO
             At_mechanic
         }
         public Status_ops Status { get; set; }
-        public string License { get; set; }
+        public string LicensePlate { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime Last_tune_up { get; set; }
         public int Totalkilometerage { get; set; }

@@ -131,7 +131,7 @@ namespace BL
         {
             Bus BOBus = new Bus();
             DOBus.CopyPropertiesTo(BOBus);
-            BOBus.License = license_format(DOBus.License);
+            BOBus.LicensePlate = license_format(DOBus.License);
             return BOBus;
         }
         BusLine DOtoBOBusLineAdapter(DO.BusLine DObusLine)//done :)
@@ -527,9 +527,10 @@ namespace BL
         #region Bus functions
         //TO THIS DELETE FUNCTION ADD: IF THE BUS IS IN MIDDLE OF DRIVING, SEND A MESSEGE AND ONLY DELETE IT WHEN ITS FINISHED DRIVING
         // (IF WE'RE DOING THE תהליכון )
-        public void AddBus(bool access, bool wifi)
+        public string AddBus(bool access, bool wifi)
         {
-            dal.AddBus(access, wifi);
+            int license=dal.AddBus(access, wifi);
+            return license_format(license);
         }
         public void UpdateBus(int license, bool access, bool wifi)
         {
