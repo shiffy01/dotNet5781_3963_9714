@@ -25,6 +25,7 @@ namespace PL
         void initialize()
         {
             busgrid.DataContext = thisbus;
+            //do wifi and access content labels
         }
 
         public BusDetails(Bus bus)
