@@ -96,6 +96,12 @@ namespace BL
             finalLicense += " ";
             return finalLicense;
         }
+        string GetCityFromAddress(string address)
+        {
+            string city;
+
+            return null;
+        }
 
         #region convert functions
         readonly IDAL dal = DalFactory.GetDal();
