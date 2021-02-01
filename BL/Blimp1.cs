@@ -99,7 +99,6 @@ namespace BL
         string GetCityFromAddress(string address)
         {
             string city;
-
             return null;
         }
 
