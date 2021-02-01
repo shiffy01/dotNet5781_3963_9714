@@ -39,7 +39,7 @@ namespace BlApi
         IEnumerable<BusStation> GetAllBusStations();
         IEnumerable<BusStation> GetAllBusStationsBy(Predicate<BusStation> predicate);
         List<string> AddStationToBusLine(int bus_number, int code, int place);
-        List<string> getCities();
+       
         string RemoveBusStationFromLine(int stationCode, int lineNumber);
         #endregion
          void AddAdjacentStations(int codeA, int codeB, double distance, TimeSpan drive_time);
