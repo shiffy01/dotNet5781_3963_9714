@@ -286,9 +286,9 @@ namespace DL
         #endregion   
 
         #region  BusStation implementation
-        public void AddBusStation(int code, double latitude, double longitude, string name, string address, string city)
+        public void AddBusStation(int code, double latitude, double longitude, string name, string address)
         {
-            if (DataSource.Stations.FirstOrDefault(tmpBusStation => tmpBusStation.Code == code&&tmpBusStation.Exists) !=default(BusStation))
+            if (DataSource.Stations.FirstOrDefault(tmpBusStation => tmpBusStation.Code == code) !=default(BusStation))
             {
                 throw new StationAlreadyExistsException(code, $", Bus with License number: {code} already exists in the system");
 
@@ -300,14 +300,13 @@ namespace DL
                 Longitude=longitude,
                 Name=name,
                 Address=address,
-                City=city,
-                Exists=true
+                          
             });
         }//done!!
         public void UpdateBusStation(BusStation busStation)
         {
 
-            BusStation findBusStation = DataSource.Stations.FirstOrDefault(tmpBusStation => tmpBusStation.Code == busStation.Code&&tmpBusStation.Exists);
+            BusStation findBusStation = DataSource.Stations.FirstOrDefault(tmpBusStation => tmpBusStation.Code == busStation.Code);
 
             if (findBusStation != default(BusStation))
             {
@@ -320,20 +319,20 @@ namespace DL
         public void DeleteBusStation(int code)
         {
 
-            BusStation busStation = DataSource.Stations.FirstOrDefault(tmpBusStation => tmpBusStation.Code==code&&tmpBusStation.Exists);
+            BusStation busStation = DataSource.Stations.FirstOrDefault(tmpBusStation => tmpBusStation.Code==code);
 
             if (busStation != default(BusStation))
             {
-               
-                    busStation.Exists = false;
-                  
+
+
+                DataSource.Stations.Remove(busStation);
             }
             else
                 throw new StationNotFoundException(busStation.Code, $"Station :{code} wasn't found in the system");
         }//done!!
         public BusStation GetBusStation(int code)
         {
-            BusStation findBusStation = DataSource.Stations.Find(tmpBusStation => tmpBusStation.Code == code&&tmpBusStation.Exists);
+            BusStation findBusStation = DataSource.Stations.Find(tmpBusStation => tmpBusStation.Code == code);
 
             if (findBusStation != default(BusStation))
                 return findBusStation.Clone();
@@ -344,7 +343,6 @@ namespace DL
         {
             return
                 from BusStation in DataSource.Stations
-                where (BusStation.Exists)
                 orderby BusStation.Code
                 select BusStation.Clone();
         }//done!!
@@ -352,14 +350,13 @@ namespace DL
         {
            var list=
                 from station in DataSource.Stations
-                where station.Exists
                 group station by station.City;
             return list;
         }
         public IEnumerable<BusStation> GetAllBusStationsBy(Predicate<BusStation> predicate)
         {
             return from busStation in DataSource.Stations
-                   where predicate(busStation)&&busStation.Exists
+                   where predicate(busStation)
                    select busStation.Clone();
         }   //done!!
         #endregion

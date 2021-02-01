@@ -32,13 +32,39 @@ namespace DL
         }
 
         #endregion singleton
+
         #region XML FILES
         string busLinePath = @"busLineXml.xml";
         string busStationPath = @"busStationXml.xml";
         string busPath = @"busXml.xml";
         string adjacentStationsPath = @"twoConsecutiveStopsXml.xml";
         string busLineStationPath = @"busLineStationXml.xml";
+        string badBusStationsPath = @"stops.xml";
         #endregion
+
+        #region CreateStopList
+        public void CreateStopList()//get list of all the stations in the country from stops.xml,
+                                    //convert them to our station type and save to new xml
+        {
+            XElement busStationsRootElem = XMLtools.LoadListFromXMLElement(busStationPath);
+            if (busStationsRootElem.Elements().Count() == 0)
+            {
+                XElement badBusStationsRootElem = XMLtools.LoadListFromXMLElement(badBusStationsPath);
+                IEnumerable<BusStation> stops = from stop in badBusStationsRootElem.Elements()
+                                                       select new BusStation() {
+                                                           Code = int.Parse(stop.Element("Code").Value),
+                                                           Name= stop.Element("Name").Value,
+                                                           Latitude=double.Parse(stop.Element("Latitude").Value),
+                                                           Longitude = double.Parse(stop.Element("Longitude").Value),
+                                                           Address = stop.Element("Address").Value  
+                                                       };
+                busStationsRootElem.Add(stops);
+            XMLtools.SaveListToXMLElement(busStationsRootElem, busStationPath);
+            }
+           
+        }
+        #endregion
+
         #region Bus implementation finished
         public int AddBus(bool access, bool wifi)
         {
@@ -306,10 +332,10 @@ namespace DL
         #endregion   
 
         #region  BusStation implementation finished!
-        public void AddBusStation(int code, double latitude, double longitude, string name, string address, string city)
+        public void AddBusStation(int code, double latitude, double longitude, string name, string address)
         {
             List<BusStation> ListStations = XMLtools.LoadListFromXMLSerializer<BusStation>(busStationPath);
-            if (ListStations.FirstOrDefault(tmpBusStation => tmpBusStation.Code == code && tmpBusStation.Exists) != default(BusStation))
+            if (ListStations.FirstOrDefault(tmpBusStation => tmpBusStation.Code == code) != default(BusStation))
             {
                 throw new StationAlreadyExistsException(code, $", Bus with License number: {code} already exists in the system");
 
@@ -321,15 +347,15 @@ namespace DL
                 Longitude = longitude,
                 Name = name,
                 Address = address,
-                City = city,
-                Exists = true
+             
+               
             });
             XMLtools.SaveListToXMLSerializer(ListStations, busStationPath);
         }//done!!
         public void UpdateBusStation(BusStation busStation)
         {
             List<BusStation> ListStations = XMLtools.LoadListFromXMLSerializer<BusStation>(busStationPath);
-            BusStation findBusStation = ListStations.FirstOrDefault(tmpBusStation => tmpBusStation.Code == busStation.Code && tmpBusStation.Exists);
+            BusStation findBusStation = ListStations.FirstOrDefault(tmpBusStation => tmpBusStation.Code == busStation.Code);
 
             if (findBusStation != default(BusStation))
             {
@@ -344,12 +370,12 @@ namespace DL
         public void DeleteBusStation(int code)
         {
             List<BusStation> ListStations = XMLtools.LoadListFromXMLSerializer<BusStation>(busStationPath);
-            BusStation busStation = ListStations.FirstOrDefault(tmpBusStation => tmpBusStation.Code == code && tmpBusStation.Exists);
+            BusStation busStation = ListStations.FirstOrDefault(tmpBusStation => tmpBusStation.Code == code );
 
             if (busStation != default(BusStation))
             {
 
-                busStation.Exists = false;
+             
                 XMLtools.SaveListToXMLSerializer(ListStations, busStationPath);
             }
             else
@@ -358,7 +384,7 @@ namespace DL
         public BusStation GetBusStation(int code)
         {
             List<BusStation> ListStations = XMLtools.LoadListFromXMLSerializer<BusStation>(busStationPath);
-            BusStation findBusStation = ListStations.Find(tmpBusStation => tmpBusStation.Code == code && tmpBusStation.Exists);
+            BusStation findBusStation = ListStations.Find(tmpBusStation => tmpBusStation.Code == code);
 
             if (findBusStation != default(BusStation))
                 return findBusStation;
@@ -370,7 +396,6 @@ namespace DL
             List<BusStation> ListStations = XMLtools.LoadListFromXMLSerializer<BusStation>(busStationPath);
             return
                 from BusStation in ListStations
-                where (BusStation.Exists)
                 orderby BusStation.Code
                 select BusStation;
         }//done!!
@@ -378,18 +403,10 @@ namespace DL
         {
             List<BusStation> ListStations = XMLtools.LoadListFromXMLSerializer<BusStation>(busStationPath);
             return from busStation in ListStations
-                   where predicate(busStation) && busStation.Exists
+                   where predicate(busStation)
                    select busStation;
         }   //done!!
-        public IEnumerable<IGrouping<string, BusStation>> getStationsByCity()
-        {
-            List<BusStation> ListStations = XMLtools.LoadListFromXMLSerializer<BusStation>(busStationPath);
-            var list =
-                  from station in ListStations
-                  where station.Exists
-                  group station by station.City;
-            return list;
-        }
+
         #endregion
 
         #region AdjacentStations  implementation

@@ -42,13 +42,13 @@ namespace DLAPI
         #endregion
 
         #region BusStation  definition
-        void AddBusStation(int code, double latitude, double longitude, string name, string address, string city);
+        void AddBusStation(int code, double latitude, double longitude, string name, string address);
         void UpdateBusStation(BusStation busStation);
         void DeleteBusStation(int code);
         BusStation GetBusStation(int code);
         IEnumerable<BusStation> GetAllBusStationsBy(Predicate<BusStation> predicate);
         IEnumerable<BusStation> GetAllBusStations();
-        IEnumerable<IGrouping<string, BusStation>> getStationsByCity();
+      
         #endregion
 
         #region AdjacentStations  definition
