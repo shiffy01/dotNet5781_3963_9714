@@ -34,7 +34,6 @@ namespace DS
             return Math.Sqrt((station1.Latitude - station2.Latitude) * (station1.Latitude - station2.Latitude) +
                              (station1.Longitude - station2.Longitude) * (station1.Longitude - station2.Longitude));
         }
-
         public static void initialize_Stations()
         {
             Stations.Add(new BusStation {
@@ -43,8 +42,7 @@ namespace DS
                 Address = "רחוב:שדרות גולדה מאיר עיר: ירושלים ",
                 City = "תל אביב",
                 Latitude = 31.825302,
-                Longitude = 35.188624,
-                Exists = true
+                Longitude = 35.188624            
             }) ;//שדרות גולדה מאיר/המשורר אצ''ג 73
             Stations.Add(new BusStation 
             {
@@ -53,8 +51,7 @@ namespace DS
                 Address = "רחוב:אל מדינה אל מונאוורה עיר: ירושלים",
                 City = "ירושלים",
                 Latitude = 31.738425,
-                Longitude = 35.228765,
-                Exists = true
+                Longitude = 35.228765
             });//76בית ספר צור באהר בנות/אלמדינה אלמונוורה
             Stations.Add(new BusStation 
             {
@@ -63,8 +60,7 @@ namespace DS
                 Address = "רחוב:אל מדינה אל מונאוורה עיר: ירושלים ",
                 City = "תל אביב",
                 Latitude = 31.738676,
-                Longitude = 35.226704,
-                Exists = true
+                Longitude = 35.226704
             });// 77 בית ספר אבן רשד/אלמדינה אלמונוורה
             Stations.Add(new BusStation 
             {
@@ -73,8 +69,7 @@ namespace DS
                 Address = "רחוב:שדרות שרי ישראל 15 עיר: ירושלים",
                 City = "ירושלים",
                 Latitude = 31.789128,
-                Longitude = 35.206146,
-                Exists = true
+                Longitude = 35.206146
             });//שרי ישראל/יפו 78
             Stations.Add(new BusStation
             {
@@ -83,8 +78,7 @@ namespace DS
                 Address = "רחוב:בטן אל הווא עיר: ירושלים",
                 City = "תל אביב",
                 Latitude = 31.766358,
-                Longitude = 35.240417,
-                Exists = true
+                Longitude = 35.240417
             });//83 בטן אלהווא/חוש אל מרג
             Stations.Add(new BusStation 
             {
@@ -93,8 +87,7 @@ namespace DS
                 Address = " רחוב:מלכי ישראל 77 עיר: ירושלים ",
                 City = "תל אביב",
                 Latitude = 31.790758,
-                Longitude = 35.209791,
-                Exists = true
+                Longitude = 35.209791
             });//84 מלכי ישראל/הטורים
             Stations.Add(new BusStation 
             {
@@ -103,8 +96,7 @@ namespace DS
                 Address = "רחוב:אלמדארס עיר: ירושלים",
                 City = "ירושלים",
                 Latitude = 31.768643,
-                Longitude = 35.238509,
-                Exists = true
+                Longitude = 35.238509
             });//בית ספר לבנים/אלמדארס 85
             Stations.Add(new BusStation 
             {
@@ -113,8 +105,7 @@ namespace DS
                 Address = "רחוב:אלמדארס עיר: ירושלים",
                 City = "ירושלים",
                 Latitude = 31.769899,
-                Longitude = 35.23973,
-                Exists = true
+                Longitude = 35.23973
             });//מגרש כדורגל/אלמדארס 86
             Stations.Add(new BusStation {
                 Code = 88,
@@ -122,8 +113,7 @@ namespace DS
                 Address = " רחוב:בטן אל הווא עיר: ירושלים",
                 City = "ירושלים",
                 Latitude = 31.767064,
-                Longitude = 35.238443,
-                Exists = true
+                Longitude = 35.238443
             });//בית ספר לבנות/בטן אלהוא 88
             Stations.Add(new BusStation 
             {
@@ -132,8 +122,7 @@ namespace DS
                 Address = " רחוב:דרך בית לחם הישנה עיר: ירושלים ",
                 City = "ירושלים",
                 Latitude = 31.765863,
-                Longitude = 35.247198,
-                Exists = true
+                Longitude = 35.247198
             });//דרך בית לחם הישה/ואדי קדום89 
             //10
             Stations.Add(new BusStation 
@@ -143,8 +132,7 @@ namespace DS
                 Address = "רחוב:דרך בית לחם הישנה עיר: ירושלים",
                 City = "ירושלים",
                 Latitude = 31.799804,
-                Longitude = 35.213021,
-                Exists = true
+                Longitude = 35.213021
             });//90 גולדה/הרטום
             Stations.Add(new BusStation 
             {
@@ -153,8 +141,7 @@ namespace DS
                 Address = " רחוב:דרך בית לחם הישנה עיר: ירושלים ",
                 City = "ירושלים",
                 Latitude = 31.765717,
-                Longitude = 35.247102,
-                Exists = true
+                Longitude = 35.247102
             });//91 דרך בית לחם הישה/ואדי קדום
             Stations.Add(new BusStation 
             {
@@ -163,8 +150,7 @@ namespace DS
                 Address = " רחוב:דרך בית לחם הישנה עיר: ירושלים",
                 City = "תל אביב",
                 Latitude = 31.767265,
-                Longitude = 35.246594,
-                Exists = true
+                Longitude = 35.246594
             });//93 חוש סלימה 
             Stations.Add(new BusStation 
             {
@@ -173,8 +159,7 @@ namespace DS
                 Address = " רחוב:דרך בית לחם הישנה עיר: ירושלים",
                 City = "ירושלים",
                 Latitude = 31.767084,
-                Longitude = 35.246655,
-                Exists = true
+                Longitude = 35.246655
             });//94 דרך בית לחם הישנה ב
             Stations.Add(new BusStation
             {
@@ -183,8 +168,7 @@ namespace DS
                 Address = " רחוב:דרך בית לחם הישנה עיר: ירושלים",
                 City = "ירושלים",
                 Latitude = 31.768759,
-                Longitude = 31.768759,
-                Exists = true
+                Longitude = 31.768759
             });//95 דרך בית לחם הישנה א
             Stations.Add(new BusStation 
             {
@@ -193,8 +177,7 @@ namespace DS
                 Address = " רחוב:דרך בית לחם הישנה עיר: ירושלים",
                 City = "תל אביב",
                 Latitude = 31.77002,
-                Longitude = 35.24348,
-                Exists = true
+                Longitude = 35.24348
             });//97 שכונת בזבז 2
             Stations.Add(new BusStation 
             {
@@ -203,8 +186,7 @@ namespace DS
                 Address = " רחוב:שדרות גולדה מאיר עיר: ירושלים",
                 City = "תל אביב",
                 Latitude = 31.8003,
-                Longitude = 35.208257,
-                Exists = true
+                Longitude = 35.208257
             });//גולדה/שלמה הלוי 102
             Stations.Add(new BusStation 
             {
@@ -213,8 +195,7 @@ namespace DS
                 Address = " רחוב:שדרות גולדה מאיר עיר: ירושלים",
                 City = "ירושלים",
                 Latitude = 31.8,
-                Longitude = 35.214106,
-                Exists = true
+                Longitude = 35.214106
             });//גולדה/הרטום 103 
             Stations.Add(new BusStation 
             {
@@ -223,8 +204,7 @@ namespace DS
                 Address = " רחוב:גבעת משה 2 עיר: ירושלים",
                 City = "ירושלים",
                 Latitude = 31.797708,
-                Longitude = 35.217133,
-                Exists = true
+                Longitude = 35.217133
             });// 105 גבעת משה
             Stations.Add(new BusStation 
             {
@@ -233,8 +213,7 @@ namespace DS
                 Address = " רחוב:גבעת משה 3 עיר: ירושלים",
                 City = "ירושלים",
                 Latitude = 31.797535,
-                Longitude = 35.217057,
-                Exists = true
+                Longitude = 35.217057
             });// 106 גבעת משה
             //20
             Stations.Add(new BusStation
@@ -244,8 +223,7 @@ namespace DS
                 Address = " רחוב:עזרת תורה 25 עיר: ירושלים",
                 City = "ירושלים",
                 Latitude = 31.797535,
-                Longitude = 35.213728,
-                Exists = true
+                Longitude = 35.213728
             });//עזרת תורה/עלי הכהן108 
             Stations.Add(new BusStation 
             {
@@ -254,8 +232,7 @@ namespace DS
                 Address = " רחוב:עזרת תורה 21 עיר: ירושלים ",
                 City = "ירושלים",
                 Latitude = 31.796818,
-                Longitude = 35.212936,
-                Exists = true
+                Longitude = 35.212936
             });//עזרת תורה/דורש טוב 109
             Stations.Add(new BusStation 
             {
@@ -264,8 +241,7 @@ namespace DS
                 Address = " רחוב:עזרת תורה 12 עיר: ירושלים",
                 City = "ירושלים",
                 Latitude = 31.796129,
-                Longitude = 35.212698,
-                Exists = true
+                Longitude = 35.212698
             });//עזרת תורה/דורש טוב110
             Stations.Add(new BusStation 
             {
@@ -274,8 +250,7 @@ namespace DS
                 Address = " רחוב:יעקובזון 1 עיר: ירושלים",
                 City = "ירושלים",
                 Latitude = 31.794631,
-                Longitude = 35.21161,
-                Exists = true
+                Longitude = 35.21161
             });//111 יעקובזון/עזרת תורה
             Stations.Add(new BusStation 
             {
@@ -284,8 +259,7 @@ namespace DS
                 Address = " רחוב:יעקובזון עיר: ירושלים",
                 City = "ירושלים",
                 Latitude = 31.79508,
-                Longitude = 35.211684,
-                Exists = true
+                Longitude = 35.211684
             });//112יעקובזון/עזרת תורה
             Stations.Add(new BusStation 
             {
@@ -294,8 +268,7 @@ namespace DS
                 Address = " רחוב:זית רענן 1 עיר: ירושלים",
                 City = "ירושלים",
                 Latitude = 31.796255,
-                Longitude = 35.211065,
-                Exists = true
+                Longitude = 35.211065
             });// 113 זית רענן/אוהל יהושע
             Stations.Add(new BusStation 
             {
@@ -304,8 +277,7 @@ namespace DS
                 Address = " רחוב:זית רענן עיר: ירושלים",
                 City = "ירושלים",
                 Latitude = 31.798423,
-                Longitude = 35.209575,
-                Exists = true
+                Longitude = 35.209575
             });//זית רענן/תורת חסד 115
             Stations.Add(new BusStation
             {
@@ -314,8 +286,7 @@ namespace DS
                 Address = " רחוב:הרב סורוצקין 48 עיר: ירושלים ",
                 City = "ירושלים",
                 Latitude = 31.798689,
-                Longitude = 35.208878,
-                Exists = true
+                Longitude = 35.208878
             });// 116 זית רענן/תורת חסד
             Stations.Add(new BusStation
             {
@@ -324,8 +295,7 @@ namespace DS
                 Address = " רחוב:הרב סורוצקין עיר: ירושלים",
                 City = "ירושלים",
                 Latitude = 31.799165,
-                Longitude = 35.206918,
-                Exists = true
+                Longitude = 35.206918
             });//117 קרית הילד/סורוצקין
             Stations.Add(new BusStation 
             {
@@ -334,8 +304,7 @@ namespace DS
                 Address = " רחוב:הרב סורוצקין 31 עיר: ירושלים",
                 City = "ירושלים",
                 Latitude = 31.797829,
-                Longitude = 35.205601,
-                Exists = true
+                Longitude = 35.205601
             });//סורוצקין/שנירר119
             //30
             Stations.Add(new BusStation 
@@ -345,8 +314,7 @@ namespace DS
                 Address = "רחוב: שדרות נווה יעקוב עיר:ירושלים ",
                 City = "ירושלים",
                 Latitude = 31.840063,
-                Longitude = 35.240062,
-                Exists = true
+                Longitude = 35.240062
 
             });//1485 שדרות נווה יעקוב/הרב פרדס
             Stations.Add(new BusStation 
@@ -356,8 +324,7 @@ namespace DS
                 Address = "רחוב:שדרות נווה יעקוב ירושלים עיר:ירושלים ",
                 City = "ירושלים",
                 Latitude = 31.838481,
-                Longitude = 35.23972,
-                Exists = true
+                Longitude = 35.23972
             });//מרכז קהילתי /שדרות נווה יעקוב 1486
             Stations.Add(new BusStation
             {
@@ -366,8 +333,7 @@ namespace DS
                 Address = "חוב:שדרות נווה יעקב 7 עיר: ירושלים ",
                 City = "ירושלים",
                 Latitude = 31.837748,
-                Longitude = 35.231598,
-                Exists = true
+                Longitude = 35.231598
             });// 1487 מסוף 700 /שדרות נווה יעקוב
             Stations.Add(new BusStation 
             {
@@ -376,8 +342,7 @@ namespace DS
                 Address = "רחוב:מעגלות הרב פרדס עיר: ירושלים רציף ",
                 City = "ירושלים",
                 Latitude = 31.840279,
-                Longitude = 35.246272,
-                Exists = true
+                Longitude = 35.246272
             });//הרב פרדס/אסטורה 1488
             Stations.Add(new BusStation 
             {
@@ -386,8 +351,7 @@ namespace DS
                 Address = "רחוב:מעגלות הרב פרדס 24 עיר: ירושלים ",
                 City = "ירושלים",
                 Latitude = 31.843598,
-                Longitude = 35.243639,
-                Exists = true
+                Longitude = 35.243639
             });//הרב פרדס/צוקרמן1490 
             Stations.Add(new BusStation 
             {
@@ -396,8 +360,7 @@ namespace DS
                 Address = "רחוב:ברזיל 14 עיר: ירושלים",
                 City = "ירושלים",
                 Latitude = 31.766256,
-                Longitude = 35.173,
-                Exists = true
+                Longitude = 35.173
             });//ברזיל 1491 
             Stations.Add(new BusStation 
             {
@@ -406,8 +369,7 @@ namespace DS
                 Address = "רחוב:בית וגן 61 עיר: ירושלים ",
                 City = "ירושלים",
                 Latitude = 31.76736,
-                Longitude = 35.184771,
-                Exists = true
+                Longitude = 35.184771
             });//1492 בית וגן/הרב שאג
             Stations.Add(new BusStation
             {
@@ -416,8 +378,7 @@ namespace DS
                 Address = "רחוב:בית וגן 21 עיר: ירושלים ",
                 City = "ירושלים",
                 Latitude = 31.770543,
-                Longitude = 35.183999,
-                Exists = true
+                Longitude = 35.183999
             });//בית וגן/עוזיאל 1493 
             Stations.Add(new BusStation
             {
@@ -426,8 +387,7 @@ namespace DS
                 Address = "רחוב:ארתור הנטקה עיר: ירושלים ",
                 City = "ירושלים",
                 Latitude = 31.768465,
-                Longitude = 35.178701,
-                Exists = true
+                Longitude = 35.178701
             });//קרית יובל/שמריהו לוין 1494
             Stations.Add(new BusStation 
             {
@@ -436,8 +396,7 @@ namespace DS
                 Address = "רחוב:יאנוש קורצ'אק 7 עיר: ירושלים",
                 City = "ירושלים",
                 Latitude = 31.759534,
-                Longitude = 35.173688,
-                Exists = true
+                Longitude = 35.173688
             });//1510 קורצ'אק / רינגלבלום
             //40
             Stations.Add(new BusStation 
@@ -447,8 +406,7 @@ namespace DS
                 Address = "רחוב:יעקב טהון עיר: ירושלים ",
                 City = "ירושלים",
                 Latitude = 31.761447,
-                Longitude = 35.175929,
-                Exists = true
+                Longitude = 35.175929
             });//טהון/גולומב 1511 
             Stations.Add(new BusStation 
             {
@@ -457,8 +415,7 @@ namespace DS
                 Address = "רחוב:הרב הרצוג עיר: ירושלים רציף",
                 City = "ירושלים",
                 Latitude = 31.761447,
-                Longitude = 35.199936,
-                Exists = true
+                Longitude = 35.199936
             });//הרב הרצוג/שח''ל 1512
             Stations.Add(new BusStation 
             {
@@ -467,8 +424,7 @@ namespace DS
                 Address = " רחוב:פרץ ברנשטיין 37 עיר: ירושלים",
                 City = "ירושלים",
                 Latitude = 31.759186,
-                Longitude = 35.189336,
-                Exists = true
+                Longitude = 35.189336
             });//פרץ ברנשטיין/נזר דוד 1514
             Stations.Add(new BusStation 
             {
@@ -477,8 +433,7 @@ namespace DS
                 Address = " רחוב:פרץ ברנשטיין 56 עיר: ירושלים ",
                 City = "ירושלים",
                 Latitude = 31.759121,
-                Longitude = 35.189178,
-                Exists = true
+                Longitude = 35.189178
             });// 1518 פרץ ברנשטיין/נזר דוד
             Stations.Add(new BusStation
             {
@@ -487,8 +442,7 @@ namespace DS
                 Address = " רחוב:דרך רופין עיר: ירושלים ",
                 City = "ירושלים",
                 Latitude = 31.774484,
-                Longitude = 35.204882,
-                Exists = true
+                Longitude = 35.204882
             });//מוזיאון ישראל/רופין 1522
             Stations.Add(new BusStation 
             {
@@ -497,8 +451,7 @@ namespace DS
                 Address = " רחוב:הרב הרצוג עיר: ירושלים ",
                 City = "ירושלים",
                 Latitude = 31.769652,
-                Longitude = 35.208248,
-                Exists = true
+                Longitude = 35.208248
             });//הרצוג/טשרניחובסקי 1523  
             Stations.Add(new BusStation 
             {
@@ -507,8 +460,7 @@ namespace DS
                 Address = " רחוב:הרב הרצוג עיר: ירושלים ",
                 City = "ירושלים",
                 Latitude = 31.769652,
-                Longitude = 35.208248,
-                Exists = true
+                Longitude = 35.208248
             });//רופין/שד' הזז 1524
             Stations.Add(new BusStation 
             {
@@ -517,8 +469,7 @@ namespace DS
                 Address = " רחוב:הרב סורוצקין 13 עיר: ירושלים",
                 City = "ירושלים",
                 Latitude = 31.796033,
-                Longitude = 35.206094,
-                Exists = true
+                Longitude = 35.206094
             });// 121 מרכז סולם/סורוצקין
             Stations.Add(new BusStation
             {
@@ -527,8 +478,7 @@ namespace DS
                 Address = " רחוב:הרב סורוצקין 9 עיר: ירושלים",
                 City = "ירושלים",
                 Latitude = 31.794958,
-                Longitude = 35.205216,
-                Exists = true
+                Longitude = 35.205216
             });//אוהל דוד/סורוצקין 123 
             Stations.Add(new BusStation
             {
@@ -537,8 +487,7 @@ namespace DS
                 Address = " רחוב:הרב סורוצקין 28 עיר: ירושלים",
                 City = "ירושלים",
                 Latitude = 31.79617,
-                Longitude = 35.206158,
-                Exists = true
+                Longitude = 35.206158
             });//מרכז סולם/סורוצקין 122   
             //50
         }
@@ -1333,7 +1282,7 @@ namespace DS
         {
             for (int i = 0; i < stations.Count; i++)
             {
-                if (code == stations[i].Code&&stations[i].Exists)
+                if (code == stations[i].Code)
                     return (stations[i]);
             }
             return null;

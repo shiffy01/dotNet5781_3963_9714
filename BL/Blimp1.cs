@@ -96,6 +96,14 @@ namespace BL
             finalLicense += " ";
             return finalLicense;
         }
+        string GetCityFromAddress(string address)
+        {
+            int first_index = address.IndexOf(" :עיר")+5;
+            int last_index = address.IndexOf("רציף");
+            int length = last_index - first_index;
+            return address.Substring(first_index, length);
+            
+        }
 
         #region convert functions
         readonly IDAL dal = DalFactory.GetDal();
@@ -113,6 +121,7 @@ namespace BL
             {
                 throw ex;
             }
+            BOstation.City = GetCityFromAddress(BOstation.Address);
             return BOstation;
         }//figure out convert!!!!
         DO.BusStation ConvertStationBOtoDO(BO.BusStation BOstation)
@@ -125,6 +134,7 @@ namespace BL
         {
             StationOnTheLine BOstation = new StationOnTheLine();
             DOstation.CopyPropertiesTo(BOstation);
+            BOstation.City = GetCityFromAddress(BOstation.Address);
             return BOstation;
         }
         Bus ConvertDOtoBOBus(DO.Bus DOBus)
@@ -398,16 +408,7 @@ namespace BL
                 throw ex;
             }
         }//done
-        public List<string> getCities()
-        {
-            List<string> returnlist = new List<string>();
-            foreach (var item in dal.getStationsByCity())
-            {
-                if (!returnlist.Contains(item.Key))
-                    returnlist.Add(item.Key);
-            }
-            return returnlist;
-        }//returns a list of all the cities that have bus stations in them
+      
         public IEnumerable<BusStation> GetAllBusStationsBy(Predicate<BusStation> predicate)
         {
             return from station in dal.GetAllBusStations()
@@ -511,7 +512,7 @@ namespace BL
         {
             try
             {
-                dal.AddBusStation(code, latitude, longitude, name, address, city);
+                dal.AddBusStation(code, latitude, longitude, name, address);
             }
             catch (DO.StationAlreadyExistsException ex)
             {
