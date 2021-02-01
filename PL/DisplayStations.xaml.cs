@@ -34,7 +34,7 @@ namespace PL
             IEnumerable<BusStation> stationIenumerable = bl.GetAllBusStations();
             stations = new ObservableCollection<BusStation>(stationIenumerable);
             busStationDataGrid.DataContext = stations;
-            Cities.DataContext = bl.getCities();
+           
         }
         public DisplayStations()
         {

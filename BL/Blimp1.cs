@@ -98,11 +98,21 @@ namespace BL
         }
         string GetCityFromAddress(string address)
         {
-            int first_index = address.IndexOf(" :עיר")+5;
+           
+            int first_index = address.IndexOf("עיר")+3;
             int last_index = address.IndexOf("רציף");
-            int length = last_index - first_index;
-            return address.Substring(first_index, length);
-            
+            int length;
+            if (last_index == -1)
+            {
+                string ans = address.Substring(first_index);
+                 ans= ans.Replace(@" ", "");
+                return ans.Replace(@":", "");
+            }
+            length = last_index - first_index;
+            string answer= address.Substring(first_index, length);
+            answer = answer.Replace(@" ", "");
+            return answer.Replace(@":", "");
+
         }
 
         #region convert functions
