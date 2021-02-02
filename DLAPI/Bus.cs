@@ -21,7 +21,7 @@ namespace DO
         public DateTime StartDate { get; set; }
         public DateTime Last_tune_up { get; set; }
         public int Totalkilometerage { get; set; }     
-        public int kilometerage { get; set; }
+        public int Kilometerage { get; set; }
         public int Gas { get; set; }
         public bool IsAccessible { get; set; }
         public bool HasWifi { get; set; }

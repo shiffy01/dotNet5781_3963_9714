@@ -65,28 +65,37 @@ namespace DL
         }
         #endregion
 
-        #region Bus implementation finished
+        #region Bus implementation
         public int AddBus(bool access, bool wifi)
         {
-            IEnumerable<Bus> Listbus = XMLtools.LoadListFromXMLSerializer<Bus>(busPath).OrderBy(bus=>bus.License);
-            List<Bus> list = Listbus.ToList();
-            list.Add(new Bus {
-                Status = Bus.Status_ops.Ready,
-                License = ++list[list.Count()-1].License,
-                StartDate = DateTime.Now,
-                Last_tune_up = DateTime.Now,
-                Totalkilometerage = 0,
-                kilometerage = 0,
-                Gas = 1200,
-                IsAccessible = access,
-                HasWifi = wifi,
-                Exists = true
+            XElement BusRootElem = XMLtools.LoadListFromXMLElement(busPath);
+            var biggest_license = from b in BusRootElem.Elements()
+                                  where b.Element("Exists").Value == "true"
+                                  select int.Parse(b.Element("Licence").Value);
+            biggest_license.OrderByDescending(b => b);
+            int newLicense = biggest_license.First()+1;
 
-            });
-            XMLtools.SaveListToXMLSerializer(list, busPath);
-            return ++list[list.Count() - 1].License;
+
+            XElement busElem = new XElement("Bus", new XElement("License", newLicense),
+                                  new XElement("StartYear", DateTime.Now.Year),
+                                  new XElement("StartMonth", DateTime.Now.Month),
+                                  new XElement("StartDay", DateTime.Now.Day),
+                                  new XElement("TuneYear", DateTime.Now.Year),
+                                  new XElement("TuneMonth", DateTime.Now.Month),
+                                  new XElement("TuneDay", DateTime.Now.Day),
+                                  new XElement("TotalKiloMeterage", 0),
+                                  new XElement("KiloMeterage", 0),
+                                  new XElement("Gas", 1200),
+                                  new XElement("Accessible", access),
+                                  new XElement("Wifi", wifi),
+                                  new XElement("Exists", true)
+                                );
+
+            BusRootElem.Add(busElem);
+            XMLtools.SaveListToXMLElement(BusRootElem, busPath);
+            return newLicense;
         }//done
-        public void UpdateBus(int license, bool access, bool wifi)
+        public void UpdateBus(int license, bool access, bool wifi)//FIX THIS!!!!!!
         {
             List<Bus> Listbus = XMLtools.LoadListFromXMLSerializer<Bus>(busPath);
             Bus realBus = Listbus.FirstOrDefault(tmpBus => tmpBus.License == license && tmpBus.Exists);
@@ -99,7 +108,7 @@ namespace DL
                     StartDate = realBus.StartDate,
                     Last_tune_up = realBus.Last_tune_up,
                     Totalkilometerage = realBus.Totalkilometerage,
-                    kilometerage = realBus.kilometerage,
+                    Kilometerage = realBus.Kilometerage,
                     Gas = realBus.Gas,
                     IsAccessible = access,
                     HasWifi = wifi,
@@ -111,43 +120,82 @@ namespace DL
             }
             else
                 throw new BusNotFoundException("Bus wasn't found in the system");
-        }//done
+        }
         public void DeleteBus(int license)
         {
-            List<Bus> Listbus = XMLtools.LoadListFromXMLSerializer<Bus>(busPath);
-            Bus realBus = Listbus.FirstOrDefault(tmpBus => tmpBus.License == license && tmpBus.Exists);
+            XElement busRootElem = XMLtools.LoadListFromXMLElement(busPath);
 
-            if (realBus != default(Bus))
+            XElement bus = (from b in busRootElem.Elements()
+                                 where int.Parse(b.Element("License").Value) == license
+                                 select b).FirstOrDefault();
+
+            if (bus != null)
             {
-                realBus.Exists = false;
-                XMLtools.SaveListToXMLSerializer(Listbus, busPath);
+                XElement newbusElem = new XElement("Bus", new XElement("License", bus.Element("License").Value),
+                                  new XElement("StartYear", bus.Element("StartYear").Value),
+                                  new XElement("StartMonth", bus.Element("StartMonth").Value),
+                                  new XElement("StartDay", bus.Element("StartDay").Value),
+                                  new XElement("TuneYear", bus.Element("TuneYear").Value),
+                                  new XElement("TuneMonth", bus.Element("TuneMonth").Value),
+                                  new XElement("TuneDay", bus.Element("TuneDay").Value),
+                                  new XElement("TotalKiloMeterage", bus.Element("TotalKiloMeterage").Value),
+                                  new XElement("KiloMeterage", bus.Element("KiloMeterage").Value),
+                                  new XElement("Gas", bus.Element("Gas").Value),
+                                  new XElement("Accessible", bus.Element("Accessible").Value),
+                                  new XElement("Wifi", bus.Element("Wifi").Value),
+                                  new XElement("Exists", false)
+                                );
+                bus.Remove();
+                busRootElem.Add(newbusElem);
+                XMLtools.SaveListToXMLElement(busRootElem, busPath);
             }
             else
-                throw new BusNotFoundException("Bus wasn't found in the system");
-        }//done
+                throw new PairNotFoundException("Pair not found in system");
+        }//done, with exists=false
         public Bus GetBus(int license)
         {
-            List<Bus> Listbus = XMLtools.LoadListFromXMLSerializer<Bus>(busPath);
-            Bus sameBus = Listbus.FirstOrDefault(tmpBus => tmpBus.License == license && tmpBus.Exists);
-
-            if (sameBus != default(Bus))
-                return sameBus;
-            else
-                throw new BusNotFoundException("Bus wasn't found in the system");
+            XElement busRoot = XMLtools.LoadListFromXMLElement(busPath);
+            Bus bus = (from b in busRoot.Elements()
+                                      where int.Parse(b.Element("License").Value) == license&&b.Element("Exists").Value=="true"
+                                      select new Bus() {
+                                         License=int.Parse(b.Element("License").Value),
+                                         Status=(Bus.Status_ops)int.Parse(b.Element("Status").Value),//can it convert int to enum?
+                                         StartDate=new DateTime(int.Parse(b.Element("StartYear").Value), int.Parse(b.Element("StartMonth").Value), int.Parse(b.Element("StartDay").Value)),
+                                         Last_tune_up= new DateTime(int.Parse(b.Element("TuneYear").Value), int.Parse(b.Element("TuneMonth").Value), int.Parse(b.Element("TuneDay").Value)),
+                                         Totalkilometerage=int.Parse(b.Element("TotalKiloMeterage").Value),
+                                         Kilometerage=int.Parse(b.Element("KiloMeterage").Value),
+                                         Gas=int.Parse(b.Element("Gas").Value),
+                                         IsAccessible = bool.Parse(b.Element("Accessible").Value),
+                                         HasWifi =bool.Parse(b.Element("Wifi").Value),
+                                         Exists= bool.Parse(b.Element("Exists").Value)
+                                      }).FirstOrDefault();
+            if (bus == null)
+                throw new BusNotFoundException("This bus is not in the system");
+            return bus;
         } //done
         public IEnumerable<Bus> GetAllBuses()
         {
-            List<Bus> Listbus = XMLtools.LoadListFromXMLSerializer<Bus>(busPath);
-            return
-                from bus in Listbus
-                where (bus.Exists)
-                select bus;
+            XElement busesRoot = XMLtools.LoadListFromXMLElement(busPath);
+            IEnumerable<Bus> buses = (from b in busesRoot.Elements()
+                                      where bool.Parse(b.Element("Exists").Value)
+                                                   select new Bus() {
+                                                       License = int.Parse(b.Element("License").Value),
+                                                       Status = (Bus.Status_ops)int.Parse(b.Element("Status").Value),//can it convert int to enum?
+                                                       StartDate = new DateTime(int.Parse(b.Element("StartYear").Value), int.Parse(b.Element("StartMonth").Value), int.Parse(b.Element("StartDay").Value)),
+                                                       Last_tune_up = new DateTime(int.Parse(b.Element("TuneYear").Value), int.Parse(b.Element("TuneMonth").Value), int.Parse(b.Element("TuneDay").Value)),
+                                                       Totalkilometerage = int.Parse(b.Element("TotalKiloMeterage").Value),
+                                                       Kilometerage = int.Parse(b.Element("KiloMeterage").Value),
+                                                       Gas = int.Parse(b.Element("Gas").Value),
+                                                       IsAccessible = bool.Parse(b.Element("Accessible").Value),
+                                                       HasWifi = bool.Parse(b.Element("Wifi").Value),
+                                                       Exists = bool.Parse(b.Element("Exists").Value)
+                                                   });
+            return buses;
         }//done!!
         public IEnumerable<Bus> GetAllBusesBy(Predicate<Bus> predicate)
         {
-            List<Bus> Listbus = XMLtools.LoadListFromXMLSerializer<Bus>(busPath);
-            return from bus in Listbus
-                   where (predicate(bus) && bus.Exists)
+            return from bus in GetAllBuses()
+                   where predicate(bus)
                    select bus;
         }    //Done!!
 
