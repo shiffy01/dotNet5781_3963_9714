@@ -156,8 +156,8 @@ namespace DL
         {
             XElement busRoot = XMLtools.LoadListFromXMLElement(busPath);
             Bus bus = (from b in busRoot.Elements()
-                                      where int.Parse(b.Element("License").Value) == license&&b.Element("Exists").Value=="true"
-                                      select new Bus() {
+                                      where int.Parse(b.Element("License").Value) == license&& bool.Parse(b.Element("Exists").Value)
+                       select new Bus() {
                                          License=int.Parse(b.Element("License").Value),
                                          Status=(Bus.Status_ops)int.Parse(b.Element("Status").Value),//can it convert int to enum?
                                          StartDate=new DateTime(int.Parse(b.Element("StartYear").Value), int.Parse(b.Element("StartMonth").Value), int.Parse(b.Element("StartDay").Value)),
@@ -267,7 +267,7 @@ namespace DL
             else
                 throw new BusLineNotFoundException("This bus line is not in the system");
         }
-        //did till here in switching to xelement, except for update bus
+        
         public void UpdateBusLine(BusLine busLine)
         {
             List<BusLine> ListLines = XMLtools.LoadListFromXMLSerializer<BusLine>(busLinePath);
@@ -285,26 +285,45 @@ namespace DL
         }
         public IEnumerable<BusLine> GetAllBuslines()
         {
-            List<BusLine> ListLines = XMLtools.LoadListFromXMLSerializer<BusLine>(busLinePath);
-            return from line in ListLines
-                   where line.Exists
-                   select line;
+            XElement buslinesRoot = XMLtools.LoadListFromXMLElement(busLinePath);
+            IEnumerable<BusLine> buslines = (from b in buslinesRoot.Elements()
+                                      where bool.Parse(b.Element("Exists").Value)
+                                      select new BusLine() {
+                                          BusID = int.Parse(b.Element("BusID").Value),
+                                          Bus_line_number = int.Parse(b.Element("Bus_line_number").Value),
+                                          Destination = b.Element("Destination").Value,
+                                          Origin = b.Element("Origin").Value,
+                                          First_bus = new DateTime(0, 0, 0, int.Parse(b.Element("FirstHours").Value), int.Parse(b.Element("FirstMinutes").Value), 0),
+                                          Last_bus = new DateTime(0, 0, 0, int.Parse(b.Element("LastHours").Value), int.Parse(b.Element("LastMinutes").Value), 0),
+                                          Frequency = new TimeSpan(int.Parse(b.Element("freqHours").Value), int.Parse(b.Element("freqMinutes").Value), 0),
+                                          Exists = true
+                                      });
+            return buslines;
 
         }
         public BusLine GetBusLine(int busID)
         {
-            List<BusLine> ListLines = XMLtools.LoadListFromXMLSerializer<BusLine>(busLinePath);
-            BusLine line = ListLines.FirstOrDefault();
-            if (line != default(BusLine))
-                return line;
-            else
+            XElement buslineRoot = XMLtools.LoadListFromXMLElement(busLinePath);
+            BusLine busline = (from b in buslineRoot.Elements()
+                       where int.Parse(b.Element("BusID").Value) == busID && bool.Parse(b.Element("Exists").Value)
+                       select new BusLine() {
+                           BusID = int.Parse(b.Element("BusID").Value),
+                           Bus_line_number = int.Parse(b.Element("Bus_line_number").Value),
+                           Destination = b.Element("Destination").Value,
+                           Origin = b.Element("Origin").Value,
+                           First_bus = new DateTime(0, 0, 0, int.Parse(b.Element("FirstHours").Value), int.Parse(b.Element("FirstMinutes").Value), 0),
+                           Last_bus = new DateTime(0, 0, 0, int.Parse(b.Element("LastHours").Value), int.Parse(b.Element("LastMinutes").Value), 0),
+                           Frequency = new TimeSpan(int.Parse(b.Element("freqHours").Value), int.Parse(b.Element("freqMinutes").Value), 0),
+                           Exists = true
+                       }).FirstOrDefault();
+            if (busline == null)       
                 throw new DO.BusLineNotFoundException("Bus line is not in the system");
+            return busline;
         }
         public IEnumerable<BusLine> GetAllBusLinesBy(Predicate<BusLine> predicate)
         {
-            List<BusLine> ListLines = XMLtools.LoadListFromXMLSerializer<BusLine>(busLinePath);
-            return from line in ListLines
-                   where line.Exists&&predicate(line)
+            return from line in GetAllBuslines()
+                   where predicate(line)
                    select line;
         }  
         public IEnumerable<BusLine> GetBuslinesOfStation(int stationID)//gets all the bus lines with this station on the route
@@ -330,6 +349,7 @@ namespace DL
             }
             return returnList;
         }
+        //did till here in switching to xelement, except for update bus and GetBuslinesOfStation
         #endregion //finished! 
 
         #region BusLineStation CRUD finished!
