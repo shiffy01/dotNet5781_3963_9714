@@ -43,5 +43,7 @@ namespace BlApi
         string RemoveBusStationFromLine(int stationCode, int lineNumber);
         #endregion
          void AddAdjacentStations(int codeA, int codeB, double distance, TimeSpan drive_time);
+        void CreateStationsList();
+      
     }
 }

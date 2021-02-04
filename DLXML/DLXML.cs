@@ -42,8 +42,8 @@ namespace DL
         string badBusStationsPath = @"stops.xml";
         #endregion
 
-        #region CreateStopList
-        public void CreateStopList()//get list of all the stations in the country from stops.xml,
+        
+        public void CreateStationsList()//get list of all the stations in the country from stops.xml,
                                     //convert them to our station type and save to new xml
         {
             XElement busStationsRootElem = XMLtools.LoadListFromXMLElement(busStationPath);
@@ -63,7 +63,7 @@ namespace DL
             }
            
         }
-        #endregion
+      
 
         #region Bus implementation
         public int AddBus(bool access, bool wifi)

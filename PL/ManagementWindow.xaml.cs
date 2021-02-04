@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BO;
+using BlApi;
 
 
 namespace PL
@@ -20,10 +22,12 @@ namespace PL
     /// </summary>
     public partial class ManagementWindow : Window
     {
+        static IBL bl;
         public ManagementWindow()
         {
             InitializeComponent();
-
+            bl = BlFactory.GetBl();
+            bl.CreateStationsList();
         }
 
         private void station_display_Click(object sender, RoutedEventArgs e)

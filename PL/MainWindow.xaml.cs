@@ -23,6 +23,7 @@ namespace PL
         public MainWindow()
         {
             InitializeComponent();
+
         }
         private void planRideClick(object sender, RoutedEventArgs e)
         {

@@ -50,7 +50,7 @@ namespace DL
                StartDate=DateTime.Now, 
                Last_tune_up=DateTime.Now,
                Totalkilometerage=0,
-               kilometerage=0,
+               Kilometerage=0,
                Gas=1200,
                IsAccessible=access,
                HasWifi=wifi,
@@ -72,7 +72,7 @@ namespace DL
                     StartDate = realBus.StartDate,
                     Last_tune_up = realBus.Last_tune_up,
                     Totalkilometerage = realBus.Totalkilometerage,
-                    kilometerage = realBus.kilometerage,
+                    Kilometerage = realBus.Kilometerage,
                     Gas = realBus.Gas,
                     IsAccessible = access,
                     HasWifi = wifi,
@@ -430,7 +430,10 @@ namespace DL
         #endregion
 
         #endregion
+        public void CreateStationsList()
+        {
 
+        }
 
     }
 }

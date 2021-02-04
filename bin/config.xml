@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
-  <dal>data</dal>
+  <dal>xml</dal>
   <dal-packages>
     <data>DalObject</data>
-    <xml namespace="DL" class="DalObject"> DalObject</xml>
-  </dal-packages>
+    <xml namespace="DL" class="DLXML">DLXML</xml>
+    </dal-packages>
 </config>
-
-
-
-
 

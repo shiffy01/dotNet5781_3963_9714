@@ -74,7 +74,7 @@ namespace DLAPI
         //void DeleteBusDriving(int busID);
         //IEnumerable<Bus> GetBussesDriving();
         //BusDriving GetBusDriving(int BusID);
-       // #endregion
+        // #endregion
 
         //#region User  definition
         //bool AddUser(User user);
@@ -93,6 +93,7 @@ namespace DLAPI
         //IEnumerable<Bus> GetUserRides();
         //#endregion
 
+        void CreateStationsList();
 
 
 

@@ -116,7 +116,7 @@ namespace BL
         }
 
         #region convert functions
-        readonly IDAL dal = DalFactory.GetDal();
+      private  readonly IDAL dal = DalFactory.GetDal();
         BO.BusStation ConvertStationDOtoBO(DO.BusStation DOstation)
         {
             BO.BusStation BOstation = new BO.BusStation();
@@ -605,8 +605,11 @@ namespace BL
                 throw new PairAlreadyExistsException("the pair already exists in the system", ex);
             }
         }
+        public void CreateStationsList()
+        {
+            dal.CreateStationsList();
+        }
 
-        
     }
    
 
