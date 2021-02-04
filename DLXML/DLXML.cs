@@ -349,7 +349,7 @@ namespace DL
             }
             return returnList;
         }
-        //did till here in switching to xelement, except for update bus and GetBuslinesOfStation
+        //did till here in switching to xelement, except for update bus, update busline and GetBuslinesOfStation
         #endregion //finished! 
 
         #region BusLineStation CRUD finished!
