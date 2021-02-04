@@ -10,8 +10,21 @@
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
-        FontFamily="{materialDesign:MaterialDesignFont}"
-        Title="MainWindow" Height="681.325" Width="890.361">
-    <Grid/>
+        FontFamily="{materialDesign:MaterialDesignFont}" Height="600" Width="1080" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" ResizeMode="NoResize">
+    <Grid>
+        <!--<Grid Height="70" VerticalAlignment="Top"/>-->
+        <materialDesign:ColorZone
+  Mode="PrimaryDark"
+  Padding="16"
+  CornerRadius="2"
+  materialDesign:ShadowAssist.ShadowDepth="Depth3"
+  ClipToBounds="False">
+            <StackPanel
+    Orientation="Horizontal">
+                <ToggleButton
+      Style="{DynamicResource MaterialDesignHamburgerToggleButton}" />
+            </StackPanel>
+        </materialDesign:ColorZone>
+    </Grid>
 
 </Window>
