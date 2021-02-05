@@ -22,6 +22,7 @@ namespace BlApi
         IEnumerable<Bus> GetAllBuses();
         IEnumerable<Bus> GetAllBusesBy(Predicate<Bus> predicate);
         #endregion
+
         #region BusLine
         List<string> AddBusLine(int line_number, List<int> stations, DateTime first_bus, DateTime last_bus, TimeSpan frequency);
         void UpdateBusLine( DateTime firstBus,  DateTime lastBus, TimeSpan frequency, int busID, int lineNumber = 0);
