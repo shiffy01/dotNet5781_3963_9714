@@ -12,12 +12,14 @@ namespace BO
          public enum Status_ops
         {
             Ready,
+            Not_ready,
             On_the_road,
             Filling_up,
             At_mechanic
         }
         public Status_ops Status { get; set; }
         public string LicensePlate { get; set; }
+        public int License{ get; set; }
         public DateTime StartDate { get; set; }
         public DateTime Last_tune_up { get; set; }
         public int Totalkilometerage { get; set; }
