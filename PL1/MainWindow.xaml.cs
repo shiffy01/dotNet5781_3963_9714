@@ -24,12 +24,17 @@ namespace PL1
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Main.Content = new OpeningPage();
+        }
         //private void PresetTimePicker_SelectedTimeChanged(object sender, System.Windows.RoutedPropertyChangedEventArgs<System.DateTime?> e)
         //{
         //    var oldValue = e.OldValue.HasValue ? e.OldValue.Value.ToLongTimeString() : "NULL";
         //    var newValue = e.NewValue.HasValue ? e.NewValue.Value.ToLongTimeString() : "NULL";
 
-           
+
         //}
     }
 }

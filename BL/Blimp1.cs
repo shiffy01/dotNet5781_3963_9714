@@ -767,6 +767,10 @@ namespace BL
             dal.CreateStationsList();
         }
 
+        public void drive(Bus bus)
+        {
+            throw new NotImplementedException();
+        }
     }
    
 

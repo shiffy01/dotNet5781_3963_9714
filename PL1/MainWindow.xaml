@@ -13,7 +13,7 @@
         FontFamily="{materialDesign:MaterialDesignFont}" Height="600" Width="1080" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" ResizeMode="NoResize">
     <Grid>
         <!--<Grid Height="70" VerticalAlignment="Top"/>-->
-        <materialDesign:ColorZone
+        <!--<materialDesign:ColorZone
   Mode="PrimaryDark"
   Padding="16"
   CornerRadius="2"
@@ -24,7 +24,11 @@
                 <ToggleButton
       Style="{DynamicResource MaterialDesignHamburgerToggleButton}" />
             </StackPanel>
-        </materialDesign:ColorZone>
+        </materialDesign:ColorZone>-->
+        <Frame x:Name="Main" Margin="0,67,0,0">
+            
+        </Frame>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="77,19,0,0" VerticalAlignment="Top" Width="92" Height="48" Click="Button_Click"/>
     </Grid>
 
 </Window>
