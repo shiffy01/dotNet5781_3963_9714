@@ -10,6 +10,7 @@ using DO;
 
 namespace DL
 {
+    //should fix some delete functions that are written badly, then do update bus in bl
     sealed class DLXML:IDAL
     {
         #region singleton implementaion
@@ -77,6 +78,7 @@ namespace DL
 
 
             XElement busElem = new XElement("Bus", new XElement("License", newLicense),
+                                  new XElement("Status", Bus.Status_ops.Ready),
                                   new XElement("StartYear", DateTime.Now.Year),
                                   new XElement("StartMonth", DateTime.Now.Month),
                                   new XElement("StartDay", DateTime.Now.Day),
@@ -120,6 +122,28 @@ namespace DL
             }
             else
                 throw new BusNotFoundException("Bus wasn't found in the system");
+        }
+        public void UpdateBus(int license, Bus.Status_ops status, DateTime last_tune_up, int kilometerage, int totalkilometerage, int gas)
+        {
+            XElement linesRootElem = XMLtools.LoadListFromXMLElement(busPath);
+
+            XElement line = (from l in linesRootElem.Elements()
+                                 where int.Parse(l.Element("License").Value) == license
+                                 select l).FirstOrDefault();
+
+            if (line != null)
+            {
+                line.Element("Status").Value = ((int)status+"");
+                line.Element("TuneYear").Value = last_tune_up.Year + "";
+                line.Element("TuneMonth").Value = last_tune_up.Month + "";
+                line.Element("TotalKiloMeterage").Value = kilometerage+"";
+                line.Element("TotalKiloMeterage").Value = totalkilometerage+"";
+                line.Element("Gas").Value = gas+"";
+
+                XMLtools.SaveListToXMLElement(linesRootElem, busPath);
+            }
+            else
+                throw new BusNotFoundException("This bus is not in the system");
         }
         public void DeleteBus(int license)
         {
@@ -270,19 +294,22 @@ namespace DL
         
         public void UpdateBusLine(BusLine busLine)
         {
-            List<BusLine> ListLines = XMLtools.LoadListFromXMLSerializer<BusLine>(busLinePath);
-            DO.BusLine line = ListLines.FirstOrDefault(b => (b.BusID == busLine.BusID && b.Exists));
+            XElement busRootElem = XMLtools.LoadListFromXMLElement(busPath);
 
-            if (line != default(BusLine))
+            XElement bus = (from b in busRootElem.Elements()
+                            where int.Parse(b.Element("BusID").Value) == busLine.BusID
+                            select b).FirstOrDefault();
+
+            if (bus != null)
             {
-                //we dont really need the remove/add now... because it loads new copies from the file anyway 
-                ListLines.Remove(line);
-                ListLines.Add(busLine);
-                XMLtools.SaveListToXMLSerializer(ListLines, busLinePath);
+                bus.Remove();
+                busRootElem.Add(busLine);
+                XMLtools.SaveListToXMLElement(busRootElem, busPath);
             }
             else
-                throw new DO.BusLineNotFoundException("Bus line is not in the system");
+                throw new BusLineNotFoundException("This bus line is not in the system");
         }
+    
         public IEnumerable<BusLine> GetAllBuslines()
         {
             XElement buslinesRoot = XMLtools.LoadListFromXMLElement(busLinePath);
@@ -326,30 +353,29 @@ namespace DL
                    where predicate(line)
                    select line;
         }  
-        public IEnumerable<BusLine> GetBuslinesOfStation(int stationID)//gets all the bus lines with this station on the route
-        {
-             List<BusLine> ListLines = XMLtools.LoadListFromXMLSerializer<BusLine>(busLinePath);
-             List<BusLineStation> bus_line_station_list=XMLtools.LoadListFromXMLSerializer<BusLineStation>(busLineStationPath);
-            var list =
-             from station in bus_line_station_list
-             where (station.Exists && station.StationID == stationID)
-             select (station.LineID);
-            List<BusLine> returnList = new List<BusLine>();
-            try
-            {
-                foreach (var item in list)
-                {
-                    returnList.Add(GetBusLine(item));
+        //public IEnumerable<BusLine> GetBuslinesOfStation(int stationID)//gets all the bus lines with this station on the route
+        //{
+        //     List<BusLine> ListLines = XMLtools.LoadListFromXMLSerializer<BusLine>(busLinePath);
+        //     List<BusLineStation> bus_line_station_list=XMLtools.LoadListFromXMLSerializer<BusLineStation>(busLineStationPath);
+        //    var list =
+        //     from station in bus_line_station_list
+        //     where (station.Exists && station.StationID == stationID)
+        //     select (station.LineID);
+        //    List<BusLine> returnList = new List<BusLine>();
+        //    try
+        //    {
+        //        foreach (var item in list)
+        //        {
+        //            returnList.Add(GetBusLine(item));
 
-                }
-            }
-            catch (BusLineNotFoundException ex)
-            {
-                throw ex;
-            }
-            return returnList;
-        }
-        //did till here in switching to xelement, except for update bus, update busline and GetBuslinesOfStation
+        //        }
+        //    }
+        //    catch (BusLineNotFoundException ex)
+        //    {
+        //        throw ex;
+        //    }
+        //    return returnList;
+        //}
         #endregion //finished! 
 
         #region BusLineStation CRUD finished!

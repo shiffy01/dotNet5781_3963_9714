@@ -9,18 +9,21 @@ namespace BlApi
 {
     public interface IBL
     {
-        #region Bus
-      //  i dont know what the user should be allowed to decide for a bus. status is automaticly ready, license is a running number, startdate
-      //is now, last tune up is now bec its tuned right when it comes in, total km on a new bus is 0, gas is full.
-      //only the last three things i guess... but they're kind of useless on public transportation anyway, the buses just come and 
-      //no one gets to have special requests. so fill in add and update functions later.
-
+        #region Bus CRUD
         string AddBus(bool access, bool wifi);//
+        void UpdateBus(int license, Bus.Status_ops status, DateTime last_tune_up, int kilometerage, int totalkilometerage, int gas);
         void UpdateBus(int license, bool access, bool wifi);
         void DeleteBus(int license);
         Bus GetBus(int license);
         IEnumerable<Bus> GetAllBuses();
         IEnumerable<Bus> GetAllBusesBy(Predicate<Bus> predicate);
+        #endregion
+
+        #region Bus functions
+        void refill(Bus bus);
+        void tuneUp(Bus bus);
+        void drive(Bus bus);
+        bool canDrive(Bus bus);
         #endregion
 
         #region BusLine

@@ -14,6 +14,7 @@ namespace DLAPI
     {
         #region Bus  definition
         int AddBus(bool access, bool wifi);
+        void UpdateBus(int license, Bus.Status_ops status, DateTime last_tune_up, int kilometerage, int totalkilometerage, int gas);
         void UpdateBus(int license, bool access, bool wifi);
         void DeleteBus(int license);
         IEnumerable<Bus> GetAllBuses();
@@ -28,7 +29,7 @@ namespace DLAPI
         IEnumerable<BusLine> GetAllBuslines();
         BusLine GetBusLine(int busID);
         IEnumerable<BusLine> GetAllBusLinesBy(Predicate<BusLine> predicate);
-        IEnumerable<BusLine> GetBuslinesOfStation(int stationID);
+        //IEnumerable<BusLine> GetBuslinesOfStation(int stationID);
         #endregion
         
         #region BusLineStation  definition

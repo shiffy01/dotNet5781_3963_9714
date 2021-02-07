@@ -59,6 +59,30 @@ namespace DL
             });
             return license;
         }//doesn't throw an exception, doesn't need one
+        public void UpdateBus(int license, Bus.Status_ops status, DateTime last_tune_up, int kilometerage, int totalkilometerage, int gas)
+        {
+            Bus oldBus = DataSource.Buses.FirstOrDefault(tmpBus => tmpBus.License == license && tmpBus.Exists);
+
+            if (oldBus != default(Bus))
+            {
+                Bus newBus = new Bus {
+                    Status = status,
+                    License = oldBus.License,
+                    StartDate = oldBus.StartDate,
+                    Last_tune_up = last_tune_up,
+                    Totalkilometerage = totalkilometerage,
+                    Kilometerage = kilometerage,
+                    Gas = gas,
+                    IsAccessible = oldBus.IsAccessible,
+                    HasWifi = oldBus.HasWifi,
+                    Exists = true
+                };
+                DataSource.Buses.Remove(oldBus);
+                DataSource.Buses.Add(newBus);
+            }
+            else
+                throw new BusNotFoundException("Bus wasn't found in the system");
+        }
         public void UpdateBus(int license, bool access, bool wifi)
         {
            
@@ -194,30 +218,30 @@ namespace DL
                    where (predicate(line)&&line.Exists)
                    select line.Clone();
         }   //done!!
-        public IEnumerable<BusLine> GetBuslinesOfStation(int stationID)//gets all the bus lines with this station on the route
-        {
-            var list =
-             from station in DataSource.Line_stations
-             where (station.Exists && station.StationID == stationID)
-             select new {
-                id= station.LineID,
-                name=station.StationID
-             };
-            List<BusLine> returnList = new List<BusLine>();
-            try
-            {
-                foreach (var item in list)
-                {
-                    returnList.Add(GetBusLine(item.id));
+        //public IEnumerable<BusLine> GetBuslinesOfStation(int stationID)//gets all the bus lines with this station on the route
+        //{
+        //    var list =
+        //     from station in DataSource.Line_stations
+        //     where (station.Exists && station.StationID == stationID)
+        //     select new {
+        //        id= station.LineID,
+        //        name=station.StationID
+        //     };
+        //    List<BusLine> returnList = new List<BusLine>();
+        //    try
+        //    {
+        //        foreach (var item in list)
+        //        {
+        //            returnList.Add(GetBusLine(item.id));
 
-                }
-            }
-            catch (BusLineNotFoundException ex)
-            {
-                throw ex;
-            }
-            return returnList;
-        }
+        //        }
+        //    }
+        //    catch (BusLineNotFoundException ex)
+        //    {
+        //        throw ex;
+        //    }
+        //    return returnList;
+        //}
        
         #endregion
 
@@ -345,14 +369,7 @@ namespace DL
                 from BusStation in DataSource.Stations
                 orderby BusStation.Code
                 select BusStation.Clone();
-        }//done!!
-        public IEnumerable<IGrouping<string, BusStation>> getStationsByCity()
-        {
-           var list=
-                from station in DataSource.Stations
-                group station by station.City;
-            return list;
-        }
+        }//done!!   
         public IEnumerable<BusStation> GetAllBusStationsBy(Predicate<BusStation> predicate)
         {
             return from busStation in DataSource.Stations
@@ -430,10 +447,13 @@ namespace DL
         #endregion
 
         #endregion
-        public void CreateStationsList()
-        {
-
-        }
+        //public IEnumerable<IGrouping<string, BusStation>> getStationsByCity()
+        //{
+        //   var list=
+        //        from station in DataSource.Stations
+        //        group station by station.City;
+        //    return list;
+        //}
 
     }
 }

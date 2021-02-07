@@ -12,6 +12,7 @@ namespace DO
         public enum Status_ops
         {
             Ready,
+            Not_ready,
             On_the_road,
             Filling_up,
             At_mechanic
