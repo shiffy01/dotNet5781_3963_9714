@@ -33,7 +33,7 @@ namespace BL
             get => blInstance;
         }
         #endregion
-
+        private readonly IDAL dal = DalFactory.GetDal();
         string license_format(int license)
         {
             string finalLicense;
@@ -118,7 +118,7 @@ namespace BL
         }
 
         #region convert functions
-      private  readonly IDAL dal = DalFactory.GetDal();
+     
         BO.BusStation ConvertStationDOtoBO(DO.BusStation DOstation)
         {
             BO.BusStation BOstation = new BO.BusStation();
