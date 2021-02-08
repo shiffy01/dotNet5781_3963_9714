@@ -22,8 +22,8 @@ namespace DS
         public static List<BusLineStation> Line_stations{ get => line_stations; }
         private static List<AdjacentStations> two_stops = new List<AdjacentStations>();
         public static List<AdjacentStations> Two_stops{ get => two_stops; }
-        private static List<BusDeparted> departed = new List<BusDeparted>();
-        public static List<BusDeparted> Departed{ get => departed; }
+        //private static List<BusDeparted> departed = new List<BusDeparted>();
+        //public static List<BusDeparted> Departed{ get => departed; }
         public static double Distance_Between_Two_Stops(BusStation station1, BusStation station2)
         {
             if (station1 == null || station2 == null)

@@ -97,39 +97,32 @@ namespace DL
             XMLtools.SaveListToXMLElement(BusRootElem, busPath);
             return newLicense;
         }//done
-        public void UpdateBus(int license, bool access, bool wifi)//FIX THIS!!!!!!
+        public void UpdateBus(int license, bool access, bool wifi)
         {
-            List<Bus> Listbus = XMLtools.LoadListFromXMLSerializer<Bus>(busPath);
-            Bus realBus = Listbus.FirstOrDefault(tmpBus => tmpBus.License == license && tmpBus.Exists);
+            XElement linesRootElem = XMLtools.LoadListFromXMLElement(busPath);
 
-            if (realBus != default(Bus))
+            XElement line = (from l in linesRootElem.Elements()
+                             where int.Parse(l.Element("License").Value) == license && bool.Parse(l.Element("Exists").Value)
+                             select l).FirstOrDefault();
+
+            if (line != null)
             {
-                Bus newBus = new Bus {
-                    Status = realBus.Status,
-                    License = realBus.License,
-                    StartDate = realBus.StartDate,
-                    Last_tune_up = realBus.Last_tune_up,
-                    Totalkilometerage = realBus.Totalkilometerage,
-                    Kilometerage = realBus.Kilometerage,
-                    Gas = realBus.Gas,
-                    IsAccessible = access,
-                    HasWifi = wifi,
-                    Exists = true
-                };
-                Listbus.Remove(realBus);
-                Listbus.Add(newBus);
-                XMLtools.SaveListToXMLSerializer(Listbus, busPath);
+                line.Element("Access").Value = access+"";
+                line.Element("Wifi").Value = wifi+"";
+               
+
+                XMLtools.SaveListToXMLElement(linesRootElem, busPath);
             }
             else
-                throw new BusNotFoundException("Bus wasn't found in the system");
+                throw new BusNotFoundException("This bus is not in the system");
         }
         public void UpdateBus(int license, Bus.Status_ops status, DateTime last_tune_up, int kilometerage, int totalkilometerage, int gas)
         {
             XElement linesRootElem = XMLtools.LoadListFromXMLElement(busPath);
 
             XElement line = (from l in linesRootElem.Elements()
-                                 where int.Parse(l.Element("License").Value) == license
-                                 select l).FirstOrDefault();
+                                 where int.Parse(l.Element("License").Value) == license&& bool.Parse(l.Element("Exists").Value)
+                             select l).FirstOrDefault();
 
             if (line != null)
             {

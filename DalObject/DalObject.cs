@@ -444,6 +444,11 @@ namespace DL
                 return false;
             }
         }
+
+        public void CreateStationsList()
+        {
+            throw new NotImplementedException();
+        }
         #endregion
 
         #endregion
