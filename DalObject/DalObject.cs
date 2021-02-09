@@ -85,10 +85,10 @@ namespace DL
         }
         public void UpdateBus(int license, bool access, bool wifi)
         {
-           
-              Bus realBus= DataSource.Buses.FirstOrDefault(tmpBus => tmpBus.License== license&&tmpBus.Exists);
 
-            if (realBus!= default(Bus))
+            Bus realBus = DataSource.Buses.FirstOrDefault(tmpBus => tmpBus.License == license && tmpBus.Exists);
+
+            if (realBus != default(Bus))
             {
                 Bus newBus = new Bus {
                     Status = realBus.Status,
@@ -444,8 +444,61 @@ namespace DL
                 return false;
             }
         }
-
+        #endregion
         public void CreateStationsList()
+        {
+            throw new NotImplementedException();
+        }
+
+        #region User not implemented!
+        public void AddUser(string userName, string password, bool manager)
+        {
+            throw new NotImplementedException();
+        }
+        public void UpdateUser(User user)
+        {
+            throw new NotImplementedException();
+        }
+        public void DeleteUser(string userName, string password)
+        {
+            throw new NotImplementedException();
+        }
+        public IEnumerable<User> GetAllUsers()
+        {
+            throw new NotImplementedException();
+        }
+        public User GetUser(string userName, string password)
+        {
+            throw new NotImplementedException();
+        }
+        public IEnumerable<User> GetAllUsersBy(Predicate<User> predicate)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
+        #region StationSearchHistory not implemented!
+        public void AddStationSearchHistory(string userName, int code, bool starred, string nickname)
+        {
+            throw new NotImplementedException();
+        }
+        public void UpdateStationSearchHistory(StationSearchHistory search)
+        {
+            throw new NotImplementedException();
+        }
+        public void DeleteStationSearchHistory(string userName, int code)
+        {
+            throw new NotImplementedException();
+        }
+        public IEnumerable<StationSearchHistory> GetAllStationSearchHistory()
+        {
+            throw new NotImplementedException();
+        }
+        public StationSearchHistory GetStationSearchHistory(string userName, string password)
+        {
+            throw new NotImplementedException();
+        }
+        public IEnumerable<StationSearchHistory> GetAllStationSearchHistoryBy(Predicate<StationSearchHistory> predicate)
         {
             throw new NotImplementedException();
         }

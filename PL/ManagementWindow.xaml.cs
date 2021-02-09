@@ -27,7 +27,7 @@ namespace PL
         {
             InitializeComponent();
             bl = BlFactory.GetBl();
-            bl.CreateStationsList();
+      //      bl.CreateStationsList();
         }
 
         private void station_display_Click(object sender, RoutedEventArgs e)

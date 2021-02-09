@@ -41,9 +41,11 @@ namespace DL
         string adjacentStationsPath = @"twoConsecutiveStopsXml.xml";
         string busLineStationPath = @"busLineStationXml.xml";
         string badBusStationsPath = @"stops.xml";
+        string userPath=@"userXml.xml";
+        string stationSearchHistoryPath = @"stationSearchHistoryXml.xml";
         #endregion
 
-        
+
         public void CreateStationsList()//get list of all the stations in the country from stops.xml,
                                     //convert them to our station type and save to new xml
         {
@@ -107,9 +109,9 @@ namespace DL
 
             if (line != null)
             {
-                line.Element("Access").Value = access+"";
-                line.Element("Wifi").Value = wifi+"";
-               
+                line.Element("Access").Value = access + "";
+                line.Element("Wifi").Value = wifi + "";
+
 
                 XMLtools.SaveListToXMLElement(linesRootElem, busPath);
             }
@@ -121,17 +123,17 @@ namespace DL
             XElement linesRootElem = XMLtools.LoadListFromXMLElement(busPath);
 
             XElement line = (from l in linesRootElem.Elements()
-                                 where int.Parse(l.Element("License").Value) == license&& bool.Parse(l.Element("Exists").Value)
+                             where int.Parse(l.Element("License").Value) == license && bool.Parse(l.Element("Exists").Value)
                              select l).FirstOrDefault();
 
             if (line != null)
             {
-                line.Element("Status").Value = ((int)status+"");
+                line.Element("Status").Value = ((int)status + "");
                 line.Element("TuneYear").Value = last_tune_up.Year + "";
                 line.Element("TuneMonth").Value = last_tune_up.Month + "";
-                line.Element("TotalKiloMeterage").Value = kilometerage+"";
-                line.Element("TotalKiloMeterage").Value = totalkilometerage+"";
-                line.Element("Gas").Value = gas+"";
+                line.Element("TotalKiloMeterage").Value = kilometerage + "";
+                line.Element("TotalKiloMeterage").Value = totalkilometerage + "";
+                line.Element("Gas").Value = gas + "";
 
                 XMLtools.SaveListToXMLElement(linesRootElem, busPath);
             }
@@ -630,6 +632,132 @@ namespace DL
                 return false;
             }
         }//done
+        #endregion
+
+        #region User inplementation
+        public void AddUser(string userName, string password, bool manager)
+        {
+            List<User> userList = XMLtools.LoadListFromXMLSerializer<User>(userPath);
+            if (userList.FirstOrDefault(u => (u.UserName == (userName) && u.Exists)) != default(User))
+                throw new UserNameAlreadyExistsException("There is already a user with the same name");
+            if (userList.FirstOrDefault(u => (u.Password == (password) && u.Exists)) != default(User))
+                throw new PasswordAlreadyExistsException("There is already a user with this password");//not sure-- maybe it should let doubles?
+
+            userList.Add(new User {
+               UserName=userName,
+               Password=password,
+               IsManager=manager,
+                Exists = true
+            });
+            XMLtools.SaveListToXMLSerializer(userList, userPath);
+        }
+        public void UpdateUser(User user)
+        {
+            List<User> userList = XMLtools.LoadListFromXMLSerializer<User>(userPath);
+            User oldUser = userList.FirstOrDefault(s => (s.UserName == user.UserName && s.Exists&&s.Password==user.Password));
+
+            if (oldUser != default(User))
+            {
+            
+                userList.Remove(oldUser);
+                userList.Add(user);
+                XMLtools.SaveListToXMLSerializer(userList, userPath);
+            }
+            else
+                throw new DO.UserDoesNotExistException("This user is not in the system");
+        }
+        public void DeleteUser(string userName, string password)
+        {
+            List<User> userList = XMLtools.LoadListFromXMLSerializer<User>(userPath);
+            User oldUser = userList.FirstOrDefault(s => (s.UserName == userName && s.Exists && s.Password == password));
+
+            if (oldUser != default(User))
+            {
+                oldUser.Exists = false;
+                XMLtools.SaveListToXMLSerializer(userList, userPath);
+            }
+            else
+                throw new UserDoesNotExistException("Cannot delete a user that does not exist");
+        }
+        public IEnumerable<User> GetAllUsers()
+        {
+            List<User> userList = XMLtools.LoadListFromXMLSerializer<User>(userPath);
+            return
+            from user in userList
+            where (user.Exists)
+            select (user);
+          
+        }
+        public User GetUser(string userName, string password)
+        {
+            List<User> userList = XMLtools.LoadListFromXMLSerializer<User>(userPath);
+            User user = userList.FirstOrDefault(u => (u.UserName == userName && u.Exists&&u.Password==password));
+
+            if (user != default(User))
+                return user;
+            throw new UserDoesNotExistException("This user with this password is not in the system");
+        }
+        public IEnumerable<User> GetAllUsersBy(Predicate<User> predicate)
+        {
+            List<User> userList = XMLtools.LoadListFromXMLSerializer<User>(userPath);
+            return from user in userList
+                   where predicate(user) && user.Exists
+                   select user;
+        }
+        #endregion
+
+        #region StationSearchHistory implementation
+        void AddStationSearchHistory(string userName, int code, bool starred, string nickname)
+        {
+            List<StationSearchHistory> historyList = XMLtools.LoadListFromXMLSerializer<StationSearchHistory>(stationSearchHistoryPath);
+            if (historyList.FirstOrDefault(u => (u.UserName == (userName) && u.Exists&&u.StationCode==code)) != default(StationSearchHistory))
+                throw new StationSearchHistoryAlreadyExistsException("There is already a user with the same name");
+            historyList = (historyList.OrderBy(h => h.SearchIndex)).ToList();
+
+            historyList.Add(new StationSearchHistory {
+                UserName = userName,
+                StationCode = code,
+                IsStarred = starred,
+                NickName = nickname,
+                SearchIndex = historyList[historyList.Count()].SearchIndex+1,
+                Exists = true
+            }) ;
+            XMLtools.SaveListToXMLSerializer(historyList, stationSearchHistoryPath);
+        }
+        void UpdateStationSearchHistory(StationSearchHistory search)
+        {
+            List<StationSearchHistory> historyList = XMLtools.LoadListFromXMLSerializer<StationSearchHistory>(stationSearchHistoryPath);
+            StationSearchHistory oldSearch = historyList.FirstOrDefault(s => (s.UserName == search.UserName && s.Exists && s.StationCode == search.StationCode));
+
+            if (oldSearch != default(StationSearchHistory))
+            {
+
+                historyList.Remove(oldSearch);
+                historyList.Add(search);
+                XMLtools.SaveListToXMLSerializer(historyList, stationSearchHistoryPath);
+            }
+            else
+                throw new StationSearchDoesNotExistException("This search is not in the system");
+        }
+        void DeleteStationSearchHistory(string userName, int code)
+        {
+            List<StationSearchHistory> historyList = XMLtools.LoadListFromXMLSerializer<StationSearchHistory>(stationSearchHistoryPath);
+            StationSearchHistory oldSearch = historyList.FirstOrDefault(s => (s.UserName == userName && s.Exists && s.StationCode == code));
+
+            if (oldSearch != default(StationSearchHistory))
+            {
+                oldSearch.Exists = false;
+                XMLtools.SaveListToXMLSerializer(historyList, stationSearchHistoryPath);
+            }
+            else
+                throw new StationSearchDoesNotExistException("Cannot delete a search that does not exist");
+        }
+        IEnumerable<User> GetAllStationSearchHistory()
+        {
+            
+        }
+        User GetStationSearchHistory(string userName, string password);
+        IEnumerable<User> GetAllStationSearchHistoryBy(Predicate<User> predicate);
         #endregion
     }
 }

@@ -557,7 +557,7 @@ namespace BL
             DO.Bus.Status_ops DOstatus = (DO.Bus.Status_ops)number;
             try
             {
-                dal.UpdateBus(license, DOstatus, last_tune_up, kilometerage, totalkilometerage, gas);
+          //      dal.UpdateBus(license, DOstatus, last_tune_up, kilometerage, totalkilometerage, gas);
             }
             catch (DO.BusNotFoundException ex)
             {
@@ -569,7 +569,7 @@ namespace BL
         {
             try
             {
-                dal.UpdateBus(license, access, wifi);
+           //     dal.UpdateBus(license, access, wifi);
             }
             catch (DO.BusNotFoundException ex)
             {

@@ -15,7 +15,7 @@ namespace DLAPI
         #region Bus  definition
         int AddBus(bool access, bool wifi);
         void UpdateBus(int license, Bus.Status_ops status, DateTime last_tune_up, int kilometerage, int totalkilometerage, int gas);
-        void UpdateBus(int license, bool access, bool wifi);
+       void UpdateBus(int license, bool access, bool wifi);
         void DeleteBus(int license);
         IEnumerable<Bus> GetAllBuses();
         Bus GetBus(int license);
@@ -31,7 +31,26 @@ namespace DLAPI
         IEnumerable<BusLine> GetAllBusLinesBy(Predicate<BusLine> predicate);
         //IEnumerable<BusLine> GetBuslinesOfStation(int stationID);
         #endregion
-        
+        #region User  definition
+        void AddUser(string userName, string password, bool manager);
+        void UpdateUser(User user);
+        void DeleteUser(string userName, string password);
+        IEnumerable<User> GetAllUsers();
+        User GetUser(string userName, string password);
+        IEnumerable<User> GetAllUsersBy(Predicate<User> predicate);
+
+        #endregion
+
+        #region User  definition
+        void AddStationSearchHistory(string userName, int code, bool starred, string nickname);
+        void UpdateStationSearchHistory(StationSearchHistory search);
+        void DeleteStationSearchHistory(string userName, int code);
+        IEnumerable<StationSearchHistory> GetAllStationSearchHistory();
+        StationSearchHistory GetStationSearchHistory(string userName, string password);
+        IEnumerable<StationSearchHistory> GetAllStationSearchHistoryBy(Predicate<StationSearchHistory> predicate);
+
+        #endregion
+
         #region BusLineStation  definition
         void AddBusLineStation(int station_id, int line_id, int number_on_route);
         void UpdateBusLineStation(BusLineStation busLineStation);

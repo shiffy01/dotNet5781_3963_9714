@@ -127,7 +127,81 @@ namespace DO
         public BusNotFoundException(string message, Exception inner) : base(message, inner)
         {
         }
-        public override string ToString() => base.ToString() + "Bus line doesn't exist in the system";
+        public override string ToString() => base.ToString() + "Bus doesn't exist in the system";
     }
+    [Serializable]
+    public class UserNameAlreadyExistsException : Exception
+    {
+        public UserNameAlreadyExistsException()
+        {
+        }
+        public UserNameAlreadyExistsException(string messege) : base(messege)
+        {
 
+        }
+        public UserNameAlreadyExistsException(string message, Exception inner) : base(message, inner)
+        {
+        }
+        public override string ToString() => base.ToString() + "User name is already used in the system";
+    }
+    [Serializable]
+    public class PasswordAlreadyExistsException : Exception
+    {
+        public PasswordAlreadyExistsException()
+        {
+        }
+        public PasswordAlreadyExistsException(string messege) : base(messege)
+        {
+
+        }
+        public PasswordAlreadyExistsException(string message, Exception inner) : base(message, inner)
+        {
+        }
+        public override string ToString() => base.ToString() + "Password is already used in the system";
+    }
+    [Serializable]
+    public class UserDoesNotExistException : Exception
+    {
+        public UserDoesNotExistException()
+        {
+        }
+        public UserDoesNotExistException(string messege) : base(messege)
+        {
+
+        }
+        public UserDoesNotExistException(string message, Exception inner) : base(message, inner)
+        {
+        }
+        public override string ToString() => base.ToString() + "User is not in the system";
+    }
+    [Serializable]
+    public class StationSearchHistoryAlreadyExistsException : Exception
+    {
+        public StationSearchHistoryAlreadyExistsException()
+        {
+        }
+        public StationSearchHistoryAlreadyExistsException(string messege) : base(messege)
+        {
+
+        }
+        public StationSearchHistoryAlreadyExistsException(string message, Exception inner) : base(message, inner)
+        {
+        }
+        public override string ToString() => base.ToString() + "This search is already saved in the system";
+    }
+    [Serializable]
+    public class StationSearchDoesNotExistException : Exception
+    {
+        public StationSearchDoesNotExistException()
+        {
+        }
+        public StationSearchDoesNotExistException(string messege) : base(messege)
+        {
+
+        }
+        public StationSearchDoesNotExistException(string message, Exception inner) : base(message, inner)
+        {
+        }
+        public override string ToString() => base.ToString() + "This search is already saved in the system";
+    }
 }
