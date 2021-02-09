@@ -43,6 +43,8 @@ namespace DL
         string badBusStationsPath = @"stops.xml";
         string userPath=@"userXml.xml";
         string stationSearchHistoryPath = @"stationSearchHistoryXml.xml";
+        string routeSearchHistoryPath = @"routeSearchHistoryXml.xml";
+        string lineSearchHistoryPath = @"lineSearchHistoryXml.xml";
         #endregion
 
 
@@ -640,9 +642,7 @@ namespace DL
             List<User> userList = XMLtools.LoadListFromXMLSerializer<User>(userPath);
             if (userList.FirstOrDefault(u => (u.UserName == (userName) && u.Exists)) != default(User))
                 throw new UserNameAlreadyExistsException("There is already a user with the same name");
-            if (userList.FirstOrDefault(u => (u.Password == (password) && u.Exists)) != default(User))
-                throw new PasswordAlreadyExistsException("There is already a user with this password");//not sure-- maybe it should let doubles?
-
+        
             userList.Add(new User {
                UserName=userName,
                Password=password,
@@ -710,11 +710,12 @@ namespace DL
         void AddStationSearchHistory(string userName, int code, bool starred, string nickname)
         {
             List<StationSearchHistory> historyList = XMLtools.LoadListFromXMLSerializer<StationSearchHistory>(stationSearchHistoryPath);
-            if (historyList.FirstOrDefault(u => (u.UserName == (userName) && u.Exists&&u.StationCode==code)) != default(StationSearchHistory))
-                throw new StationSearchHistoryAlreadyExistsException("There is already a user with the same name");
+            if (historyList.FirstOrDefault(u => (u.ID==userName+code.ToString()&& u.Exists)) != default(StationSearchHistory))
+                throw new StationSearchHistoryAlreadyExistsException("This search is already in the system");
             historyList = (historyList.OrderBy(h => h.SearchIndex)).ToList();
 
             historyList.Add(new StationSearchHistory {
+                ID=userName+code.ToString(),
                 UserName = userName,
                 StationCode = code,
                 IsStarred = starred,
@@ -727,7 +728,7 @@ namespace DL
         void UpdateStationSearchHistory(StationSearchHistory search)
         {
             List<StationSearchHistory> historyList = XMLtools.LoadListFromXMLSerializer<StationSearchHistory>(stationSearchHistoryPath);
-            StationSearchHistory oldSearch = historyList.FirstOrDefault(s => (s.UserName == search.UserName && s.Exists && s.StationCode == search.StationCode));
+            StationSearchHistory oldSearch = historyList.FirstOrDefault(s => (s.ID == search.ID && s.Exists));
 
             if (oldSearch != default(StationSearchHistory))
             {
@@ -739,10 +740,10 @@ namespace DL
             else
                 throw new StationSearchDoesNotExistException("This search is not in the system");
         }
-        void DeleteStationSearchHistory(string userName, int code)
+        void DeleteStationSearchHistory(string id)
         {
             List<StationSearchHistory> historyList = XMLtools.LoadListFromXMLSerializer<StationSearchHistory>(stationSearchHistoryPath);
-            StationSearchHistory oldSearch = historyList.FirstOrDefault(s => (s.UserName == userName && s.Exists && s.StationCode == code));
+            StationSearchHistory oldSearch = historyList.FirstOrDefault(s => (s.ID == id && s.Exists));
 
             if (oldSearch != default(StationSearchHistory))
             {
@@ -752,12 +753,177 @@ namespace DL
             else
                 throw new StationSearchDoesNotExistException("Cannot delete a search that does not exist");
         }
-        IEnumerable<User> GetAllStationSearchHistory()
+        IEnumerable<StationSearchHistory> GetAllStationSearchHistory()
         {
-            
+            List<StationSearchHistory> historyList = XMLtools.LoadListFromXMLSerializer<StationSearchHistory>(stationSearchHistoryPath);
+            return
+            from search in historyList
+            where search.Exists
+            select search;
         }
-        User GetStationSearchHistory(string userName, string password);
-        IEnumerable<User> GetAllStationSearchHistoryBy(Predicate<User> predicate);
+        StationSearchHistory GetStationSearchHistory(string id)
+        {
+            List<StationSearchHistory> historyList = XMLtools.LoadListFromXMLSerializer<StationSearchHistory>(stationSearchHistoryPath);
+            StationSearchHistory search = historyList.FirstOrDefault(s => (s.ID == id && s.Exists));
+
+            if (search != default(StationSearchHistory))
+                return search;
+            throw new StationSearchDoesNotExistException("This search is not saved in the system");
+        }
+        IEnumerable<StationSearchHistory> GetAllStationSearchHistoryBy(Predicate<StationSearchHistory> predicate)
+        {
+            List<StationSearchHistory> historyList = XMLtools.LoadListFromXMLSerializer<StationSearchHistory>(stationSearchHistoryPath);
+            return from search in historyList
+                   where predicate(search) && search.Exists
+                   select search;
+        }
+        #endregion
+
+        #region RouteSearchHistory implementation
+        void AddRouteSearchHistory(string userName, int code1, int code2, bool starred, string nickname)
+        {
+            List<RouteSearchHistory> historyList = XMLtools.LoadListFromXMLSerializer<RouteSearchHistory>(routeSearchHistoryPath);
+            if (historyList.FirstOrDefault(u => (u.ID == userName + code1.ToString()+code2.ToString() && u.Exists)) != default(RouteSearchHistory))
+                throw new RouteSearchHistoryAlreadyExistsException("This search is already in the system");
+            historyList = (historyList.OrderBy(h => h.SearchIndex)).ToList();
+
+            historyList.Add(new RouteSearchHistory {
+                ID = userName + code1.ToString()+code2.ToString(),
+                UserName = userName,
+                Station1Code=code1,
+                Station2Code=code2,
+                IsStarred = starred,
+                NickName = nickname,
+                SearchIndex = historyList[historyList.Count()].SearchIndex + 1,
+                Exists = true
+            });
+            XMLtools.SaveListToXMLSerializer(historyList, stationSearchHistoryPath);
+        }
+        void UpdateRouteSearchHistory(RouteSearchHistory search)
+        {
+            List<RouteSearchHistory> historyList = XMLtools.LoadListFromXMLSerializer<RouteSearchHistory>(routeSearchHistoryPath);
+            RouteSearchHistory oldSearch = historyList.FirstOrDefault(s => (s.ID == search.ID && s.Exists));
+
+            if (oldSearch != default(RouteSearchHistory))
+            {
+
+                historyList.Remove(oldSearch);
+                historyList.Add(search);
+                XMLtools.SaveListToXMLSerializer(historyList, routeSearchHistoryPath);
+            }
+            else
+                throw new RouteSearchDoesNotExistException("This search is not in the system");
+        }
+        void DeleteRouteSearchHistory(string id)
+        {
+            List<RouteSearchHistory> historyList = XMLtools.LoadListFromXMLSerializer<RouteSearchHistory>(routeSearchHistoryPath);
+            RouteSearchHistory oldSearch = historyList.FirstOrDefault(s => (s.ID == id && s.Exists));
+
+            if (oldSearch != default(RouteSearchHistory))
+            {
+                oldSearch.Exists = false;
+                XMLtools.SaveListToXMLSerializer(historyList, routeSearchHistoryPath);
+            }
+            else
+                throw new RouteSearchDoesNotExistException("Cannot delete a search that does not exist");
+        }
+        IEnumerable<RouteSearchHistory> GetAllRouteSearchHistory()
+        {
+            List<RouteSearchHistory> historyList = XMLtools.LoadListFromXMLSerializer<RouteSearchHistory>(routeSearchHistoryPath);
+            return
+            from search in historyList
+            where search.Exists
+            select search;
+        }
+        RouteSearchHistory GetRouteSearchHistory(string id)
+        {
+            List<RouteSearchHistory> historyList = XMLtools.LoadListFromXMLSerializer<RouteSearchHistory>(routeSearchHistoryPath);
+            RouteSearchHistory search = historyList.FirstOrDefault(s => (s.ID == id && s.Exists));
+
+            if (search != default(RouteSearchHistory))
+                return search;
+            throw new RouteSearchDoesNotExistException("This search is not saved in the system");
+        }
+        IEnumerable<RouteSearchHistory> GetAllRouteSearchHistoryBy(Predicate<RouteSearchHistory> predicate)
+        {
+            List<RouteSearchHistory> historyList = XMLtools.LoadListFromXMLSerializer<RouteSearchHistory>(routeSearchHistoryPath);
+            return from search in historyList
+                   where predicate(search) && search.Exists
+                   select search;
+        }
+        #endregion
+
+        #region LineSearchHistory implementation
+        void AddLineSearchHistory(string userName, int code, bool starred, string nickname)
+        {
+            List<LineSearchHistory> historyList = XMLtools.LoadListFromXMLSerializer<LineSearchHistory>(lineSearchHistoryPath);
+            if (historyList.FirstOrDefault(u => (u.ID == userName + code.ToString() && u.Exists)) != default(LineSearchHistory))
+                throw new LineSearchHistoryAlreadyExistsException("This search is already in the system");
+            historyList = (historyList.OrderBy(h => h.SearchIndex)).ToList();
+
+            historyList.Add(new LineSearchHistory {
+                ID = userName + code.ToString(),
+                UserName = userName,
+                LineCode = code,
+                IsStarred = starred,
+                NickName = nickname,
+                SearchIndex = historyList[historyList.Count()].SearchIndex + 1,
+                Exists = true
+            });
+            XMLtools.SaveListToXMLSerializer(historyList, lineSearchHistoryPath);
+        }
+        void UpdateLineSearchHistory(LineSearchHistory search)
+        {
+            List<LineSearchHistory> historyList = XMLtools.LoadListFromXMLSerializer<LineSearchHistory>(lineSearchHistoryPath);
+            LineSearchHistory oldSearch = historyList.FirstOrDefault(s => (s.ID == search.ID && s.Exists));
+
+            if (oldSearch != default(LineSearchHistory))
+            {
+
+                historyList.Remove(oldSearch);
+                historyList.Add(search);
+                XMLtools.SaveListToXMLSerializer(historyList, lineSearchHistoryPath);
+            }
+            else
+                throw new LineSearchDoesNotExistException("This search is not in the system");
+        }
+        void DeleteLineSearchHistory(string id)
+        {
+            List<LineSearchHistory> historyList = XMLtools.LoadListFromXMLSerializer<LineSearchHistory>(lineSearchHistoryPath);
+            LineSearchHistory oldSearch = historyList.FirstOrDefault(s => (s.ID == id && s.Exists));
+
+            if (oldSearch != default(LineSearchHistory))
+            {
+                oldSearch.Exists = false;
+                XMLtools.SaveListToXMLSerializer(historyList, lineSearchHistoryPath);
+            }
+            else
+                throw new LineSearchDoesNotExistException("Cannot delete a search that does not exist");
+        }
+        IEnumerable<LineSearchHistory> GetAllLineSearchHistory()
+        {
+            List<LineSearchHistory> historyList = XMLtools.LoadListFromXMLSerializer<LineSearchHistory>(lineSearchHistoryPath);
+            return
+            from search in historyList
+            where search.Exists
+            select search;
+        }
+        LineSearchHistory GetLineSearchHistory(string id)
+        {
+            List<LineSearchHistory> historyList = XMLtools.LoadListFromXMLSerializer<LineSearchHistory>(lineSearchHistoryPath);
+            LineSearchHistory search = historyList.FirstOrDefault(s => (s.ID == id && s.Exists));
+
+            if (search != default(LineSearchHistory))
+                return search;
+            throw new LineSearchDoesNotExistException("This search is not saved in the system");
+        }
+        IEnumerable<LineSearchHistory> GetAllLineSearchHistoryBy(Predicate<LineSearchHistory> predicate)
+        {
+            List<LineSearchHistory> historyList = XMLtools.LoadListFromXMLSerializer<LineSearchHistory>(lineSearchHistoryPath);
+            return from search in historyList
+                   where predicate(search) && search.Exists
+                   select search;
+        }
         #endregion
     }
 }

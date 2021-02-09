@@ -6,14 +6,16 @@ using System.Threading.Tasks;
 
 namespace DO
 {
-    class RouteSearchHistory
+    public class RouteSearchHistory
     {
+        public string ID{ get; set; }
         public string UserName{ get; set; }
         public int Station1Code{ get; set; }
-         public int Station2Code{ get; set; }
+        public int Station2Code{ get; set; }
         public int SearchIndex{ get; set; }
         public bool IsStarred{ get; set; }
-        public bool NickName{ get; set; }
+        public string NickName{ get; set; }
+        public bool Exists{ get; set; }
         
        
   

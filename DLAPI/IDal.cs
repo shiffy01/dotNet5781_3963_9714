@@ -31,6 +31,7 @@ namespace DLAPI
         IEnumerable<BusLine> GetAllBusLinesBy(Predicate<BusLine> predicate);
         //IEnumerable<BusLine> GetBuslinesOfStation(int stationID);
         #endregion
+
         #region User  definition
         void AddUser(string userName, string password, bool manager);
         void UpdateUser(User user);
@@ -41,13 +42,33 @@ namespace DLAPI
 
         #endregion
 
-        #region User  definition
+        #region StationSearchHistory  definition
         void AddStationSearchHistory(string userName, int code, bool starred, string nickname);
         void UpdateStationSearchHistory(StationSearchHistory search);
-        void DeleteStationSearchHistory(string userName, int code);
+        void DeleteStationSearchHistory(string id);
         IEnumerable<StationSearchHistory> GetAllStationSearchHistory();
-        StationSearchHistory GetStationSearchHistory(string userName, string password);
+        StationSearchHistory GetStationSearchHistory(string id);
         IEnumerable<StationSearchHistory> GetAllStationSearchHistoryBy(Predicate<StationSearchHistory> predicate);
+
+        #endregion
+
+        #region RouteSearchHistory  definition
+        void AddRouteSearchHistory(string userName, int code1, int code2, bool starred, string nickname);
+        void UpdateRouteSearchHistory(RouteSearchHistory search);
+        void DeleteRouteSearchHistory(string id);
+        IEnumerable<RouteSearchHistory> GetAllRouteSearchHistory();
+        RouteSearchHistory GetRouteSearchHistory(string id);
+        IEnumerable<RouteSearchHistory> GetAllRouteSearchHistoryBy(Predicate<RouteSearchHistory> predicate);
+
+        #endregion
+
+        #region LineSearchHistory  definition
+        void AddLineSearchHistory(string userName, int code, bool starred, string nickname);
+        void UpdateLineSearchHistory(LineSearchHistory search);
+        void DeleteLineSearchHistory(string id);
+        IEnumerable<LineSearchHistory> GetAllLineSearchHistory();
+        LineSearchHistory GetLineSearchHistory(string id);
+        IEnumerable<LineSearchHistory> GetAllLineSearchHistoryBy(Predicate<LineSearchHistory> predicate);
 
         #endregion
 

@@ -33,6 +33,7 @@ namespace BL
             get => blInstance;
         }
         #endregion
+
         private readonly IDAL dal = DalFactory.GetDal();
         string license_format(int license)
         {
@@ -119,10 +120,9 @@ namespace BL
 
         #region convert functions
      
-        BO.BusStation ConvertStationDOtoBO(DO.BusStation DOstation)
+        BusStation ConvertStationDOtoBO(DO.BusStation DOstation)
         {
-            BO.BusStation BOstation = new BO.BusStation();
-            int StationCode = DOstation.Code;
+            BO.BusStation BOstation = new BO.BusStation();     
             DOstation.CopyPropertiesTo(BOstation);
             try
             {
@@ -141,8 +141,8 @@ namespace BL
             }
             BOstation.City = GetCityFromAddress(BOstation.Address);
             return BOstation;
-        }//figure out convert!!!!
-        DO.BusStation ConvertStationBOtoDO(BO.BusStation BOstation)
+        }
+        DO.BusStation ConvertStationBOtoDO(BusStation BOstation)
         {
             DO.BusStation DOstation = new DO.BusStation();
             BOstation.CopyPropertiesTo(DOstation);
@@ -192,7 +192,31 @@ namespace BL
         {
             DO.BusLine DObusline = new DO.BusLine();
             BObusline.CopyPropertiesTo(DObusline);
+            DObusline.Exists = true;
             return DObusline;
+        }
+
+        DO.User BOtoDOUser(User BOuser)
+        {
+            DO.User DOuser = new DO.User();
+            BOuser.CopyPropertiesTo(DOuser);
+            DOuser.Exists = true;
+            return DOuser;
+        }
+        User DOtoBOUser(DO.User DOuser)
+        {
+            User BOuser = new User();
+            DOuser.CopyPropertiesTo(BOuser);
+            BOuser.RouteSearches = from search in dal.GetAllRouteSearchHistoryBy(s => s.UserName == DOuser.UserName)
+                                   select new Route {
+                                       OriginCode=search.Station1Code,
+                                       DestinationCode=search.Station2Code
+                                   };
+            BOuser.LineSearches = from search in dal.GetAllLineSearchHistoryBy(s => s.UserName == DOuser.UserName)
+                                  select search.LineCode;
+            BOuser.StationSearches = from search in dal.GetAllStationSearchHistoryBy(s => s.UserName == DOuser.UserName)
+                                     select search.StationCode;
+            return BOuser;
         }
         #endregion
         void FrequencyCheck(DateTime firstBus, DateTime lastBus, TimeSpan frequency)
@@ -204,6 +228,7 @@ namespace BL
                 if (totalTime.Ticks % frequency.Ticks != 0)
                     throw new FrequencyConflictException("Frequencey doesnt match time frame");
         }
+
         #region BusLine functions
         public List<string> AddBusLine(int line_number, List<int> stations, DateTime first_bus, DateTime last_bus, TimeSpan frequency)
         {
@@ -616,6 +641,93 @@ namespace BL
                select (ConvertDOtoBOBus(bus));
         }
         #endregion
+
+        #region User functions
+        public void AddUser(string userName, string password, bool manager)
+        {
+            try
+            {
+                dal.AddUser(userName, password, manager);
+            }
+            catch (DO.UserNameAlreadyExistsException ex)
+            {
+                throw new UserNameAlreadyExistsException("There is already a user with this name in the system", ex);
+            }
+        }
+        public void UpdateUser(string userName, string password, bool manager)
+        {
+            try
+            {
+                dal.UpdateUser(BOtoDOUser(new User {
+                    UserName = userName,
+                    Password = password,
+                    IsManager = manager
+                }));
+            }
+            catch (DO.UserDoesNotExistException ex)
+            {
+                throw new UserDoesNotExistException("This user is not saved in the system", ex);
+            }
+        }
+        public void DeleteUser(string userName, string password)
+        {
+            try
+            {
+                dal.DeleteUser(userName, password);
+            }
+            catch (DO.UserDoesNotExistException ex)
+            {
+                throw new UserDoesNotExistException("This user is not saved in the system", ex);
+            }
+        }
+        public IEnumerable<User> GetAllUsers()
+        {
+            return from user in dal.GetAllUsers()
+                   select (DOtoBOUser(user));
+        }
+        public User GetUser(string userName, string password)
+        {
+            try
+            {
+                return DOtoBOUser(dal.GetUser(userName, password));
+            }
+            catch (DO.UserDoesNotExistException ex)
+            {
+                throw new UserDoesNotExistException("This user is not in the system", ex);
+            }
+        }
+        public IEnumerable<User> GetAllUsersBy(Predicate<User> predicate)
+        {
+            return from user in dal.GetAllUsers()
+                   let u = DOtoBOUser(user)
+                   where predicate(u)
+                   select u;
+        }
+        public void DeleteAllHistory(String username, string password)
+        {
+            User user = new User();
+            try
+            {
+                user = GetUser(username, password);
+                foreach (var search in user.LineSearches)
+                    dal.DeleteLineSearchHistory(user.UserName + search.ToString());
+                foreach (var search in user.StationSearches)
+                    dal.DeleteStationSearchHistory(user.UserName + search.ToString());
+                foreach (var search in user.RouteSearches)
+                    dal.DeleteLineSearchHistory(user.UserName + search.OriginCode.ToString()+search.DestinationCode.ToString());
+            }
+            catch (UserDoesNotExistException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)//any of the searchDoesNotExist exceptions
+            {
+                throw new DataErrorException("There was an error loading the data", ex);
+            }
+
+        }
+        #endregion
+
         #region Bus functions 
 
         //private void Worker_DoWork(object sender, DoWorkEventArgs e)

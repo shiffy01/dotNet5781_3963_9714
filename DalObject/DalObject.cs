@@ -37,8 +37,7 @@ namespace DL
 
         #region IDAL implementation
 
-        // static Random rnd = new Random(DateTime.Now.Millisecond);
-       // int BusLineRunningNumber=2000010;
+        
 
         #region Bus implementation
         public int AddBus(bool access, bool wifi)
@@ -445,12 +444,11 @@ namespace DL
             }
         }
         #endregion
-        public void CreateStationsList()
-        {
-            throw new NotImplementedException();
-        }
 
-        #region User not implemented!
+        #endregion
+
+        #region not implemented
+         #region User 
         public void AddUser(string userName, string password, bool manager)
         {
             throw new NotImplementedException();
@@ -486,7 +484,7 @@ namespace DL
         {
             throw new NotImplementedException();
         }
-        public void DeleteStationSearchHistory(string userName, int code)
+        public void DeleteStationSearchHistory(string id)
         {
             throw new NotImplementedException();
         }
@@ -494,7 +492,7 @@ namespace DL
         {
             throw new NotImplementedException();
         }
-        public StationSearchHistory GetStationSearchHistory(string userName, string password)
+        public StationSearchHistory GetStationSearchHistory(string id)
         {
             throw new NotImplementedException();
         }
@@ -504,6 +502,63 @@ namespace DL
         }
         #endregion
 
+        #region RouteSearchHistory not implemented
+        public void AddRouteSearchHistory(string userName, int code1, int code2, bool starred, string nickname)
+        {
+            throw new NotImplementedException();
+        }
+        public void UpdateRouteSearchHistory(RouteSearchHistory search)
+        {
+            throw new NotImplementedException();
+        }
+        public void DeleteRouteSearchHistory(string id)
+        {
+            throw new NotImplementedException();
+        }
+        public IEnumerable<RouteSearchHistory> GetAllRouteSearchHistory()
+        {
+            throw new NotImplementedException();
+        }
+        public RouteSearchHistory GetRouteSearchHistory(string id)
+        {
+            throw new NotImplementedException();
+        }
+        public IEnumerable<RouteSearchHistory> GetAllRouteSearchHistoryBy(Predicate<RouteSearchHistory> predicate)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
+        #region LineSearchHistory
+        public void AddLineSearchHistory(string userName, int code, bool starred, string nickname)
+        {
+            throw new NotImplementedException();
+        }
+        public void UpdateLineSearchHistory(LineSearchHistory search)
+        {
+            throw new NotImplementedException();
+        }
+        public void DeleteLineSearchHistory(string id)
+        {
+            throw new NotImplementedException();
+        }
+        public IEnumerable<LineSearchHistory> GetAllLineSearchHistory()
+        {
+            throw new NotImplementedException();
+        }
+        public LineSearchHistory GetLineSearchHistory(string id)
+        {
+            throw new NotImplementedException();
+        }
+        public IEnumerable<LineSearchHistory> GetAllLineSearchHistoryBy(Predicate<LineSearchHistory> predicate)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+        public void CreateStationsList()
+        {
+            throw new NotImplementedException();
+        }
         #endregion
         //public IEnumerable<IGrouping<string, BusStation>> getStationsByCity()
         //{

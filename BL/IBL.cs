@@ -46,7 +46,16 @@ namespace BlApi
        
         string RemoveBusStationFromLine(int stationCode, int lineNumber);
         #endregion
-         void AddAdjacentStations(int codeA, int codeB, double distance, TimeSpan drive_time);
+        #region User
+        void AddUser(string userName, string password, bool manager);
+        void UpdateUser(string userName, string password, bool manager);
+        void DeleteUser(string userName, string password);
+        IEnumerable<User> GetAllUsers();
+        User GetUser(string userName, string password);
+        IEnumerable<User> GetAllUsersBy(Predicate<User> predicate);
+        void DeleteAllHistory(String username, string password);
+        #endregion
+        void AddAdjacentStations(int codeA, int codeB, double distance, TimeSpan drive_time);
         void CreateStationsList();
       
     }

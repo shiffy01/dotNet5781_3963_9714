@@ -202,6 +202,66 @@ namespace DO
         public StationSearchDoesNotExistException(string message, Exception inner) : base(message, inner)
         {
         }
+        public override string ToString() => base.ToString() + "This search is not saved in the system";
+    }
+    [Serializable]
+    public class RouteSearchHistoryAlreadyExistsException : Exception
+    {
+        public RouteSearchHistoryAlreadyExistsException()
+        {
+        }
+        public RouteSearchHistoryAlreadyExistsException(string messege) : base(messege)
+        {
+
+        }
+        public RouteSearchHistoryAlreadyExistsException(string message, Exception inner) : base(message, inner)
+        {
+        }
         public override string ToString() => base.ToString() + "This search is already saved in the system";
+    }
+    [Serializable]
+    public class RouteSearchDoesNotExistException : Exception
+    {
+        public RouteSearchDoesNotExistException()
+        {
+        }
+        public RouteSearchDoesNotExistException(string messege) : base(messege)
+        {
+
+        }
+        public RouteSearchDoesNotExistException(string message, Exception inner) : base(message, inner)
+        {
+        }
+        public override string ToString() => base.ToString() + "This search is not in the system";
+    }
+    [Serializable]
+    public class LineSearchHistoryAlreadyExistsException : Exception
+    {
+        public LineSearchHistoryAlreadyExistsException()
+        {
+        }
+        public LineSearchHistoryAlreadyExistsException(string messege) : base(messege)
+        {
+
+        }
+        public LineSearchHistoryAlreadyExistsException(string message, Exception inner) : base(message, inner)
+        {
+        }
+        public override string ToString() => base.ToString() + "This search is already saved in the system";
+    }
+    [Serializable]
+    public class LineSearchDoesNotExistException : Exception
+    {
+        public LineSearchDoesNotExistException()
+        {
+        }
+        public LineSearchDoesNotExistException(string messege) : base(messege)
+        {
+
+        }
+        public LineSearchDoesNotExistException(string message, Exception inner) : base(message, inner)
+        {
+        }
+        public override string ToString() => base.ToString() + "This search is not in the system";
     }
 }

@@ -8,6 +8,7 @@ namespace DO
 {
     public class StationSearchHistory
     {
+        public string ID{ get; set; }
         public string UserName{ get; set; }
         public int StationCode{ get; set; }
         public int SearchIndex{ get; set; }
