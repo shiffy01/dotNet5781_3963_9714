@@ -47,6 +47,7 @@
     <Compile Include="BOexceptions.cs" />
     <Compile Include="Bus.cs" />
     <Compile Include="BusLine.cs" />
+    <Compile Include="BusLineTime.cs" />
     <Compile Include="BusStation.cs" />
     <Compile Include="DeepCopyUtilities.cs" />
     <Compile Include="IBL.cs" />

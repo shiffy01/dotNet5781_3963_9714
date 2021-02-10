@@ -23,7 +23,7 @@ namespace DLAPI
         #endregion
 
         #region BusLine  definition
-        BusLine AddBusLine(int line_number, string dest, string org, DateTime first, DateTime last, TimeSpan freq);
+        BusLine AddBusLine(int line_number, string dest, string org);
         void UpdateBusLine(BusLine busLine);
         void DeleteBusLine(int busID);
         IEnumerable<BusLine> GetAllBuslines();

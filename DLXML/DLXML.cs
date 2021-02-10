@@ -7,11 +7,16 @@ using System.Xml.Linq;
 using DLAPI;
 using DO;
 
+//IM NOT SURE IF YOU CAN PUT ZEROS IN THE DATETIME FOR YEAR MONTH AND DAY--IT MIGHT MAKE AN ERROR (FOR BUS LINE FREQUENCY)
+//ALSO GO OVER AND MAKE SURE THERE ARE NO MISTAKES LIKE WITH THE WRONG PATH OR SOMETHING
+//STILL SOMETHING WRONG WITH THE CONFIG,
+//AND WE DIDN'T RUN THE CREATE STATION LIST FUNCTION YET
+
 
 namespace DL
 {
-    //should fix some delete functions that are written badly, then do update bus in bl
-    sealed class DLXML:IDAL
+    //should fix some delete functions that are written badly
+    sealed class DLXML : IDAL
     {
         #region singleton implementaion
         private readonly static IDAL dalInstance = new DLXML();
@@ -19,7 +24,7 @@ namespace DL
         private DLXML()
         {
 
-           
+
         }
 
         static DLXML()
@@ -41,35 +46,35 @@ namespace DL
         string adjacentStationsPath = @"twoConsecutiveStopsXml.xml";
         string busLineStationPath = @"busLineStationXml.xml";
         string badBusStationsPath = @"stops.xml";
-        string userPath=@"userXml.xml";
+        string userPath = @"userXml.xml";
         string stationSearchHistoryPath = @"stationSearchHistoryXml.xml";
         string routeSearchHistoryPath = @"routeSearchHistoryXml.xml";
         string lineSearchHistoryPath = @"lineSearchHistoryXml.xml";
-        string lineFrequencyPath=@"lineFrequencyXml.xml";
+        string lineFrequencyPath = @"lineFrequencyXml.xml";
         #endregion
 
 
         public void CreateStationsList()//get list of all the stations in the country from stops.xml,
-                                    //convert them to our station type and save to new xml
+                                        //convert them to our station type and save to new xml
         {
             XElement busStationsRootElem = XMLtools.LoadListFromXMLElement(busStationPath);
             if (busStationsRootElem.Elements().Count() == 0)
             {
                 XElement badBusStationsRootElem = XMLtools.LoadListFromXMLElement(badBusStationsPath);
                 IEnumerable<BusStation> stops = from stop in badBusStationsRootElem.Elements()
-                                                       select new BusStation() {
-                                                           Code = int.Parse(stop.Element("Code").Value),
-                                                           Name= stop.Element("Name").Value,
-                                                           Latitude=double.Parse(stop.Element("Latitude").Value),
-                                                           Longitude = double.Parse(stop.Element("Longitude").Value),
-                                                           Address = stop.Element("Address").Value  
-                                                       };
+                                                select new BusStation() {
+                                                    Code = int.Parse(stop.Element("Code").Value),
+                                                    Name = stop.Element("Name").Value,
+                                                    Latitude = double.Parse(stop.Element("Latitude").Value),
+                                                    Longitude = double.Parse(stop.Element("Longitude").Value),
+                                                    Address = stop.Element("Address").Value
+                                                };
                 busStationsRootElem.Add(stops);
-            XMLtools.SaveListToXMLElement(busStationsRootElem, busStationPath);
+                XMLtools.SaveListToXMLElement(busStationsRootElem, busStationPath);
             }
-           
+
         }
-      
+
 
         #region Bus implementation
         public int AddBus(bool access, bool wifi)
@@ -79,7 +84,7 @@ namespace DL
                                   where b.Element("Exists").Value == "true"
                                   select int.Parse(b.Element("License").Value);
             biggest_license.OrderByDescending(b => b);
-            int newLicense = biggest_license.First()+1;
+            int newLicense = biggest_license.First() + 1;
 
 
             XElement busElem = new XElement("Bus", new XElement("License", newLicense),
@@ -148,8 +153,8 @@ namespace DL
             XElement busRootElem = XMLtools.LoadListFromXMLElement(busPath);
 
             XElement bus = (from b in busRootElem.Elements()
-                                 where int.Parse(b.Element("License").Value) == license&&bool.Parse(b.Element("Exists").Value)
-                                 select b).FirstOrDefault();
+                            where int.Parse(b.Element("License").Value) == license && bool.Parse(b.Element("Exists").Value)
+                            select b).FirstOrDefault();
 
             if (bus != null)
             {
@@ -163,19 +168,19 @@ namespace DL
         {
             XElement busRoot = XMLtools.LoadListFromXMLElement(busPath);
             Bus bus = (from b in busRoot.Elements()
-                                      where int.Parse(b.Element("License").Value) == license&& bool.Parse(b.Element("Exists").Value)
+                       where int.Parse(b.Element("License").Value) == license && bool.Parse(b.Element("Exists").Value)
                        select new Bus() {
-                                         License=int.Parse(b.Element("License").Value),
-                                         Status=(Bus.Status_ops)int.Parse(b.Element("Status").Value),//can it convert int to enum?
-                                         StartDate=new DateTime(int.Parse(b.Element("StartYear").Value), int.Parse(b.Element("StartMonth").Value), int.Parse(b.Element("StartDay").Value)),
-                                         Last_tune_up= new DateTime(int.Parse(b.Element("TuneYear").Value), int.Parse(b.Element("TuneMonth").Value), int.Parse(b.Element("TuneDay").Value)),
-                                         Totalkilometerage=int.Parse(b.Element("TotalKiloMeterage").Value),
-                                         Kilometerage=int.Parse(b.Element("KiloMeterage").Value),
-                                         Gas=int.Parse(b.Element("Gas").Value),
-                                         IsAccessible = bool.Parse(b.Element("Accessible").Value),
-                                         HasWifi =bool.Parse(b.Element("Wifi").Value),
-                                         Exists= bool.Parse(b.Element("Exists").Value)
-                                      }).FirstOrDefault();
+                           License = int.Parse(b.Element("License").Value),
+                           Status = (Bus.Status_ops)int.Parse(b.Element("Status").Value),//can it convert int to enum?
+                           StartDate = new DateTime(int.Parse(b.Element("StartYear").Value), int.Parse(b.Element("StartMonth").Value), int.Parse(b.Element("StartDay").Value)),
+                           Last_tune_up = new DateTime(int.Parse(b.Element("TuneYear").Value), int.Parse(b.Element("TuneMonth").Value), int.Parse(b.Element("TuneDay").Value)),
+                           Totalkilometerage = int.Parse(b.Element("TotalKiloMeterage").Value),
+                           Kilometerage = int.Parse(b.Element("KiloMeterage").Value),
+                           Gas = int.Parse(b.Element("Gas").Value),
+                           IsAccessible = bool.Parse(b.Element("Accessible").Value),
+                           HasWifi = bool.Parse(b.Element("Wifi").Value),
+                           Exists = bool.Parse(b.Element("Exists").Value)
+                       }).FirstOrDefault();
             if (bus == null)
                 throw new BusNotFoundException("This bus is not in the system");
             return bus;
@@ -185,18 +190,18 @@ namespace DL
             XElement busesRoot = XMLtools.LoadListFromXMLElement(busPath);
             IEnumerable<Bus> buses = (from b in busesRoot.Elements()
                                       where bool.Parse(b.Element("Exists").Value)
-                                                   select new Bus() {
-                                                       License = int.Parse(b.Element("License").Value),
-                                                       Status = (Bus.Status_ops)int.Parse(b.Element("Status").Value),//can it convert int to enum?
-                                                       StartDate = new DateTime(int.Parse(b.Element("StartYear").Value), int.Parse(b.Element("StartMonth").Value), int.Parse(b.Element("StartDay").Value)),
-                                                       Last_tune_up = new DateTime(int.Parse(b.Element("TuneYear").Value), int.Parse(b.Element("TuneMonth").Value), int.Parse(b.Element("TuneDay").Value)),
-                                                       Totalkilometerage = int.Parse(b.Element("TotalKiloMeterage").Value),
-                                                       Kilometerage = int.Parse(b.Element("KiloMeterage").Value),
-                                                       Gas = int.Parse(b.Element("Gas").Value),
-                                                       IsAccessible = bool.Parse(b.Element("Accessible").Value),
-                                                       HasWifi = bool.Parse(b.Element("Wifi").Value),
-                                                       Exists = bool.Parse(b.Element("Exists").Value)
-                                                   });
+                                      select new Bus() {
+                                          License = int.Parse(b.Element("License").Value),
+                                          Status = (Bus.Status_ops)int.Parse(b.Element("Status").Value),//can it convert int to enum?
+                                          StartDate = new DateTime(int.Parse(b.Element("StartYear").Value), int.Parse(b.Element("StartMonth").Value), int.Parse(b.Element("StartDay").Value)),
+                                          Last_tune_up = new DateTime(int.Parse(b.Element("TuneYear").Value), int.Parse(b.Element("TuneMonth").Value), int.Parse(b.Element("TuneDay").Value)),
+                                          Totalkilometerage = int.Parse(b.Element("TotalKiloMeterage").Value),
+                                          Kilometerage = int.Parse(b.Element("KiloMeterage").Value),
+                                          Gas = int.Parse(b.Element("Gas").Value),
+                                          IsAccessible = bool.Parse(b.Element("Accessible").Value),
+                                          HasWifi = bool.Parse(b.Element("Wifi").Value),
+                                          Exists = bool.Parse(b.Element("Exists").Value)
+                                      });
             return buses;
         }//done!!
         public IEnumerable<Bus> GetAllBusesBy(Predicate<Bus> predicate)
@@ -208,7 +213,7 @@ namespace DL
 
         #endregion
 
-       
+
         #region BusLine implementation finished!
         public BusLine AddBusLine(int line_number, string dest, string org)
         {
@@ -224,7 +229,7 @@ namespace DL
                 BusID = ++list[list.Count()].BusID,
                 Bus_line_number = line_number,
                 Destination = dest,
-                Origin = org,  
+                Origin = org,
                 Exists = true
             };
 
@@ -251,7 +256,7 @@ namespace DL
             DO.BusLine line = ListLines.FirstOrDefault(b => (b.BusID == busLine.BusID && b.Exists));
 
             if (line != default(BusLine))
-            {  
+            {
                 ListLines.Remove(line);
                 ListLines.Add(busLine);
                 XMLtools.SaveListToXMLSerializer(ListLines, busLinePath);
@@ -310,7 +315,7 @@ namespace DL
         #endregion //finished! 
 
         #region LineFrequency
-        void AddLineFrequency(int lineID, DateTime start, TimeSpan frequency, DateTime end)
+        public void AddLineFrequency(int lineID, DateTime start, TimeSpan frequency, DateTime end)
         {
             XElement FrequencyRootElem = XMLtools.LoadListFromXMLElement(lineFrequencyPath);
             XElement freq = (from l in FrequencyRootElem.Elements()
@@ -319,7 +324,7 @@ namespace DL
             if (freq != null)
                 throw new LineFrequencyAlreadyExistsException("this frequency already exists");
 
-            XElement freqElem = new XElement("LineFrequency", new XElement("ID", lineID.ToString()+start.ToString()),
+            XElement freqElem = new XElement("LineFrequency", new XElement("ID", lineID.ToString() + start.ToString()),
                                   new XElement("LineID", lineID),
                                   new XElement("StartHour", start.Hour),
                                   new XElement("StartMinute", start.Minute),
@@ -331,19 +336,19 @@ namespace DL
                                 );
 
             FrequencyRootElem.Add(freqElem);
-            XMLtools.SaveListToXMLElement(FrequencyRootElem, lineFrequencyPath);  
+            XMLtools.SaveListToXMLElement(FrequencyRootElem, lineFrequencyPath);
         }
-        void UpdateLineFrequency(LineFrequency frequency)
+        public void UpdateLineFrequency(LineFrequency frequency)
         {
             XElement frequencyRootElem = XMLtools.LoadListFromXMLElement(lineFrequencyPath);
 
             XElement freq = (from l in frequencyRootElem.Elements()
-                             where l.Element("ID").Value== frequency.ID && bool.Parse(l.Element("Exists").Value)
+                             where l.Element("ID").Value == frequency.ID && bool.Parse(l.Element("Exists").Value)
                              select l).FirstOrDefault();
 
             if (freq != null)
             {
-               
+
                 freq.Element("StartHour").Value = frequency.Start.Hour + "";
                 freq.Element("StartMinute").Value = frequency.Start.Minute + "";
                 freq.Element("EndHour").Value = frequency.End.Hour + "";
@@ -356,39 +361,59 @@ namespace DL
             else
                 throw new LineFrequencyDoesNotExistException("This bus is not in the system");
         }
-        void DeleteLineFrequency(string id)
+        public void DeleteLineFrequency(string id)
         {
             XElement frequencyRootElem = XMLtools.LoadListFromXMLElement(lineFrequencyPath);
 
             XElement freq = (from f in frequencyRootElem.Elements()
-                            where f.Element("ID").Value == id&&bool.Parse(f.Element("Exists").Value)
-                            select f).FirstOrDefault();
+                             where f.Element("ID").Value == id && bool.Parse(f.Element("Exists").Value)
+                             select f).FirstOrDefault();
 
             if (freq != null)
             {
-                freq.Element("Exists").Value = false+"";
-                              
-              
+                freq.Element("Exists").Value = false + "";
+
+
                 XMLtools.SaveListToXMLElement(frequencyRootElem, lineFrequencyPath);
             }
             else
                 throw new LineFrequencyDoesNotExistException("This frequency is not in the system");
         }
-        IEnumerable<LineFrequency> GetAllLineFrequency()
+        public IEnumerable<LineFrequency> GetAllLineFrequency()
         {
             XElement frequencyRoot = XMLtools.LoadListFromXMLElement(busPath);
             return (from f in frequencyRoot.Elements()
-                                      where bool.Parse(f.Element("Exists").Value)
-                                      select new LineFrequency() {
-                                          ID=f.Element("ID").Value,
-                                          LineID= int.Parse(f.Element("LineID").Value),
-                                          Start=new DateTime(0, 0, 0, int.Parse(f.Element("StartHour").Value), int.Parse(f.Element("StartMinute").Value), 0),
-                                          End=new DateTime(0, 0, 0, int.Parse(f.Element("EndHour").Value), int.Parse(f.Element("EndMinute").Value), 0),
-                                          Frequency=new TimeSpan(int.Parse(f.Element("FrequencyHours").Value), int.Parse(f.Element("FrequencyMinutes").Value), 0)
-                                      });           
+                    where bool.Parse(f.Element("Exists").Value)
+                    select new LineFrequency() {
+                        ID = f.Element("ID").Value,
+                        LineID = int.Parse(f.Element("LineID").Value),
+                        Start = new DateTime(0, 0, 0, int.Parse(f.Element("StartHour").Value), int.Parse(f.Element("StartMinute").Value), 0),
+                        End = new DateTime(0, 0, 0, int.Parse(f.Element("EndHour").Value), int.Parse(f.Element("EndMinute").Value), 0),
+                        Frequency = new TimeSpan(int.Parse(f.Element("FrequencyHours").Value), int.Parse(f.Element("FrequencyMinutes").Value), 0)
+                    });
         }
-        LineFrequency GetLineFrequency(string id);
-        IEnumerable<LineFrequency> GetAllLineFrequencyBy(Predicate<LineFrequency> predicate);
+        public LineFrequency GetLineFrequency(string id)
+        {
+            XElement frequencyRoot = XMLtools.LoadListFromXMLElement(lineFrequencyPath);
+            LineFrequency freq = (from f in frequencyRoot.Elements()
+                       where f.Element("ID").Value == id && bool.Parse(f.Element("Exists").Value)
+                       select new LineFrequency() {
+                           ID = f.Element("ID").Value,
+                           LineID = int.Parse(f.Element("LineID").Value),
+                           Start = new DateTime(0, 0, 0, int.Parse(f.Element("StartHour").Value), int.Parse(f.Element("StartMinute").Value), 0),
+                           End = new DateTime(0, 0, 0, int.Parse(f.Element("EndHour").Value), int.Parse(f.Element("EndMinute").Value), 0),
+                           Frequency = new TimeSpan(int.Parse(f.Element("FrequencyHours").Value), int.Parse(f.Element("FrequencyMinutes").Value), 0)
+                       }).FirstOrDefault();
+            if (freq == null)
+                throw new LineFrequencyDoesNotExistException("This frequency is not in the system");
+            return freq;
+        }
+        public IEnumerable<LineFrequency> GetAllLineFrequencyBy(Predicate<LineFrequency> predicate)
+        {
+            return from frequency in GetAllLineFrequency()
+                   where predicate(frequency)
+                   select frequency;
+        }
         #endregion
 
         #region BusLineStation CRUD finished!
@@ -723,7 +748,7 @@ namespace DL
         #endregion
 
         #region StationSearchHistory implementation
-        void AddStationSearchHistory(string userName, int code, bool starred, string nickname)
+        public void AddStationSearchHistory(string userName, int code, bool starred, string nickname)
         {
             List<StationSearchHistory> historyList = XMLtools.LoadListFromXMLSerializer<StationSearchHistory>(stationSearchHistoryPath);
             if (historyList.FirstOrDefault(u => (u.ID==userName+code.ToString()&& u.Exists)) != default(StationSearchHistory))
@@ -741,7 +766,7 @@ namespace DL
             }) ;
             XMLtools.SaveListToXMLSerializer(historyList, stationSearchHistoryPath);
         }
-        void UpdateStationSearchHistory(StationSearchHistory search)
+        public void UpdateStationSearchHistory(StationSearchHistory search)
         {
             List<StationSearchHistory> historyList = XMLtools.LoadListFromXMLSerializer<StationSearchHistory>(stationSearchHistoryPath);
             StationSearchHistory oldSearch = historyList.FirstOrDefault(s => (s.ID == search.ID && s.Exists));
@@ -756,7 +781,7 @@ namespace DL
             else
                 throw new StationSearchDoesNotExistException("This search is not in the system");
         }
-        void DeleteStationSearchHistory(string id)
+        public void DeleteStationSearchHistory(string id)
         {
             List<StationSearchHistory> historyList = XMLtools.LoadListFromXMLSerializer<StationSearchHistory>(stationSearchHistoryPath);
             StationSearchHistory oldSearch = historyList.FirstOrDefault(s => (s.ID == id && s.Exists));
@@ -769,7 +794,7 @@ namespace DL
             else
                 throw new StationSearchDoesNotExistException("Cannot delete a search that does not exist");
         }
-        IEnumerable<StationSearchHistory> GetAllStationSearchHistory()
+        public IEnumerable<StationSearchHistory> GetAllStationSearchHistory()
         {
             List<StationSearchHistory> historyList = XMLtools.LoadListFromXMLSerializer<StationSearchHistory>(stationSearchHistoryPath);
             return
@@ -777,7 +802,7 @@ namespace DL
             where search.Exists
             select search;
         }
-        StationSearchHistory GetStationSearchHistory(string id)
+        public StationSearchHistory GetStationSearchHistory(string id)
         {
             List<StationSearchHistory> historyList = XMLtools.LoadListFromXMLSerializer<StationSearchHistory>(stationSearchHistoryPath);
             StationSearchHistory search = historyList.FirstOrDefault(s => (s.ID == id && s.Exists));
@@ -786,7 +811,7 @@ namespace DL
                 return search;
             throw new StationSearchDoesNotExistException("This search is not saved in the system");
         }
-        IEnumerable<StationSearchHistory> GetAllStationSearchHistoryBy(Predicate<StationSearchHistory> predicate)
+        public IEnumerable<StationSearchHistory> GetAllStationSearchHistoryBy(Predicate<StationSearchHistory> predicate)
         {
             List<StationSearchHistory> historyList = XMLtools.LoadListFromXMLSerializer<StationSearchHistory>(stationSearchHistoryPath);
             return from search in historyList
@@ -796,7 +821,7 @@ namespace DL
         #endregion
 
         #region RouteSearchHistory implementation
-        void AddRouteSearchHistory(string userName, int code1, int code2, bool starred, string nickname)
+        public void AddRouteSearchHistory(string userName, int code1, int code2, bool starred, string nickname)
         {
             List<RouteSearchHistory> historyList = XMLtools.LoadListFromXMLSerializer<RouteSearchHistory>(routeSearchHistoryPath);
             if (historyList.FirstOrDefault(u => (u.ID == userName + code1.ToString()+code2.ToString() && u.Exists)) != default(RouteSearchHistory))
@@ -815,7 +840,7 @@ namespace DL
             });
             XMLtools.SaveListToXMLSerializer(historyList, stationSearchHistoryPath);
         }
-        void UpdateRouteSearchHistory(RouteSearchHistory search)
+        public void UpdateRouteSearchHistory(RouteSearchHistory search)
         {
             List<RouteSearchHistory> historyList = XMLtools.LoadListFromXMLSerializer<RouteSearchHistory>(routeSearchHistoryPath);
             RouteSearchHistory oldSearch = historyList.FirstOrDefault(s => (s.ID == search.ID && s.Exists));
@@ -830,7 +855,7 @@ namespace DL
             else
                 throw new RouteSearchDoesNotExistException("This search is not in the system");
         }
-        void DeleteRouteSearchHistory(string id)
+        public void DeleteRouteSearchHistory(string id)
         {
             List<RouteSearchHistory> historyList = XMLtools.LoadListFromXMLSerializer<RouteSearchHistory>(routeSearchHistoryPath);
             RouteSearchHistory oldSearch = historyList.FirstOrDefault(s => (s.ID == id && s.Exists));
@@ -843,7 +868,7 @@ namespace DL
             else
                 throw new RouteSearchDoesNotExistException("Cannot delete a search that does not exist");
         }
-        IEnumerable<RouteSearchHistory> GetAllRouteSearchHistory()
+        public IEnumerable<RouteSearchHistory> GetAllRouteSearchHistory()
         {
             List<RouteSearchHistory> historyList = XMLtools.LoadListFromXMLSerializer<RouteSearchHistory>(routeSearchHistoryPath);
             return
@@ -851,7 +876,7 @@ namespace DL
             where search.Exists
             select search;
         }
-        RouteSearchHistory GetRouteSearchHistory(string id)
+        public RouteSearchHistory GetRouteSearchHistory(string id)
         {
             List<RouteSearchHistory> historyList = XMLtools.LoadListFromXMLSerializer<RouteSearchHistory>(routeSearchHistoryPath);
             RouteSearchHistory search = historyList.FirstOrDefault(s => (s.ID == id && s.Exists));
@@ -860,7 +885,7 @@ namespace DL
                 return search;
             throw new RouteSearchDoesNotExistException("This search is not saved in the system");
         }
-        IEnumerable<RouteSearchHistory> GetAllRouteSearchHistoryBy(Predicate<RouteSearchHistory> predicate)
+        public IEnumerable<RouteSearchHistory> GetAllRouteSearchHistoryBy(Predicate<RouteSearchHistory> predicate)
         {
             List<RouteSearchHistory> historyList = XMLtools.LoadListFromXMLSerializer<RouteSearchHistory>(routeSearchHistoryPath);
             return from search in historyList
@@ -870,7 +895,7 @@ namespace DL
         #endregion
 
         #region LineSearchHistory implementation
-        void AddLineSearchHistory(string userName, int code, bool starred, string nickname)
+        public void AddLineSearchHistory(string userName, int code, bool starred, string nickname)
         {
             List<LineSearchHistory> historyList = XMLtools.LoadListFromXMLSerializer<LineSearchHistory>(lineSearchHistoryPath);
             if (historyList.FirstOrDefault(u => (u.ID == userName + code.ToString() && u.Exists)) != default(LineSearchHistory))
@@ -888,7 +913,7 @@ namespace DL
             });
             XMLtools.SaveListToXMLSerializer(historyList, lineSearchHistoryPath);
         }
-        void UpdateLineSearchHistory(LineSearchHistory search)
+        public void UpdateLineSearchHistory(LineSearchHistory search)
         {
             List<LineSearchHistory> historyList = XMLtools.LoadListFromXMLSerializer<LineSearchHistory>(lineSearchHistoryPath);
             LineSearchHistory oldSearch = historyList.FirstOrDefault(s => (s.ID == search.ID && s.Exists));
@@ -903,7 +928,7 @@ namespace DL
             else
                 throw new LineSearchDoesNotExistException("This search is not in the system");
         }
-        void DeleteLineSearchHistory(string id)
+        public void DeleteLineSearchHistory(string id)
         {
             List<LineSearchHistory> historyList = XMLtools.LoadListFromXMLSerializer<LineSearchHistory>(lineSearchHistoryPath);
             LineSearchHistory oldSearch = historyList.FirstOrDefault(s => (s.ID == id && s.Exists));
@@ -916,7 +941,7 @@ namespace DL
             else
                 throw new LineSearchDoesNotExistException("Cannot delete a search that does not exist");
         }
-        IEnumerable<LineSearchHistory> GetAllLineSearchHistory()
+        public IEnumerable<LineSearchHistory> GetAllLineSearchHistory()
         {
             List<LineSearchHistory> historyList = XMLtools.LoadListFromXMLSerializer<LineSearchHistory>(lineSearchHistoryPath);
             return
@@ -924,7 +949,7 @@ namespace DL
             where search.Exists
             select search;
         }
-        LineSearchHistory GetLineSearchHistory(string id)
+        public LineSearchHistory GetLineSearchHistory(string id)
         {
             List<LineSearchHistory> historyList = XMLtools.LoadListFromXMLSerializer<LineSearchHistory>(lineSearchHistoryPath);
             LineSearchHistory search = historyList.FirstOrDefault(s => (s.ID == id && s.Exists));
@@ -933,7 +958,7 @@ namespace DL
                 return search;
             throw new LineSearchDoesNotExistException("This search is not saved in the system");
         }
-        IEnumerable<LineSearchHistory> GetAllLineSearchHistoryBy(Predicate<LineSearchHistory> predicate)
+        public IEnumerable<LineSearchHistory> GetAllLineSearchHistoryBy(Predicate<LineSearchHistory> predicate)
         {
             List<LineSearchHistory> historyList = XMLtools.LoadListFromXMLSerializer<LineSearchHistory>(lineSearchHistoryPath);
             return from search in historyList

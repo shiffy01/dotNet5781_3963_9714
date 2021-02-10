@@ -146,7 +146,7 @@ namespace DL
         #endregion
 
         #region BusLine implementation
-        public BusLine AddBusLine(int line_number, string dest, string org, DateTime first, DateTime last, TimeSpan freq)
+        public BusLine AddBusLine(int line_number, string dest, string org)
         {
             bool exists =
                DataSource.Lines.Any(p => p.Exists == true && p.BusID == line_number);
@@ -158,9 +158,6 @@ namespace DL
                 Bus_line_number =line_number,
                 Destination=dest,
                 Origin=org,
-                First_bus=first,
-                Last_bus=last,
-                Frequency=freq,
                 Exists=true
             };
             
@@ -217,6 +214,7 @@ namespace DL
                    where (predicate(line)&&line.Exists)
                    select line.Clone();
         }   //done!!
+
         //public IEnumerable<BusLine> GetBuslinesOfStation(int stationID)//gets all the bus lines with this station on the route
         //{
         //    var list =

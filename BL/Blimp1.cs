@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
+//THINGS WRONG WITH BUS LINE FUNCTIONS, DEAL WITH FREQUENCIES
+//DO BUS BACKGROUND WORKERS!!!!
+
 using BO;
 //using DO;
 
@@ -118,8 +121,7 @@ namespace BL
 
         }
 
-        #region convert functions
-     
+        #region convert functions     
         BusStation ConvertStationDOtoBO(DO.BusStation DOstation)
         {
             BO.BusStation BOstation = new BO.BusStation();     
@@ -162,7 +164,7 @@ namespace BL
             BOBus.LicensePlate = license_format(DOBus.License);
             return BOBus;
         }
-        BusLine DOtoBOBusLineAdapter(DO.BusLine DObusLine)//done :)
+        BusLine DOtoBOBusLineAdapter(DO.BusLine DObusLine)
         {
             BusLine BObusLine = new BusLine();
             DObusLine.CopyPropertiesTo(BObusLine);
@@ -186,6 +188,12 @@ namespace BL
             BObusLine.Destination = list[list.Count - 1].Address;
             BObusLine.InterCity = (list[0].City == list[list.Count - 1].City);
 
+            BObusLine.Times = from time in dal.GetAllLineFrequencyBy(f => f.LineID == BObusLine.BusID).OrderBy(t=>t.Start)
+                              select new BusLineTime {
+                                  Start = time.Start,
+                                  End=time.End,
+                                  Frequency=time.Frequency
+                              };
             return BObusLine;
         }
         DO.BusLine BOtoDOBusLineAdapter(BusLine BObusline)//i think done
@@ -195,7 +203,6 @@ namespace BL
             DObusline.Exists = true;
             return DObusline;
         }
-
         DO.User BOtoDOUser(User BOuser)
         {
             DO.User DOuser = new DO.User();
