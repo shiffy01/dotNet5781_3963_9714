@@ -12,7 +12,7 @@ namespace DO
         public int LineID {get; set;}
         public DateTime Start {get; set;}
         public DateTime End {get; set;}
-        public int Frequency{get; set;}
+        public TimeSpan Frequency{get; set;}
         public bool Exists{ get; set; }
         public override string ToString()
         {

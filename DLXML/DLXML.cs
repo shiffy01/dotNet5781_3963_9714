@@ -148,27 +148,12 @@ namespace DL
             XElement busRootElem = XMLtools.LoadListFromXMLElement(busPath);
 
             XElement bus = (from b in busRootElem.Elements()
-                                 where int.Parse(b.Element("License").Value) == license
+                                 where int.Parse(b.Element("License").Value) == license&&bool.Parse(b.Element("Exists").Value)
                                  select b).FirstOrDefault();
 
             if (bus != null)
             {
-                XElement newbusElem = new XElement("Bus", new XElement("License", bus.Element("License").Value),
-                                  new XElement("StartYear", bus.Element("StartYear").Value),
-                                  new XElement("StartMonth", bus.Element("StartMonth").Value),
-                                  new XElement("StartDay", bus.Element("StartDay").Value),
-                                  new XElement("TuneYear", bus.Element("TuneYear").Value),
-                                  new XElement("TuneMonth", bus.Element("TuneMonth").Value),
-                                  new XElement("TuneDay", bus.Element("TuneDay").Value),
-                                  new XElement("TotalKiloMeterage", bus.Element("TotalKiloMeterage").Value),
-                                  new XElement("KiloMeterage", bus.Element("KiloMeterage").Value),
-                                  new XElement("Gas", bus.Element("Gas").Value),
-                                  new XElement("Accessible", bus.Element("Accessible").Value),
-                                  new XElement("Wifi", bus.Element("Wifi").Value),
-                                  new XElement("Exists", false)
-                                );
-                bus.Remove();
-                busRootElem.Add(newbusElem);
+                bus.Element("Exists").Value = false + "";
                 XMLtools.SaveListToXMLElement(busRootElem, busPath);
             }
             else
@@ -328,8 +313,13 @@ namespace DL
         void AddLineFrequency(int lineID, DateTime start, TimeSpan frequency, DateTime end)
         {
             XElement FrequencyRootElem = XMLtools.LoadListFromXMLElement(lineFrequencyPath);
-   
-            XElement freqElem = new XElement("LineFrequency", new XElement("ID", lineID+start.Hour.ToString()+start.Minute.ToString()),
+            XElement freq = (from l in FrequencyRootElem.Elements()
+                             where l.Element("ID").Value == lineID.ToString() + start.ToString() && bool.Parse(l.Element("Exists").Value)
+                             select l).FirstOrDefault();
+            if (freq != null)
+                throw new LineFrequencyAlreadyExistsException("this frequency already exists");
+
+            XElement freqElem = new XElement("LineFrequency", new XElement("ID", lineID.ToString()+start.ToString()),
                                   new XElement("LineID", lineID),
                                   new XElement("StartHour", start.Hour),
                                   new XElement("StartMinute", start.Minute),
@@ -361,15 +351,42 @@ namespace DL
                 freq.Element("FrequencyHours").Value = frequency.Frequency.Hours + "";
                 freq.Element("FrequencyMinutes").Value = frequency.Frequency.Minutes + "";
 
-
-
                 XMLtools.SaveListToXMLElement(frequencyRootElem, busPath);
             }
             else
-                throw new BusNotFoundException("This bus is not in the system");
+                throw new LineFrequencyDoesNotExistException("This bus is not in the system");
         }
-        void DeleteLineFrequency(string id);
-        IEnumerable<LineFrequency> GetAllLineFrequency();
+        void DeleteLineFrequency(string id)
+        {
+            XElement frequencyRootElem = XMLtools.LoadListFromXMLElement(lineFrequencyPath);
+
+            XElement freq = (from f in frequencyRootElem.Elements()
+                            where f.Element("ID").Value == id&&bool.Parse(f.Element("Exists").Value)
+                            select f).FirstOrDefault();
+
+            if (freq != null)
+            {
+                freq.Element("Exists").Value = false+"";
+                              
+              
+                XMLtools.SaveListToXMLElement(frequencyRootElem, lineFrequencyPath);
+            }
+            else
+                throw new LineFrequencyDoesNotExistException("This frequency is not in the system");
+        }
+        IEnumerable<LineFrequency> GetAllLineFrequency()
+        {
+            XElement frequencyRoot = XMLtools.LoadListFromXMLElement(busPath);
+            return (from f in frequencyRoot.Elements()
+                                      where bool.Parse(f.Element("Exists").Value)
+                                      select new LineFrequency() {
+                                          ID=f.Element("ID").Value,
+                                          LineID= int.Parse(f.Element("LineID").Value),
+                                          Start=new DateTime(0, 0, 0, int.Parse(f.Element("StartHour").Value), int.Parse(f.Element("StartMinute").Value), 0),
+                                          End=new DateTime(0, 0, 0, int.Parse(f.Element("EndHour").Value), int.Parse(f.Element("EndMinute").Value), 0),
+                                          Frequency=new TimeSpan(int.Parse(f.Element("FrequencyHours").Value), int.Parse(f.Element("FrequencyMinutes").Value), 0)
+                                      });           
+        }
         LineFrequency GetLineFrequency(string id);
         IEnumerable<LineFrequency> GetAllLineFrequencyBy(Predicate<LineFrequency> predicate);
         #endregion

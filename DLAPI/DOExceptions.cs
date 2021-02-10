@@ -264,4 +264,34 @@ namespace DO
         }
         public override string ToString() => base.ToString() + "This search is not in the system";
     }
+    [Serializable]
+    public class LineFrequencyAlreadyExistsException : Exception
+    {
+        public LineFrequencyAlreadyExistsException()
+        {
+        }
+        public LineFrequencyAlreadyExistsException(string messege) : base(messege)
+        {
+
+        }
+        public LineFrequencyAlreadyExistsException(string message, Exception inner) : base(message, inner)
+        {
+        }
+        public override string ToString() => base.ToString() + "This line frequency is already saved in the system";
+    }
+    [Serializable]
+    public class LineFrequencyDoesNotExistException : Exception
+    {
+        public LineFrequencyDoesNotExistException()
+        {
+        }
+        public LineFrequencyDoesNotExistException(string messege) : base(messege)
+        {
+
+        }
+        public LineFrequencyDoesNotExistException(string message, Exception inner) : base(message, inner)
+        {
+        }
+        public override string ToString() => base.ToString() + "Thisline frequency is not in the system";
+    }
 }
