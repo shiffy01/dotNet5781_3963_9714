@@ -32,6 +32,15 @@ namespace DLAPI
         //IEnumerable<BusLine> GetBuslinesOfStation(int stationID);
         #endregion
 
+        #region LineFrequency
+        void AddLineFrequency(int lineID, DateTime start, TimeSpan frequency, DateTime end);
+        void UpdateLineFrequency(LineFrequency frequency);
+        void DeleteLineFrequency(string id);
+        IEnumerable<LineFrequency> GetAllLineFrequency();
+        LineFrequency GetLineFrequency(string id);
+        IEnumerable<LineFrequency> GetAllLineFrequencyBy(Predicate<LineFrequency> predicate);
+        #endregion
+
         #region User  definition
         void AddUser(string userName, string password, bool manager);
         void UpdateUser(User user);

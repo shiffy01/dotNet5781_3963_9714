@@ -42,7 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bus.cs" />
-    <Compile Include="LineDeparted.cs" />
+    <Compile Include="LineFrequency.cs" />
     <Compile Include="BusDriving.cs" />
     <Compile Include="BusLine.cs" />
     <Compile Include="BusLineStation.cs" />

@@ -45,6 +45,7 @@ namespace DL
         string stationSearchHistoryPath = @"stationSearchHistoryXml.xml";
         string routeSearchHistoryPath = @"routeSearchHistoryXml.xml";
         string lineSearchHistoryPath = @"lineSearchHistoryXml.xml";
+        string lineFrequencyPath=@"lineFrequencyXml.xml";
         #endregion
 
 
@@ -222,138 +223,85 @@ namespace DL
 
         #endregion
 
+       
         #region BusLine implementation finished!
-        public BusLine AddBusLine(int line_number, string dest, string org, DateTime first, DateTime last, TimeSpan freq)
+        public BusLine AddBusLine(int line_number, string dest, string org)
         {
-            XElement BusRootElem = XMLtools.LoadListFromXMLElement(busPath);
-            var biggest_id = from b in BusRootElem.Elements()
-                                  where b.Element("Exists").Value == "true"
-                                  select int.Parse(b.Element("BusID").Value);
-            biggest_id.OrderByDescending(b => b);
-            int new_id = biggest_id.First() + 1;
+            IEnumerable<BusLine> ListLines = XMLtools.LoadListFromXMLSerializer<BusLine>(busLinePath).OrderBy(line => line.BusID);
+            List<BusLine> list = ListLines.ToList();
 
+            bool exists =
+               ListLines.Any(p => p.Exists == true && p.BusID == line_number);
+            if (exists)
+                throw new BusLineAlreadyExistsException();//does it need to say something inside?
 
-            XElement busElem = new XElement("BusLine", new XElement("BusID", new_id),
-                               new XElement("Bus_line_number", line_number),
-                               new XElement("Destination", dest),
-                               new XElement("Origin", org),
-                               new XElement("FirstHours", first.Hour),
-                               new XElement("FirstMinutes", first.Minute),
-                               new XElement("LastHours", last.Hour),
-                               new XElement("LastMinutes", last.Minute),
-                               new XElement("freqHours", freq.Hours),
-                               new XElement("freqMinutes", freq.Minutes),
-                               new XElement("Exists", true)
-                                );
-
-            BusRootElem.Add(busElem);
-            XMLtools.SaveListToXMLElement(BusRootElem, busPath);
-            return new BusLine { 
-                BusID=new_id,
-                Bus_line_number=line_number,
-                Destination=dest,
-                Origin=org,
-                First_bus=first,
-                Last_bus=last,
-                Frequency=freq,
-                Exists=true
+            BusLine newBus = new BusLine {
+                BusID = ++list[list.Count()].BusID,
+                Bus_line_number = line_number,
+                Destination = dest,
+                Origin = org,  
+                Exists = true
             };
+
+            list.Add(newBus);
+            XMLtools.SaveListToXMLSerializer(list, busLinePath);
+            return newBus;
         }
         public void DeleteBusLine(int busID)
         {
-            XElement busRootElem = XMLtools.LoadListFromXMLElement(busPath);
+            List<BusLine> ListLines = XMLtools.LoadListFromXMLSerializer<BusLine>(busLinePath);
+            BusLine line = ListLines.FirstOrDefault(b => (b.BusID == busID && b.Exists));
 
-            XElement bus = (from b in busRootElem.Elements()
-                            where int.Parse(b.Element("BusID").Value) == busID
-                            select b).FirstOrDefault();
-
-            if (bus != null)
+            if (line != default(BusLine))
             {
-                XElement newBusElem = new XElement("BusLine", new XElement("BusID", bus.Element("BusID").Value),
-                             new XElement("Bus_line_number", bus.Element("Bus_line_number").Value),
-                             new XElement("Destination", bus.Element("Destination").Value),
-                             new XElement("Origin", bus.Element("Origin").Value),
-                             new XElement("FirstHours", bus.Element("FirstHours").Value),
-                             new XElement("FirstMinutes", bus.Element("FirstMinutes").Value),
-                             new XElement("LastHours", bus.Element("LastHours").Value),
-                             new XElement("LastMinutes", bus.Element("LastMinutes").Value),
-                             new XElement("freqHours", bus.Element("freqHours").Value),
-                             new XElement("freqMinutes", bus.Element("freqMinutes").Value),
-                             new XElement("Exists", false)
-                              );
-                bus.Remove();
-                busRootElem.Add(newBusElem);
-                XMLtools.SaveListToXMLElement(busRootElem, busPath);
+                line.Exists = false;
+                XMLtools.SaveListToXMLSerializer(ListLines, busLinePath);
             }
             else
-                throw new BusLineNotFoundException("This bus line is not in the system");
+                throw new DO.BusLineNotFoundException("The BusLine is not found in the system");
         }
-        
         public void UpdateBusLine(BusLine busLine)
         {
-            XElement busRootElem = XMLtools.LoadListFromXMLElement(busPath);
+            List<BusLine> ListLines = XMLtools.LoadListFromXMLSerializer<BusLine>(busLinePath);
+            DO.BusLine line = ListLines.FirstOrDefault(b => (b.BusID == busLine.BusID && b.Exists));
 
-            XElement bus = (from b in busRootElem.Elements()
-                            where int.Parse(b.Element("BusID").Value) == busLine.BusID
-                            select b).FirstOrDefault();
-
-            if (bus != null)
-            {
-                bus.Remove();
-                busRootElem.Add(busLine);
-                XMLtools.SaveListToXMLElement(busRootElem, busPath);
+            if (line != default(BusLine))
+            {  
+                ListLines.Remove(line);
+                ListLines.Add(busLine);
+                XMLtools.SaveListToXMLSerializer(ListLines, busLinePath);
             }
             else
-                throw new BusLineNotFoundException("This bus line is not in the system");
+                throw new DO.BusLineNotFoundException("Bus line is not in the system");
         }
-    
         public IEnumerable<BusLine> GetAllBuslines()
         {
-            XElement buslinesRoot = XMLtools.LoadListFromXMLElement(busLinePath);
-            IEnumerable<BusLine> buslines = (from b in buslinesRoot.Elements()
-                                      where bool.Parse(b.Element("Exists").Value)
-                                      select new BusLine() {
-                                          BusID = int.Parse(b.Element("BusID").Value),
-                                          Bus_line_number = int.Parse(b.Element("Bus_line_number").Value),
-                                          Destination = b.Element("Destination").Value,
-                                          Origin = b.Element("Origin").Value,
-                                          First_bus = new DateTime(0, 0, 0, int.Parse(b.Element("FirstHours").Value), int.Parse(b.Element("FirstMinutes").Value), 0),
-                                          Last_bus = new DateTime(0, 0, 0, int.Parse(b.Element("LastHours").Value), int.Parse(b.Element("LastMinutes").Value), 0),
-                                          Frequency = new TimeSpan(int.Parse(b.Element("freqHours").Value), int.Parse(b.Element("freqMinutes").Value), 0),
-                                          Exists = true
-                                      });
-            return buslines;
-
+            List<BusLine> ListLines = XMLtools.LoadListFromXMLSerializer<BusLine>(busLinePath);
+            return from line in ListLines
+                   where line.Exists
+                   select line;
         }
         public BusLine GetBusLine(int busID)
         {
-            XElement buslineRoot = XMLtools.LoadListFromXMLElement(busLinePath);
-            BusLine busline = (from b in buslineRoot.Elements()
-                       where int.Parse(b.Element("BusID").Value) == busID && bool.Parse(b.Element("Exists").Value)
-                       select new BusLine() {
-                           BusID = int.Parse(b.Element("BusID").Value),
-                           Bus_line_number = int.Parse(b.Element("Bus_line_number").Value),
-                           Destination = b.Element("Destination").Value,
-                           Origin = b.Element("Origin").Value,
-                           First_bus = new DateTime(0, 0, 0, int.Parse(b.Element("FirstHours").Value), int.Parse(b.Element("FirstMinutes").Value), 0),
-                           Last_bus = new DateTime(0, 0, 0, int.Parse(b.Element("LastHours").Value), int.Parse(b.Element("LastMinutes").Value), 0),
-                           Frequency = new TimeSpan(int.Parse(b.Element("freqHours").Value), int.Parse(b.Element("freqMinutes").Value), 0),
-                           Exists = true
-                       }).FirstOrDefault();
-            if (busline == null)       
-                throw new DO.BusLineNotFoundException("Bus line is not in the system");
-            return busline;
+            List<BusLine> ListLines = XMLtools.LoadListFromXMLSerializer<BusLine>(busLinePath);
+            BusLine line = ListLines.FirstOrDefault();
+            if (line != default(BusLine))
+                return line;
+            else
+                throw new BusLineNotFoundException("Bus line is not in the system");
         }
         public IEnumerable<BusLine> GetAllBusLinesBy(Predicate<BusLine> predicate)
         {
-            return from line in GetAllBuslines()
-                   where predicate(line)
+            List<BusLine> ListLines = XMLtools.LoadListFromXMLSerializer<BusLine>(busLinePath);
+            return from line in ListLines
+                   where line.Exists && predicate(line)
                    select line;
-        }  
+        }
+
         //public IEnumerable<BusLine> GetBuslinesOfStation(int stationID)//gets all the bus lines with this station on the route
         //{
-        //     List<BusLine> ListLines = XMLtools.LoadListFromXMLSerializer<BusLine>(busLinePath);
-        //     List<BusLineStation> bus_line_station_list=XMLtools.LoadListFromXMLSerializer<BusLineStation>(busLineStationPath);
+        //    List<BusLine> ListLines = XMLtools.LoadListFromXMLSerializer<BusLine>(busLinePath);
+        //    List<BusLineStation> bus_line_station_list = XMLtools.LoadListFromXMLSerializer<BusLineStation>(busLineStationPath);
         //    var list =
         //     from station in bus_line_station_list
         //     where (station.Exists && station.StationID == stationID)
@@ -373,7 +321,58 @@ namespace DL
         //    }
         //    return returnList;
         //}
+
         #endregion //finished! 
+
+        #region LineFrequency
+        void AddLineFrequency(int lineID, DateTime start, TimeSpan frequency, DateTime end)
+        {
+            XElement FrequencyRootElem = XMLtools.LoadListFromXMLElement(lineFrequencyPath);
+   
+            XElement freqElem = new XElement("LineFrequency", new XElement("ID", lineID+start.Hour.ToString()+start.Minute.ToString()),
+                                  new XElement("LineID", lineID),
+                                  new XElement("StartHour", start.Hour),
+                                  new XElement("StartMinute", start.Minute),
+                                  new XElement("EndHour", end.Hour),
+                                  new XElement("EndMinute", end.Minute),
+                                  new XElement("FrequencyHours", frequency.Hours),
+                                  new XElement("FrequencyMinutes", frequency.Minutes),
+                                  new XElement("Exists", true)
+                                );
+
+            FrequencyRootElem.Add(freqElem);
+            XMLtools.SaveListToXMLElement(FrequencyRootElem, lineFrequencyPath);  
+        }
+        void UpdateLineFrequency(LineFrequency frequency)
+        {
+            XElement frequencyRootElem = XMLtools.LoadListFromXMLElement(lineFrequencyPath);
+
+            XElement freq = (from l in frequencyRootElem.Elements()
+                             where l.Element("ID").Value== frequency.ID && bool.Parse(l.Element("Exists").Value)
+                             select l).FirstOrDefault();
+
+            if (freq != null)
+            {
+               
+                freq.Element("StartHour").Value = frequency.Start.Hour + "";
+                freq.Element("StartMinute").Value = frequency.Start.Minute + "";
+                freq.Element("EndHour").Value = frequency.End.Hour + "";
+                freq.Element("EndMinute").Value = frequency.End.Minute + "";
+                freq.Element("FrequencyHours").Value = frequency.Frequency.Hours + "";
+                freq.Element("FrequencyMinutes").Value = frequency.Frequency.Minutes + "";
+
+
+
+                XMLtools.SaveListToXMLElement(frequencyRootElem, busPath);
+            }
+            else
+                throw new BusNotFoundException("This bus is not in the system");
+        }
+        void DeleteLineFrequency(string id);
+        IEnumerable<LineFrequency> GetAllLineFrequency();
+        LineFrequency GetLineFrequency(string id);
+        IEnumerable<LineFrequency> GetAllLineFrequencyBy(Predicate<LineFrequency> predicate);
+        #endregion
 
         #region BusLineStation CRUD finished!
         public void AddBusLineStation(int station_id, int line_id, int number_on_route)

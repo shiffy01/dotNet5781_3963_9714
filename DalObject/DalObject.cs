@@ -555,11 +555,40 @@ namespace DL
             throw new NotImplementedException();
         }
         #endregion
-        public void CreateStationsList()
+
+        #region LineFrequency
+        public void AddLineFrequency(int lineID, DateTime start, TimeSpan frequency, DateTime end)
+        {
+            throw new NotImplementedException();
+        }
+        public void UpdateLineFrequency(LineFrequency frequency)
+        {
+            throw new NotImplementedException();
+        }
+        public void DeleteLineFrequency(string id)
+        {
+            throw new NotImplementedException();
+        }
+        public IEnumerable<LineFrequency> GetAllLineFrequency()
+        {
+            throw new NotImplementedException();
+        }
+        public LineFrequency GetLineFrequency(string id)
+        {
+            throw new NotImplementedException();
+        }
+        public IEnumerable<LineFrequency> GetAllLineFrequencyBy(Predicate<LineFrequency> predicate)
         {
             throw new NotImplementedException();
         }
         #endregion
+        public void CreateStationsList()
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
         //public IEnumerable<IGrouping<string, BusStation>> getStationsByCity()
         //{
         //   var list=
