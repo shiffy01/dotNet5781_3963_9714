@@ -22,13 +22,13 @@ namespace BlApi
         #region Bus functions
         void refill(Bus bus);
         void tuneUp(Bus bus);
-        void drive(Bus bus);
+        void drive(Bus bus, double distance);
         bool canDrive(Bus bus);
         #endregion
 
         #region BusLine
-        List<string> AddBusLine(int line_number, List<int> stations, DateTime first_bus, DateTime last_bus, TimeSpan frequency);
-        void UpdateBusLine( DateTime firstBus,  DateTime lastBus, TimeSpan frequency, int busID, int lineNumber = 0);
+        List<string> AddBusLine(int line_number, List<int> stations, List<BusLineTime> times);
+        void UpdateBusLine(int busID, int lineNumber, List<BusLineTime> times);
         void DeleteBusLine(int lineID);
         BusLine GetBusLine(int lineID);
         IEnumerable<BusLine> GetAllBusLines();
@@ -46,6 +46,7 @@ namespace BlApi
        
         string RemoveBusStationFromLine(int stationCode, int lineNumber);
         #endregion
+
         #region User
         void AddUser(string userName, string password, bool manager);
         void UpdateUser(string userName, string password, bool manager);
