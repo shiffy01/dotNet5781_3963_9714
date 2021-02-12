@@ -32,8 +32,8 @@ namespace PL
             Line = line;
             lineGrid.DataContext = Line;
             busStationDataGrid.DataContext = Line.Stations;
-            first_busTextBlock.DataContext = Line.First_bus.TimeOfDay;
-            last_busTextBlock.DataContext = Line.Last_bus.TimeOfDay;
+            //first_busTextBlock.DataContext = Line.First_bus.TimeOfDay;
+            //last_busTextBlock.DataContext = Line.Last_bus.TimeOfDay;
         }
 
         private void update_line_Click(object sender, RoutedEventArgs e)

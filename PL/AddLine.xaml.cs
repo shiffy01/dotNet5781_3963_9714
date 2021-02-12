@@ -155,36 +155,36 @@ namespace PL
         //}
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            List<string> needed_distances=null;
-            try
-            {
-               // TimeSpan frequency = new TimeSpan(freq.Value.Value.Hour, freq.Value.Value.Minute, 0);
-               needed_distances=bl.AddBusLine(int.Parse(line_number.Text), stationsToAdd, first_bus.Value.Value, last_bus.Value.Value, new TimeSpan(0, 10, 0));
-                MessageBoxResult mb = MessageBox.Show("The bus was added to the system");
-                if (needed_distances == null||needed_distances.Count==0)
-                    this.Close();
-                else
-                {
-                    AddDistances addDistances = new AddDistances(needed_distances);
-                    addDistances.ShowDialog();
-                    this.Close();
-                }
-            }
-            catch (FrequencyConflictException ex)
-            {
-                System.Windows.MessageBoxResult mb = MessageBox.Show(ex.Message);
+            //List<string> needed_distances=null;
+            //try
+            //{
+            //   // TimeSpan frequency = new TimeSpan(freq.Value.Value.Hour, freq.Value.Value.Minute, 0);
+            //   needed_distances=bl.AddBusLine(int.Parse(line_number.Text), stationsToAdd, first_bus.Value.Value, last_bus.Value.Value, new TimeSpan(0, 10, 0));
+            //    MessageBoxResult mb = MessageBox.Show("The bus was added to the system");
+            //    if (needed_distances == null||needed_distances.Count==0)
+            //        this.Close();
+            //    else
+            //    {
+            //        AddDistances addDistances = new AddDistances(needed_distances);
+            //        addDistances.ShowDialog();
+            //        this.Close();
+            //    }
+            //}
+            //catch (FrequencyConflictException ex)
+            //{
+            //    System.Windows.MessageBoxResult mb = MessageBox.Show(ex.Message);
               
-            }
-            catch (BusLineAlreadyExistsException ex)
-            {
-                System.Windows.MessageBoxResult mb = MessageBox.Show(ex.Message);
+            //}
+            //catch (BusLineAlreadyExistsException ex)
+            //{
+            //    System.Windows.MessageBoxResult mb = MessageBox.Show(ex.Message);
             
-            }
-            catch (Exception)
-            {
-                System.Windows.MessageBoxResult mb = MessageBox.Show("Something has gone wrong. For an unknown reason, this busline cannot be added to the system. We regret the error");
-                this.Close();
-            }
+            //}
+            //catch (Exception)
+            //{
+            //    System.Windows.MessageBoxResult mb = MessageBox.Show("Something has gone wrong. For an unknown reason, this busline cannot be added to the system. We regret the error");
+            //    this.Close();
+            //}
 
 
         }

@@ -35,9 +35,9 @@ namespace PL
             bus_line_numberTextBox.DataContext = Line.Bus_line_number;
             Line = bl.GetBusLine(Line.BusID);
             stationOnTheLineDataGrid.DataContext = Line.Stations.OrderBy(station => station.Number_on_route);
-            first_bus.DefaultValue = Line.First_bus;
-            last_bus.DefaultValue = Line.Last_bus;
-            //frequencyPicker.
+            //first_bus.DefaultValue = Line.First_bus;
+            //last_bus.DefaultValue = Line.Last_bus;
+            ////frequencyPicker.
         }
         public UpdateLine(BusLine line)
         {
@@ -138,7 +138,7 @@ namespace PL
             try
             {
                 splitStringTOTwoInts(freq.Text, ref Hours, ref Minutes, ':');
-                bl.UpdateBusLine(first_bus.Value.Value, last_bus.Value.Value, new TimeSpan(Hours, Minutes, 0), Line.BusID, int.Parse(bus_line_numberTextBox.Text));
+               // bl.UpdateBusLine(first_bus.Value.Value, last_bus.Value.Value, new TimeSpan(Hours, Minutes, 0), Line.BusID, int.Parse(bus_line_numberTextBox.Text));
                 System.Windows.MessageBoxResult mb = MessageBox.Show("Bus updated successfully");
             }
             catch (FrequencyConflictException ex) 
