@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<ArrayOfBusStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <BusStation>
+    <Code>70</Code>
+    <Latitude>12.3</Latitude>
+    <Longitude>23.4</Longitude>
+    <Name>matnas dolev</Name>
+    <Address>nachal dolev 13 beit shemesh</Address>
+    <City>beit shemesh</City>
+  </BusStation>
+  <BusStation>
+    <Code>777</Code>
+    <Latitude>888</Latitude>
+    <Longitude>6</Longitude>
+    <Name>hello</Name>
+    <Address>jygh</Address>
+  </BusStation>
+</ArrayOfBusStation>
