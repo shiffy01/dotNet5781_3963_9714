@@ -25,16 +25,36 @@ namespace PL1
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ButtonOpenMenu_Click(object sender, RoutedEventArgs e)
         {
-            Main.Content = new OpeningPage();
+            ButtonCloseMenu.Visibility = Visibility.Visible;
+            ButtonOpenMenu.Visibility = Visibility.Collapsed;
         }
-        //private void PresetTimePicker_SelectedTimeChanged(object sender, System.Windows.RoutedPropertyChangedEventArgs<System.DateTime?> e)
-        //{
-        //    var oldValue = e.OldValue.HasValue ? e.OldValue.Value.ToLongTimeString() : "NULL";
-        //    var newValue = e.NewValue.HasValue ? e.NewValue.Value.ToLongTimeString() : "NULL";
 
+        private void ButtonCloseMenu_Click(object sender, RoutedEventArgs e)
+        {
+            ButtonCloseMenu.Visibility = Visibility.Collapsed;
+            ButtonOpenMenu.Visibility = Visibility.Visible;
+        }
 
-        //}
+        private void ListViewMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UserControl usc = null;
+            GridMain.Children.Clear();
+
+            switch (((ListViewItem)((ListView)sender).SelectedItem).Name)
+            {
+                case "ItemHome":
+                 //   usc = new UserControlHome();
+                    GridMain.Children.Add(usc);
+                    break;
+                case "ItemCreate":
+                 //   usc = new UserControlCreate();
+                    GridMain.Children.Add(usc);
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }
