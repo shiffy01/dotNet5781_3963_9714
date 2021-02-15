@@ -23,6 +23,7 @@ namespace PL1
         public MainWindow()
         {
             InitializeComponent();
+            Main.Content = new Login();
         }
 
         private void ButtonOpenMenu_Click(object sender, RoutedEventArgs e)

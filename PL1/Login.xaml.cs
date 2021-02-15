@@ -16,13 +16,21 @@ using System.Windows.Shapes;
 namespace PL1
 {
     /// <summary>
-    /// Interaction logic for OpeningPage.xaml
+    /// Interaction logic for Login.xaml
     /// </summary>
-    public partial class OpeningPage : Page
+    public partial class Login : Page
     {
-        public OpeningPage()
+        public Login()
         {
             InitializeComponent();
+        }
+        private void LoginButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void SignUpButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
