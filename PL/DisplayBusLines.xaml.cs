@@ -28,6 +28,7 @@ namespace PL
          void initialize_line_collection()
         {
             bl = BlFactory.GetBl();
+            bl.GetAllUsers();
             IEnumerable<BusLine> lineIenumerable = bl.GetAllBusLines();
              Lines =new ObservableCollection<BusLine>(lineIenumerable);
 
