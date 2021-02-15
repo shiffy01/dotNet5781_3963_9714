@@ -78,6 +78,10 @@ namespace DL
                     List<T> list;
                     XmlSerializer x = new XmlSerializer(typeof(List<T>));
                     FileStream file = new FileStream(dir + filePath, FileMode.Open);
+                    if ((file).Position > 0)
+                    {
+                        file.Position = 0;
+                    }
                     list = (List<T>)x.Deserialize(file);
                     file.Close();
                     return list;
@@ -98,3 +102,5 @@ namespace DL
         #endregion
     }
 }
+//<ArrayOfStudent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+//                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
