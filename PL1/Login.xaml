@@ -8,9 +8,10 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
             Title="Login"
-      Background="#FFDEDEDE">
+      Background="White">
     <Page.Resources>
         <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Flipper.xaml" />
+        
     </Page.Resources>
     <!--<Grid x:Name="LoginCard" Height="300" Width="300">
         <Grid Height="60" Margin="0,0,0,240" Background="#52c7b8">
@@ -19,18 +20,13 @@
     </Grid>-->
     <materialDesign:Flipper
   Style="{StaticResource MaterialDesignCardFlipper}"
-  VerticalAlignment="Center" Height="450" Width="400">
+  VerticalAlignment="Center" HorizontalAlignment="Center">
         <materialDesign:Flipper.FrontContent>
             <StackPanel>
-            <Grid Width="400" Height="40" VerticalAlignment="Top">
-
-                <materialDesign:ColorZone
-                    Mode="PrimaryLight"
-                    VerticalAlignment="Stretch">
-                    <TextBlock Text="LOGIN" Foreground="White" FontSize="17" VerticalAlignment="Center"/>
-                </materialDesign:ColorZone>
-            </Grid>
-                <Grid  Width="400" Height="125">
+                <Grid Width="300" Height="40" VerticalAlignment="Top" Style="{StaticResource GridGradiantBackground}">
+                    <TextBlock Text="LOGIN" Foreground="White" FontSize="17" VerticalAlignment="Center" />
+                </Grid>
+                <Grid  Width="300" Height="125">
                     <Grid.RowDefinitions>
                         <RowDefinition  Height="25" />
                         <RowDefinition  Height="40" />
@@ -46,10 +42,10 @@
                     <TextBox x:Name="username_tb" Grid.Column="1" Grid.Row="1" Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" Height="40" Width="180" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"  materialDesign:HintAssist.Hint="Username"/>
                     <PasswordBox x:Name="pasword_box" Grid.Column="1" Grid.Row="3" Style="{StaticResource MaterialDesignOutlinedPasswordFieldPasswordBox}" VerticalAlignment="Center" Width="180" materialDesign:HintAssist.Hint="Password"/>
                     <Button Grid.Column="3" Grid.Row="3" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"  ToolTip="MaterialDesignFloatingActionMiniAccentButton" Click="LoginButton_Click">
-                         <materialDesign:PackIcon Kind="ArrowRight"  Height="24"  Width="24" />
+                        <materialDesign:PackIcon Kind="ArrowRight"  Height="24"  Width="24" />
                     </Button>
                 </Grid>
-                <Grid Width="400" Height="70">
+                <Grid Width="300" Height="35">
                     <Grid.RowDefinitions>
                         <RowDefinition  Height="5" />
                         <RowDefinition  Height="29" />
@@ -61,19 +57,14 @@
                     </Grid.ColumnDefinitions>
                     <Label Grid.Column="1" Grid.Row="1" Content="Don't have an account?" FontSize="15"/>
                     <Button Grid.Column="2" Grid.Row="1" Content="Sign Up" Style="{StaticResource MaterialDesignFlatButton}"  Command="{x:Static materialDesign:Flipper.FlipCommand}"/>
-               
-            </Grid>
+
+                </Grid>
             </StackPanel>
         </materialDesign:Flipper.FrontContent>
         <materialDesign:Flipper.BackContent>
             <StackPanel>
-                <Grid Width="400" Height="40" VerticalAlignment="Top">
-
-                    <materialDesign:ColorZone
-                    Mode="PrimaryLight"
-                    VerticalAlignment="Stretch">
+                <Grid Width="400" Height="40" VerticalAlignment="Top" Style="{StaticResource GridGradiantBackground}">
                         <TextBlock Text="SIGN UP" Foreground="White" FontSize="17" VerticalAlignment="Center"/>
-                    </materialDesign:ColorZone>
                 </Grid>
                 <Grid  Width="400" Height="300">
                     <Grid.RowDefinitions>
@@ -87,7 +78,7 @@
                         <RowDefinition  Height="48" />
                         <RowDefinition  Height="5" />
                         <RowDefinition  Height="48" />
-                     
+
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="20"/>

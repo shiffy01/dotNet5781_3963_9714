@@ -16,7 +16,18 @@
             <Style TargetType="Window" x:Key="WinowBackGround">
                 <Setter Property="Background" Value="#FFFEF2FF"/>
             </Style>
-           
+            <!--Gradient background for grid-->
+            <Style TargetType="Grid" x:Key="GridGradiantBackground">
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#00ACC1" Offset="0.0" />
+                            <GradientStop Color="#0097A7" Offset="0.5" />
+                            <GradientStop Color="#00838F" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
