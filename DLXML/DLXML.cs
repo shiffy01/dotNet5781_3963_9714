@@ -213,7 +213,6 @@ namespace DL
 
         #endregion
 
-
         #region BusLine implementation finished!
         public BusLine AddBusLine(int line_number, string dest, string org)
         {
