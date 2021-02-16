@@ -17,11 +17,11 @@ using BlApi;
 namespace PL1
 {
     /// <summary>
-    /// Interaction logic for BusLinesDispaly.xaml
+    /// Interaction logic for Search.xaml
     /// </summary>
-    public partial class BusLinesDispaly : Page
+    public partial class Search : Page
     {
-        public BusLinesDispaly(IBL bl, BO.User user)
+        public Search(IBL bl, BO.User user)
         {
             InitializeComponent();
         }

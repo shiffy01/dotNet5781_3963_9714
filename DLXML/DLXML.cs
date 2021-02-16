@@ -88,7 +88,7 @@ namespace DL
 
 
         #region Bus implementation
-        public int AddBus(bool access, bool wifi)//running number starts from 1000000
+        public int AddBus(DateTime start, int totalk)//running number starts from 1000000
         {
             XElement BusRootElem = XMLtools.LoadListFromXMLElement(busPath);
             var biggest_license = from b in BusRootElem.Elements()
@@ -104,17 +104,15 @@ namespace DL
 
             XElement busElem = new XElement("Bus", new XElement("License", newLicense),
                                   new XElement("Status", (int)Bus.Status_ops.Ready),
-                                  new XElement("StartYear", DateTime.Now.Year),
-                                  new XElement("StartMonth", DateTime.Now.Month),
-                                  new XElement("StartDay", DateTime.Now.Day),
+                                  new XElement("StartYear", start.Year),
+                                  new XElement("StartMonth", start.Month),
+                                  new XElement("StartDay", start.Day),
                                   new XElement("TuneYear", DateTime.Now.Year),
                                   new XElement("TuneMonth", DateTime.Now.Month),
                                   new XElement("TuneDay", DateTime.Now.Day),
-                                  new XElement("TotalKiloMeterage", 0),
+                                  new XElement("TotalKiloMeterage", totalk),
                                   new XElement("KiloMeterage", 0),
                                   new XElement("Gas", 1200),
-                                  new XElement("Accessible", access),
-                                  new XElement("Wifi", wifi),
                                   new XElement("Exists", true)
                                 );
 
@@ -122,25 +120,6 @@ namespace DL
             XMLtools.SaveListToXMLElement(BusRootElem, busPath);
             return newLicense;
         }//done
-        public void UpdateBus(int license, bool access, bool wifi)
-        {
-            XElement linesRootElem = XMLtools.LoadListFromXMLElement(busPath);
-
-            XElement line = (from l in linesRootElem.Elements()
-                             where int.Parse(l.Element("License").Value) == license && bool.Parse(l.Element("Exists").Value)
-                             select l).FirstOrDefault();
-
-            if (line != null)
-            {
-                line.Element("Access").Value = access + "";
-                line.Element("Wifi").Value = wifi + "";
-
-
-                XMLtools.SaveListToXMLElement(linesRootElem, busPath);
-            }
-            else
-                throw new BusNotFoundException("This bus is not in the system");
-        }
         public void UpdateBus(int license, Bus.Status_ops status, DateTime last_tune_up, int kilometerage, int totalkilometerage, int gas)
         {
             XElement linesRootElem = XMLtools.LoadListFromXMLElement(busPath);
@@ -192,8 +171,6 @@ namespace DL
                            Totalkilometerage = int.Parse(b.Element("TotalKiloMeterage").Value),
                            Kilometerage = int.Parse(b.Element("KiloMeterage").Value),
                            Gas = int.Parse(b.Element("Gas").Value),
-                           IsAccessible = bool.Parse(b.Element("Accessible").Value),
-                           HasWifi = bool.Parse(b.Element("Wifi").Value),
                            Exists = bool.Parse(b.Element("Exists").Value)
                        }).FirstOrDefault();
             if (bus == null)
@@ -213,8 +190,6 @@ namespace DL
                                           Totalkilometerage = int.Parse(b.Element("TotalKiloMeterage").Value),
                                           Kilometerage = int.Parse(b.Element("KiloMeterage").Value),
                                           Gas = int.Parse(b.Element("Gas").Value),
-                                          IsAccessible = bool.Parse(b.Element("Accessible").Value),
-                                          HasWifi = bool.Parse(b.Element("Wifi").Value),
                                           Exists = bool.Parse(b.Element("Exists").Value)
                                       });
             return buses;

@@ -42,15 +42,55 @@ namespace PL1
                     //make the box red...or just say that the password or user name is incorrect
                     return;
                 }
-                if(user.IsManager)
-                    //open manager page
+                if (user.IsManager)
+                {
+                    Search searchPage = new Search(bl, user);
+                    NavigationService.Navigate(searchPage);
+                }
                 else
-                        //open search page;
+                {
+                    ManagerOpeningPage managerOpening = new ManagerOpeningPage(bl, user);
+                    NavigationService.Navigate(managerOpening);
+                }
             }
         }
         private void SignUpButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (SignUp_Username_Tb.Text == null)
+            {
+                //maybe make it red.. this is a required field
+                return;
+            }
+            if (SignUp_PasswordBx.Password != SignUp_ConfirmPasswordBx.Password)
+            {
+                //make it red... passwords dont match
+                return;
+            }
+            bool isManager = false;
+            if (Manager_RadioBtn.IsChecked == true)
+                isManager = true;
+            BO.User user;
+            try
+            {
+                bl.AddUser(SignUp_Username_Tb.Text, SignUp_PasswordBx.Password, isManager);
+                user = bl.GetUser(SignUp_Username_Tb.Text, SignUp_PasswordBx.Password);
+            }
+            catch (BO.UserNameAlreadyExistsException)
+            {
+                //ERROR!!!!!!!!!!!!!!!!!!!!!
+                return;
+            }
+            if (user.IsManager)
+            {
+                Search searchPage = new Search(bl, user);
+                NavigationService.Navigate(searchPage);
+            }
+            else
+            {
+                ManagerOpeningPage managerOpening = new ManagerOpeningPage(bl, user);
+                NavigationService.Navigate(managerOpening);
+            }
         }
     }
+   
 }
