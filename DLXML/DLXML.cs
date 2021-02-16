@@ -43,7 +43,7 @@ namespace DL
         string busLinePath = @"busLineXml.xml";
         string busStationPath = @"busStationXml.xml";
         string busPath = @"busXml.xml";
-        string adjacentStationsPath = @"twoConsecutiveStopsXml.xml";
+        string adjacentStationsPath = @"adjacentStationsXml.xml";
         string busLineStationPath = @"busLineStationXml.xml";
         string badBusStationsPath = @"stops.xml";
         string userPath = @"userXml.xml";
@@ -53,7 +53,7 @@ namespace DL
         string lineFrequencyPath = @"lineFrequencyXml.xml";
         #endregion
 
-
+       
         public void CreateStationsList()//get list of all the stations in the country from stops.xml,
                                         //convert them to our station type and save to new xml
         {
@@ -67,7 +67,7 @@ namespace DL
                                                     Name = stop.Element("Name").Value,
                                                     Latitude = double.Parse(stop.Element("Latitude").Value),
                                                     Longitude = double.Parse(stop.Element("Longitude").Value),
-                                                    Address = stop.Element("Address").Value
+                                                    Address = stop.Element("Address").Value,
                                                 };
                 busStationsRootElem.Add(stops);
                 XMLtools.SaveListToXMLElement(busStationsRootElem, busStationPath);
@@ -77,18 +77,22 @@ namespace DL
 
 
         #region Bus implementation
-        public int AddBus(bool access, bool wifi)
+        public int AddBus(bool access, bool wifi)//running number starts from 1000000
         {
             XElement BusRootElem = XMLtools.LoadListFromXMLElement(busPath);
             var biggest_license = from b in BusRootElem.Elements()
                                   where b.Element("Exists").Value == "true"
                                   select int.Parse(b.Element("License").Value);
             biggest_license.OrderByDescending(b => b);
-            int newLicense = biggest_license.First() + 1;
+            int newLicense;
+            if (biggest_license.Count()==0)
+                newLicense = 1000000;
+            else
+            newLicense = biggest_license.First() + 1;
 
 
             XElement busElem = new XElement("Bus", new XElement("License", newLicense),
-                                  new XElement("Status", Bus.Status_ops.Ready),
+                                  new XElement("Status", (int)Bus.Status_ops.Ready),
                                   new XElement("StartYear", DateTime.Now.Year),
                                   new XElement("StartMonth", DateTime.Now.Month),
                                   new XElement("StartDay", DateTime.Now.Day),
@@ -223,9 +227,13 @@ namespace DL
                ListLines.Any(p => p.Exists == true && p.BusID == line_number);
             if (exists)
                 throw new BusLineAlreadyExistsException();//does it need to say something inside?
-
+            int number;
+            if (list.Count() == 0)
+                number = 3000000;
+            else
+                number = ++list[list.Count()].BusID;
             BusLine newBus = new BusLine {
-                BusID = ++list[list.Count()].BusID,
+                BusID = number,
                 Bus_line_number = line_number,
                 Destination = dest,
                 Origin = org,
