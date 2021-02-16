@@ -42,7 +42,7 @@ namespace PL1
         {
             UserControl usc = null;
             GridMain.Children.Clear();
-
+            
             switch (((ListViewItem)((ListView)sender).SelectedItem).Name)
             {
                 case "ItemHome":
