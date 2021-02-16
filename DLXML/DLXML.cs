@@ -58,7 +58,8 @@ namespace DL
                                         //convert them to our station type and save to new xml
         {
             XElement busStationsRootElem = XMLtools.LoadListFromXMLElement(busStationPath);
-            if (busStationsRootElem.Elements().Count() == 0)
+            int counter = busStationsRootElem.Elements().Count();
+            if (counter == 0)
             {
                 XElement badBusStationsRootElem = XMLtools.LoadListFromXMLElement(badBusStationsPath);
                 IEnumerable<BusStation> stops = from stop in badBusStationsRootElem.Elements()
