@@ -70,7 +70,17 @@ namespace DL
                                                     Longitude = double.Parse(stop.Element("Longitude").Value),
                                                     Address = stop.Element("Address").Value,
                                                 };
-                busStationsRootElem.Add(stops);
+                foreach (var item in stops)
+                {
+                    XElement stationElem = new XElement("BusStation", new XElement("Code", item.Code),
+                                  new XElement("Name", item.Name),
+                                  new XElement("Latitude", item.Latitude),
+                                  new XElement("Longitude", item.Longitude),
+                                  new XElement("Address", item.Address)
+                                );
+                    busStationsRootElem.Add(stationElem);
+                }
+                
                 XMLtools.SaveListToXMLElement(busStationsRootElem, busStationPath);
             }
 

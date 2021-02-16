@@ -57,7 +57,7 @@ namespace BlApi
         void DeleteAllHistory(String username, string password);
         #endregion
         void AddAdjacentStations(int codeA, int codeB, double distance, TimeSpan drive_time);
-        void CreateStationsList();
+        
       
     }
 }

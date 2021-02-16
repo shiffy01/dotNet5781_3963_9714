@@ -884,10 +884,6 @@ namespace BL
                 throw new PairAlreadyExistsException("the pair already exists in the system", ex);
             }
         }
-        public void CreateStationsList()
-        {
-            dal.CreateStationsList();
-        }
     }
    
 
