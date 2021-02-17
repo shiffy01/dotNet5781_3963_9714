@@ -803,6 +803,10 @@ namespace BL
             {
                 throw new UserNameAlreadyExistsException("There is already a user with this name in the system", ex);
             }
+            catch (DO.WrongPasswordException ex)
+            {
+                throw new WrongPasswordException("Incorrect password", ex);
+            }
         }
         public void UpdateUser(string userName, string password, bool manager)
         {

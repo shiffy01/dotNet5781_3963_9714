@@ -21,7 +21,7 @@ namespace PL1
     /// </summary>
     public partial class BusLinesDispaly : Page
     {
-        public BusLinesDispaly(IBL bl, BO.User user)
+        public BusLinesDispaly(IBL bl, BO.User user, bool manage)
         {
             InitializeComponent();
         }

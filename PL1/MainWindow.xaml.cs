@@ -23,14 +23,27 @@ namespace PL1
     {
         BO.User User;
         static IBL bl;
+        bool Manage;
         
 
-        public MainWindow(IBL bl1, BO.User user)
+        public MainWindow(IBL bl1, BO.User user, bool manage)
         {
             InitializeComponent();
-            Main.Content = new HomePage();
             bl = bl1;
             User = user;
+            Manage = manage;
+            if (manage)
+            {
+                icon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Bus;
+                text.Text = "Buses";
+                Main.Navigate(new BusesDisplay(bl, User, manage));
+            }
+            else
+            {
+                icon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Routes;
+                text.Text = "Routes";
+                Main.Navigate(new RouteSearch(bl, User, manage));
+            }
         }
 
         private void ButtonOpenMenu_Click(object sender, RoutedEventArgs e)
@@ -47,34 +60,36 @@ namespace PL1
 
         private void ListViewMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            UserControl usc = null;
-            GridMain.Children.Clear();
+             GridMain.Children.Clear();
             switch (((ListViewItem)((ListView)sender).SelectedItem).Name)
             {
 
-                case "Buses":
-                    BusesDisplay busesDisplay = new BusesDisplay(bl, User);
-                    this.Main.NavigationService.Navigate(busesDisplay);
+                case "ChangingItem":
+                    if (Manage)
+                    {
+                        BusesDisplay busesDisplay = new BusesDisplay(bl, User, Manage);
+                        this.Main.NavigationService.Navigate(busesDisplay);
+                    }
+                    else
+                    {
+                        RouteSearch routeSearch = new RouteSearch(bl, User, Manage);
+                        this.Main.NavigationService.Navigate(routeSearch);
+                    }
                     break;
                 case "BusLines":
-                    BusLinesDispaly busLinesDispaly = new BusLinesDispaly(bl, User);
+                    BusLinesDispaly busLinesDispaly = new BusLinesDispaly(bl, User, Manage);
                     this.Main.NavigationService.Navigate(busLinesDispaly);
                     break;
                 case "BusStops":
-                    BusStationsDisplay busStationssDispaly = new BusStationsDisplay(bl, User);
+                    BusStationsDisplay busStationssDispaly = new BusStationsDisplay(bl, User, Manage);
                     this.Main.NavigationService.Navigate(busStationssDispaly);
                     break;
-                case "Routes":
-                    //BusStationsDisplay busStationssDispaly = new BusStationsDisplay(bl, User);
-                    //this.Main.NavigationService.Navigate(busStationssDispaly);
-                    break;
                 case "Settings":
-                    //BusStationsDisplay busStationssDispaly = new BusStationsDisplay(bl, User);
-                    //this.Main.NavigationService.Navigate(busStationssDispaly);
+                    SettingsPage settings = new SettingsPage(bl, User, Manage);
+                    this.Main.NavigationService.Navigate(settings);
                     break;
                 case "LogOut":
-                    //BusStationsDisplay busStationssDispaly = new BusStationsDisplay(bl, User);
-                    //this.Main.NavigationService.Navigate(busStationssDispaly);
+                    this.Close();
                     break;
                 default:
                     break;

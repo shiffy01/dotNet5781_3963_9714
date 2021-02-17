@@ -725,11 +725,14 @@ namespace DL
         public User GetUser(string userName, string password)
         {
             List<User> userList = XMLtools.LoadListFromXMLSerializer<User>(userPath);
-            User user = userList.FirstOrDefault(u => (u.UserName == userName && u.Exists&&u.Password==password));
+            User user = userList.FirstOrDefault(u => (u.UserName == userName && u.Exists));
+            if (user == default(User))
+              throw new UserDoesNotExistException("This user with this password is not in the system");
 
-            if (user != default(User))
-                return user;
-            throw new UserDoesNotExistException("This user with this password is not in the system");
+            User userpw = userList.FirstOrDefault(u => (u.UserName == userName && u.Exists&&u.Password==password));
+            if (userpw == default(User))
+                throw new WrongPasswordException("Incorrect password");
+            return userpw;
         }
         public IEnumerable<User> GetAllUsersBy(Predicate<User> predicate)
         {

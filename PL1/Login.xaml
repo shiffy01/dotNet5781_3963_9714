@@ -24,6 +24,7 @@
             
         </Grid>
     </Grid>-->
+    <Grid>
     <materialDesign:Flipper
   Style="{StaticResource MaterialDesignCardFlipper}"
   VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -99,6 +100,7 @@
                         <RadioButton x:Name="Manager_RadioBtn" Style="{StaticResource MaterialDesignTabRadioButton}" Margin="4" IsChecked="True" Content="Manager" />
                         <RadioButton x:Name="User_RadioBtn" Style="{StaticResource MaterialDesignTabRadioButton}" Margin="4" IsChecked="False" Content="User" />
                     </StackPanel>
+                    
                     <Button  Grid.Column="3" Grid.Row="9" Style="{StaticResource MaterialDesignFlatAccentBgButton}" ToolTip="MaterialDesignFlatAccentBackgroundButton" Width="90" Content="Sign Up" Click="SignUpButton_Click"/>
                 </Grid>
                 <Grid Width="400" Height="70">
@@ -113,10 +115,22 @@
                     </Grid.ColumnDefinitions>
                     <Label Grid.Column="1" Grid.Row="1" Content="Already have an account?" FontSize="12"/>
                     <Button Grid.Column="2" Grid.Row="1" Background="{x:Null}" Content="Log In" FontStretch="Normal"  FontSize="10" Height="25" Width="60" Style="{StaticResource MaterialDesignFlatButton}"  Command="{x:Static materialDesign:Flipper.FlipCommand}"/>
-
+                    
                 </Grid>
             </StackPanel>
         </materialDesign:Flipper.BackContent>
     </materialDesign:Flipper>
-
+        <materialDesign:DialogHost x:Name="popUp" Visibility="Hidden">
+            <materialDesign:DialogHost.DialogContent>
+                <Grid>
+                    <Label Content="Continue as:" FontSize="15"/>
+                    <StackPanel x:Name="StatusStackPanel" Orientation="Horizontal" Margin="4">
+                        <RadioButton x:Name="Manager_RadioBtn1" Style="{StaticResource MaterialDesignTabRadioButton}" Margin="4" IsChecked="True" Content="Manager" />
+                        <RadioButton x:Name="User_RadioBtn1" Style="{StaticResource MaterialDesignTabRadioButton}" Margin="4" IsChecked="False" Content="User" />
+                    </StackPanel>
+                    <Button Content="Go" Click="GoClick"/>
+                </Grid>
+            </materialDesign:DialogHost.DialogContent>
+        </materialDesign:DialogHost>
+    </Grid>
 </Page>

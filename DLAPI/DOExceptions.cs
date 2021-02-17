@@ -145,19 +145,19 @@ namespace DO
         public override string ToString() => base.ToString() + "User name is already used in the system";
     }
     [Serializable]
-    public class PasswordAlreadyExistsException : Exception
+    public class WrongPasswordException : Exception
     {
-        public PasswordAlreadyExistsException()
+        public WrongPasswordException()
         {
         }
-        public PasswordAlreadyExistsException(string messege) : base(messege)
+        public WrongPasswordException(string messege) : base(messege)
         {
 
         }
-        public PasswordAlreadyExistsException(string message, Exception inner) : base(message, inner)
+        public WrongPasswordException(string message, Exception inner) : base(message, inner)
         {
         }
-        public override string ToString() => base.ToString() + "Password is already used in the system";
+        public override string ToString() => base.ToString() + "Incorrect password";
     }
     [Serializable]
     public class UserDoesNotExistException : Exception

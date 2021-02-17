@@ -92,10 +92,10 @@
                 </Grid>
                
                 <ListView x:Name="ListViewMenu" Foreground="White"   ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="ListViewMenu_SelectionChanged">
-                    <ListViewItem x:Name="Buses" Height="60">
+                    <ListViewItem x:Name="ChangingItem" Height="60">
                         <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Bus" Height="25" Width="25" Margin="10"/>
-                            <TextBlock Text="Buses" VerticalAlignment="Center" Margin="20 10"/>
+                            <materialDesign:PackIcon x:Name="icon" Height="25" Width="25" Margin="10"/>
+                            <TextBlock x:Name="text" VerticalAlignment="Center" Margin="20 10"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem x:Name="BusLines" Height="60">
@@ -108,12 +108,6 @@
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="BusStopUncovered" Height="25" Width="25" Margin="10"/>
                             <TextBlock Text="Bus Stations" VerticalAlignment="Center"  Margin="20 10"/>
-                        </StackPanel>
-                    </ListViewItem>
-                    <ListViewItem x:Name="Route" Height="60">
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Routes" Height="25" Width="25" Margin="10"/>
-                            <TextBlock Text="Routes" VerticalAlignment="Center"  Margin="20 10"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem x:Name="Settings" Height="60">

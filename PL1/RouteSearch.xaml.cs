@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BlApi;
 
 namespace PL1
 {
@@ -20,9 +21,13 @@ namespace PL1
     /// </summary>
     public partial class RouteSearch : Page
     {
-        public RouteSearch()
+        static IBL bl;
+        BO.User User;
+        public RouteSearch(IBL bl1, BO.User user, bool manage)
         {
             InitializeComponent();
+            bl = bl1;
+            User = user;
         }
     }
 }
