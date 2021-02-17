@@ -28,7 +28,7 @@ namespace PL1
         public MainWindow(IBL bl1, BO.User user)
         {
             InitializeComponent();
-            Main.Content = new Login();
+            Main.Content = new HomePage();
             bl = bl1;
             User = user;
         }
@@ -47,13 +47,19 @@ namespace PL1
 
         private void ListViewMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            UserControl usc = null;
+            GridMain.Children.Clear();
             switch (((ListViewItem)((ListView)sender).SelectedItem).Name)
             {
+
                 case "Buses":
-                    
+                    Search searchPage = new Search(bl, User);
+                    this.Main.NavigationService.Navigate(searchPage);
                     break;
                 case "BusLines":
-                    
+                    BusLinesDispaly busLinesDispaly = new BusLinesDispaly(bl, User);
+                    this.Main.NavigationService.Navigate(busLinesDispaly);
+
                     break;
                 case "BusStops":
 
