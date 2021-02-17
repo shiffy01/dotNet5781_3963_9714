@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Collections.ObjectModel;
 
 namespace PL1
 {
@@ -20,9 +21,12 @@ namespace PL1
     /// </summary>
     public partial class AddBusLine : Page
     {
+        ObservableCollection<BO.BusLineTime> LineTimes;
         public AddBusLine()
         {
             InitializeComponent();
+            LineTimes = new ObservableCollection<BO.BusLineTime>();
+            busLineTimeDataGrid.DataContext = LineTimes;
         }
 
     }
