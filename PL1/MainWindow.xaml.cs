@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BlApi;
 
 namespace PL1
 {
@@ -20,12 +21,16 @@ namespace PL1
     /// </summary>
     public partial class MainWindow : Window
     {
-       // BO.User user = new BO.User();
+        BO.User User;
+        static IBL bl;
+        
 
-        public MainWindow()
+        public MainWindow(IBL bl1, BO.User user)
         {
             InitializeComponent();
             Main.Content = new Login();
+            bl = bl1;
+            User = user;
         }
 
         private void ButtonOpenMenu_Click(object sender, RoutedEventArgs e)

@@ -26,7 +26,6 @@ namespace PL1
         {
             InitializeComponent();
             bl = BlFactory.GetBl();
-
         }
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
@@ -42,16 +41,8 @@ namespace PL1
                     //make the box red...or just say that the password or user name is incorrect
                     return;
                 }
-                if (user.IsManager)
-                {
-                    Search searchPage = new Search(bl, user);
-                    NavigationService.Navigate(searchPage);
-                }
-                else
-                {
-                    ManagerOpeningPage managerOpening = new ManagerOpeningPage(bl, user);
-                    NavigationService.Navigate(managerOpening);
-                }
+                MainWindow main = new MainWindow(bl, user);
+                main.ShowDialog();
             }
         }
         private void SignUpButton_Click(object sender, RoutedEventArgs e)
@@ -80,17 +71,10 @@ namespace PL1
                 //ERROR!!!!!!!!!!!!!!!!!!!!!
                 return;
             }
-            if (user.IsManager)
-            {
-                Search searchPage = new Search(bl, user);
-                NavigationService.Navigate(searchPage);
-            }
-            else
-            {
-                ManagerOpeningPage managerOpening = new ManagerOpeningPage(bl, user);
-                NavigationService.Navigate(managerOpening);
-            }
+            MainWindow main = new MainWindow(bl, user);
+            main.ShowDialog();
         }
+        
     }
    
 }

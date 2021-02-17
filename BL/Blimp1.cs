@@ -136,6 +136,17 @@ namespace BL
                 if (times[i].End > times[i + 1].Start)
                     throw new FrequencyConflictException("The times cannot overlap");
         }
+        public void AddAdjacentStations(int codeA, int codeB, double distance, TimeSpan drive_time)
+        {
+            try
+            {
+                dal.AddAdjacentStations(codeA, codeB, distance, drive_time);
+            }
+            catch (DO.PairAlreadyExitsException ex)
+            {
+                throw new PairAlreadyExistsException("the pair already exists in the system", ex);
+            }
+        }
 
         #region convert functions     
         BusStation ConvertStationDOtoBO(DO.BusStation DOstation)
@@ -190,6 +201,11 @@ namespace BL
 
             for (int i = 0; i < list.Count; i++)//add number on route for each stop
                 list[i].Number_on_route = i + 1;
+            for (int i = 0; i < list.Count - 1; i++)//adding distance and time to the next stop
+            {
+                list[i].Average_drive_time_to_the_next_stop = dal.GetAdjacentStations(list[i].Code.ToString() + list[i + 1].Code.ToString()).Average_drive_time;
+                list[i].Distance_to_the_next_stop = dal.GetAdjacentStations(list[i].Code.ToString() + list[i + 1].Code.ToString()).Distance;
+            }
             try
             {
                 for (int i = 0; i < (list.Count - 1); i++)//add distance to the next stop for each stop
@@ -861,17 +877,51 @@ namespace BL
 
         }
         #endregion
-        public void AddAdjacentStations(int codeA, int codeB, double distance, TimeSpan drive_time)
+       
+        #region search route
+        public TimeSpan driveTime(int lineCode, int station1, int station2)
+        {
+
+            var list = from t in dal.GetAllBusLineStationsBy(b => b.LineID == lineCode && b.Number_on_route >= dal.GetBusLineStation(station1.ToString() + lineCode.ToString()).Number_on_route && b.Number_on_route < dal.GetBusLineStation(station2.ToString() + lineCode.ToString()).Number_on_route)
+                       select dal.GetAdjacentStations(station1.ToString() + station2.ToString()).Average_drive_time;
+            TimeSpan driveTime=new TimeSpan(0,0,0);
+            foreach (var item in list)
+            {
+                driveTime += item;
+            }
+            return driveTime;
+        }
+        bool busLineStationExists(string id)
         {
             try
             {
-                dal.AddAdjacentStations(codeA, codeB, distance, drive_time);
+                dal.GetBusLineStation(id);
+                return true;
             }
-            catch (DO.PairAlreadyExitsException ex)
+            catch (DO.BusLineStationNotFoundException)
             {
-                throw new PairAlreadyExistsException("the pair already exists in the system", ex);
+                return false;
             }
         }
+        public IEnumerable<BusLine> SearchRoute(int startStation, int endStation)
+        {
+
+            var lines = from s in dal.GetAllBusLineStationsBy(b => b.StationID == startStation)
+                        where(busLineStationExists(endStation.ToString() + s.LineID.ToString()))
+                        where (dal.GetBusLineStation(endStation.ToString() + s.LineID.ToString()).Number_on_route > s.Number_on_route)
+                        select new {
+                            line=dal.GetBusLine(s.LineID),
+                            time= driveTime(s.LineID,
+                            startStation,
+                            endStation)
+                        };
+            lines.OrderBy(t => t.time);
+            return from l in lines
+                   select DOtoBOBusLineAdapter(l.line);
+           
+            //sort the list by time, make a seperate function for that
+        }
+        #endregion
     }
    
 

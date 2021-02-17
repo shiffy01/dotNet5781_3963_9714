@@ -8,7 +8,7 @@ namespace DO
 {
     public class BusLineStation
     {
-        public string BusLineStationID{get; set;}//change everywhere else!!!!!!
+        public string BusLineStationID{get; set;}
         public int StationID {get; set;}
         public int LineID{ get; set; }//fix in other places
         public int Number_on_route{ get; set; }
