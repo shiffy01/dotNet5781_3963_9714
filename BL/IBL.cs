@@ -10,9 +10,8 @@ namespace BlApi
     public interface IBL
     {
         #region Bus CRUD
-        string AddBus(bool access, bool wifi);//
+        string AddBus(DateTime start, int totalk);//
         void UpdateBus(int license, Bus.Status_ops status, DateTime last_tune_up, int kilometerage, int totalkilometerage, int gas);
-        void UpdateBus(int license, bool access, bool wifi);
         void DeleteBus(int license);
         Bus GetBus(int license);
         IEnumerable<Bus> GetAllBuses();

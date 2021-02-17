@@ -40,22 +40,20 @@ namespace DL
         
 
         #region Bus implementation
-        public int AddBus(bool access, bool wifi)
+        public int AddBus(DateTime start, int totalk)
         {
             int license = DS.Config.BusLicenseCounter;
             DataSource.Buses.Add(new Bus {
-                Status=Bus.Status_ops.Ready,
-               License=license,
-               StartDate=DateTime.Now, 
-               Last_tune_up=DateTime.Now,
-               Totalkilometerage=0,
-               Kilometerage=0,
-               Gas=1200,
-               IsAccessible=access,
-               HasWifi=wifi,
-               Exists=true
+                Status = Bus.Status_ops.Ready,
+                License = license,
+                StartDate = start,
+                Last_tune_up = DateTime.Now,
+                Totalkilometerage = totalk,
+                Kilometerage = 0,
+                Gas = 120,
+               Exists = true
 
-            });
+            }) ;
             return license;
         }//doesn't throw an exception, doesn't need one
         public void UpdateBus(int license, Bus.Status_ops status, DateTime last_tune_up, int kilometerage, int totalkilometerage, int gas)
@@ -71,9 +69,7 @@ namespace DL
                     Last_tune_up = last_tune_up,
                     Totalkilometerage = totalkilometerage,
                     Kilometerage = kilometerage,
-                    Gas = gas,
-                    IsAccessible = oldBus.IsAccessible,
-                    HasWifi = oldBus.HasWifi,
+                    Gas = gas,  
                     Exists = true
                 };
                 DataSource.Buses.Remove(oldBus);
@@ -82,31 +78,7 @@ namespace DL
             else
                 throw new BusNotFoundException("Bus wasn't found in the system");
         }
-        public void UpdateBus(int license, bool access, bool wifi)
-        {
-
-            Bus realBus = DataSource.Buses.FirstOrDefault(tmpBus => tmpBus.License == license && tmpBus.Exists);
-
-            if (realBus != default(Bus))
-            {
-                Bus newBus = new Bus {
-                    Status = realBus.Status,
-                    License = realBus.License,
-                    StartDate = realBus.StartDate,
-                    Last_tune_up = realBus.Last_tune_up,
-                    Totalkilometerage = realBus.Totalkilometerage,
-                    Kilometerage = realBus.Kilometerage,
-                    Gas = realBus.Gas,
-                    IsAccessible = access,
-                    HasWifi = wifi,
-                    Exists = true
-                };
-                DataSource.Buses.Remove(realBus);
-                DataSource.Buses.Add(newBus);
-            }
-            else
-                throw new BusNotFoundException("Bus wasn't found in the system");
-        }//done
+        
         public void DeleteBus(int license)
         {
 

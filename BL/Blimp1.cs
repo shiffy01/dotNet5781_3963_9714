@@ -580,9 +580,9 @@ namespace BL
 
         #region Bus CRUD
        
-        public string AddBus(bool access, bool wifi)
+        public string AddBus(DateTime start, int totalk)
         {
-            int license = dal.AddBus(access, wifi);
+            int license = dal.AddBus(start, totalk);
             return license_format(license);
         }
         public void UpdateBus(int license, Bus.Status_ops status, DateTime last_tune_up, int kilometerage, int totalkilometerage, int gas)
@@ -597,18 +597,6 @@ namespace BL
             catch (DO.BusNotFoundException ex)
             {
                 throw new BusNotFoundException("This bus is not in the system", ex);
-            }
-        }
-
-        public void UpdateBus(int license, bool access, bool wifi)
-        {
-            try
-            {
-           //     dal.UpdateBus(license, access, wifi);
-            }
-            catch (DO.BusNotFoundException ex)
-            {
-                throw new BusNotFoundException("You cannot update a bus that doesn't exist", ex);
             }
         }
         public void DeleteBus(int license)

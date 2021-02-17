@@ -28,6 +28,15 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+            <Style TargetType = "TextBox" x:Key="validation_text" BasedOn="{StaticResource MaterialDesignTextBox}">
+                <Setter Property = "materialDesign:ValidationAssist.UsePopup" Value="True"/>
+                <Setter Property = "materialDesign:ValidationAssist.HasError" Value="False"/>
+                <Setter Property = "materialDesign:ValidationAssist.Suppress" Value="True"/>
+                <Style.Triggers>
+                    <Trigger Property="materialDesign:ValidationAssist.Suppress" Value="False"></Trigger>
+                    
+                </Style.Triggers>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

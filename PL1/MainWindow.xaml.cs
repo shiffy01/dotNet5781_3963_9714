@@ -20,6 +20,8 @@ namespace PL1
     /// </summary>
     public partial class MainWindow : Window
     {
+       // BO.User user = new BO.User();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -40,18 +42,30 @@ namespace PL1
 
         private void ListViewMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            UserControl usc = null;
-            GridMain.Children.Clear();
-            
             switch (((ListViewItem)((ListView)sender).SelectedItem).Name)
             {
-                case "ItemHome":
-                 //   usc = new UserControlHome();
-                    GridMain.Children.Add(usc);
+                case "Buses":
+                    Search searchPage = new Search(bl, user);
+                    NavigationService.Navigate(searchPage);
                     break;
-                case "ItemCreate":
-                 //   usc = new UserControlCreate();
-                    GridMain.Children.Add(usc);
+                case "BusLines":
+                    BusLinesDispaly display = new BusLinesDispaly(bl, user);
+                    NavigationService.Navigate(searchPage);
+                    break;
+                case "BusStops":
+
+                    break;
+                case "Routes":
+
+                    break;
+                case "SearchHistory":
+
+                    break;
+                case "Settings":
+
+                    break;
+                case "LogOut":
+
                     break;
                 default:
                     break;

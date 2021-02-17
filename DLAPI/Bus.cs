@@ -24,8 +24,6 @@ namespace DO
         public int Totalkilometerage { get; set; }     
         public int Kilometerage { get; set; }
         public int Gas { get; set; }
-        public bool IsAccessible { get; set; }
-        public bool HasWifi { get; set; }
         public bool Exists{ get; set; }
 
         public override string ToString()

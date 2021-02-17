@@ -13,9 +13,8 @@ namespace DLAPI
        
     {
         #region Bus  definition
-        int AddBus(bool access, bool wifi);
-        void UpdateBus(int license, Bus.Status_ops status, DateTime last_tune_up, int kilometerage, int totalkilometerage, int gas);
-       void UpdateBus(int license, bool access, bool wifi);
+        int AddBus(DateTime start, int totalk);
+        void UpdateBus(int license, Bus.Status_ops status, DateTime last_tune_up, int kilometerage, int totalkilometerage, int gas);     
         void DeleteBus(int license);
         IEnumerable<Bus> GetAllBuses();
         Bus GetBus(int license);
