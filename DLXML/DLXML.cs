@@ -409,7 +409,7 @@ namespace DL
         }
         #endregion
 
-        #region BusLineStation CRUD finished!
+        #region BusLineStation CRUD
         public void AddBusLineStation(int station_id, int line_id, int number_on_route)
         {
             List<BusLineStation> ListLineStations = XMLtools.LoadListFromXMLSerializer<BusLineStation>(busLineStationPath);
@@ -482,7 +482,7 @@ namespace DL
         }
         #endregion   
 
-        #region  BusStation implementation finished!
+        #region  BusStation implementation
         public void AddBusStation(int code, double latitude, double longitude, string name, string address)
         {
             List<BusStation> ListStations = XMLtools.LoadListFromXMLSerializer<BusStation>(busStationPath);
@@ -611,7 +611,7 @@ namespace DL
             XElement stationsRootElem = XMLtools.LoadListFromXMLElement(adjacentStationsPath);
 
             XElement stations = (from s in stationsRootElem.Elements()
-                            where s.Element("PairID").Value == pairID
+                            where (s.Element("PairID").Value == pairID)
                             select s).FirstOrDefault();
 
             if (stations != null)

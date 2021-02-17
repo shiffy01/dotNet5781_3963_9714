@@ -1,0 +1,118 @@
+﻿<Window x:Class="PL1.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:PL1"
+        mc:Ignorable="d"
+        Title="LoginWindow" Height="410" Width="400" Background="White">
+     
+    
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Flipper.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </Window.Resources>
+
+
+    <Grid>
+        <materialDesign:Flipper
+  Style="{StaticResource MaterialDesignCardFlipper}"
+  VerticalAlignment="Center" HorizontalAlignment="Center">
+            <materialDesign:Flipper.FrontContent>
+                <StackPanel>
+                    <Grid Width="400" Height="40" VerticalAlignment="Top" Style="{StaticResource GridGradiantBackground}">
+                        <TextBlock Text="LOGIN" Foreground="White" FontSize="17" VerticalAlignment="Center" />
+                    </Grid>
+                    <Grid  Width="400" Height="125">
+                        <Grid.RowDefinitions>
+                            <RowDefinition  Height="25" />
+                            <RowDefinition  Height="40" />
+                            <RowDefinition  Height="20" />
+                            <RowDefinition  Height="40" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40"/>
+                            <ColumnDefinition Width="180"/>
+                            <ColumnDefinition Width="3"/>
+                            <ColumnDefinition Width="50"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="username_tb" Grid.Column="1" Grid.Row="1" Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" Height="40" Width="180" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"  materialDesign:HintAssist.Hint="Username" />
+                        <PasswordBox x:Name="pasword_box" Grid.Column="1" Grid.Row="3" Style="{StaticResource MaterialDesignOutlinedPasswordFieldPasswordBox}" VerticalAlignment="Center" Width="180" materialDesign:HintAssist.Hint="Password"/>
+                        <Button Grid.Column="3" Grid.Row="3" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"  ToolTip="MaterialDesignFloatingActionMiniAccentButton" Click="LoginButton_Click">
+                            <materialDesign:PackIcon Kind="ArrowRight"  Height="24"  Width="24" />
+                        </Button>
+                    </Grid>
+                    <Grid Width="400" Height="35">
+                        <Grid.RowDefinitions>
+                            <RowDefinition  Height="5" />
+                            <RowDefinition  Height="29" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="35"/>
+                            <ColumnDefinition Width="162"/>
+                            <ColumnDefinition Width="81"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="1" Grid.Row="1" Content="Don't have an account?" FontSize="15"/>
+                        <Button Grid.Column="2" Grid.Row="1" Content="Sign Up" Style="{StaticResource MaterialDesignFlatButton}"  Command="{x:Static materialDesign:Flipper.FlipCommand}"/>
+
+                    </Grid>
+                </StackPanel>
+            </materialDesign:Flipper.FrontContent>
+            <materialDesign:Flipper.BackContent>
+                <StackPanel>
+                    <Grid Width="400" Height="40" VerticalAlignment="Top" Style="{StaticResource GridGradiantBackground}">
+                        <TextBlock Text="SIGN UP" Foreground="White" FontSize="17" VerticalAlignment="Center"/>
+                    </Grid>
+                    <Grid  Width="400" Height="300">
+                        <Grid.RowDefinitions>
+                            <RowDefinition  Height="25" />
+                            <RowDefinition  Height="48" />
+                            <RowDefinition  Height="20" />
+                            <RowDefinition  Height="48" />
+                            <RowDefinition  Height="20" />
+                            <RowDefinition  Height="40" />
+                            <RowDefinition  Height="5" />
+                            <RowDefinition  Height="48" />
+                            <RowDefinition  Height="5" />
+                            <RowDefinition  Height="48" />
+
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20"/>
+                            <ColumnDefinition Width="180"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="90"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="SignUp_Username_Tb" Grid.Column="1" Grid.Row="1" Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" Height="40" Width="180" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"  materialDesign:HintAssist.Hint="Username"/>
+                        <PasswordBox x:Name="SignUp_PasswordBx" Grid.Column="1" Grid.Row="3" Style="{StaticResource MaterialDesignOutlinedPasswordFieldPasswordBox}" VerticalAlignment="Center" Width="180" materialDesign:HintAssist.Hint="Password"/>
+                        <PasswordBox x:Name="SignUp_ConfirmPasswordBx" Grid.Column="1" Grid.Row="5" Style="{StaticResource MaterialDesignOutlinedPasswordFieldPasswordBox}" VerticalAlignment="Center" Width="180" materialDesign:HintAssist.Hint="Confirm Password"/>
+                        <StackPanel x:Name="Status_StackPanel" Grid.Column="1" Grid.Row="7" Orientation="Horizontal" Margin="4">
+                            <RadioButton x:Name="Manager_RadioBtn" Style="{StaticResource MaterialDesignTabRadioButton}" Margin="4" IsChecked="True" Content="Manager" />
+                            <RadioButton x:Name="User_RadioBtn" Style="{StaticResource MaterialDesignTabRadioButton}" Margin="4" IsChecked="False" Content="User" />
+                        </StackPanel>
+                        <Button  Grid.Column="3" Grid.Row="9" Style="{StaticResource MaterialDesignFlatAccentBgButton}" ToolTip="MaterialDesignFlatAccentBackgroundButton" Width="90" Content="Sign Up" Click="SignUpButton_Click"/>
+                    </Grid>
+                    <Grid Width="400" Height="70">
+                        <Grid.RowDefinitions>
+                            <RowDefinition  Height="2" />
+                            <RowDefinition  Height="29" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20"/>
+                            <ColumnDefinition Width="145"/>
+                            <ColumnDefinition Width="70"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="1" Grid.Row="1" Content="Already have an account?" FontSize="12"/>
+                        <Button Grid.Column="2" Grid.Row="1" Background="{x:Null}" Content="Log In" FontStretch="Normal"  FontSize="10" Height="25" Width="60" Style="{StaticResource MaterialDesignFlatButton}"  Command="{x:Static materialDesign:Flipper.FlipCommand}"/>
+
+                    </Grid>
+                </StackPanel>
+            </materialDesign:Flipper.BackContent>
+        </materialDesign:Flipper>
+    </Grid>
+</Window>

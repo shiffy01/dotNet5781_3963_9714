@@ -43,8 +43,8 @@ namespace PL
 
         private void AddButton(object sender, RoutedEventArgs e)
         {
-            string license=bl.AddBus(access, wifi);
-            MessageBoxResult mb = MessageBox.Show("Bus number "+ license+" was added to the system!");
+          //  string license=bl.AddBus(access, wifi);
+           // MessageBoxResult mb = MessageBox.Show("Bus number "+ license+" was added to the system!");
             this.Close();
         }
 

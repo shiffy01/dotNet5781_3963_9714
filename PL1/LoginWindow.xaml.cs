@@ -10,31 +10,30 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BlApi;
 
 namespace PL1
 {
     /// <summary>
-    /// Interaction logic for Login.xaml
+    /// Interaction logic for LoginWindow.xaml
     /// </summary>
-    public partial class Login : Page
+    public partial class LoginWindow : Window
     {
         static IBL bl;
-        public Login()
+        public LoginWindow()
         {
             InitializeComponent();
             bl = BlFactory.GetBl();
         }
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            if (username_tb.Text != null&&pasword_box.Password!=null)
+            if (username_tb.Text != null && pasword_box.Password != null)
             {
                 BO.User user;
                 try
                 {
-                    user=bl.GetUser(username_tb.Text, pasword_box.Password);
+                    user = bl.GetUser(username_tb.Text, pasword_box.Password);
                 }
                 catch (BO.UserDoesNotExistException)
                 {
@@ -74,7 +73,5 @@ namespace PL1
             MainWindow main = new MainWindow(bl, user);
             main.ShowDialog();
         }
-        
     }
-   
 }
