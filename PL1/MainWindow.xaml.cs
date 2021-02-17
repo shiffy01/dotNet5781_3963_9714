@@ -50,12 +50,10 @@ namespace PL1
             switch (((ListViewItem)((ListView)sender).SelectedItem).Name)
             {
                 case "Buses":
-                    Search searchPage = new Search(bl, user);
-                    NavigationService.Navigate(searchPage);
+                    
                     break;
                 case "BusLines":
-                    BusLinesDispaly display = new BusLinesDispaly(bl, user);
-                    NavigationService.Navigate(searchPage);
+                    
                     break;
                 case "BusStops":
 
