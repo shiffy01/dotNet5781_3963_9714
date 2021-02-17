@@ -104,6 +104,9 @@
     <Compile Include="ManagerOpeningPage.xaml.cs">
       <DependentUpon>ManagerOpeningPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="RouteSearch.xaml.cs">
+      <DependentUpon>RouteSearch.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Search.xaml.cs">
       <DependentUpon>Search.xaml</DependentUpon>
     </Compile>
@@ -171,6 +174,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="ManagerOpeningPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RouteSearch.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

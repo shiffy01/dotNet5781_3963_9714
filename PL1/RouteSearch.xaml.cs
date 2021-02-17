@@ -12,23 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using BlApi;
 
 namespace PL1
 {
     /// <summary>
-    /// Interaction logic for BusStationsDisplay.xaml
+    /// Interaction logic for RouteSearch.xaml
     /// </summary>
-    public partial class BusStationsDisplay : Page
+    public partial class RouteSearch : Page
     {
-        static IBL bl;
-        BO.User User;
-        public BusStationsDisplay(IBL bl1, BO.User user)
+        public RouteSearch()
         {
             InitializeComponent();
-            bl = bl1;
-            User = user;
-
         }
     }
 }

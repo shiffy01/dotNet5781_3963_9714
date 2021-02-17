@@ -53,21 +53,18 @@ namespace PL1
             {
 
                 case "Buses":
-                    Search searchPage = new Search(bl, User);
-                    this.Main.NavigationService.Navigate(searchPage);
+                    BusesDisplay busesDisplay = new BusesDisplay(bl, User);
+                    this.Main.NavigationService.Navigate(busesDisplay);
                     break;
                 case "BusLines":
                     BusLinesDispaly busLinesDispaly = new BusLinesDispaly(bl, User);
                     this.Main.NavigationService.Navigate(busLinesDispaly);
-
                     break;
                 case "BusStops":
-
+                    BusStationsDisplay busStationssDispaly = new BusStationsDisplay(bl, User);
+                    this.Main.NavigationService.Navigate(busStationssDispaly);
                     break;
                 case "Routes":
-
-                    break;
-                case "SearchHistory":
 
                     break;
                 case "Settings":

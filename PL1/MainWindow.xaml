@@ -116,12 +116,6 @@
                             <TextBlock Text="Routes" VerticalAlignment="Center"  Margin="20 10"/>
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem x:Name="SearchHistory" Height="60">
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Magnify" Height="25" Width="25" Margin="10"/>
-                            <TextBlock Text="Search History" VerticalAlignment="Center"  Margin="20 10"/>
-                        </StackPanel>
-                    </ListViewItem>
                     <ListViewItem x:Name="Settings" Height="60">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Cog" Height="25" Width="25" Margin="10"/>
