@@ -65,13 +65,16 @@ namespace PL1
                     this.Main.NavigationService.Navigate(busStationssDispaly);
                     break;
                 case "Routes":
-
+                    //BusStationsDisplay busStationssDispaly = new BusStationsDisplay(bl, User);
+                    //this.Main.NavigationService.Navigate(busStationssDispaly);
                     break;
                 case "Settings":
-
+                    //BusStationsDisplay busStationssDispaly = new BusStationsDisplay(bl, User);
+                    //this.Main.NavigationService.Navigate(busStationssDispaly);
                     break;
                 case "LogOut":
-
+                    //BusStationsDisplay busStationssDispaly = new BusStationsDisplay(bl, User);
+                    //this.Main.NavigationService.Navigate(busStationssDispaly);
                     break;
                 default:
                     break;
