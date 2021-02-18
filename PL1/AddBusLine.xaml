@@ -19,11 +19,11 @@
         <materialDesign:DialogHost.DialogContent>
             <StackPanel >
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Please Enter the Distance and time between these two stations:"/>
+                    <TextBlock  Text="Please Enter the Distance and time between these two stations:"/>
                 <TextBlock x:Name="ids"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <TextBox Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" VerticalAlignment="Top"  Height="100" AcceptsReturn="True" TextWrapping="Wrap"  VerticalScrollBarVisibility="Auto" materialDesign:HintAssist.Hint="Distance"/>
+                    <TextBox x:Name="distance_tb" Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" VerticalAlignment="Top"  Height="100" AcceptsReturn="True" TextWrapping="Wrap"  VerticalScrollBarVisibility="Auto" materialDesign:HintAssist.Hint="Distance"/>
                     <materialDesign:TimePicker Is24Hours="True" x:Name="PresetTimePicker" Width="100"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
