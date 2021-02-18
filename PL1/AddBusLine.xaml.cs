@@ -180,6 +180,7 @@ namespace PL1
                     {
                         splitStringTOTwoInts(needed_distances[Index], ref Code1, ref Code2, '*');
 
+
                     }
                 }
                 catch (FrequencyConflictException ex)
