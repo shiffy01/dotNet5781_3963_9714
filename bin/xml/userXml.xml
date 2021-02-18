@@ -6,4 +6,10 @@
     <IsManager>true</IsManager>
     <Exists>true</Exists>
   </User>
+  <User>
+    <UserName>Adinack</UserName>
+    <Password>hello</Password>
+    <IsManager>true</IsManager>
+    <Exists>true</Exists>
+  </User>
 </ArrayOfUser>
