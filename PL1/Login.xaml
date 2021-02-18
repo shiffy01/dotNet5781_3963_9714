@@ -48,8 +48,8 @@
                     </Grid.ColumnDefinitions>
                     <TextBox x:Name="username_tb" Grid.Column="1" Grid.Row="1" Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" Height="40" Width="180" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"  materialDesign:HintAssist.Hint="Username" />
                     <PasswordBox x:Name="pasword_box" Grid.Column="1" Grid.Row="3" Style="{StaticResource MaterialDesignOutlinedPasswordFieldPasswordBox}" VerticalAlignment="Center" Width="180" materialDesign:HintAssist.Hint="Password"/>
-                    <Button Grid.Column="3" Grid.Row="3" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"  ToolTip="MaterialDesignFloatingActionMiniAccentButton" Click="LoginButton_Click">
-                        <materialDesign:PackIcon Kind="ArrowRight"  Height="24"  Width="24" />
+                    <Button Grid.Column="3" Grid.Row="3" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"  ToolTip="Login" Click="LoginButton_Click">
+                        <materialDesign:PackIcon Kind="ArrowRight"  Height="24"  Width="24"/>
                     </Button>
                 </Grid>
                 <Grid Width="300" Height="35">

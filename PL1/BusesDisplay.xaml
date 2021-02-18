@@ -16,7 +16,7 @@
 
     <Grid DataContext="{StaticResource busViewSource}">
 
-        <DataGrid x:Name="busDataGrid" RowDetailsVisibilityMode="VisibleWhenSelected" Margin="155,160,245,90" ItemsSource="{Binding}" EnableRowVirtualization="True" AutoGenerateColumns="False">
+        <DataGrid x:Name="busDataGrid" RowDetailsVisibilityMode="VisibleWhenSelected" Margin="155,160,139,90" ItemsSource="{Binding}" EnableRowVirtualization="True" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTemplateColumn x:Name="infoColumn" Width="30">
                     <DataGridTemplateColumn.CellTemplate>

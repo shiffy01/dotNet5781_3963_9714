@@ -15,39 +15,39 @@
     </Page.Resources>
 
     <Grid DataContext="{StaticResource busLineViewSource}">
-        <DataGrid x:Name="busLineDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="177,157,213,93" RowDetailsVisibilityMode="VisibleWhenSelected">
+        <DataGrid x:Name="busLineDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="177,157,88,93" RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Resources>
                 <Style TargetType="DataGridRow">
                     <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
                 </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTemplateColumn x:Name="bus_line_numberColumn" Header="Bus line number" Width="SizeToHeader">
+                <DataGridTemplateColumn x:Name="bus_line_numberColumn" Header="line number" Width="SizeToHeader">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Label Content="{Binding Bus_line_number}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn x:Name="destinationColumn" Header="Destination" Width="SizeToHeader">
+                <DataGridTemplateColumn x:Name="destinationColumn" Header="Destination" Width="110">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Label Content="{Binding Destination}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn x:Name="originColumn" Header="Origin" Width="SizeToHeader">
+                <DataGridTemplateColumn x:Name="originColumn" Header="Origin" Width="100">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Label Content="{Binding Origin}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn x:Name="delete"  Width="SizeToHeader">
+                <DataGridTemplateColumn x:Name="delete"  Width="80">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button>
-                                <materialDesign:PackIcon Kind="TrashCan" />
+                            <Button  Style="{StaticResource MaterialDesignRaisedLightButton}" Width="80" ToolTip="delete">
+                                <materialDesign:PackIcon Kind="TrashCan" Width="25" Foreground="Black" HorizontalAlignment="Center"/>
                             </Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
