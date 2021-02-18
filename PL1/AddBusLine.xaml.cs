@@ -28,6 +28,11 @@ namespace PL1
         BO.User User;
         ObservableCollection<BusStation> all_stations;
         List<int> stationsToAdd;
+        int Index;
+        int Code1;
+        int Code2;
+        string askForDistance;
+        string askForTime;
         void initialize()
         {
 
@@ -40,6 +45,7 @@ namespace PL1
                 Frequency = new TimeSpan(1, 0, 0, 0),
                 End = new DateTime(1, 1, 2000, 11, 00, 00)
             });
+            Index = 0;
         }
         public AddBusLine(IBL bl1, BO.User user)
         {
@@ -91,9 +97,29 @@ namespace PL1
 
             return true;
         }
+        private void splitStringTOTwoInts(string str, ref int num1, ref int num2, char splitHere)
+        {
+            string[] codes = str.Split(splitHere);
+            try
+            {
+                num1 = Int32.Parse(codes[0]);
+            }
+            catch (FormatException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            try
+            {
+                num2 = Int32.Parse(codes[1]);
+            }
+            catch (FormatException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
         private void createDialogeContent()
         {
-            //splitStringTOTwoInts(PairIds[Index], ref Code1, ref Code2, '*');
+            splitStringTOTwoInts(PairIds[Index], ref Code1, ref Code2, '*');
             //distanceMTB.Text = "";
             //averageDriveTimeMSB.Text = "00:00";
             //askForDistance = $"Please enter the distance between station: {Code1} and station: {Code2}";
@@ -134,30 +160,7 @@ namespace PL1
             //}
 
         }
-        private void splitStringTOTwoInts(string str, ref int num1, ref int num2, char splitHere)
-        {
-            string[] codes = str.Split(splitHere);
-            try
-            {
-                num1 = Int32.Parse(codes[0]);
-            }
-            catch (FormatException e)
-            {
-                Console.WriteLine(e.Message);
-            }
-            try
-            {
-                num2 = Int32.Parse(codes[1]);
-            }
-            catch (FormatException e)
-            {
-                Console.WriteLine(e.Message);
-            }
-
-            // txtAnswer.Text = null;
-
-        }
-        private void addLine(object sender, RoutedEventArgs e)
+           private void addLine(object sender, RoutedEventArgs e)
         {
             if (IsAllFilled())
             {
@@ -175,9 +178,8 @@ namespace PL1
 
                     else
                     {
-                        //AddDistances addDistances = new AddDistances(needed_distances);
-                        //addDistances.ShowDialog();
-                        //this.Close();
+                        splitStringTOTwoInts(needed_distances[Index], ref Code1, ref Code2, '*');
+
                     }
                 }
                 catch (FrequencyConflictException ex)

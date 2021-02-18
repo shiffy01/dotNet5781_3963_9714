@@ -18,11 +18,10 @@
     <materialDesign:DialogHost>
         <materialDesign:DialogHost.DialogContent>
             <StackPanel >
-                <StackPanel></StackPanel>
-                    
+                <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Please Enter the Distance and time between these two stations:"/>
                 <TextBlock x:Name="ids"/>
-                
+                </StackPanel>
                 
             </StackPanel>
         </materialDesign:DialogHost.DialogContent>
