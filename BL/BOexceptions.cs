@@ -302,4 +302,19 @@ namespace BO
         }
         public override string ToString() => base.ToString() + "A data error has occured";
     }
+    [Serializable]
+    public class WrongPasswordException : Exception
+    {
+        public WrongPasswordException()
+        {
+        }
+        public WrongPasswordException(string messege) : base(messege)
+        {
+
+        }
+        public WrongPasswordException(string message, Exception inner) : base(message, inner)
+        {
+        }
+        public override string ToString() => base.ToString() + "Incorrect password";
+    }
 }

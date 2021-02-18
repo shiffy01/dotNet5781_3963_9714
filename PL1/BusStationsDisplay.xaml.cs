@@ -23,7 +23,7 @@ namespace PL1
     {
         static IBL bl;
         BO.User User;
-        public BusStationsDisplay(IBL bl1, BO.User user)
+        public BusStationsDisplay(IBL bl1, BO.User user, bool Manage)
         {
             InitializeComponent();
             bl = bl1;

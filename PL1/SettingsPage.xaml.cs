@@ -12,17 +12,22 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BlApi;
 
 namespace PL1
 {
     /// <summary>
-    /// Interaction logic for Settings.xaml
+    /// Interaction logic for SettingsPage.xaml
     /// </summary>
-    public partial class Settings : Page
+    public partial class SettingsPage : Page
     {
-        public Settings()
+        static IBL bl;
+        BO.User User;
+        public SettingsPage(IBL bl1, BO.User user, bool manage)
         {
             InitializeComponent();
+            bl = bl1;
+            User = user;
         }
     }
 }

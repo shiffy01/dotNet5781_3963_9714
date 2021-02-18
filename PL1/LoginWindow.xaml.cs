@@ -21,6 +21,7 @@ namespace PL1
     public partial class LoginWindow : Window
     {
         static IBL bl;
+        BO.User User;
         public LoginWindow()
         {
             InitializeComponent();
@@ -40,8 +41,13 @@ namespace PL1
                     //make the box red...or just say that the password or user name is incorrect
                     return;
                 }
-                MainWindow main = new MainWindow(bl, user);
-                main.ShowDialog();
+                if (Manager_RadioBtn.IsChecked == true)
+                    popUp.IsOpen = true;
+                else
+                {
+                    MainWindow main = new MainWindow(bl, User, false);
+                    main.ShowDialog();
+                }
             }
         }
         private void SignUpButton_Click(object sender, RoutedEventArgs e)
@@ -59,19 +65,40 @@ namespace PL1
             bool isManager = false;
             if (Manager_RadioBtn.IsChecked == true)
                 isManager = true;
-            BO.User user;
+
             try
             {
                 bl.AddUser(SignUp_Username_Tb.Text, SignUp_PasswordBx.Password, isManager);
-                user = bl.GetUser(SignUp_Username_Tb.Text, SignUp_PasswordBx.Password);
+                User = bl.GetUser(SignUp_Username_Tb.Text, SignUp_PasswordBx.Password);
             }
             catch (BO.UserNameAlreadyExistsException)
             {
                 //ERROR!!!!!!!!!!!!!!!!!!!!!
                 return;
             }
-            MainWindow main = new MainWindow(bl, user);
-            main.ShowDialog();
+            if (Manager_RadioBtn.IsChecked == true)
+                popUp.IsOpen = true;
+            else
+            {
+                MainWindow main = new MainWindow(bl, User, false);
+                main.ShowDialog();
+            }
         }
+        private void GoClick(object sender, RoutedEventArgs e)
+        {
+            popUp.IsOpen = false;
+            if (Manager_RadioBtn1.IsChecked == true)
+            {
+                MainWindow mainw = new MainWindow(bl, User, true);
+                mainw.ShowDialog();
+            }
+            else
+            {
+                MainWindow mainw = new MainWindow(bl, User, false);
+                mainw.ShowDialog();
+            }
+
+        }
+
     }
 }
