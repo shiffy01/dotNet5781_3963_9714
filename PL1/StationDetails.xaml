@@ -8,7 +8,7 @@
       xmlns:BO="clr-namespace:BO;assembly=BL" x:Class="PL1.StationDetails"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="StationDetails" Background="White">
+      Title="StationDetails" Height="540" Width="1010" Background="White">
  
     <Page.Resources>
         <CollectionViewSource x:Key="busStationViewSource" d:DesignSource="{d:DesignInstance {x:Type BO:BusStation}, CreateList=True}"/>
@@ -80,7 +80,7 @@
                     <Button Content="Edit" Click="editClick"/> 
                 </Grid>
             </materialDesign:DialogHost.DialogContent>
-            <Button x:Name="Edit" Content="Edit Name" HorizontalAlignment="Left" Margin="57,318,0,0" VerticalAlignment="Top" Width="114" Height="33"/>
+            <Button x:Name="Edit" Click="editClick" Content="Edit Name" HorizontalAlignment="Left" Margin="57,318,0,0" VerticalAlignment="Top" Width="114" Height="33"/>
         </materialDesign:DialogHost>
         
 

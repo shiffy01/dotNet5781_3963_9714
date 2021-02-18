@@ -115,7 +115,15 @@ namespace BL
                 return ans.Replace(@":", "");
             }
             length = last_index - first_index;
-            string answer = address.Substring(first_index, length);
+            string answer;
+            try
+            {
+                answer = address.Substring(first_index, length);
+            }
+            catch (Exception)
+            {
+                return "תל אביב";
+            }
             answer = answer.Replace(@" ", "");
             return answer.Replace(@":", "");
 
@@ -848,6 +856,10 @@ namespace BL
             catch (DO.UserDoesNotExistException ex)
             {
                 throw new UserDoesNotExistException("This user is not in the system", ex);
+            }
+            catch (DO.WrongPasswordException ex)
+            {
+                throw new WrongPasswordException("Wrong password");
             }
         }
         public IEnumerable<User> GetAllUsersBy(Predicate<User> predicate)

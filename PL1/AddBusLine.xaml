@@ -28,55 +28,13 @@
                 
             </StackPanel>
         </materialDesign:DialogHost.DialogContent>
-         <Grid Background="Gray" DataContext="{StaticResource busStationViewSource}" RenderTransformOrigin="0.5,0.5">
+         <Grid Background="Gray" DataContext="{StaticResource busStationViewSource}" RenderTransformOrigin="0.5,0.5" Margin="-10,10,10,-10">
         <!--DataContext="{StaticResource busLineTimeViewSource}"-->
 
         <TextBox x:Name="Line_tb" Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"  Height="40" AcceptsReturn="True"  TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"  materialDesign:HintAssist.Hint="Line Number" Margin="26,31,648,379"/>
-        <!--<DataGrid x:Name="busLineTimeDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding}" Margin="305,31,77,326" RowDetailsVisibilityMode="VisibleWhenSelected" SelectionChanged="busLineTimeDataGrid_SelectionChanged">
-            <DataGrid.Columns>
-                <DataGridTemplateColumn x:Name="FirstBusColumn" Header="First Bus " Width="SizeToHeader" >
-                        <DataGridTemplateColumn.CellTemplate Binding="{Binding Start}">
-                            <DataTemplate>
-                            <materialDesign:TimePicker Is24Hours="True" x:Name="FirstBusTimePicker" Width="54" Text="00:00" SelectedTimeChanged="FisrtBusTimePicker_SelectedTimeChanged" Padding="0"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn x:Name="frequencyColumn"  Header="Frequency" Width="SizeToHeader">
-                    <DataGridTemplateColumn.CellTemplate Binding="{Binding Frequency}">
-                        <DataTemplate>
-                            <materialDesign:TimePicker Is24Hours="True" x:Name="FrequencyTimePicker" Width="54" Text="00:00" SelectedTimeChanged="FrequencyTimePicker_SelectedTimeChanged" Padding="0"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn x:Name="LastBusColumn" Header="Last Bus   " Width="SizeToHeader">
-                    <DataGridTemplateColumn.CellTemplate Binding="{Binding End}">
-                        <DataTemplate>
-                            <materialDesign:TimePicker Is24Hours="True" x:Name="LastBusTimePicker" Width="54" Text="00:00" SelectedTimeChanged="LastBusTimePicker_SelectedTimeChanged" Padding="0" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn x:Name="saveTime" Width="68 ">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button x:Name="saveButton" HorizontalAlignment="Left" Padding="0"  Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" ToolTip="Save Time" Height="20" Margin="4,0,12,0" Width="20" Click="saveTimeButton_Click" RenderTransformOrigin="-0.558,0.408">
-                                <materialDesign:PackIcon Kind="Check" Height="15" Width="15" />
-                            </Button>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn x:Name="DeleteTime" Width="68">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button x:Name="deleteButton" HorizontalAlignment="Left" Padding="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" ToolTip="Remove Time"  Height="20" Width="20" BorderBrush="Red" Background="Red">
-                                <materialDesign:PackIcon Kind="Minus" Height="15" Width="15" />
-                            </Button>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>
-        </DataGrid>-->
+       
 
-        <Button Style="{StaticResource MaterialDesignFloatingActionAccentButton}" ToolTip="Add another intravel" Margin="733,82,23,326" RenderTransformOrigin="-3.021,-0.801" Height="Auto" Width="Auto">
+        <Button Style="{StaticResource MaterialDesignFloatingActionAccentButton}" ToolTip="Add another intravel" Margin="733,82,23,326" RenderTransformOrigin="-3.021,-0.801" Click="AddTime" Height="Auto" Width="Auto">
             <materialDesign:PackIcon Kind="Plus" Height="24" Width="24" />
         </Button>
         <Button  Style="{StaticResource MaterialDesignRaisedButton}" Width="100" ToolTip="Add this Line" Click="addLineButton_Click" Content="ADD" RenderTransformOrigin="1.125,5.849" Height="Auto" Margin="677,396,23,10" />
@@ -85,7 +43,7 @@
                 <DataGridTemplateColumn x:Name="CheckStations" Header="Add" Width="60">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <CheckBox  IsChecked="False" materialDesign:CheckBoxAssist.CheckBoxSize="25"/>
+                            <CheckBox  IsChecked="False" Checked="addStation" Unchecked="removeStation" materialDesign:CheckBoxAssist.CheckBoxSize="25"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -163,19 +121,11 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn x:Name="saveTime" Width="68 ">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button x:Name="saveButton" HorizontalAlignment="Left" Padding="0"  Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" ToolTip="Save Time" Height="20" Margin="4,0,12,0" Width="20"  RenderTransformOrigin="-0.558,0.408">
-                                    <materialDesign:PackIcon Kind="Check" Height="15" Width="15" />
-                                </Button>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                   
                     <DataGridTemplateColumn x:Name="DeleteTime" Width="68">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button x:Name="deleteButton" HorizontalAlignment="Left" Padding="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" ToolTip="Remove Time"  Height="20" Width="20" BorderBrush="Red" Background="Red">
+                                <Button x:Name="deleteButton" Click="removeTimeClick" HorizontalAlignment="Left" Padding="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" ToolTip="Remove Time"  Height="20" Width="20" BorderBrush="Red" Background="Red">
                                     <materialDesign:PackIcon Kind="Minus" Height="15" Width="15" />
                                 </Button>
                             </DataTemplate>
