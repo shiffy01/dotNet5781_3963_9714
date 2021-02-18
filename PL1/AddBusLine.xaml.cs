@@ -119,7 +119,7 @@ namespace PL1
         }
         private void createDialogeContent()
         {
-            splitStringTOTwoInts(PairIds[Index], ref Code1, ref Code2, '*');
+           // splitStringTOTwoInts(PairIds[Index], ref Code1, ref Code2, '*');
             //distanceMTB.Text = "";
             //averageDriveTimeMSB.Text = "00:00";
             //askForDistance = $"Please enter the distance between station: {Code1} and station: {Code2}";
