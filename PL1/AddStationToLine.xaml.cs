@@ -24,13 +24,15 @@ namespace PL1
     /// </summary>
     public partial class AddStationToLine : Window
     {
-        static IBL bl=BlFactory.GetBl();
-        public BusLine Line;
-        public BusStation station_to_add;
+        static IBL bl;
+        
+         BO.BusLine Line;
+         BO.BusStation station_to_add;
         int place;
+        List<BusStation> stations;
         private void Initialize()
         {
-           List<BusStation> stations =( bl.GetAllBusStations()).ToList();
+          stations =( bl.GetAllBusStations()).ToList();
            
             for (int i = 0; i < Line.Stations.Count(); i++)
             {
@@ -38,15 +40,17 @@ namespace PL1
                BusStation find_station= stations.Find(station => station.Code == station_to_remove.Code);
                 stations.Remove(find_station);
             }
-            allbusStationsDataGrid.DataContext = stations;
-            stationOnTheLineDataGrid.DataContext = Line.Stations.OrderBy(station=> station.Number_on_route);
-        }
-        public AddStationToLine(BusLine busLine)
-        {
-            Line = busLine;
-            InitializeComponent();
-            Initialize();
            
+        }
+        public AddStationToLine(IBL bl1, BO.BusLine busLine)
+        {
+           
+            InitializeComponent();
+            Line = busLine;
+            Initialize();
+
+            allbusStationsDataGrid.DataContext = stations;
+            stationOnTheLineDataGrid.DataContext = Line.Stations.OrderBy(station => station.Number_on_route);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -85,7 +89,7 @@ namespace PL1
                 List<string> distances = bl.AddStationToBusLine(Line.BusID, station_to_add.Code, place);
                 if (distances != null)
                 {
-                    AddDistances addDistances = new AddDistances(distances);
+                    AddDistances addDistances = new AddDistances(bl, distances);
                     addDistances.ShowDialog();
                     this.Close();
                 }

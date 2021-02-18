@@ -34,6 +34,7 @@ namespace PL1
         string askForDistance;
         string askForTime;
         List<string> distances;
+        string TimePickerDefultText;
         void initialize()
         {
 
@@ -42,19 +43,22 @@ namespace PL1
             stationsToAdd = new List<int>();
             LineTimes = new ObservableCollection<BO.BusLineTime>();
             LineTimes.Add(new BO.BusLineTime {
-                Start = new DateTime(1, 1, 2000, 8, 00, 00),
+                Start = new DateTime( 2000, 8, 1, 1, 00, 00),
                 Frequency = new TimeSpan(1, 0, 0, 0),
-                End = new DateTime(1, 1, 2000, 11, 00, 00)
+                End = new DateTime( 2000, 11, 1, 1, 00, 00)
             });
             Index = 0;
+           
         }
         public AddBusLine(IBL bl1, BO.User user)
         {
+            bl = bl1;
             InitializeComponent();
             initialize();
             busLineTimeDataGrid.DataContext = LineTimes;
-            bl = bl1;
+            
             User = user;
+           
         }
 
         private void TextBox_OnlyNumbers_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -120,18 +124,24 @@ namespace PL1
         }
         private void createDialogeContent()
         {
-           splitStringTOTwoInts(distances[Index], ref Code1, ref Code2, '*');
-            Index++;
-            ids.Text = Code1 + "and" + Code2;
-            //distanceMTB.Text = "";
-            //averageDriveTimeMSB.Text = "00:00";
-            //askForDistance = $"Please enter the distance between station: {Code1} and station: {Code2}";
-            //ask_for_distance_label.Content = askForDistance;
-        }
-        private void btnDialogOk_Click(object sender, RoutedEventArgs e)
-        {
+            if (Index < distances.Count())
+            {
+                splitStringTOTwoInts(distances[Index], ref Code1, ref Code2, '*');
+                Index++;
+                ids.Text = Code1 + "and" + Code2;
+            }
+            else
+            {
+                BusLinesDispaly busLineDisplay = new BusLinesDispaly(bl, User, true);
+                NavigationService.Navigate(busLineDisplay);
+            }
 
-            //if (averageDriveTimeMSB.IsMaskFull)
+            
+        }
+        //private void btnDialogOk_Click(object sender, RoutedEventArgs e)
+        //{
+
+            //if (Line_tb.)
             //{
             //    if (!correctTimeFormat())
             //        return;
@@ -149,21 +159,21 @@ namespace PL1
             //        this.DialogResult = true;
             //        return;
 
-            //    }
-            //    createDialogeContent();
+                //    }
+                //    createDialogeContent();
 
 
-            //}
-            //else
-            //{
+                //}
+                //else
+                //{
 
-            //    //throw trigger to change text to red
-            //    errorLabel.Visibility = Visibility.Visible;
-            //    return;
-            //}
+                //    //throw trigger to change text to red
+                //    errorLabel.Visibility = Visibility.Visible;
+                //    return;
+                //}
 
-        }
-           private void addLine(object sender, RoutedEventArgs e)
+        
+        private void addLine_Click(object sender, RoutedEventArgs e)
         {
             if (IsAllFilled())
             {
@@ -211,6 +221,15 @@ namespace PL1
             DataGridRow row = sender as DataGridRow;
             stationsToAdd.Remove((row.DataContext as BO.StationOnTheLine).Code);
         }
+        
+        private void AddTime(object sender, RoutedEventArgs e)
+        {
+            LineTimes.Add(new BO.BusLineTime {
+                Start = new DateTime(2000, 8, 1, 1, 00, 00),
+                Frequency = new TimeSpan(1, 0, 0, 0),
+                End = new DateTime(2000, 11, 1, 1, 00, 00)
+            });
+        }
         private void removeTimeClick(object sender, RoutedEventArgs e)
         {
             DataGridRow row = sender as DataGridRow;
@@ -218,13 +237,39 @@ namespace PL1
         }
         private void accept(object sender, RoutedEventArgs e)
         {
-           
-                bl.AddAdjacentStations(Code1, Code2, double.Parse(distance_tb.Text), new TimeSpan());//need to check if the distance is valid and need to split the text of the 
-                //time picker
-         
+            if (string.IsNullOrEmpty(distance_tb.Text)|| !(DriveTimePicker.SelectedTime.HasValue))
+                return;
+            //if (DriveTimePicker.SelectedTime.Value.Hour > 24 || DriveTimePicker.SelectedTime.Value.Minute > 59)
+            //    DriveTimePicker.Text = "00:00";
+                
+
+                bl.AddAdjacentStations(Code1, Code2, double.Parse(distance_tb.Text), new TimeSpan(DriveTimePicker.SelectedTime.Value.Hour, DriveTimePicker.SelectedTime.Value.Minute,0));
+            createDialogeContent();
         }
         private void cancel(object sender, RoutedEventArgs e)
         {
+
+            MessageBoxResult result = System.Windows.MessageBox.Show(@"             Are you sure you want to cancel?
+                                             By canceling, the remaining distances will be set to random values.", " Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.Yes)
+            {
+
+                for (int i = Index; i < distances.Count; i++)
+                {
+                    splitStringTOTwoInts(distances[i], ref Code1, ref Code2, '*');
+                    try
+                    {
+                        bl.AddAdjacentStations(Code1, Code2, 200, new TimeSpan(00, 12, 00));
+                    }
+                    catch (BO.PairAlreadyExistsException ex)
+                    {
+                        MessageBoxResult result2 = System.Windows.MessageBox.Show(ex.Message, " Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            }
+
+                BusLinesDispaly busLineDisplay = new BusLinesDispaly(bl, User, true);
+            NavigationService.Navigate(busLineDisplay);
 
         }
 

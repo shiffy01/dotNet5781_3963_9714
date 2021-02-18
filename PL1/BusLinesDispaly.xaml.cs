@@ -58,8 +58,8 @@ namespace PL1
         private void UpdateLineButton_Click(object sender, RoutedEventArgs e)
         {
             DataGridRow row = sender as DataGridRow;
-            UpdateBusLine updateline = new UpdateBusLine(bl, User, (row.DataContext as BO.BusLine));
-            updateline.Show();
+            //UpdateBusLine updateline = new UpdateBusLine(bl, User, (row.DataContext as BO.BusLine));
+            //updateline.Show();
         }
 
     }

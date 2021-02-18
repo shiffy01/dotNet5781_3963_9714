@@ -12,4 +12,10 @@
     <IsManager>true</IsManager>
     <Exists>true</Exists>
   </User>
+  <User>
+    <UserName>chana</UserName>
+    <Password>lol</Password>
+    <IsManager>true</IsManager>
+    <Exists>true</Exists>
+  </User>
 </ArrayOfUser>

@@ -8,7 +8,7 @@
       xmlns:BO="clr-namespace:BO;assembly=BL" 
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="AddBusLine">
+      Title="AddBusLine" Height="540" Width="1010">
 
     <Page.Resources>
         <CollectionViewSource x:Key="busLineTimeViewSource" d:DesignSource="{d:DesignInstance {x:Type BO:BusLineTime}, CreateList=True}"/>
@@ -23,112 +23,107 @@
                 <TextBlock x:Name="ids"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <TextBox x:Name="distance_tb" Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" VerticalAlignment="Top"  Height="100" AcceptsReturn="True" TextWrapping="Wrap"  VerticalScrollBarVisibility="Auto" materialDesign:HintAssist.Hint="Distance"/>
-                    <materialDesign:TimePicker Is24Hours="True" x:Name="PresetTimePicker" Width="100"/>
+                    <TextBox x:Name="distance_tb" Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" VerticalAlignment="Top"  Height="100" AcceptsReturn="True" TextWrapping="Wrap"  VerticalScrollBarVisibility="Auto" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" materialDesign:HintAssist.Hint="Distance"/>
+                    <materialDesign:TimePicker Is24Hours="True" x:Name="DriveTimePicker" Width="100" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <Button
-    Style="{StaticResource MaterialDesignFlatButton}"
-    Click="accept"
-    ToolTip="MaterialDesignFlatButton">
+                    <Button Style="{StaticResource MaterialDesignFlatButton}" Click="accept" ToolTip="MaterialDesignFlatButton">
                         ACCEPT
                     </Button>
-                    <Button
-    Style="{StaticResource MaterialDesignFlatButton}"
-    ToolTip="MaterialDesignFlatButton">
-                        Click="cancel"
-                        CANCEL
+                    <Button Style="{StaticResource MaterialDesignFlatButton}" ToolTip="MaterialDesignFlatButton"  Click="cancel">
                     </Button>
                 </StackPanel>
             </StackPanel>
+         
         </materialDesign:DialogHost.DialogContent>
-         <Grid Background="Gray" DataContext="{StaticResource busStationViewSource}" RenderTransformOrigin="0.5,0.5" Margin="-10,10,10,-10">
-        <!--DataContext="{StaticResource busLineTimeViewSource}"-->
+        <Grid x:Name="mainGrid" Background="White" DataContext="{StaticResource busStationViewSource}" RenderTransformOrigin="0.5,0.5" Margin="-10,10,10,-10">
+            <!--DataContext="{StaticResource busLineTimeViewSource}"-->
 
-        <TextBox x:Name="Line_tb" Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"  Height="40" AcceptsReturn="True"  TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"  materialDesign:HintAssist.Hint="Line Number" Margin="26,31,648,379"/>
-       
+            <TextBox x:Name="Line_tb" Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"  Height="40" AcceptsReturn="True"  TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"  materialDesign:HintAssist.Hint="Line Number" Margin="26,76,762,424"/>
 
-        <Button Style="{StaticResource MaterialDesignFloatingActionAccentButton}" ToolTip="Add another intravel" Margin="733,82,23,326" RenderTransformOrigin="-3.021,-0.801" Click="AddTime" Height="Auto" Width="Auto">
-            <materialDesign:PackIcon Kind="Plus" Height="24" Width="24" />
-        </Button>
-            <Button  Style="{StaticResource MaterialDesignRaisedButton}" Width="100" ToolTip="Add this Line" Click="addLine" Content="ADD" RenderTransformOrigin="1.125,5.849" Height="Auto" Margin="677,396,23,10" />
-        <DataGrid x:Name="busStationDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="26,162,518,10" RowDetailsVisibilityMode="VisibleWhenSelected">
-            <DataGrid.Columns>
-                <DataGridTemplateColumn x:Name="CheckStations" Header="Add" Width="60">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <CheckBox  IsChecked="False" Checked="addStation" Unchecked="removeStation" materialDesign:CheckBoxAssist.CheckBoxSize="25"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn x:Name="StationCodeColumn" Header="Code" Width="SizeToHeader">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Code}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn x:Name="StationNameColumn" Header="Name" Width="SizeToHeader">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Name}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn x:Name="cityColumn" Header="City" Width="SizeToHeader">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding City}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>
-        </DataGrid>
-        <TextBlock HorizontalAlignment="Left" Margin="26,141,0,0" TextWrapping="Wrap" Text="Add Stations To The Route: " VerticalAlignment="Top"/>
-        <DataGrid x:Name="stationOnTheLineDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource stationOnTheLineViewSource}}" Margin="305,190,95,59" RowDetailsVisibilityMode="VisibleWhenSelected">
-            <DataGrid.Columns>
-               
-                <DataGridTemplateColumn x:Name="codeColumn" Header="Code" Width="SizeToHeader">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Code}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn x:Name="nameColumn" Header="Name" Width="SizeToHeader">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Name}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                  
-                </DataGrid.Columns>
-        </DataGrid>
-             
-            <DataGrid x:Name="busLineTimeDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource busLineTimeViewSource}}" Margin="365,32,95,306" RowDetailsVisibilityMode="VisibleWhenSelected">
+
+            <Button Style="{StaticResource MaterialDesignFloatingActionAccentButton}" ToolTip="Add another intravel" Foreground="Black" Margin="920,110,39,383" RenderTransformOrigin="-3.021,-0.801" Click="AddTime" Height="Auto" Width="Auto">
+                <materialDesign:PackIcon Kind="Plus" Height="24" Width="24" />
+            </Button>
+            <Button  Style="{StaticResource MaterialDesignRaisedButton}" Width="100" ToolTip="Add this Line" Click="addLine_Click" Content="ADD" RenderTransformOrigin="1.125,5.849" Height="Auto" Margin="815,425,95,52" />
+            <DataGrid x:Name="busStationDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="26,232,559,105" RowDetailsVisibilityMode="VisibleWhenSelected">
                 <DataGrid.Columns>
-                    <DataGridTemplateColumn x:Name="endColumn" Header="End" Width="SizeToHeader">
+                    <DataGridTemplateColumn x:Name="CheckStations" Header="Add" Width="60">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <materialDesign:TimePicker Is24Hours="True" x:Name="LastBusTimePicker" Width="54" Text="00:00"  Padding="0" />
+                                <CheckBox  IsChecked="False" Checked="addStation" Unchecked="removeStation" materialDesign:CheckBoxAssist.CheckBoxSize="25"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn x:Name="frequencyColumn" Header="Frequency" Width="SizeToHeader">
+                    <DataGridTemplateColumn x:Name="StationCodeColumn" Header="Code" Width="SizeToHeader">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <materialDesign:TimePicker Is24Hours="True" x:Name="FrequencyTimePicker" Width="54" Text="00:00" Padding="0"/>
+                                <TextBlock Text="{Binding Code}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn x:Name="startColumn" Header="Start" Width="SizeToHeader">
+                    <DataGridTemplateColumn x:Name="StationNameColumn" Header="Name" Width="SizeToHeader">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn x:Name="cityColumn" Header="City" Width="SizeToHeader">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding City}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <TextBlock HorizontalAlignment="Left" Margin="26,189,0,0" TextWrapping="Wrap" Text="Add Stations To The Route: " VerticalAlignment="Top" RenderTransformOrigin="0.54,5.417"/>
+            <DataGrid x:Name="stationOnTheLineDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource stationOnTheLineViewSource}}" Margin="534,232,95,133" RowDetailsVisibilityMode="VisibleWhenSelected">
+                <DataGrid.Columns>
+
+                    <DataGridTemplateColumn x:Name="codeColumn" Header="Code" Width="SizeToHeader">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Code}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn x:Name="nameColumn" Header="Name" Width="SizeToHeader">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <DataGrid x:Name="busLineTimeDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource busLineTimeViewSource}}" Margin="516,32,95,383" RowDetailsVisibilityMode="VisibleWhenSelected">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn x:Name="startColumn" Header="Start" Width="100">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <materialDesign:TimePicker Is24Hours="True" x:Name="FirstBusTimePicker" Width="54" Text="00:00"  Padding="0"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
+                    <DataGridTemplateColumn x:Name="frequencyColumn" Header="Frequency" Width="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <materialDesign:TimePicker Is24Hours="True" x:Name="FrequencyTimePicker" Width="54" Text="00:00" Padding="0"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn x:Name="endColumn" Header="End" Width="100" >
+                        <DataGridTemplateColumn.CellTemplate >
+                            <DataTemplate>
+                                <materialDesign:TimePicker Is24Hours="True" x:Name="LastBusTimePicker" Width="54" Text="00:00"  Padding="0"  />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    
                    
                     <DataGridTemplateColumn x:Name="DeleteTime" Width="68">
                         <DataGridTemplateColumn.CellTemplate>
@@ -141,6 +136,7 @@
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
+            <TextBlock HorizontalAlignment="Left" Margin="516,11,0,0" TextWrapping="Wrap" Text="Add bus time intreval:" VerticalAlignment="Top"/>
         </Grid>
     </materialDesign:DialogHost>
 </Page>
