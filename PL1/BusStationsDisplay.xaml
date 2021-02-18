@@ -39,7 +39,7 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Style="{StaticResource MaterialDesignFloatingActionAccentButton}" Click="AddStationClick" ToolTip="MaterialDesignFloatingActionAccentButton" Margin="566,336,178,58" RenderTransformOrigin="-3.021,-0.801">
+        <Button x:Name="addButton" Style="{StaticResource MaterialDesignFloatingActionAccentButton}" Click="AddStationClick" ToolTip="MaterialDesignFloatingActionAccentButton" Margin="566,336,178,58" RenderTransformOrigin="-3.021,-0.801">
             <materialDesign:PackIcon Kind="Plus" Height="24" Width="24" />
         </Button>
 

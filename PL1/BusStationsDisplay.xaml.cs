@@ -38,6 +38,8 @@ namespace PL1
             bl = bl1;
             User = user;
             Manage = manage;
+            if (!Manage)
+                addButton.Visibility = Visibility.Hidden;
             initialize();
         }
         private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
@@ -49,7 +51,7 @@ namespace PL1
         }
         private void AddStationClick(object sender, RoutedEventArgs e)
         {
-            AddStation addStation = new AddStation(bl);
+            AddStation addStation = new AddStation(bl, User);
             NavigationService.Navigate(addStation);
         }
         private void TextBox_OnlyNumbers_PreviewKeyDown(object sender, KeyEventArgs e)

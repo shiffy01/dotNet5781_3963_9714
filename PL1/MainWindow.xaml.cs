@@ -36,13 +36,13 @@ namespace PL1
             {
                 icon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Bus;
                 text.Text = "Buses";
-                Main.Navigate(new BusesDisplay(bl, User, manage));
+                Main.Navigate(new BusesDisplay(bl, User));
             }
             else
             {
                 icon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Routes;
                 text.Text = "Routes";
-                Main.Navigate(new RouteSearch(bl, User, manage));
+                Main.Navigate(new RouteSearch(bl, User));
             }
         }
 

@@ -22,10 +22,12 @@ namespace PL1
     public partial class AddStation : Page
     {
         static IBL bl;
-        public AddStation(IBL bl1)
+        BO.User User;
+        public AddStation(IBL bl1, BO.User user)
         {
             InitializeComponent();
             bl = bl1;
+            User = user;
         }
         private void addClick(object sender, RoutedEventArgs e)
         {
@@ -37,7 +39,9 @@ namespace PL1
             {
                 MessageBoxResult mb = MessageBox.Show(ex.Message);
             }
-            nav
+           
+                BusStationsDisplay busStationssDispaly = new BusStationsDisplay(bl, User, true);
+                NavigationService.Navigate(busStationssDispaly);
         }
         private bool canUpdate()
         {
@@ -68,5 +72,5 @@ namespace PL1
         }
     }
 
-    
 }
+
