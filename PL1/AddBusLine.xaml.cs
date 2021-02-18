@@ -27,17 +27,56 @@ namespace PL1
         static IBL bl;
         ObservableCollection<BusStation> all_stations;
         List<int> stationsToAdd;
-       
+        void initialize()
+        {
+            bl = BlFactory.GetBl();
+            IEnumerable<BusStation> stationIenumerable = bl.GetAllBusStations();
+            all_stations = new ObservableCollection<BusStation>(stationIenumerable);
+            stationsToAdd = new List<int>();
+            LineTimes = new ObservableCollection<BO.BusLineTime>();
+            LineTimes.Add(new BO.BusLineTime {
+                Start = new DateTime(1, 1, 2000, 8, 00, 00),
+                Frequency = new TimeSpan(1, 0, 0, 0),
+                End = new DateTime(1, 1, 2000, 11, 00, 00)
+            });
+        }
         public AddBusLine()
         {
             InitializeComponent();
-            LineTimes = new ObservableCollection<BO.BusLineTime>();
-            LineTimes.Add(new BO.BusLineTime {Start= new DateTime(1, 1, 2000, 8, 00, 00),
-                                                        Frequency= new TimeSpan(1, 0, 0, 0), 
-                                                        End= new DateTime(1, 1, 2000, 11, 00, 00) });
+            initialize();
             busLineTimeDataGrid.DataContext = LineTimes;
         }
 
+        private void TextBox_OnlyNumbers_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            TextBox text = sender as TextBox;
+            if (text == null) return;
+            if (e == null) return;
+
+            //allow get out of the text box
+            if (e.Key == Key.Enter || e.Key == Key.Return || e.Key == Key.Tab)
+                return;
+
+            //allow list of system keys (add other key here if you want to allow)
+            if (e.Key == Key.Escape || e.Key == Key.Back || e.Key == Key.Delete ||
+                  e.Key == Key.Home
+             || e.Key == Key.End || e.Key == Key.Insert || e.Key == Key.Down || e.Key == Key.Right)
+                return;
+
+            char c = (char)KeyInterop.VirtualKeyFromKey(e.Key);
+
+            //allow control system keys
+            if (Char.IsControl(c)) return;
+
+            //allow digits (without Shift or Alt)
+            if (Char.IsDigit(c))
+                if (!(Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightAlt)))
+                    return; //let this key be written inside the textbox
+
+            //forbid letters and signs (#,$, %, ...)
+            e.Handled = true; //ignore this key. mark event as handled, will not be routed to other controls
+            return;
+        }
         private void busLineTimeDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
