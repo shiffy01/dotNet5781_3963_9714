@@ -29,13 +29,14 @@
                 <StackPanel Orientation="Horizontal">
                     <Button
     Style="{StaticResource MaterialDesignFlatButton}"
-    Click="ButtonBase_OnClick"
+    Click="accept"
     ToolTip="MaterialDesignFlatButton">
                         ACCEPT
                     </Button>
                     <Button
     Style="{StaticResource MaterialDesignFlatButton}"
     ToolTip="MaterialDesignFlatButton">
+                        Click="cancel"
                         CANCEL
                     </Button>
                 </StackPanel>
