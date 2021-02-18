@@ -25,11 +25,12 @@ namespace PL1
     {
         ObservableCollection<BO.BusLineTime> LineTimes;
         static IBL bl;
+        BO.User User;
         ObservableCollection<BusStation> all_stations;
         List<int> stationsToAdd;
         void initialize()
         {
-            bl = BlFactory.GetBl();
+            
             IEnumerable<BusStation> stationIenumerable = bl.GetAllBusStations();
             all_stations = new ObservableCollection<BusStation>(stationIenumerable);
             stationsToAdd = new List<int>();
@@ -40,11 +41,13 @@ namespace PL1
                 End = new DateTime(1, 1, 2000, 11, 00, 00)
             });
         }
-        public AddBusLine()
+        public AddBusLine(IBL bl1, BO.User user)
         {
             InitializeComponent();
             initialize();
             busLineTimeDataGrid.DataContext = LineTimes;
+            bl = bl1;
+            User = user;
         }
 
         private void TextBox_OnlyNumbers_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -77,9 +80,120 @@ namespace PL1
             e.Handled = true; //ignore this key. mark event as handled, will not be routed to other controls
             return;
         }
-        private void busLineTimeDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private bool IsAllFilled()
+        {
+            if (string.IsNullOrEmpty(Line_tb.Text))
+                return false;
+            if (LineTimes.Count() == 0)
+                return false;
+            if (stationsToAdd.Count() < 2)
+                return false;
+             
+            return true;
+        }
+        private void createDialogeContent()
+        {
+            splitStringTOTwoInts(PairIds[Index], ref Code1, ref Code2, '*');
+            distanceMTB.Text = "";
+            averageDriveTimeMSB.Text = "00:00";
+            askForDistance = $"Please enter the distance between station: {Code1} and station: {Code2}";
+            ask_for_distance_label.Content = askForDistance;
+        }
+        private void btnDialogOk_Click(object sender, RoutedEventArgs e)
+        {
+
+            if (averageDriveTimeMSB.IsMaskFull)
+            {
+                if (!correctTimeFormat())
+                    return;
+                try
+                {
+                    bl.AddAdjacentStations(Code1, Code2, double.Parse(distanceMTB.Text), new TimeSpan(Hours, Minutes, 00));
+                }
+                catch (BO.PairAlreadyExistsException ex)
+                {
+                    MessageBoxResult result = System.Windows.MessageBox.Show(ex.Message, " Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                Index++;
+                if (Index == PairIds.Count)
+                {
+                    this.DialogResult = true;
+                    return;
+
+                }
+                createDialogeContent();
+
+
+            }
+            else
+            {
+
+                //throw trigger to change text to red
+                errorLabel.Visibility = Visibility.Visible;
+                return;
+            }
+
+        }
+        private void splitStringTOTwoInts(string str, ref int num1, ref int num2, char splitHere)
+        {
+            string[] codes = str.Split(splitHere);
+            try
+            {
+                num1 = Int32.Parse(codes[0]);
+            }
+            catch (FormatException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            try
+            {
+                num2 = Int32.Parse(codes[1]);
+            }
+            catch (FormatException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+            // txtAnswer.Text = null;
+
+        }
+        private void addLineButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (IsAllFilled())
+            {
+                List<string> needed_distances = null;
+
+                try
+                {
+                    needed_distances=bl.AddBusLine(int.Parse(Line_tb.Text), stationsToAdd, (LineTimes).ToList());
+                    MessageBoxResult mb = MessageBox.Show("The bus was added to the system");
+                    if (needed_distances == null || needed_distances.Count == 0)
+                    {
+                        BusLinesDispaly busLinesDispaly = new BusLinesDispaly(bl, User, true);
+                        NavigationService.Navigate(busLinesDispaly);
+                    }
+
+                    else
+                    {
+                        AddDistances addDistances = new AddDistances(needed_distances);
+                        addDistances.ShowDialog();
+                        this.Close();
+                    }
+                }
+                catch (FrequencyConflictException ex)
+                {
+                    System.Windows.MessageBoxResult mb = MessageBox.Show(ex.Message);
+
+                }
+            }
+                catch (BO.BusLineAlreadyExistsException ex)
+                {
+                    System.Windows.MessageBoxResult mb = MessageBox.Show(ex.Message);
+                }
+            }
+        }
+        private void saveTimeButton_Click(object sender, RoutedEventArgs e)
         {
 
         }
-    }
-}
+        
