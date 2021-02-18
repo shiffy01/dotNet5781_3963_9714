@@ -157,7 +157,7 @@ namespace PL1
             // txtAnswer.Text = null;
 
         }
-        private void AddTime(object sender, RoutedEventArgs e)
+        private void addLine(object sender, RoutedEventArgs e)
         {
             if (IsAllFilled())
             {
@@ -208,11 +208,8 @@ namespace PL1
             DataGridRow row = sender as DataGridRow;
             LineTimes.Remove(row.DataContext as BusLineTime);
         }
-        private void addLineButton_Click(object sender, RoutedEventArgs e)
-        {
         
-        }
-      
+         
 
     }
 }
