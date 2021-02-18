@@ -13,9 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BO;
 using BlApi;
-using Xceed.Wpf.Toolkit;
 
-namespace PL
+
+namespace PL1
 {
     /// <summary>
     /// Interaction logic for AddDistances.xaml
@@ -37,9 +37,9 @@ namespace PL
         int Minutes;
 
         List<string> PairIds;
-        public AddDistances(List<string> pairIds)
+        public AddDistances(IBL bl1, BO.User user, List<string> pairIds)
         {
-            bl = BlFactory.GetBl();
+            bl = bl1;
             InitializeComponent();
             Index = 0;
             PairIds = pairIds;

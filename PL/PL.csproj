@@ -97,9 +97,6 @@
     <Compile Include="AddBus.xaml.cs">
       <DependentUpon>AddBus.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AddDistances.xaml.cs">
-      <DependentUpon>AddDistances.xaml</DependentUpon>
-    </Compile>
     <Compile Include="AddStation.xaml.cs">
       <DependentUpon>AddStation.xaml</DependentUpon>
     </Compile>
@@ -120,10 +117,6 @@
       <DependentUpon>UpdateStation.xaml</DependentUpon>
     </Compile>
     <Page Include="AddBus.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="AddDistances.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

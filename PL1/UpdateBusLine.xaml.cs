@@ -1,4 +1,4 @@
-﻿uusing System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Navigation;
 using BO;
 using BlApi;
 //using Xceed.Wpf.Toolkit;
@@ -23,10 +24,11 @@ namespace PL1
     /// </summary>
 
 
-    public partial class UpdateBusLine : Window
+    public partial class UpdateBusLine : Page
     {
         static IBL bl;
-        BusLine Line;
+        BO.BusLine Line;
+        BO.User User;
         int Hours;
         int Minutes;
 
@@ -39,13 +41,14 @@ namespace PL1
             //last_bus.DefaultValue = Line.Last_bus;
             ////frequencyPicker.
         }
-        public UpdateLine(BusLine line)
+        public UpdateBusLine (IBL bl1, BO.User user, BO.BusLine line)
         {
             bl = BlFactory.GetBl();
             InitializeComponent();
             Line = line;
             initialize();
-
+            bl = bl1;
+            User = user;
         }
         private void splitStringTOTwoInts(string str, ref int num1, ref int num2, char splitHere)
         {
