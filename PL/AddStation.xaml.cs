@@ -116,9 +116,7 @@ namespace PL
                
             }
 
-            BusStationsDisplay busStationssDispaly = new BusStationsDisplay(bl, User, Manage);
-            NavigationService.Navigate(busStationssDispaly);
-            //why???
+          
         }
     }
 }
