@@ -102,7 +102,7 @@ namespace PL1
             string[] codes = str.Split(splitHere);
             try
             {
-                num1 = Int32.Parse(codes[0]);
+                Code1 = Int32.Parse(codes[0]);
             }
             catch (FormatException e)
             {
@@ -110,7 +110,7 @@ namespace PL1
             }
             try
             {
-                num2 = Int32.Parse(codes[1]);
+                Code2 = Int32.Parse(codes[1]);
             }
             catch (FormatException e)
             {
@@ -179,7 +179,8 @@ namespace PL1
                     else
                     {
                         splitStringTOTwoInts(needed_distances[Index], ref Code1, ref Code2, '*');
-
+                        distance.IsOpen = true;
+                        ids.Text=Code1+ "and" + Code2;
 
                     }
                 }
@@ -211,8 +212,12 @@ namespace PL1
             DataGridRow row = sender as DataGridRow;
             LineTimes.Remove(row.DataContext as BusLineTime);
         }
-        
-         
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+           
+        }
+     
+
 
     }
 }
