@@ -17,14 +17,12 @@
     </Page.Resources>
     <materialDesign:DialogHost>
         <materialDesign:DialogHost.DialogContent>
-            <StackPanel>
-                
-                    <Grid x:Name="askForDistanceAndTimeGrid">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                    </Grid>
+            <StackPanel >
+                <StackPanel></StackPanel>
+                    
                     <TextBlock Text="Please Enter the Distance and time between these two stations:"/>
+                <TextBlock x:Name="ids"/>
+                
                 
             </StackPanel>
         </materialDesign:DialogHost.DialogContent>
@@ -37,7 +35,7 @@
         <Button Style="{StaticResource MaterialDesignFloatingActionAccentButton}" ToolTip="Add another intravel" Margin="733,82,23,326" RenderTransformOrigin="-3.021,-0.801" Click="AddTime" Height="Auto" Width="Auto">
             <materialDesign:PackIcon Kind="Plus" Height="24" Width="24" />
         </Button>
-        <Button  Style="{StaticResource MaterialDesignRaisedButton}" Width="100" ToolTip="Add this Line" Click="addLineButton_Click" Content="ADD" RenderTransformOrigin="1.125,5.849" Height="Auto" Margin="677,396,23,10" />
+            <Button  Style="{StaticResource MaterialDesignRaisedButton}" Width="100" ToolTip="Add this Line" Click="addLine" Content="ADD" RenderTransformOrigin="1.125,5.849" Height="Auto" Margin="677,396,23,10" />
         <DataGrid x:Name="busStationDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="26,162,518,10" RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
                 <DataGridTemplateColumn x:Name="CheckStations" Header="Add" Width="60">
@@ -73,15 +71,7 @@
         <TextBlock HorizontalAlignment="Left" Margin="26,141,0,0" TextWrapping="Wrap" Text="Add Stations To The Route: " VerticalAlignment="Top"/>
         <DataGrid x:Name="stationOnTheLineDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource stationOnTheLineViewSource}}" Margin="305,190,95,59" RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
-                <DataGridTemplateColumn x:Name="number_on_routeColumn" Header="Number on route" Width="SizeToHeader">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <ComboBox>
-                                <ComboBoxItem Content="{Binding Number_on_route}"/>
-                            </ComboBox>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+               
                 <DataGridTemplateColumn x:Name="codeColumn" Header="Code" Width="SizeToHeader">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -96,8 +86,10 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-            </DataGrid.Columns>
+                  
+                </DataGrid.Columns>
         </DataGrid>
+             
             <DataGrid x:Name="busLineTimeDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource busLineTimeViewSource}}" Margin="365,32,95,306" RowDetailsVisibilityMode="VisibleWhenSelected">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn x:Name="endColumn" Header="End" Width="SizeToHeader">
