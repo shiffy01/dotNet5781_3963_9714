@@ -37,7 +37,7 @@ namespace PL1
         int Minutes;
 
         List<string> PairIds;
-        public AddDistances(IBL bl1, BO.User user, List<string> pairIds)
+        public AddDistances(IBL bl1,  List<string> pairIds)
         {
             bl = bl1;
             InitializeComponent();

@@ -114,8 +114,11 @@ namespace BL
                 ans = ans.Replace(@" ", "");
                 return ans.Replace(@":", "");
             }
+
             length = last_index - first_index;
             string answer;
+            if(length<0)
+                return "תל אביב";
             try
             {
                 answer = address.Substring(first_index, length);

@@ -179,9 +179,9 @@ namespace PL
                         {
                             List<string> distances = new List<string>();
                             distances.Add(distance);
-                            AddDistances addDistances = new AddDistances(distances);
-                            addDistances.ShowDialog();
-                        }
+                            //AddDistances addDistances = new AddDistances(distances);
+                        //    addDistances.ShowDialog();
+                        //}
                         break;
                     }
 

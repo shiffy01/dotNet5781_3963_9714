@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Windows.Navigation;
+using System.Collections.ObjectModel;
 using BO;
 using BlApi;
 //using Xceed.Wpf.Toolkit;
@@ -24,16 +24,27 @@ namespace PL1
     /// </summary>
 
 
-    public partial class UpdateBusLine : Page
+    public partial class UpdateBusLine : Window
     {
+        ObservableCollection<BO.BusLineTime> LineTimes;
         static IBL bl;
-        BO.BusLine Line;
         BO.User User;
-        int Hours;
-        int Minutes;
+        ObservableCollection<BusStation> all_stations;
+        List<int> stationsToAdd;
+        int Index = 0;
+        int Code1;
+        int Code2;
+        string askForDistance;
+        string askForTime;
+        List<string> distances;
+        BO.BusLine Line;
 
         private void initialize()
         {
+            IEnumerable<BusStation> stationIenumerable = bl.GetAllBusStations();
+            all_stations = new ObservableCollection<BusStation>(stationIenumerable);
+            stationsToAdd = new List<int>();
+            Index = 0;
             bus_line_numberTextBox.DataContext = Line.Bus_line_number;
             Line = bl.GetBusLine(Line.BusID);
             stationOnTheLineDataGrid.DataContext = Line.Stations.OrderBy(station => station.Number_on_route);
@@ -41,14 +52,14 @@ namespace PL1
             //last_bus.DefaultValue = Line.Last_bus;
             ////frequencyPicker.
         }
-        public UpdateBusLine (IBL bl1, BO.User user, BO.BusLine line)
+        public UpdateBusLine(IBL bl1, BO.User user, BO.BusLine line)
         {
-            bl = BlFactory.GetBl();
+           
             InitializeComponent();
-            Line = line;
-            initialize();
             bl = bl1;
             User = user;
+            initialize();
+
         }
         private void splitStringTOTwoInts(string str, ref int num1, ref int num2, char splitHere)
         {
@@ -84,15 +95,15 @@ namespace PL1
             // stationOnTheLineViewSource.Source = [generic data source]
         }
 
-        private void change(object sender, EventArgs e)
-        {
-            splitStringTOTwoInts(freq.Text, ref Hours, ref Minutes, ':');
+        //private void change(object sender, EventArgs e)
+        //{
+        //    splitStringTOTwoInts(freq.Text, ref Hours, ref Minutes, ':');
 
-            if (Minutes <= 59 || (Minutes == 0 && Hours == 0))
-            {
-                updateButton.IsEnabled = true;
-            }
-        }
+        //    if (Minutes <= 59 || (Minutes == 0 && Hours == 0))
+        //    {
+        //        updateButton.IsEnabled = true;
+        //    }
+        //}
         private void TextBox_OnlyNumbers_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             TextBox text = sender as TextBox;
