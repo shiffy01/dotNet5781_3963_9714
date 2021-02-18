@@ -3,12 +3,75 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:PL1"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Updateline">
+      Title="Updateline" Background="White">
 
     <Grid>
-        
+        <Button x:Name="updateButton"  Content="Update" IsEnabled="False" HorizontalAlignment="Left" Margin="58,378,0,0" VerticalAlignment="Top" Width="73" Height="33" Click="UpdateButton_Click"/>
+        <Label Content="Update times and line number: " HorizontalAlignment="Left" Margin="49,27,0,0" VerticalAlignment="Top" Height="31" Width="179"/>
+
+        <TextBlock  Style="{StaticResource MaterialDesignSubtitle2TextBlock}"
+          HorizontalAlignment="Left" Margin="49,95,0,0" TextWrapping="Wrap" Text=" first bus departs at:" VerticalAlignment="Top" Height="36" Width="126"/>
+        <TextBlock HorizontalAlignment="Left" Margin="49,174,0,0" TextWrapping="Wrap" Text="last bus departs at:" VerticalAlignment="Top" Height="34" Width="120"/>
+        <TextBlock HorizontalAlignment="Left" Margin="49,250,0,0" TextWrapping="Wrap" Text="time between each bus:" VerticalAlignment="Top" Height="40" Width="126"/>
+
+
+
+        <TextBox   Style="{StaticResource MaterialDesignFloatingHintTextBox}" x:Name="bus_line_numberTextBox" TextChanged="change" Text="{Binding Mode=OneWay}" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" HorizontalAlignment="Left" Height="27" Margin="136,63,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="70" RenderTransformOrigin="0.273,0.634" />
+        <Label x:Name="bus_line_number_label" Content="line number:" HorizontalAlignment="Left" Margin="49,63,0,0" VerticalAlignment="Top" Height="27" Width="82"/>
+        <materialDesign:TimePicker
+  Is24Hours="True"
+  x:Name="PresetTimePicker" Height="39" Margin="100,130,611,281"
+   />
+        <materialDesign:TimePicker
+  Is24Hours="True"
+  x:Name="PresetTimePicker1"
+  Width="100"
+   Margin="58,212,642,213" />
+        <materialDesign:TimePicker
+  Is24Hours="True"
+  x:Name="PresetTimePicker2"
+  Width="100"
+  SelectedTimeChanged="PresetTimePicker_SelectedTimeChanged" Margin="69,295,631,130" />
+        <Button Content="Add stops"  HorizontalAlignment="Left" Margin="451,327,0,0" VerticalAlignment="Top" Width="121" Height="38" Click="Add_Stations_Button_Click" />
+        <DataGrid x:Name="stationOnTheLineDataGrid" AutoGenerateColumns="False"  EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="311,63,65.333,186.667" Height="auto" Width="auto" RowDetailsVisibilityMode="VisibleWhenSelected" SelectionChanged="stationOnTheLineDataGrid_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn x:Name="number_on_routeColumn" Header="Number" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding Number_on_route}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn x:Name="codeColumn" Header="Code" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding Code}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+
+                <DataGridTemplateColumn x:Name="nameColumn" Header="Name" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="remove_station_from_line_button" Background="#FFE5C5ED" Content="delete" Click="remove_station_from_line_buttonClick" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
     </Grid>
 </Page>
