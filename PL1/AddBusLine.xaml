@@ -18,25 +18,25 @@
     <materialDesign:DialogHost>
         <materialDesign:DialogHost.DialogContent>
             <StackPanel>
-                <StackPanel>
+                
                     <Grid x:Name="askForDistanceAndTimeGrid">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                     </Grid>
                     <TextBlock Text="Please Enter the Distance and time between these two stations:"/>
-                </StackPanel>
+                
             </StackPanel>
         </materialDesign:DialogHost.DialogContent>
          <Grid Background="Gray" DataContext="{StaticResource busStationViewSource}" RenderTransformOrigin="0.5,0.5">
         <!--DataContext="{StaticResource busLineTimeViewSource}"-->
 
         <TextBox x:Name="Line_tb" Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"  Height="40" AcceptsReturn="True"  TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"  materialDesign:HintAssist.Hint="Line Number" Margin="26,31,648,379"/>
-        <DataGrid x:Name="busLineTimeDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding}" Margin="305,31,77,326" RowDetailsVisibilityMode="VisibleWhenSelected" SelectionChanged="busLineTimeDataGrid_SelectionChanged">
+        <!--<DataGrid x:Name="busLineTimeDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding}" Margin="305,31,77,326" RowDetailsVisibilityMode="VisibleWhenSelected" SelectionChanged="busLineTimeDataGrid_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTemplateColumn x:Name="FirstBusColumn" Header="First Bus " Width="SizeToHeader" >
-                    <DataGridTemplateColumn.CellTemplate Binding="{Binding Start}">
-                        <DataTemplate>
+                        <DataGridTemplateColumn.CellTemplate Binding="{Binding Start}">
+                            <DataTemplate>
                             <materialDesign:TimePicker Is24Hours="True" x:Name="FirstBusTimePicker" Width="54" Text="00:00" SelectedTimeChanged="FisrtBusTimePicker_SelectedTimeChanged" Padding="0"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -74,7 +74,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
-        </DataGrid>
+        </DataGrid>-->
 
         <Button Style="{StaticResource MaterialDesignFloatingActionAccentButton}" ToolTip="Add another intravel" Margin="733,82,23,326" RenderTransformOrigin="-3.021,-0.801" Height="Auto" Width="Auto">
             <materialDesign:PackIcon Kind="Plus" Height="24" Width="24" />
@@ -140,6 +140,49 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-    </Grid>
+            <DataGrid x:Name="busLineTimeDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource busLineTimeViewSource}}" Margin="365,32,95,306" RowDetailsVisibilityMode="VisibleWhenSelected">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn x:Name="endColumn" Header="End" Width="SizeToHeader">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <materialDesign:TimePicker Is24Hours="True" x:Name="LastBusTimePicker" Width="54" Text="00:00"  Padding="0" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn x:Name="frequencyColumn" Header="Frequency" Width="SizeToHeader">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <materialDesign:TimePicker Is24Hours="True" x:Name="FrequencyTimePicker" Width="54" Text="00:00" Padding="0"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn x:Name="startColumn" Header="Start" Width="SizeToHeader">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <materialDesign:TimePicker Is24Hours="True" x:Name="FirstBusTimePicker" Width="54" Text="00:00"  Padding="0"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn x:Name="saveTime" Width="68 ">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="saveButton" HorizontalAlignment="Left" Padding="0"  Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" ToolTip="Save Time" Height="20" Margin="4,0,12,0" Width="20"  RenderTransformOrigin="-0.558,0.408">
+                                    <materialDesign:PackIcon Kind="Check" Height="15" Width="15" />
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn x:Name="DeleteTime" Width="68">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="deleteButton" HorizontalAlignment="Left" Padding="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" ToolTip="Remove Time"  Height="20" Width="20" BorderBrush="Red" Background="Red">
+                                    <materialDesign:PackIcon Kind="Minus" Height="15" Width="15" />
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
     </materialDesign:DialogHost>
 </Page>

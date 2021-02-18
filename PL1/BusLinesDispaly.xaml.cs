@@ -38,7 +38,7 @@ namespace PL1
             NavigationService.Navigate(line);
 
         }
-        private void addClick(object sender, RoutedEventArgs e)
+        private void AddClick(object sender, RoutedEventArgs e)
         {
             AddBusLine add = new AddBusLine(bl, User);
             NavigationService.Navigate(add);

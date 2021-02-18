@@ -53,7 +53,7 @@ namespace PL1
             BO.Bus b = (e.UserState as BO.Bus);
             System.Windows.Application.Current.Dispatcher.Invoke(new Action(() =>
             {
-               Progress = e.ProgressPercentage;//?why wont it recognize value
+              // Progress = e.ProgressPercentage;//?why wont it recognize value
             }), null);
         }
         private void Worker2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

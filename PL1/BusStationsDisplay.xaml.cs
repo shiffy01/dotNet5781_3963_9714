@@ -110,6 +110,7 @@ namespace PL1
         {
             busStationDataGrid.DataContext = bl.GetAllBusStationsBy(b => b.City == CitiesBox.Text);
         }
+       
 
 
     }

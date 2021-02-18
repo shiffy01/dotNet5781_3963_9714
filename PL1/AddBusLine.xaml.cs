@@ -30,7 +30,7 @@ namespace PL1
         List<int> stationsToAdd;
         void initialize()
         {
-            
+
             IEnumerable<BusStation> stationIenumerable = bl.GetAllBusStations();
             all_stations = new ObservableCollection<BusStation>(stationIenumerable);
             stationsToAdd = new List<int>();
@@ -88,50 +88,50 @@ namespace PL1
                 return false;
             if (stationsToAdd.Count() < 2)
                 return false;
-             
+
             return true;
         }
         private void createDialogeContent()
         {
-            splitStringTOTwoInts(PairIds[Index], ref Code1, ref Code2, '*');
-            distanceMTB.Text = "";
-            averageDriveTimeMSB.Text = "00:00";
-            askForDistance = $"Please enter the distance between station: {Code1} and station: {Code2}";
-            ask_for_distance_label.Content = askForDistance;
+            //splitStringTOTwoInts(PairIds[Index], ref Code1, ref Code2, '*');
+            //distanceMTB.Text = "";
+            //averageDriveTimeMSB.Text = "00:00";
+            //askForDistance = $"Please enter the distance between station: {Code1} and station: {Code2}";
+            //ask_for_distance_label.Content = askForDistance;
         }
         private void btnDialogOk_Click(object sender, RoutedEventArgs e)
         {
 
-            if (averageDriveTimeMSB.IsMaskFull)
-            {
-                if (!correctTimeFormat())
-                    return;
-                try
-                {
-                    bl.AddAdjacentStations(Code1, Code2, double.Parse(distanceMTB.Text), new TimeSpan(Hours, Minutes, 00));
-                }
-                catch (BO.PairAlreadyExistsException ex)
-                {
-                    MessageBoxResult result = System.Windows.MessageBox.Show(ex.Message, " Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-                Index++;
-                if (Index == PairIds.Count)
-                {
-                    this.DialogResult = true;
-                    return;
+            //if (averageDriveTimeMSB.IsMaskFull)
+            //{
+            //    if (!correctTimeFormat())
+            //        return;
+            //    try
+            //    {
+            //        bl.AddAdjacentStations(Code1, Code2, double.Parse(distanceMTB.Text), new TimeSpan(Hours, Minutes, 00));
+            //    }
+            //    catch (BO.PairAlreadyExistsException ex)
+            //    {
+            //        MessageBoxResult result = System.Windows.MessageBox.Show(ex.Message, " Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            //    }
+            //    Index++;
+            //    if (Index == PairIds.Count)
+            //    {
+            //        this.DialogResult = true;
+            //        return;
 
-                }
-                createDialogeContent();
+            //    }
+            //    createDialogeContent();
 
 
-            }
-            else
-            {
+            //}
+            //else
+            //{
 
-                //throw trigger to change text to red
-                errorLabel.Visibility = Visibility.Visible;
-                return;
-            }
+            //    //throw trigger to change text to red
+            //    errorLabel.Visibility = Visibility.Visible;
+            //    return;
+            //}
 
         }
         private void splitStringTOTwoInts(string str, ref int num1, ref int num2, char splitHere)
@@ -165,7 +165,7 @@ namespace PL1
 
                 try
                 {
-                    needed_distances=bl.AddBusLine(int.Parse(Line_tb.Text), stationsToAdd, (LineTimes).ToList());
+                    needed_distances = bl.AddBusLine(int.Parse(Line_tb.Text), stationsToAdd, (LineTimes).ToList());
                     MessageBoxResult mb = MessageBox.Show("The bus was added to the system");
                     if (needed_distances == null || needed_distances.Count == 0)
                     {
@@ -175,9 +175,9 @@ namespace PL1
 
                     else
                     {
-                        AddDistances addDistances = new AddDistances(needed_distances);
-                        addDistances.ShowDialog();
-                        this.Close();
+                        //AddDistances addDistances = new AddDistances(needed_distances);
+                        //addDistances.ShowDialog();
+                        //this.Close();
                     }
                 }
                 catch (FrequencyConflictException ex)
@@ -185,15 +185,17 @@ namespace PL1
                     System.Windows.MessageBoxResult mb = MessageBox.Show(ex.Message);
 
                 }
-            }
+
                 catch (BO.BusLineAlreadyExistsException ex)
                 {
                     System.Windows.MessageBoxResult mb = MessageBox.Show(ex.Message);
                 }
             }
         }
-        private void saveTimeButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+    }
+}
+        //private void saveTimeButton_Click(object sender, RoutedEventArgs e)
+        //{
+            
+        //}
         
