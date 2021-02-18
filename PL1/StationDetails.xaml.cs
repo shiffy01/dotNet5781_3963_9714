@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BlApi;
 
 namespace PL1
 {
@@ -20,7 +21,9 @@ namespace PL1
     /// </summary>
     public partial class StationDetails : Page
     {
-        public StationDetails()
+        static IBL bl;
+        BO.User User;
+        public StationDetails(IBL bl, BO.User user, bool manage, BO.Bus bus)
         {
             InitializeComponent();
         }

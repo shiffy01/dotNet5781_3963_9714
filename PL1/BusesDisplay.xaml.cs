@@ -53,21 +53,20 @@ namespace PL1
             BO.Bus b = (e.UserState as BO.Bus);
             System.Windows.Application.Current.Dispatcher.Invoke(new Action(() =>
             {
-               // = e.ProgressPercentage;//?why wont it recognize value
+               Progress = e.ProgressPercentage;//?why wont it recognize value
             }), null);
         }
         private void Worker2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             BO.Bus bus = (e.Result as BO.Bus);
-            progressbar.
+           
         }
         private void DriveClick(object sender, RoutedEventArgs e)
         {
-            drive
             BO.Bus b1 = (busDataGrid.SelectedItem as BO.Bus);
             try
             {
-                bl.drive(b1, );
+                //bl.drive(b1, );
             }
             catch (BO.BusNotFoundException)
             {

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Collections.ObjectModel;
 using BlApi;
 
 namespace PL1
@@ -21,14 +22,30 @@ namespace PL1
     /// </summary>
     public partial class BusStationsDisplay : Page
     {
+
         static IBL bl;
         BO.User User;
-        public BusStationsDisplay(IBL bl1, BO.User user, bool Manage)
+        bool Manage;
+        ObservableCollection<BO.BusStation> stations;
+        void initialize()
+        {
+            busStationDataGrid.DataContext = bl.GetAllBusStations();
+        }
+        public BusStationsDisplay(IBL bl1, BO.User user, bool manage)
         {
             InitializeComponent();
             bl = bl1;
             User = user;
+            Manage = manage;
+            initialize()
+        }
+        private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            DataGridRow row = sender as DataGridRow;
+            StationDetails station = new StationDetails(bl, User, Manage,(row.DataContext as BO.Bus));
+            NavigationService.Navigate(station);
 
+            
         }
     }
 }
