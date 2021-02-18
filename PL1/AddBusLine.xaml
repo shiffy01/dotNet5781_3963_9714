@@ -1,14 +1,11 @@
-﻿<Page
+﻿<Page x:Class="PL1.AddBusLine"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-   
-     xmlns:domain="clr-namespace:MaterialDesignDemo.Domain"
-     xmlns:smtx="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
-      xmlns:local="clr-namespace:PL1"
-      xmlns:BO="clr-namespace:BO;assembly=BL" x:Class="PL1.AddBusLine"
+          xmlns:local="clr-namespace:PL1"
+      xmlns:BO="clr-namespace:BO;assembly=BL" 
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="AddBusLine">
@@ -17,39 +14,32 @@
         <CollectionViewSource x:Key="busLineTimeViewSource" d:DesignSource="{d:DesignInstance {x:Type BO:BusLineTime}, CreateList=True}"/>
     </Page.Resources>
 
-    <Grid Background="Gray" DataContext="{StaticResource busLineTimeViewSource}">
+    <Grid Background="Gray">
+        <!--DataContext="{StaticResource busLineTimeViewSource}"-->
 
-        <TextBox materialDesign:HintAssist.Hint="Line Number" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" Margin="42,51,670,356" RenderTransformOrigin="0.656,1.024"/>
+        <TextBox materialDesign:HintAssist.Hint="Line Number" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" Margin="28,10,684,397" RenderTransformOrigin="0.656,1.024"/>
 
 
-        <DataGrid x:Name="busLineTimeDataGrid" AutoGenerateColumns="True" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="42,253,145,33" RowDetailsVisibilityMode="VisibleWhenSelected">
+        <DataGrid x:Name="busLineTimeDataGrid" AutoGenerateColumns="True" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="10,152,443,163" RowDetailsVisibilityMode="VisibleWhenSelected" SelectionChanged="busLineTimeDataGrid_SelectionChanged">
             <DataGrid.Columns>
-                <DataGridTemplateColumn x:Name="FirstBusColumn" Header="First Bus" Width="Auto" >
-                    <DataGridTemplateColumn.CellTemplate  Binding="{Binding Start}">
+                <DataGridTemplateColumn x:Name="FirstBusColumn" Header="First Bus" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate Binding="{Binding Start}">
                         <DataTemplate>
-                            <materialDesign:TimePicker materialDesign:HintAssist.Hint="Validates"  IsInvalidTextAllowed="False"  Is24Hours="{Binding IsChecked, ElementName=Is24HourCheckbox}" Width="80">
-                                <!--<materialDesign:TimePicker.Text>
-                                    <Binding Path="ValidatingTime"  UpdateSourceTrigger="PropertyChanged">
-                                        <Binding.ValidationRules>
-                                            <domain:SimpleDateValidationRule ValidatesOnTargetUpdated="True" xmlns:domain="clr-namespace:MaterialDesignDemo.Domain" />
-                                        </Binding.ValidationRules>
-                                    </Binding>
-                                </materialDesign:TimePicker.Text>-->
-                            </materialDesign:TimePicker>
+                            <materialDesign:TimePicker Is24Hours="True" x:Name="FirstBusTimePicker" Width="81" SelectedTimeChanged="FisrtBusTimePicker_SelectedTimeChanged" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn x:Name="frequencyColumn"  Header="Frequency" Width="Auto">
+                <DataGridTemplateColumn x:Name="frequencyColumn"  Header="Frequency" Width="SizeToHeader">
                     <DataGridTemplateColumn.CellTemplate Binding="{Binding Frequency}">
                         <DataTemplate>
-                            <materialDesign:TimePicker materialDesign:HintAssist.Hint="Validates"  IsInvalidTextAllowed="False"  Is24Hours="{Binding IsChecked, ElementName=Is24HourCheckbox}" Width="80"/>
-                        </DataTemplate>
+                            <materialDesign:TimePicker Is24Hours="True" x:Name="FrequencyTimePicker" Width="81" SelectedTimeChanged="FrequencyTimePicker_SelectedTimeChanged" />
+                            </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn x:Name="LastBusColumn" Header="Last Bus" Width="Auto">
+                <DataGridTemplateColumn x:Name="LastBusColumn" Header="Last Bus" Width="SizeToHeader">
                     <DataGridTemplateColumn.CellTemplate Binding="{Binding End}">
                         <DataTemplate>
-                            <materialDesign:TimePicker materialDesign:HintAssist.Hint="Validates"  IsInvalidTextAllowed="False"  Is24Hours="{Binding IsChecked, ElementName=Is24HourCheckbox}" Width="80"/>
+                            <materialDesign:TimePicker Is24Hours="True" x:Name="LastBusTimePicker" Width="100"  SelectedTimeChanged="LastBusTimePicker_SelectedTimeChanged" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -73,7 +63,7 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Style="{StaticResource MaterialDesignFloatingActionAccentButton}" ToolTip="MaterialDesignFloatingActionAccentButton" Margin="679,361,65,33">
+        <Button Style="{StaticResource MaterialDesignFloatingActionAccentButton}" ToolTip="MaterialDesignFloatingActionAccentButton" Margin="436,264,308,130" RenderTransformOrigin="-3.021,-0.801">
             <materialDesign:PackIcon Kind="Plus" Height="24" Width="24" />
         </Button>
 
