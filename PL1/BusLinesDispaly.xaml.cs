@@ -43,5 +43,24 @@ namespace PL1
             AddBusLine add = new AddBusLine(bl, User);
             NavigationService.Navigate(add);
         }
+        private void DeleteLineButton_Click(object sender, RoutedEventArgs e)
+        {
+            DataGridRow row = sender as DataGridRow;
+            try
+            {
+                bl.DeleteBusLine((row.DataContext as BO.BusLine).BusID);
+            }
+            catch (BO.BusLineNotFoundException ex)
+            {
+                System.Windows.MessageBoxResult mb = MessageBox.Show(ex.Message);
+            }
+        }
+        private void UpdateLineButton_Click(object sender, RoutedEventArgs e)
+        {
+            DataGridRow row = sender as DataGridRow;
+            Updateline updateline = new Updateline(bl, User, (row.DataContext as BO.BusLine));
+            NavigationService.Navigate(updateline);
+        }
+
     }
 }
