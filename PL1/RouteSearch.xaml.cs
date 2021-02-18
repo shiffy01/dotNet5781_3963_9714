@@ -85,6 +85,10 @@ namespace PL1
             {
                 busLineDataGrid.DataContext = lines;
                 busLineDataGrid.Visibility = Visibility.Visible;
+                try
+                {
+                    
+                }
             }
         }
 
