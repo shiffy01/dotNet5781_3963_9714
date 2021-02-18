@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Navigation;
 using BO;
 using BlApi;
 namespace PL
@@ -46,7 +47,7 @@ namespace PL
         public AddStation()
         {
             InitializeComponent();
-            bl = BlFactory.GetBl();
+           
             //this.KeyDown += new KeyEventHandler(drive_grid_KeyDown);
         }
         private void TextBox_OnlyNumbers_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -114,8 +115,10 @@ namespace PL
                 MessageBoxResult mb = MessageBox.Show(ex.Message);
                
             }
-           
-            this.Close();
+
+            BusStationsDisplay busStationssDispaly = new BusStationsDisplay(bl, User, Manage);
+            NavigationService.Navigate(busStationssDispaly);
+            //why???
         }
     }
 }

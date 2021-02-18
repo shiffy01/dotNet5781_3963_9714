@@ -58,8 +58,8 @@ namespace BlApi
         void AddAdjacentStations(int codeA, int codeB, double distance, TimeSpan drive_time);
         IEnumerable<BusLine> SearchRoute(int startStation, int endStation);
         TimeSpan driveTime(int lineCode, int station1, int station2);
-
-
-
+        IEnumerable<BusLine> GetBusLinesOfStation(int code);
+        IEnumerable<string> GetByCities();
+        
     }
 }

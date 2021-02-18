@@ -67,12 +67,12 @@ namespace PL1
                 case "ChangingItem":
                     if (Manage)
                     {
-                        BusesDisplay busesDisplay = new BusesDisplay(bl, User, Manage);
+                        BusesDisplay busesDisplay = new BusesDisplay(bl, User);
                         this.Main.NavigationService.Navigate(busesDisplay);
                     }
                     else
                     {
-                        RouteSearch routeSearch = new RouteSearch(bl, User, Manage);
+                        RouteSearch routeSearch = new RouteSearch(bl, User);
                         this.Main.NavigationService.Navigate(routeSearch);
                     }
                     break;

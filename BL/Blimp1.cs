@@ -926,6 +926,27 @@ namespace BL
             //sort the list by time, make a seperate function for that
         }
         #endregion
+        public IEnumerable<string> GetByCities()
+        {
+            var list= from b in GetAllBusStations()
+                   group b by b.City;
+            return from s in list
+                   select s.Key;
+        }
+        public IEnumerable<BusLine> GetBusLinesOfStation(int code)
+        {
+            try
+            {
+                var list = from b in dal.GetAllBusLineStationsBy(b => b.StationID == code).OrderBy(l => l.Number_on_route)
+                           select b.LineID;
+                return from s in list
+                       select DOtoBOBusLineAdapter(dal.GetBusLine(s));
+            }
+            catch (Exception)
+            {
+                throw new DataErrorException("Data error");
+            }
+        }
     }
    
 

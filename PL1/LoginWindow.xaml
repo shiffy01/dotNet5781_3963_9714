@@ -25,7 +25,7 @@
             <materialDesign:DialogHost.DialogContent>
                 <Grid>
                     <Label Content="Continue as:" FontSize="15"/>
-                    <StackPanel x:Name="Status_StackPanel" Orientation="Horizontal" Margin="4">
+                    <StackPanel  Orientation="Horizontal" Margin="4">
                         <RadioButton x:Name="Manager_RadioBtn1" Style="{StaticResource MaterialDesignTabRadioButton}" Margin="4" IsChecked="True" Content="Manager" />
                         <RadioButton x:Name="User_RadioBtn1" Style="{StaticResource MaterialDesignTabRadioButton}" Margin="4" IsChecked="False" Content="User" />
                     </StackPanel>

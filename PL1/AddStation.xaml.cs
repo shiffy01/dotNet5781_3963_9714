@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BlApi;
 
 namespace PL1
 {
@@ -20,9 +21,52 @@ namespace PL1
     /// </summary>
     public partial class AddStation : Page
     {
-        public AddStation()
+        static IBL bl;
+        public AddStation(IBL bl1)
         {
             InitializeComponent();
+            bl = bl1;
+        }
+        private void addClick(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                bl.AddBusStation(int.Parse(addressTextBox.Text), int.Parse(latitudeTextBox.Text), int.Parse(longitudeTextBox.Text), nameTextBox.Text, addressTextBox.Text, cityTextBox.Text);
+            }
+            catch (BO.StationALreadyExistsException ex)
+            {
+                MessageBoxResult mb = MessageBox.Show(ex.Message);
+            }
+            nav
+        }
+        private bool canUpdate()
+        {
+            double latresult;
+            double longresult;
+            int intresult;
+
+            if (string.IsNullOrWhiteSpace(codeTextBox.Text) || !(int.TryParse(codeTextBox.Text, out intresult)))
+                return false;
+            if (string.IsNullOrWhiteSpace(latitudeTextBox.Text) || !(double.TryParse(latitudeTextBox.Text, out latresult)))
+                return false;
+            if (string.IsNullOrWhiteSpace(longitudeTextBox.Text) || !(double.TryParse(longitudeTextBox.Text, out longresult)))
+                return false;
+            if (string.IsNullOrWhiteSpace(nameTextBox.Text))
+                return false;
+            if (string.IsNullOrWhiteSpace(addressTextBox.Text))
+                return false;
+            if (string.IsNullOrWhiteSpace(cityTextBox.Text))
+                return false;
+            return true;
+        }
+        private void TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (canUpdate())
+                add.IsEnabled = true;
+            else
+                add.IsEnabled = false;
         }
     }
+
+    
 }
