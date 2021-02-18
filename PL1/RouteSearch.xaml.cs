@@ -23,7 +23,7 @@ namespace PL1
     {
         static IBL bl;
         BO.User User;
-        public RouteSearch(IBL bl1, BO.User user, bool manage)
+        public RouteSearch(IBL bl1, BO.User user)
         {
             InitializeComponent();
             bl = bl1;

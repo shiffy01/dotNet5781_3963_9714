@@ -25,10 +25,6 @@ namespace BO
         public int Totalkilometerage { get; set; }
         public int kilometerage { get; set; }
         public int Gas { get; set; }
-        public bool IsAccessible { get; set; }
-        public bool HasWifi { get; set; }
-    
-
         public override string ToString()
         {
             return this.ToStringProperty();
