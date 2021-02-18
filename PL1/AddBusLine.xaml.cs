@@ -28,11 +28,12 @@ namespace PL1
         BO.User User;
         ObservableCollection<BusStation> all_stations;
         List<int> stationsToAdd;
-        int Index;
+        int Index=0;
         int Code1;
         int Code2;
         string askForDistance;
         string askForTime;
+        List<string> distances;
         void initialize()
         {
 
@@ -119,7 +120,9 @@ namespace PL1
         }
         private void createDialogeContent()
         {
-           // splitStringTOTwoInts(PairIds[Index], ref Code1, ref Code2, '*');
+           splitStringTOTwoInts(distances[Index], ref Code1, ref Code2, '*');
+            Index++;
+            ids.Text = Code1 + "and" + Code2;
             //distanceMTB.Text = "";
             //averageDriveTimeMSB.Text = "00:00";
             //askForDistance = $"Please enter the distance between station: {Code1} and station: {Code2}";
@@ -178,8 +181,10 @@ namespace PL1
 
                     else
                     {
-                        splitStringTOTwoInts(needed_distances[Index], ref Code1, ref Code2, '*');
-
+                       
+                        distance.IsOpen = true;
+                        createDialogeContent();
+                       
 
                     }
                 }
@@ -211,8 +216,19 @@ namespace PL1
             DataGridRow row = sender as DataGridRow;
             LineTimes.Remove(row.DataContext as BusLineTime);
         }
-        
+        private void accept(object sender, RoutedEventArgs e)
+        {
+           
+                bl.AddAdjacentStations(Code1, Code2, double.Parse(distance_tb.Text), new TimeSpan());//need to check if the distance is valid and need to split the text of the 
+                //time picker
          
+        }
+        private void cancel(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+
 
     }
 }
