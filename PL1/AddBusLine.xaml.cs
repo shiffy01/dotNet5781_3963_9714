@@ -157,7 +157,7 @@ namespace PL1
             // txtAnswer.Text = null;
 
         }
-        private void addLineButton_Click(object sender, RoutedEventArgs e)
+        private void AddTime(object sender, RoutedEventArgs e)
         {
             if (IsAllFilled())
             {
@@ -192,6 +192,28 @@ namespace PL1
                 }
             }
         }
+        //Checked="addStation" Unchecked="removeStation"
+        private void addStation(object sender, RoutedEventArgs e)
+        {
+            DataGridRow row = sender as DataGridRow;
+            stationsToAdd.Add((row.DataContext as BO.StationOnTheLine).Code);
+        }
+        private void removeStation(object sender, RoutedEventArgs e)
+        {
+            DataGridRow row = sender as DataGridRow;
+            stationsToAdd.Remove((row.DataContext as BO.StationOnTheLine).Code);
+        }
+        private void removeTimeClick(object sender, RoutedEventArgs e)
+        {
+            DataGridRow row = sender as DataGridRow;
+            LineTimes.Remove(row.DataContext as BusLineTime);
+        }
+        private void addLineButton_Click(object sender, RoutedEventArgs e)
+        {
+        
+        }
+      
+
     }
 }
         //private void saveTimeButton_Click(object sender, RoutedEventArgs e)

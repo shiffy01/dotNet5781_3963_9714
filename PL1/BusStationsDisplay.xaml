@@ -8,7 +8,7 @@
       xmlns:BO="clr-namespace:BO;assembly=BL" x:Class="PL1.BusStationsDisplay"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="BusStationsDisplay" Background="White">
+      Title="BusStationsDisplay" Width="1010" Height="540" Background="White">
 
     <Page.Resources>
         <CollectionViewSource x:Key="busStationViewSource" d:DesignSource="{d:DesignInstance {x:Type BO:BusStation}, CreateList=True}"/>
@@ -16,37 +16,59 @@
 
     <Grid DataContext="{StaticResource busStationViewSource}">
 
-        <DataGrid x:Name="busStationDataGrid" RowDetailsVisibilityMode="VisibleWhenSelected" Margin="96,130,304,120" ItemsSource="{Binding}" EnableRowVirtualization="True" AutoGenerateColumns="False">
+
+        <Button x:Name="addButton" Style="{StaticResource MaterialDesignFloatingActionAccentButton}" Click="AddStationClick" ToolTip="Refresh" Margin="183,400,771,84" RenderTransformOrigin="-3.021,-0.801">
+            <materialDesign:PackIcon Kind="Plus" Height="24" Width="24" />
+        </Button>
+
+        <Button x:Name="all" Click="AllClick" Content="All buses" Height="42" Margin="422,229,480,179"/>
+        <TextBox x:Name="codeSearch" Style="{StaticResource MaterialDesignFloatingHintTextBox}" ToolTip="Search a code" Height="42" Margin="422,101,480,307"/>
+
+        <ComboBox x:Name="CityBox" Style="{StaticResource MaterialDesignFilledComboBox}" SelectionChanged="cityChanged" Height="42"  Margin="422,163,480,245"/>
+        <Button x:Name="go" Content="Search" Click="searchClick" Height="42" Margin="569,101,321,307"/>
+
+        <DataGrid x:Name="busStationDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="84,90,646,160" RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Resources>
                 <Style TargetType="DataGridRow">
                     <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
                 </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTemplateColumn x:Name="codeColumn" Width="SizeToHeader" Header="Code">
+
+                <DataGridTemplateColumn x:Name="codeColumn" Header="Code" Width="SizeToHeader">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Label Content="{Binding Code}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn x:Name="nameColumn" Width="SizeToHeader" Header="Name">
+                <DataGridTemplateColumn x:Name="nameColumn" Header="Name" Width="SizeToHeader">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Label Content="{Binding Name}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
+                <DataGridTemplateColumn x:Name="addressColumn" Header="Address" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding Address}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="addButton" Style="{StaticResource MaterialDesignFloatingActionAccentButton}" Click="AddStationClick" ToolTip="MaterialDesignFloatingActionAccentButton" Margin="566,336,178,58" RenderTransformOrigin="-3.021,-0.801">
-            <materialDesign:PackIcon Kind="Plus" Height="24" Width="24" />
-        </Button>
 
-        <TextBox x:Name="searchBox" HorizontalAlignment="Left" TextChanged="searchChanged" Height="24" Margin="622,148,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <Button Content="All Stations" Click="allStationsClick" HorizontalAlignment="Left" Margin="622,209,0,0" VerticalAlignment="Top" Height="31" Width="120"/>
-        <ComboBox x:Name="CitiesBox" SelectionChanged="cityChanged" HorizontalAlignment="Left" Margin="622,172,0,0" ItemsSource="{Binding}" VerticalAlignment="Top" Width="120" Height="37"/>
 
+        <!--<TextBox
+
+  materialDesign:TextFieldAssist.TextBoxViewMargin="1 0 1 0"
+  materialDesign:HintAssist.FloatingScale="0.50"
+ 
+  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+  FontSize="15"  Margin="278,56,390,350" />
+            <Button Content="All Stations" Click="allStationsClick" HorizontalAlignment="Left"  VerticalAlignment="Top" RenderTransformOrigin="0.567,1.903"/>
+            <ComboBox x:Name="CitiesBox" SelectionChanged="cityChanged" HorizontalAlignment="Left" ItemsSource="{Binding}" VerticalAlignment="Top" />-->
 
     </Grid>
 </Page>

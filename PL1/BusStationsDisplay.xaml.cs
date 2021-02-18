@@ -30,7 +30,7 @@ namespace PL1
         void initialize()
         {
             busStationDataGrid.DataContext = bl.GetAllBusStations();
-            CitiesBox.DataContext = bl.GetByCities();
+            CityBox.DataContext = bl.GetByCities();
         }
         public BusStationsDisplay(IBL bl1, BO.User user, bool manage)
         {
@@ -91,27 +91,33 @@ namespace PL1
             e.Handled = true; //ignore this key. mark event as handled, will not be routed to other controls
             return;
         }
-        private void searchChanged(object sender, RoutedEventArgs e)
+        private void searchClick(object sender, RoutedEventArgs e)
         {
+            
             try
             {
-                busStationDataGrid.DataContext = bl.GetAllBusStationsBy(b => b.Code == int.Parse(searchBox.Text));
+                busStationDataGrid.DataContext = bl.GetAllBusStationsBy(b => b.Code == int.Parse(codeSearch.Text));
             }
             catch (BO.StationNotFoundException)
             {
             //no results..
             }
         }
-        private void allStationsClick(object sender, RoutedEventArgs e)
+        private void AllClick(object sender, RoutedEventArgs e)
         {
             initialize();
         }
         private void cityChanged(object sender, RoutedEventArgs e)
         {
-            busStationDataGrid.DataContext = bl.GetAllBusStationsBy(b => b.City == CitiesBox.Text);
+            busStationDataGrid.DataContext = bl.GetAllBusStationsBy(b => b.City == CityBox.Text);
         }
+        private void busStationDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DataGridRow row = sender as DataGridRow;
+            StationDetails details = new StationDetails(bl, User, Manage, row.DataContext as BO.BusStation);
+            NavigationService.Navigate(details);
+        }
+
        
-
-
     }
 }

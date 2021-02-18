@@ -80,7 +80,7 @@ namespace PL1
                     BusLinesDispaly busLinesDispaly = new BusLinesDispaly(bl, User, Manage);
                     this.Main.NavigationService.Navigate(busLinesDispaly);
                     break;
-                case "BusStops":
+                case "BusStations":
                     BusStationsDisplay busStationssDispaly = new BusStationsDisplay(bl, User, Manage);
                     this.Main.NavigationService.Navigate(busStationssDispaly);
                     break;

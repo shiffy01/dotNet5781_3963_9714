@@ -41,6 +41,11 @@ namespace PL1
                     //make the box red...or just say that the password or user name is incorrect
                     return;
                 }
+                catch (BO.WrongPasswordException)
+                {
+                    //error!
+                    return;
+                }
                 if (Manager_RadioBtn.IsChecked == true)
                     popUp.IsOpen = true;
                 else
@@ -75,6 +80,10 @@ namespace PL1
             {
                 //ERROR!!!!!!!!!!!!!!!!!!!!!
                 return;
+            }
+            catch (BO.WrongPasswordException)
+            {
+                //error!
             }
             if (Manager_RadioBtn.IsChecked == true)
                 popUp.IsOpen = true;

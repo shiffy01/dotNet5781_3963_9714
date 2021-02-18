@@ -7,7 +7,7 @@
       xmlns:BO="clr-namespace:BO;assembly=BL" x:Class="PL1.AddStation"
       mc:Ignorable="d" 
       d:DesignHeight="350" d:DesignWidth="400"
-      Title="AddStation" Background="White">
+      Title="AddStation" Height="540" Width="1010" Background="White">
 
     <Page.Resources>
         <CollectionViewSource x:Key="busStationViewSource" d:DesignSource="{d:DesignInstance {x:Type BO:BusStation}, CreateList=True}"/>
@@ -29,19 +29,19 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Label VerticalAlignment="Center" Grid.Row="0" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Address:"/>
-            <TextBox x:Name="addressTextBox" Width="120" VerticalAlignment="Center" Text="{Binding Address, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="0" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
+            <TextBox x:Name="addressTextBox" TextChanged="TextChanged" Width="120" VerticalAlignment="Center" Text="{Binding Address, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="0" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
             <Label VerticalAlignment="Center" Grid.Row="1" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="City:"/>
-            <TextBox x:Name="cityTextBox" Width="120" VerticalAlignment="Center" Text="{Binding City, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="1" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
+            <TextBox x:Name="cityTextBox" TextChanged="TextChanged" Width="120" VerticalAlignment="Center" Text="{Binding City, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="1" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
             <Label VerticalAlignment="Center" Grid.Row="2" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Code:"/>
-            <TextBox x:Name="codeTextBox" Width="120" VerticalAlignment="Center" Text="{Binding Code, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="2" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
+            <TextBox x:Name="codeTextBox" TextChanged="TextChanged" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" Width="120" VerticalAlignment="Center" Text="{Binding Code, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="2" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
             <Label VerticalAlignment="Center" Grid.Row="3" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Latitude:"/>
-            <TextBox x:Name="latitudeTextBox" Width="120" VerticalAlignment="Center" Text="{Binding Latitude, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="3" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
+            <TextBox x:Name="latitudeTextBox" TextChanged="TextChanged" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" Width="120" VerticalAlignment="Center" Text="{Binding Latitude, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="3" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
             <Label VerticalAlignment="Center" Grid.Row="4" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Longitude:"/>
-            <TextBox x:Name="longitudeTextBox" Width="120" VerticalAlignment="Center" Text="{Binding Longitude, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="4" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
+            <TextBox x:Name="longitudeTextBox" TextChanged="TextChanged" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" Width="120" VerticalAlignment="Center" Text="{Binding Longitude, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="4" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
             <Label VerticalAlignment="Center" Grid.Row="5" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Name:"/>
-            <TextBox x:Name="nameTextBox" Width="120" VerticalAlignment="Center" Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="5" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
+            <TextBox x:Name="nameTextBox" TextChanged="TextChanged" Width="120" VerticalAlignment="Center" Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="5" Margin="3" Height="23" HorizontalAlignment="Left" Grid.Column="1"/>
         </Grid>
-        <Button x:Name="add" Content="Add" Click="addClick" HorizontalAlignment="Left" Margin="150,283,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.342,-0.452"/>
+        <Button x:Name="add" IsEnabled="False" Content="Add" Click="addClick" HorizontalAlignment="Left" Margin="150,283,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.342,-0.452"/>
 
     </Grid>
 </Page>
