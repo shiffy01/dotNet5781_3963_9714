@@ -22,7 +22,12 @@
                     <TextBlock Text="Please Enter the Distance and time between these two stations:"/>
                 <TextBlock x:Name="ids"/>
                 </StackPanel>
-                
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" VerticalAlignment="Top"  Height="100" AcceptsReturn="True" TextWrapping="Wrap"  VerticalScrollBarVisibility="Auto" materialDesign:HintAssist.Hint="Distance"/>
+                    <materialDesign:TimePicker Is24Hours="True" x:Name="PresetTimePicker" Width="100"
+
+                </StackPanel>
+
             </StackPanel>
         </materialDesign:DialogHost.DialogContent>
          <Grid Background="Gray" DataContext="{StaticResource busStationViewSource}" RenderTransformOrigin="0.5,0.5" Margin="-10,10,10,-10">
