@@ -23,9 +23,36 @@ namespace PL1
     {
         static IBL bl;
         BO.User User;
-        public StationDetails(IBL bl, BO.User user, bool manage, BO.Bus bus)
+        BO.BusStation station;
+        void initialize()
+        {
+            stationGrid.DataContext = station;
+            var list =
+            busLineDataGrid.DataContext = bl.GetBusLinesOfStation(station.Code);
+        }
+        public StationDetails(IBL bl1, BO.User user, bool manage, BO.BusStation bus1)
         {
             InitializeComponent();
+            bl = bl1;
+            User = user;
+            station = bus1;
+            if (!manage)
+                Edit.Visibility = Visibility.Hidden;
+        }
+        private void editClick(object sender, RoutedEventArgs e)
+        {
+            if (namebox.Text != null)
+            {
+                try
+                {
+                    bl.UpdateBusStation(station.Code, namebox.Text);
+                }
+                catch (BO.StationNotFoundException ex)
+                {
+                    MessageBoxResult mb = MessageBox.Show("Something went wrong. we regret the error.");
+                }
+                initialize();
+            }
         }
     }
 }
