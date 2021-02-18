@@ -21,9 +21,27 @@ namespace PL1
     /// </summary>
     public partial class BusLinesDispaly : Page
     {
-        public BusLinesDispaly(IBL bl, BO.User user, bool manage)
+        IBL bl;
+        BO.User User;
+        public BusLinesDispaly(IBL bl1, BO.User user, bool manage)
         {
             InitializeComponent();
+            bl = bl1;
+            User = user;
+            if (!manage)
+                addButton.Visibility = Visibility.Hidden;
+        }
+        private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            DataGridRow row = sender as DataGridRow;
+            BusLineDetails line = new BusLineDetails(bl,  (row.DataContext as BO.BusLine));
+            NavigationService.Navigate(line);
+
+        }
+        private void addClick(object sender, RoutedEventArgs e)
+        {
+            AddBusLine add = new AddBusLine(bl, User);
+            NavigationService.Navigate(add);
         }
     }
 }

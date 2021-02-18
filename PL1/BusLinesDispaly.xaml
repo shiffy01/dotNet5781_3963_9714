@@ -1,27 +1,64 @@
-﻿<Page x:Class="PL1.BusLinesDispaly"
+﻿<Page
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:PL1"
+      xmlns:BO="clr-namespace:BO;assembly=BL" x:Class="PL1.BusLinesDispaly"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="BusLinesDispaly">
+      Title="BusLinesDispaly" Background="White">
 
-    <Grid>
-        <TextBox
-    Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
-    VerticalAlignment="Top"
-    Height="100"
-    AcceptsReturn="True"
-    TextWrapping="Wrap"
-    VerticalScrollBarVisibility="Auto"
-    materialDesign:HintAssist.Hint="Search"/>
-        <DataGrid
-  ItemsSource="{Binding Items2}"
-  CanUserAddRows="False"
-  SelectionUnit="Cell"
-  SelectionMode="Extended" Margin="96,95,163,53" />
+    <Page.Resources>
+        <CollectionViewSource x:Key="busLineViewSource" d:DesignSource="{d:DesignInstance {x:Type BO:BusLine}, CreateList=True}"/>
+    </Page.Resources>
+
+    <Grid DataContext="{StaticResource busLineViewSource}">
+        <DataGrid x:Name="busLineDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="177,157,213,93" RowDetailsVisibilityMode="VisibleWhenSelected">
+            <DataGrid.Resources>
+                <Style TargetType="DataGridRow">
+                    <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTemplateColumn x:Name="bus_line_numberColumn" Header="Bus line number" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding Bus_line_number}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn x:Name="destinationColumn" Header="Destination" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding Destination}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn x:Name="originColumn" Header="Origin" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding Origin}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn x:Name="delete"  Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button>
+                                <materialDesign:PackIcon Kind="TrashCan" />
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="addButton" Content="Add" Click="AddClick" HorizontalAlignment="Left" Margin="281,382,0,0" VerticalAlignment="Top" Width="221" Height="42"/>
+
+
+
+
     </Grid>
 </Page>
