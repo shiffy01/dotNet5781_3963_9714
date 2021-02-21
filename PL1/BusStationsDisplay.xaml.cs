@@ -30,7 +30,7 @@ namespace PL1
         void initialize()
         {
             busStationDataGrid.DataContext = bl.GetAllBusStations();
-            CityBox.DataContext = bl.GetByCities();
+           
         }
         public BusStationsDisplay(IBL bl1, BO.User user, bool manage)
         {
@@ -107,10 +107,7 @@ namespace PL1
         {
             initialize();
         }
-        private void cityChanged(object sender, RoutedEventArgs e)
-        {
-            busStationDataGrid.DataContext = bl.GetAllBusStationsBy(b => b.City == CityBox.Text);
-        }
+       
         private void busStationDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             DataGridRow row = sender as DataGridRow;

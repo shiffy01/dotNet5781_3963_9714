@@ -21,10 +21,10 @@
             <materialDesign:PackIcon Kind="Plus" Height="24" Width="24" />
         </Button>
 
-        <Button x:Name="all" Click="AllClick" Content="All buses" Height="42" Margin="422,229,480,179"/>
+        <Button x:Name="all" Click="AllClick" Content="All buses" Height="42" Margin="422,221,480,277"/>
         <TextBox x:Name="codeSearch" Style="{StaticResource MaterialDesignFloatingHintTextBox}" ToolTip="Search a code" Height="42" Margin="422,101,480,307"/>
 
-        <ComboBox x:Name="CityBox" Style="{StaticResource MaterialDesignFilledComboBox}" SelectionChanged="cityChanged" Height="42"  Margin="422,163,480,245"/>
+       
         <Button x:Name="go" Content="Search" Click="searchClick" Height="42" Margin="569,101,321,307"/>
 
         <DataGrid x:Name="busStationDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="84,90,646,160" RowDetailsVisibilityMode="VisibleWhenSelected">

@@ -33,7 +33,7 @@ namespace PL1
         {
             try
             {
-                bl.AddBusStation(int.Parse(addressTextBox.Text), int.Parse(latitudeTextBox.Text), int.Parse(longitudeTextBox.Text), nameTextBox.Text, addressTextBox.Text, cityTextBox.Text);
+                bl.AddBusStation(int.Parse(latitudeTextBox.Text), int.Parse(longitudeTextBox.Text), nameTextBox.Text, addressTextBox.Text);
             }
             catch (BO.StationALreadyExistsException ex)
             {
