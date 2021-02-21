@@ -488,7 +488,7 @@ namespace DL
         {
             List<BusStation> ListStations = XMLtools.LoadListFromXMLSerializer<BusStation>(busStationPath);
             int newCode = ListStations.OrderBy(b => b.Code).FirstOrDefault().Code+1;
-            
+
 
             ListStations.Add(new BusStation {
                 Code = newCode,
@@ -496,15 +496,15 @@ namespace DL
                 Longitude = longitude,
                 Name = name,
                 Address = address,
-             
-               
-            });
+                Exists = true
+
+            }) ;
             XMLtools.SaveListToXMLSerializer(ListStations, busStationPath);
         }//done!!
         public void UpdateBusStation(BusStation busStation)
         {
             List<BusStation> ListStations = XMLtools.LoadListFromXMLSerializer<BusStation>(busStationPath);
-            BusStation findBusStation = ListStations.FirstOrDefault(tmpBusStation => tmpBusStation.Code == busStation.Code);
+            BusStation findBusStation = ListStations.FirstOrDefault(tmpBusStation => tmpBusStation.Code == busStation.Code&& tmpBusStation.Exists);
 
             if (findBusStation != default(BusStation))
             {
@@ -524,7 +524,7 @@ namespace DL
             if (busStation != default(BusStation))
             {
 
-             
+                busStation.Exists = false;
                 XMLtools.SaveListToXMLSerializer(ListStations, busStationPath);
             }
             else
@@ -533,7 +533,7 @@ namespace DL
         public BusStation GetBusStation(int code)
         {
             List<BusStation> ListStations = XMLtools.LoadListFromXMLSerializer<BusStation>(busStationPath);
-            BusStation findBusStation = ListStations.Find(tmpBusStation => tmpBusStation.Code == code);
+            BusStation findBusStation = ListStations.Find(tmpBusStation => tmpBusStation.Code == code&& tmpBusStation.Exists);
 
             if (findBusStation != default(BusStation))
                 return findBusStation;
@@ -545,13 +545,13 @@ namespace DL
             List<BusStation> ListStations = XMLtools.LoadListFromXMLSerializer<BusStation>(busStationPath);
             return
                 from BusStation in ListStations
+                where BusStation.Exists
                 orderby BusStation.Code
                 select BusStation;
         }//done!!
         public IEnumerable<BusStation> GetAllBusStationsBy(Predicate<BusStation> predicate)
         {
-            List<BusStation> ListStations = XMLtools.LoadListFromXMLSerializer<BusStation>(busStationPath);
-            return from busStation in ListStations
+            return from busStation in GetAllBusStations()
                    where predicate(busStation)
                    select busStation;
         }   //done!!
