@@ -437,7 +437,7 @@ namespace DL
         }
         public User GetUser(string userName, string password)
         {
-            throw new NotImplementedException();
+            return new User();
         }
         public IEnumerable<User> GetAllUsersBy(Predicate<User> predicate)
         {

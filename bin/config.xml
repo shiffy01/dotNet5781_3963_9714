@@ -2,7 +2,7 @@
 <config>
   <dal>data</dal>
   <dal-packages>
-    <data>DLXML</data>
+    <data>DalObject</data>
     <xml namespace="DL" class="DLXML"> DLXML</xml>
   </dal-packages>
 </config>
