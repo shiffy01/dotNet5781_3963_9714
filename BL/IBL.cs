@@ -59,7 +59,6 @@ namespace BlApi
         IEnumerable<BusLine> SearchRoute(int startStation, int endStation);
         TimeSpan driveTime(int lineCode, int station1, int station2);
         IEnumerable<BusLine> GetBusLinesOfStation(int code);
-        IEnumerable<string> GetByCities();
        // void AddRouteSearchHistory(int id);
         
     }

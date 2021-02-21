@@ -54,37 +54,37 @@ namespace DL
         #endregion
 
        
-        public void CreateStationsList()//get list of all the stations in the country from stops.xml,
-                                        //convert them to our station type and save to new xml
-        {
-            XElement busStationsRootElem = XMLtools.LoadListFromXMLElement(busStationPath);
-            int counter = busStationsRootElem.Elements().Count();
-            if (counter == 0)
-            {
-                XElement badBusStationsRootElem = XMLtools.LoadListFromXMLElement(badBusStationsPath);
-                IEnumerable<BusStation> stops = from stop in badBusStationsRootElem.Elements()
-                                                select new BusStation() {
-                                                    Code = int.Parse(stop.Element("Code").Value),
-                                                    Name = stop.Element("Name").Value,
-                                                    Latitude = double.Parse(stop.Element("Latitude").Value),
-                                                    Longitude = double.Parse(stop.Element("Longitude").Value),
-                                                    Address = stop.Element("Address").Value,
-                                                };
-                foreach (var item in stops)
-                {
-                    XElement stationElem = new XElement("BusStation", new XElement("Code", item.Code),
-                                  new XElement("Name", item.Name),
-                                  new XElement("Latitude", item.Latitude),
-                                  new XElement("Longitude", item.Longitude),
-                                  new XElement("Address", item.Address)
-                                );
-                    busStationsRootElem.Add(stationElem);
-                }
+        //public void CreateStationsList()//get list of all the stations in the country from stops.xml,
+        //                                //convert them to our station type and save to new xml
+        //{
+        //    XElement busStationsRootElem = XMLtools.LoadListFromXMLElement(busStationPath);
+        //    int counter = busStationsRootElem.Elements().Count();
+        //    if (counter == 0)
+        //    {
+        //        XElement badBusStationsRootElem = XMLtools.LoadListFromXMLElement(badBusStationsPath);
+        //        IEnumerable<BusStation> stops = from stop in badBusStationsRootElem.Elements()
+        //                                        select new BusStation() {
+        //                                            Code = int.Parse(stop.Element("Code").Value),
+        //                                            Name = stop.Element("Name").Value,
+        //                                            Latitude = double.Parse(stop.Element("Latitude").Value),
+        //                                            Longitude = double.Parse(stop.Element("Longitude").Value),
+        //                                            Address = stop.Element("Address").Value,
+        //                                        };
+        //        foreach (var item in stops)
+        //        {
+        //            XElement stationElem = new XElement("BusStation", new XElement("Code", item.Code),
+        //                          new XElement("Name", item.Name),
+        //                          new XElement("Latitude", item.Latitude),
+        //                          new XElement("Longitude", item.Longitude),
+        //                          new XElement("Address", item.Address)
+        //                        );
+        //            busStationsRootElem.Add(stationElem);
+        //        }
                 
-                XMLtools.SaveListToXMLElement(busStationsRootElem, busStationPath);
-            }
+        //        XMLtools.SaveListToXMLElement(busStationsRootElem, busStationPath);
+        //    }
 
-        }
+        //}
 
 
         #region Bus implementation
@@ -483,17 +483,14 @@ namespace DL
         #endregion   
 
         #region  BusStation implementation
-        public void AddBusStation(int code, double latitude, double longitude, string name, string address)
+        public void AddBusStation(double latitude, double longitude, string name, string address)
         {
             List<BusStation> ListStations = XMLtools.LoadListFromXMLSerializer<BusStation>(busStationPath);
-            if (ListStations.FirstOrDefault(tmpBusStation => tmpBusStation.Code == code) != default(BusStation))
-            {
-                throw new StationAlreadyExistsException(code, $", Bus with License number: {code} already exists in the system");
-
-            }
+            int newCode = ListStations.OrderBy(b => b.Code).FirstOrDefault().Code+1;
+            
 
             ListStations.Add(new BusStation {
-                Code = code,
+                Code = newCode,
                 Latitude = latitude,
                 Longitude = longitude,
                 Name = name,

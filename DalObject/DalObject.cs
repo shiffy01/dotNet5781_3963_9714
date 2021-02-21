@@ -279,16 +279,13 @@ namespace DL
         #endregion   
 
         #region  BusStation implementation
-        public void AddBusStation(int code, double latitude, double longitude, string name, string address)
+        public void AddBusStation(double latitude, double longitude, string name, string address)
         {
-            if (DataSource.Stations.FirstOrDefault(tmpBusStation => tmpBusStation.Code == code) !=default(BusStation))
-            {
-                throw new StationAlreadyExistsException(code, $", Bus with License number: {code} already exists in the system");
-
-            }
+            int newCode = DataSource.Stations.OrderBy(b => b.Code).FirstOrDefault().Code+1;
+          
            
             DataSource.Stations.Add(new BusStation {
-                Code=code,
+                Code=newCode,
                 Latitude=latitude,
                 Longitude=longitude,
                 Name=name,
@@ -552,7 +549,7 @@ namespace DL
             throw new NotImplementedException();
         }
         #endregion
-        public void CreateStationsList()
+       // public void CreateStationsList()
         {
             throw new NotImplementedException();
         }

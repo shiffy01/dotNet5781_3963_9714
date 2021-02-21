@@ -102,35 +102,6 @@ namespace BL
             finalLicense += " ";
             return finalLicense;
         }
-        string GetCityFromAddress(string address)
-        {
-
-            int first_index = address.IndexOf("עיר") + 3;
-            int last_index = address.IndexOf("רציף");
-            int length;
-            if (last_index == -1)
-            {
-                string ans = address.Substring(first_index);
-                ans = ans.Replace(@" ", "");
-                return ans.Replace(@":", "");
-            }
-
-            length = last_index - first_index;
-            string answer;
-            if(length<0)
-                return "תל אביב";
-            try
-            {
-                answer = address.Substring(first_index, length);
-            }
-            catch (Exception)
-            {
-                return "תל אביב";
-            }
-            answer = answer.Replace(@" ", "");
-            return answer.Replace(@":", "");
-
-        }
         void FrequencyCheck(List<BusLineTime> times)
         {
             foreach (var t in times)
@@ -178,8 +149,7 @@ namespace BL
             catch (DataErrorException ex)
             {
                 throw ex;
-            }
-            BOstation.City = GetCityFromAddress(BOstation.Address);
+            }   
             return BOstation;
         }
         DO.BusStation ConvertStationBOtoDO(BusStation BOstation)
@@ -191,8 +161,7 @@ namespace BL
         StationOnTheLine DOtoBOstationOnTheLine(DO.BusStation DOstation)
         {
             StationOnTheLine BOstation = new StationOnTheLine();
-            DOstation.CopyPropertiesTo(BOstation);
-            BOstation.City = GetCityFromAddress(BOstation.Address);
+            DOstation.CopyPropertiesTo(BOstation);      
             return BOstation;
         }
         Bus ConvertDOtoBOBus(DO.Bus DOBus)
@@ -229,7 +198,6 @@ namespace BL
             BObusLine.Stations = list;
             BObusLine.Origin = list[0].Address;
             BObusLine.Destination = list[list.Count - 1].Address;
-            BObusLine.InterCity = (list[0].City == list[list.Count - 1].City);
 
             BObusLine.Times = from time in dal.GetAllLineFrequencyBy(f => f.LineID == BObusLine.BusID).OrderBy(t=>t.Start)
                               select new BusLineTime {
@@ -940,14 +908,7 @@ namespace BL
            
             //sort the list by time, make a seperate function for that
         }
-        #endregion
-        public IEnumerable<string> GetByCities()
-        {
-            var list= from b in GetAllBusStations()
-                   group b by b.City;
-            return from s in list
-                   select s.Key;
-        }
+        #endregion    
         public IEnumerable<BusLine> GetBusLinesOfStation(int code)
         {
             try
