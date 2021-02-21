@@ -35,7 +35,7 @@ namespace BlApi
         #endregion
 
         #region BusStation
-        void AddBusStation(int code, double latitude, double longitude, string name, string address, string city);
+        void AddBusStation(double latitude, double longitude, string name, string address);
         void UpdateBusStation(int code, string name);
         void DeleteBusStation(int stationID); 
         BusStation GetBusStation(int stationID);

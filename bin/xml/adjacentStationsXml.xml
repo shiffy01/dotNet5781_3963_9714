@@ -6,6 +6,7 @@
     <Stop_2_code>102</Stop_2_code>
     <Distance>32.4</Distance>
     <Average_drive_time>30</Average_drive_time>
+    <Exists>true</Exists>
   </AdjacentStations>
   <AdjacentStations>
     <PairID>102103</PairID>
@@ -13,6 +14,7 @@
     <Stop_2_code>103</Stop_2_code>
     <Distance>32.4</Distance>
     <Average_drive_time>20</Average_drive_time>
+    <Exists>true</Exists>
   </AdjacentStations>
   <AdjacentStations>
     <PairID>103104</PairID>
@@ -20,6 +22,7 @@
     <Stop_2_code>104</Stop_2_code>
     <Distance>60</Distance>
     <Average_drive_time>60</Average_drive_time>
+    <Exists>true</Exists>
   </AdjacentStations>
   <AdjacentStations>
     <PairID>104105</PairID>
@@ -27,6 +30,7 @@
     <Stop_2_code>105</Stop_2_code>
     <Distance>19</Distance>
     <Average_drive_time>32</Average_drive_time>
+    <Exists>true</Exists>
   </AdjacentStations>
   <AdjacentStations>
     <PairID>101111</PairID>
@@ -34,6 +38,7 @@
     <Stop_2_code>111</Stop_2_code>
     <Distance>39.8</Distance>
     <Average_drive_time>30</Average_drive_time>
+    <Exists>true</Exists>
   </AdjacentStations>
   <AdjacentStations>
     <PairID>111114</PairID>
@@ -41,6 +46,7 @@
     <Stop_2_code>114</Stop_2_code>
     <Distance>34</Distance>
     <Average_drive_time>29</Average_drive_time>
+    <Exists>true</Exists>
   </AdjacentStations>
   <AdjacentStations>
     <PairID>114103</PairID>
@@ -48,6 +54,7 @@
     <Stop_2_code>103</Stop_2_code>
     <Distance>32.4</Distance>
     <Average_drive_time>39</Average_drive_time>
+     <Exists>true</Exists>
   </AdjacentStations>
   <AdjacentStations>
     <PairID>103120</PairID>
@@ -55,6 +62,7 @@
     <Stop_2_code>120</Stop_2_code>
     <Distance>67</Distance>
     <Average_drive_time>13</Average_drive_time>
+    <Exists>true</Exists>
   </AdjacentStations>
   <AdjacentStations>
     <PairID>110112</PairID>
@@ -62,6 +70,7 @@
     <Stop_2_code>112</Stop_2_code>
     <Distance>33</Distance>
     <Average_drive_time>54</Average_drive_time>
+    <Exists>true</Exists>
   </AdjacentStations>
   <AdjacentStations>
     <PairID>112104</PairID>
@@ -69,6 +78,7 @@
     <Stop_2_code>104</Stop_2_code>
     <Distance>34</Distance>
     <Average_drive_time>65</Average_drive_time>
+    <Exists>true</Exists>
   </AdjacentStations>
   <AdjacentStations>
     <PairID>104117</PairID>
@@ -76,6 +86,7 @@
     <Stop_2_code>117</Stop_2_code>
     <Distance>32.4</Distance>
     <Average_drive_time>30</Average_drive_time>
+    <Exists>true</Exists>
   </AdjacentStations>
   <AdjacentStations>
     <PairID>117105</PairID>
@@ -83,6 +94,7 @@
     <Stop_2_code>105</Stop_2_code>
     <Distance>31</Distance>
     <Average_drive_time>32</Average_drive_time>
+    <Exists>true</Exists>
   </AdjacentStations>
   <AdjacentStations>
     <PairID>110108</PairID>
@@ -90,6 +102,7 @@
     <Stop_2_code>108</Stop_2_code>
     <Distance>32.4</Distance>
     <Average_drive_time>34</Average_drive_time>
+    <Exists>true</Exists>
   </AdjacentStations>
   <AdjacentStations>
     <PairID>108113</PairID>
@@ -97,6 +110,7 @@
     <Stop_2_code>113</Stop_2_code>
     <Distance>35.5</Distance>
     <Average_drive_time>35</Average_drive_time>
+    <Exists>true</Exists>
   </AdjacentStations>
   <AdjacentStations>
     <PairID>113119</PairID>
@@ -104,6 +118,7 @@
     <Stop_2_code>119</Stop_2_code>
     <Distance>45</Distance>
     <Average_drive_time>40</Average_drive_time>
+     <Exists>true</Exists>
   </AdjacentStations>
   <AdjacentStations>
     <PairID>119115</PairID>
@@ -111,6 +126,7 @@
     <Stop_2_code>115</Stop_2_code>
     <Distance>90</Distance>
     <Average_drive_time>50</Average_drive_time>
+    <Exists>true</Exists>
   </AdjacentStations>
   <AdjacentStations>
     <PairID>102107</PairID>
@@ -118,6 +134,7 @@
     <Stop_2_code>107</Stop_2_code>
     <Distance>51.9</Distance>
     <Average_drive_time>10</Average_drive_time>
+    <Exists>true</Exists>
   </AdjacentStations>
   <AdjacentStations>
     <PairID>107109</PairID>
@@ -125,6 +142,7 @@
     <Stop_2_code>109</Stop_2_code>
     <Distance>40</Distance>
     <Average_drive_time>30</Average_drive_time>
+    <Exists>true</Exists>
   </AdjacentStations>
   <AdjacentStations>
     <PairID>109114</PairID>
@@ -132,6 +150,7 @@
     <Stop_2_code>114</Stop_2_code>
     <Distance>32.5</Distance>
     <Average_drive_time>70</Average_drive_time>
+    <Exists>true</Exists>
   </AdjacentStations>
   <AdjacentStations>
     <PairID>114118</PairID>
@@ -139,5 +158,6 @@
     <Stop_2_code>118</Stop_2_code>
     <Distance>30</Distance>
     <Average_drive_time>25</Average_drive_time>
+     <Exists>true</Exists>
   </AdjacentStations>
 </ArrayOfAdjacentStations>

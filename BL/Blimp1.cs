@@ -556,16 +556,11 @@ namespace BL
             }
             return null;
         }
-        public void AddBusStation(int code, double latitude, double longitude, string name, string address, string city)
+        public void AddBusStation(double latitude, double longitude, string name, string address)
         {
-            try
-            {
-                dal.AddBusStation(code, latitude, longitude, name, address);
-            }
-            catch (DO.StationAlreadyExistsException ex)
-            {
-                throw new StationALreadyExistsException(code, "You can't add a bus station that is already in the system", ex);
-            }
+           
+                dal.AddBusStation(latitude, longitude, name, address);
+          
         }
         public void DeleteBusStation(int stationID)//BONUS, not implemented
         {

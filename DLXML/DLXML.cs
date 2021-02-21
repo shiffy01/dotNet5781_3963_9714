@@ -314,6 +314,7 @@ namespace DL
             XElement freq = (from l in FrequencyRootElem.Elements()
                              where l.Element("ID").Value == lineID.ToString() + start.ToString() && bool.Parse(l.Element("Exists").Value)
                              select l).FirstOrDefault();
+           // int newID= FrequencyRootElem.
             if (freq != null)
                 throw new LineFrequencyAlreadyExistsException("this frequency already exists");
 
@@ -380,8 +381,8 @@ namespace DL
                     select new LineFrequency() {
                         ID = f.Element("ID").Value,
                         LineID = int.Parse(f.Element("LineID").Value),
-                        Start = new DateTime(0, 0, 0, int.Parse(f.Element("StartHour").Value), int.Parse(f.Element("StartMinute").Value), 0),
-                        End = new DateTime(0, 0, 0, int.Parse(f.Element("EndHour").Value), int.Parse(f.Element("EndMinute").Value), 0),
+                        Start = new DateTime(2000, 01, 01, int.Parse(f.Element("StartHour").Value), int.Parse(f.Element("StartMinute").Value), 0),
+                        End = new DateTime(2000, 01, 01, int.Parse(f.Element("EndHour").Value), int.Parse(f.Element("EndMinute").Value), 0),
                         Frequency = new TimeSpan(int.Parse(f.Element("FrequencyHours").Value), int.Parse(f.Element("FrequencyMinutes").Value), 0)
                     });
         }
@@ -393,8 +394,8 @@ namespace DL
                        select new LineFrequency() {
                            ID = f.Element("ID").Value,
                            LineID = int.Parse(f.Element("LineID").Value),
-                           Start = new DateTime(0, 0, 0, int.Parse(f.Element("StartHour").Value), int.Parse(f.Element("StartMinute").Value), 0),
-                           End = new DateTime(0, 0, 0, int.Parse(f.Element("EndHour").Value), int.Parse(f.Element("EndMinute").Value), 0),
+                           Start = new DateTime(2000, 01, 01, int.Parse(f.Element("StartHour").Value), int.Parse(f.Element("StartMinute").Value), 0),
+                           End = new DateTime(2000, 01, 01, int.Parse(f.Element("EndHour").Value), int.Parse(f.Element("EndMinute").Value), 0),
                            Frequency = new TimeSpan(int.Parse(f.Element("FrequencyHours").Value), int.Parse(f.Element("FrequencyMinutes").Value), 0)
                        }).FirstOrDefault();
             if (freq == null)

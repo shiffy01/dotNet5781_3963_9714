@@ -1,3 +1,58 @@
 <?xml version="1.0"?>
 <ArrayOfLineFrequency xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <LineFrequency>
+    <ID>30000001/1/2000 8:00:00 AM</ID>
+    <LineID>3000000</LineID>
+    <StartHour>8</StartHour>
+    <StartMinute>0</StartMinute>
+    <EndHour>12</EndHour>
+    <EndMinute>0</EndMinute>
+    <FrequencyHours>1</FrequencyHours>
+    <FrequencyMinutes>0</FrequencyMinutes>
+    <Exists>true</Exists>
+  </LineFrequency>
+  <LineFrequency>
+    <ID>30000011/1/2000 8:00:00 AM</ID>
+    <LineID>3000001</LineID>
+    <StartHour>8</StartHour>
+    <StartMinute>0</StartMinute>
+    <EndHour>12</EndHour>
+    <EndMinute>0</EndMinute>
+    <FrequencyHours>1</FrequencyHours>
+    <FrequencyMinutes>0</FrequencyMinutes>
+    <Exists>true</Exists>
+  </LineFrequency>
+  <LineFrequency>
+    <ID>30000021/1/2000 8:00:00 AM</ID>
+    <LineID>3000002</LineID>
+    <StartHour>8</StartHour>
+    <StartMinute>0</StartMinute>
+    <EndHour>12</EndHour>
+    <EndMinute>0</EndMinute>
+    <FrequencyHours>1</FrequencyHours>
+    <FrequencyMinutes>0</FrequencyMinutes>
+    <Exists>true</Exists>
+  </LineFrequency>
+  <LineFrequency>
+    <ID>30000031/1/2000 8:00:00 AM</ID>
+    <LineID>3000003</LineID>
+    <StartHour>8</StartHour>
+    <StartMinute>0</StartMinute>
+    <EndHour>12</EndHour>
+    <EndMinute>0</EndMinute>
+    <FrequencyHours>1</FrequencyHours>
+    <FrequencyMinutes>0</FrequencyMinutes>
+    <Exists>true</Exists>
+  </LineFrequency>
+  <LineFrequency>
+    <ID>30000041/1/2000 8:00:00 AM</ID>
+    <LineID>3000004</LineID>
+    <StartHour>8</StartHour>
+    <StartMinute>0</StartMinute>
+    <EndHour>12</EndHour>
+    <EndMinute>0</EndMinute>
+    <FrequencyHours>1</FrequencyHours>
+    <FrequencyMinutes>0</FrequencyMinutes>
+    <Exists>true</Exists>
+  </LineFrequency>
 </ArrayOfLineFrequency>
