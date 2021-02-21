@@ -27,7 +27,6 @@ namespace PL1
         void initialize()
         {
             stationGrid.DataContext = station;
-            var list =
             busLineDataGrid.DataContext = bl.GetBusLinesOfStation(station.Code);
         }
         public StationDetails(IBL bl1, BO.User user, bool manage, BO.BusStation bus1)
@@ -38,6 +37,7 @@ namespace PL1
             station = bus1;
             if (!manage)
                 Edit.Visibility = Visibility.Hidden;
+            initialize();
         }
         private void editClick(object sender, RoutedEventArgs e)
         {

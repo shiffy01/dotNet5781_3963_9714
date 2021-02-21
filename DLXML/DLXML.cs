@@ -487,7 +487,7 @@ namespace DL
         public void AddBusStation(double latitude, double longitude, string name, string address)
         {
             List<BusStation> ListStations = XMLtools.LoadListFromXMLSerializer<BusStation>(busStationPath);
-            int newCode = ListStations.OrderBy(b => b.Code).FirstOrDefault().Code+1;
+            int newCode = ListStations.OrderByDescending(b => b.Code).FirstOrDefault().Code+1;
 
 
             ListStations.Add(new BusStation {

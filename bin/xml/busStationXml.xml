@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ArrayOfBusStations xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<ArrayOfBusStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <BusStation>
     <Code>101</Code>
     <Name>Big mall</Name>
@@ -160,4 +160,12 @@
     <Address>Ayalon 32</Address>
     <Exists>true</Exists>
   </BusStation>
-</ArrayOfBusStations>
+  <BusStation>
+    <Code>121</Code>
+    <Name>Pninei Chen</Name>
+    <Latitude>28</Latitude>
+    <Longitude>29</Longitude>
+    <Address>Nachal Refaim 40</Address>
+    <Exists>true</Exists>
+  </BusStation>
+</ArrayOfBusStation>

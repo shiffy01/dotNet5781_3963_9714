@@ -108,12 +108,7 @@ namespace PL1
             initialize();
         }
        
-        private void busStationDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            DataGridRow row = sender as DataGridRow;
-            StationDetails details = new StationDetails(bl, User, Manage, row.DataContext as BO.BusStation);
-            NavigationService.Navigate(details);
-        }
+       
 
        
     }
