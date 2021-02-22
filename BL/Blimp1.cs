@@ -918,6 +918,18 @@ namespace BL
                 throw new DataErrorException("Data error");
             }
         }
+        public string printTimes(List<BusLineTime> times)
+        {
+            string s = "";
+           
+            foreach(var t in times)
+            {
+                s += "start: "+t.Start.TimeOfDay.ToString()+" end: "+t.End.TimeOfDay.ToString()+" frequency: "+t.Frequency.ToString()+@"
+                     ";
+            }
+           
+            return s;
+        }
     }
    
 

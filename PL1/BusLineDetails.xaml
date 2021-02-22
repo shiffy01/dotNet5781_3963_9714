@@ -54,31 +54,9 @@
                 
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid x:Name="busLineTimeDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource busLineTimeViewSource}}" Margin="352,324,48,49" RowDetailsVisibilityMode="VisibleWhenSelected">
-            <DataGrid.Columns>
-                <DataGridTemplateColumn x:Name="endColumn" Header="End" Width="SizeToHeader">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Label Content="{Binding End}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn x:Name="frequencyColumn" Header="Frequency" Width="SizeToHeader">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Label Content="{Binding Frequency}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn x:Name="startColumn" Header="Start" Width="SizeToHeader">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Label Content="{Binding Start}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>
-        </DataGrid>
-
+        <TextBlock x:Name="timesText" FontSize="20" Margin="352,363,48,50"/>
+        <Label Margin="362,290,258,206" Content="Times:" FontSize="20">
+           
+        </Label>
     </Grid>
 </Page>

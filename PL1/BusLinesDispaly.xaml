@@ -46,7 +46,7 @@
                 <DataGridTemplateColumn x:Name="deleteLine_Btn"  Width="70">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button     Style="{StaticResource MaterialDesignFlatLightBgButton}" Width="Auto" Padding="0" ToolTip="delete" Margin="0,2,-6,1.667" Height="29" Click="DeleteLineButton_Click" Background="{x:Null}" BorderBrush="{x:Null}">
+                            <Button     Style="{StaticResource MaterialDesignFlatLightBgButton}" Width="Auto" Padding="0" ToolTip="delete" Margin="0,2,-6,1.667" Height="29" Click="DeleteLineButton_Click" CommandParameter="{Binding Path=BusID}" Background="{x:Null}" BorderBrush="{x:Null}">
                                 <materialDesign:PackIcon Kind="TrashCan" Width="30" Height="30" Foreground="#00838F" HorizontalAlignment="Left" />
                                
                             </Button>
@@ -57,7 +57,7 @@
                 <DataGridTemplateColumn x:Name="updateLine_Btn"  Width="70">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button     Style="{StaticResource MaterialDesignFlatLightBgButton}" Width="Auto" Padding="0" ToolTip="update" Margin="1,0,3,0" Height="29" Click="UpdateLineButton_Click" Background="{x:Null}" BorderBrush="{x:Null}">
+                            <Button     Style="{StaticResource MaterialDesignFlatLightBgButton}" Width="Auto" Padding="0" ToolTip="update" Margin="1,0,3,0" Height="29" Click="UpdateLineButton_Click" CommandParameter="{Binding Path=BusID}" Background="{x:Null}" BorderBrush="{x:Null}">
                                 <materialDesign:PackIcon Kind="Update" Width="30" Height="30" Foreground="#00838F" HorizontalAlignment="Left"/>
                             </Button>
                         </DataTemplate>

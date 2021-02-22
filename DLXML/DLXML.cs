@@ -375,7 +375,7 @@ namespace DL
         }
         public IEnumerable<LineFrequency> GetAllLineFrequency()
         {
-            XElement frequencyRoot = XMLtools.LoadListFromXMLElement(busPath);
+            XElement frequencyRoot = XMLtools.LoadListFromXMLElement(lineFrequencyPath);
             return (from f in frequencyRoot.Elements()
                     where bool.Parse(f.Element("Exists").Value)
                     select new LineFrequency() {

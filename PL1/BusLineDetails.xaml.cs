@@ -26,7 +26,7 @@ namespace PL1
         void initialize()
         {
             stationsGrid.DataContext = line.Stations.OrderBy(b=>b.Number_on_route);
-            busLineTimeDataGrid.DataContext = line.Times.OrderBy(b=>b.Start);
+            timesText.Text = bl.printTimes(line.Times.ToList());
             lineGrid.DataContext = line;
         }
         public BusLineDetails(IBL bl1, BO.BusLine line1)

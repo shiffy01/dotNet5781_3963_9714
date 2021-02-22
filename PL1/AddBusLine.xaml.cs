@@ -13,7 +13,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
-using BO;
 using BlApi;
 
 namespace PL1
@@ -23,30 +22,25 @@ namespace PL1
     /// </summary>
     public partial class AddBusLine : Page
     {
-        ObservableCollection<BO.BusLineTime> LineTimes;
+        List<BO.BusLineTime> LineTimes;
         static IBL bl;
         BO.User User;
-        ObservableCollection<BusStation> all_stations;
-        List<int> stationsToAdd;
+      //  ObservableCollection<BO.BusStation> all_stations;
+        List<BO.BusStation> stationsToAdd=new List<BO.BusStation>();
         int Index=0;
         int Code1;
         int Code2;
         string askForDistance;
-        string askForTime;
-        List<string> distances;
-        string TimePickerDefultText;
+        //string askForTime;
+        //List<string> distances;
+        //string TimePickerDefultText;
         void initialize()
         {
+            timesText.Text = bl.printTimes(LineTimes);
+            busStationDataGrid.DataContext = bl.GetAllBusStations();
+            stationOnTheLineDataGrid.DataContext = stationsToAdd;
 
-            IEnumerable<BusStation> stationIenumerable = bl.GetAllBusStations();
-            all_stations = new ObservableCollection<BusStation>(stationIenumerable);
-            stationsToAdd = new List<int>();
-            LineTimes = new ObservableCollection<BO.BusLineTime>();
-            LineTimes.Add(new BO.BusLineTime {
-                Start = new DateTime( 2000, 8, 1, 1, 00, 00),
-                Frequency = new TimeSpan(1, 0, 0, 0),
-                End = new DateTime( 2000, 11, 1, 1, 00, 00)
-            });
+
             Index = 0;
            
         }
@@ -55,7 +49,7 @@ namespace PL1
             bl = bl1;
             InitializeComponent();
             initialize();
-            busLineTimeDataGrid.DataContext = LineTimes;
+            
             
             User = user;
            
@@ -209,19 +203,18 @@ namespace PL1
                     System.Windows.MessageBoxResult mb = MessageBox.Show(ex.Message);
                 }
             }
-        }
-        //Checked="addStation" Unchecked="removeStation"
+        } 
         private void addStation(object sender, RoutedEventArgs e)
         {
-            DataGridRow row = sender as DataGridRow;
-            stationsToAdd.Add((row.DataContext as BO.StationOnTheLine).Code);
+            //DataGridRow row = sender as DataGridRow;
+            object ID = ((CheckBox)sender).CommandParameter;
+            stationsToAdd.Add(bl.GetBusStation((int)ID));
         }
         private void removeStation(object sender, RoutedEventArgs e)
         {
-            DataGridRow row = sender as DataGridRow;
-            stationsToAdd.Remove((row.DataContext as BO.StationOnTheLine).Code);
+            object ID = ((CheckBox)sender).CommandParameter;
+            stationsToAdd.Remove(bl.GetBusStation((int)ID));
         }
-        
         private void AddTime(object sender, RoutedEventArgs e)
         {
             LineTimes.Add(new BO.BusLineTime {
@@ -230,11 +223,7 @@ namespace PL1
                 End = new DateTime(2000, 11, 1, 1, 00, 00)
             });
         }
-        private void removeTimeClick(object sender, RoutedEventArgs e)
-        {
-            DataGridRow row = sender as DataGridRow;
-            LineTimes.Remove(row.DataContext as BusLineTime);
-        }
+        
         private void accept(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(distance_tb.Text)|| !(DriveTimePicker.SelectedTime.HasValue))
@@ -272,8 +261,11 @@ namespace PL1
             NavigationService.Navigate(busLineDisplay);
 
         }
-
-
+        private void refreshClick(object sender, RoutedEventArgs e)
+        {
+            timesText.Text = "";
+        }
+     
 
     }
 }
