@@ -26,8 +26,8 @@ namespace PL1
         BO.BusStation station;
         void initialize()
         {
-            stationGrid.DataContext = station;
-            busLineDataGrid.DataContext = bl.GetBusLinesOfStation(station.Code);
+            stationGrid.DataContext = bl.GetBusStation(station.Code);
+            busLineDataGrid.DataContext = station.Lines;
         }
         public StationDetails(IBL bl1, BO.User user, bool manage, BO.BusStation bus1)
         {
@@ -39,19 +39,22 @@ namespace PL1
                 Edit.Visibility = Visibility.Hidden;
             initialize();
         }
+        private void editNameClick(object sender, RoutedEventArgs e)
+        {
+            popUp.IsOpen = true;
+        }
         private void editClick(object sender, RoutedEventArgs e)
         {
-            if (namebox.Text != null)
+            try
             {
-                try
-                {
+                if (!string.IsNullOrEmpty(namebox.Text))
                     bl.UpdateBusStation(station.Code, namebox.Text);
-                }
-                catch (BO.StationNotFoundException ex)
-                {
-                    MessageBoxResult mb = MessageBox.Show("Something went wrong. we regret the error.");
-                }
+                popUp.IsOpen = false;
                 initialize();
+            }
+            catch (BO.StationNotFoundException)
+            {
+                MessageBox.Show("Something went wrong. We regret the error.");
             }
         }
     }

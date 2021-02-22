@@ -8,14 +8,14 @@
       xmlns:BO="clr-namespace:BO;assembly=BL"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="BusLinesDispaly" Background="White" Height="540" Width="1010" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+      Title="BusLinesDispaly" Background="White" Width="1010" Height="540" VerticalAlignment="Bottom" HorizontalAlignment="Right">
 
     <Page.Resources>
         <CollectionViewSource x:Key="busLineViewSource" d:DesignSource="{d:DesignInstance {x:Type BO:BusLine}, CreateList=True}"/>
     </Page.Resources>
 
     <Grid DataContext="{StaticResource busLineViewSource}">
-        <DataGrid x:Name="busLineDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="83,148,467,93" RowDetailsVisibilityMode="VisibleWhenSelected">
+        <DataGrid x:Name="busLineDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="209,79,341,162" RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Resources>
                 <Style TargetType="DataGridRow">
                     <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
@@ -65,7 +65,7 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="addButton" Content="Add" Click="AddClick" HorizontalAlignment="Left" Margin="281,382,0,0" VerticalAlignment="Top" Width="221" Height="42"/>
+        <Button x:Name="addButton" Content="Add" Click="AddClick" HorizontalAlignment="Left" Margin="345,447,0,0" VerticalAlignment="Top" Width="221" Height="42"/>
 
 
 

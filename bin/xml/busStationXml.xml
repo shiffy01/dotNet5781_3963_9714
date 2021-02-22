@@ -9,14 +9,6 @@
     <Exists>true</Exists>
   </BusStation>
   <BusStation>
-    <Code>102</Code>
-    <Name>Matnas Dolev</Name>
-    <Latitude>31.3</Latitude>
-    <Longitude>31.5</Longitude>
-    <Address>Dolev 10</Address>
-    <Exists>true</Exists>
-  </BusStation>
-  <BusStation>
     <Code>103</Code>
     <Name>Dolev park</Name>
     <Latitude>31.4</Latitude>
@@ -166,6 +158,14 @@
     <Latitude>28</Latitude>
     <Longitude>29</Longitude>
     <Address>Nachal Refaim 40</Address>
+    <Exists>true</Exists>
+  </BusStation>
+  <BusStation>
+    <Code>102</Code>
+    <Name>Matnas Dolev</Name>
+    <Latitude>31.3</Latitude>
+    <Longitude>31.5</Longitude>
+    <Address>Dolev 10</Address>
     <Exists>true</Exists>
   </BusStation>
 </ArrayOfBusStation>

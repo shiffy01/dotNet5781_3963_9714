@@ -23,6 +23,10 @@ namespace PL1
     {
         IBL bl;
         BO.User User;
+        void initialize()
+        {
+            busLineDataGrid.DataContext = bl.GetAllBusLines();
+        }
         public BusLinesDispaly(IBL bl1, BO.User user, bool manage)
         {
             InitializeComponent();
@@ -30,6 +34,7 @@ namespace PL1
             User = user;
             if (!manage)
                 addButton.Visibility = Visibility.Hidden;
+            initialize();
         }
         private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
         {

@@ -42,7 +42,7 @@
             <Label VerticalAlignment="Center" Grid.Row="4" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Latitude:"/>
             <Label x:Name="latitudeLabel" VerticalAlignment="Center" Grid.Row="4" Margin="3" HorizontalAlignment="Left" Grid.Column="1" Content="{Binding Latitude}"/>
         </Grid>
-        <DataGrid x:Name="busLineDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="348,59,52,191" RowDetailsVisibilityMode="VisibleWhenSelected">
+        <DataGrid x:Name="busLineDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="348,105,52,191" RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
                 <DataGridTemplateColumn x:Name="bus_line_numberColumn" Header="Bus line number" Width="SizeToHeader">
                     <DataGridTemplateColumn.CellTemplate>
@@ -67,18 +67,21 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
+        <Label Content="Bus Lines:" FontSize="15" Margin="348,59,531,457"/>
         <materialDesign:DialogHost x:Name="popUp" IsOpen="False">
             <materialDesign:DialogHost.DialogContent>
                 <Grid>
+                    <StackPanel>
                     <TextBox x:Name="namebox"
   materialDesign:TextFieldAssist.TextBoxViewMargin="1 0 1 0"
   materialDesign:HintAssist.FloatingScale="0.50"
   Style="{StaticResource MaterialDesignFloatingHintTextBox}"
   FontSize="15" />
-                    <Button Content="Edit" Click="editClick"/> 
+                    <Button Content="Edit" Click="editClick"/>
+                    </StackPanel>
                 </Grid>
             </materialDesign:DialogHost.DialogContent>
-            <Button x:Name="Edit" Click="editClick" Content="Edit Name" HorizontalAlignment="Left" Margin="57,318,0,0" VerticalAlignment="Top" Width="114" Height="33"/>
+            <Button x:Name="Edit" Click="editNameClick" Content="Edit Name" HorizontalAlignment="Left" Margin="57,318,0,0" VerticalAlignment="Top" Width="114" Height="33"/>
         </materialDesign:DialogHost>
         
 

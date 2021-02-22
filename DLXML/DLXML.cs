@@ -267,7 +267,7 @@ namespace DL
         public BusLine GetBusLine(int busID)
         {
             List<BusLine> ListLines = XMLtools.LoadListFromXMLSerializer<BusLine>(busLinePath);
-            BusLine line = ListLines.FirstOrDefault();
+            BusLine line = ListLines.FirstOrDefault(b=>b.Exists&&b.BusID==busID);
             if (line != default(BusLine))
                 return line;
             else
