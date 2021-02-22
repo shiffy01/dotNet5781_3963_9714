@@ -22,25 +22,19 @@ namespace PL1
     /// </summary>
     public partial class AddBusLine : Page
     {
-        List<BO.BusLineTime> LineTimes;
+        List<BO.BusLineTime> LineTimes=new List<BO.BusLineTime>();
         static IBL bl;
         BO.User User;
-      //  ObservableCollection<BO.BusStation> all_stations;
         List<BO.BusStation> stationsToAdd=new List<BO.BusStation>();
         int Index=0;
         int Code1;
         int Code2;
-        string askForDistance;
-        //string askForTime;
-        //List<string> distances;
-        //string TimePickerDefultText;
+        List<string> distances;
         void initialize()
         {
             timesText.Text = bl.printTimes(LineTimes);
             busStationDataGrid.DataContext = bl.GetAllBusStations();
             stationOnTheLineDataGrid.DataContext = stationsToAdd;
-
-
             Index = 0;
            
         }
@@ -169,13 +163,16 @@ namespace PL1
         
         private void addLine_Click(object sender, RoutedEventArgs e)
         {
-            if (IsAllFilled())
-            {
+            
                 List<string> needed_distances = null;
-
+                List<int> stationNumbers = new List<int>();
+                foreach (var item in stationsToAdd)
+                {
+                    stationNumbers.Add(item.Code);
+                }
                 try
                 {
-                    needed_distances = bl.AddBusLine(int.Parse(Line_tb.Text), stationsToAdd, (LineTimes).ToList());
+                    needed_distances = bl.AddBusLine(int.Parse(Line_tb.Text), stationNumbers, (LineTimes).ToList());
                     MessageBoxResult mb = MessageBox.Show("The bus was added to the system");
                     if (needed_distances == null || needed_distances.Count == 0)
                     {
@@ -185,14 +182,14 @@ namespace PL1
 
                     else
                     {
-                       
+                        distances = needed_distances;
                         distance.IsOpen = true;
                         createDialogeContent();
                        
 
                     }
                 }
-                catch (FrequencyConflictException ex)
+                catch (BO.FrequencyConflictException ex)
                 {
                     System.Windows.MessageBoxResult mb = MessageBox.Show(ex.Message);
 
@@ -202,34 +199,48 @@ namespace PL1
                 {
                     System.Windows.MessageBoxResult mb = MessageBox.Show(ex.Message);
                 }
-            }
+            
         } 
         private void addStation(object sender, RoutedEventArgs e)
         {
             //DataGridRow row = sender as DataGridRow;
             object ID = ((CheckBox)sender).CommandParameter;
             stationsToAdd.Add(bl.GetBusStation((int)ID));
+            var stat = from s in stationsToAdd
+                       select s;
+            stationOnTheLineDataGrid.DataContext = stat;
+            if (IsAllFilled())
+                addLineButton.IsEnabled = true;
+            else
+                addLineButton.IsEnabled = false;
+
         }
         private void removeStation(object sender, RoutedEventArgs e)
         {
             object ID = ((CheckBox)sender).CommandParameter;
-            stationsToAdd.Remove(bl.GetBusStation((int)ID));
+            List<BO.BusStation> list= new List<BO.BusStation>();
+            foreach (var item in stationsToAdd)
+            {
+                if (item.Code != (int)ID)
+                    list.Add(item);
+            }
+            stationsToAdd = list;
+            var stat = from s in stationsToAdd
+                       select s;
+            stationOnTheLineDataGrid.DataContext = stat;
+            if (IsAllFilled())
+                addLineButton.IsEnabled = true;
+            else
+                addLineButton.IsEnabled = false;
         }
         private void AddTime(object sender, RoutedEventArgs e)
         {
-            LineTimes.Add(new BO.BusLineTime {
-                Start = new DateTime(2000, 8, 1, 1, 00, 00),
-                Frequency = new TimeSpan(1, 0, 0, 0),
-                End = new DateTime(2000, 11, 1, 1, 00, 00)
-            });
-        }
-        
+            addTimeDialog.IsOpen = true;
+        }       
         private void accept(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(distance_tb.Text)|| !(DriveTimePicker.SelectedTime.HasValue))
-                return;
-            //if (DriveTimePicker.SelectedTime.Value.Hour > 24 || DriveTimePicker.SelectedTime.Value.Minute > 59)
-            //    DriveTimePicker.Text = "00:00";
+                return;   
                 
 
                 bl.AddAdjacentStations(Code1, Code2, double.Parse(distance_tb.Text), new TimeSpan(DriveTimePicker.SelectedTime.Value.Hour, DriveTimePicker.SelectedTime.Value.Minute,0));
@@ -243,7 +254,7 @@ namespace PL1
             if (result == MessageBoxResult.Yes)
             {
 
-                for (int i = Index; i < distances.Count; i++)
+                for (int i = Index-1; i < distances.Count; i++)
                 {
                     splitStringTOTwoInts(distances[i], ref Code1, ref Code2, '*');
                     try
@@ -255,22 +266,49 @@ namespace PL1
                         MessageBoxResult result2 = System.Windows.MessageBox.Show(ex.Message, " Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
+                BusLinesDispaly busLineDisplay = new BusLinesDispaly(bl, User, true);
+                NavigationService.Navigate(busLineDisplay);
             }
 
-                BusLinesDispaly busLineDisplay = new BusLinesDispaly(bl, User, true);
-            NavigationService.Navigate(busLineDisplay);
+               
 
         }
         private void refreshClick(object sender, RoutedEventArgs e)
         {
             timesText.Text = "";
+            LineTimes = new List<BO.BusLineTime>();
+            addLineButton.IsEnabled = false;
         }
-     
+        private void AddTimeClick(object sender, RoutedEventArgs e)
+        {
+            if (!(startTimePicker.SelectedTime.HasValue && endTimePicker.SelectedTime.HasValue && freqTimePicker.SelectedTime.HasValue))
+                return;
+            LineTimes.Add(new BO.BusLineTime {
+                Start = new DateTime(2000, 01, 01, startTimePicker.SelectedTime.Value.Hour, startTimePicker.SelectedTime.Value.Minute, 0),
+                End= new DateTime(2000, 01, 01, endTimePicker.SelectedTime.Value.Hour, endTimePicker.SelectedTime.Value.Minute, 0),
+                Frequency= new TimeSpan(freqTimePicker.SelectedTime.Value.Hour, freqTimePicker.SelectedTime.Value.Minute, 0)
+            }) ;
+            addTimeDialog.IsOpen = false;
+            timesText.Text = bl.printTimes(LineTimes);
+            if (IsAllFilled())
+                addLineButton.IsEnabled = true;
+            else
+                addLineButton.IsEnabled = false;
+        }
+        private void CancelTimeClick(object sender, RoutedEventArgs e)
+        {
+            addTimeDialog.IsOpen = false;
+        }
+        private void lineNumberTextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (IsAllFilled())
+                addLineButton.IsEnabled = true;
+            else
+                addLineButton.IsEnabled = false;
+        }
+
 
     }
 }
-        //private void saveTimeButton_Click(object sender, RoutedEventArgs e)
-        //{
-            
-        //}
+        
         

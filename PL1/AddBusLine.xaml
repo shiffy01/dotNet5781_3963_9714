@@ -27,10 +27,9 @@
                     <materialDesign:TimePicker Is24Hours="True" x:Name="DriveTimePicker" Width="100" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <Button Style="{StaticResource MaterialDesignFlatButton}" Click="accept" ToolTip="MaterialDesignFlatButton">
-                        ACCEPT
+                    <Button Style="{StaticResource MaterialDesignFlatButton}" Content="Add" Click="accept" ToolTip="MaterialDesignFlatButton">
                     </Button>
-                    <Button Style="{StaticResource MaterialDesignFlatButton}" ToolTip="MaterialDesignFlatButton"  Click="cancel">
+                    <Button Style="{StaticResource MaterialDesignFlatButton}" Content="Cancel" ToolTip="MaterialDesignFlatButton"  Click="cancel">
                     </Button>
                 </StackPanel>
             </StackPanel>
@@ -39,19 +38,19 @@
         <Grid x:Name="mainGrid" Background="White" DataContext="{StaticResource busStationViewSource}" RenderTransformOrigin="0.5,0.5" Margin="-10,10,10,-10">
             <!--DataContext="{StaticResource busLineTimeViewSource}"-->
 
-            <TextBox x:Name="Line_tb" Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"  Height="40" AcceptsReturn="True"  TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"  materialDesign:HintAssist.Hint="Line Number" Margin="110,85,678,415"/>
+            <TextBox x:Name="Line_tb" Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"  Height="40" AcceptsReturn="True" TextChanged="lineNumberTextChanged" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown"  TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"  materialDesign:HintAssist.Hint="Line Number" Margin="110,85,678,415"/>
 
 
             <Button Style="{StaticResource MaterialDesignFloatingActionAccentButton}" ToolTip="Add another intravel" Foreground="Black" Margin="920,110,39,383" RenderTransformOrigin="-3.021,-0.801" Click="AddTime" Height="Auto" Width="Auto">
                 <materialDesign:PackIcon Kind="Plus" Height="24" Width="24" />
             </Button>
-            <Button  Style="{StaticResource MaterialDesignRaisedButton}" Width="100" ToolTip="Add this Line" IsEnabled="False" Click="addLine_Click" Content="ADD" RenderTransformOrigin="1.125,5.849" Height="Auto" Margin="815,425,95,52" />
-            <DataGrid x:Name="busStationDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="96,232,605,105" RowDetailsVisibilityMode="VisibleWhenSelected">
+            <Button x:Name="addLineButton" Style="{StaticResource MaterialDesignRaisedButton}" Width="100" ToolTip="Add this Line" IsEnabled="False" Click="addLine_Click" Content="ADD" RenderTransformOrigin="1.125,5.849" Height="Auto" Margin="815,425,95,52" />
+            <DataGrid x:Name="busStationDataGrid" EnableRowVirtualization="False"  AutoGenerateColumns="False" ItemsSource="{Binding}" Margin="96,232,605,105" RowDetailsVisibilityMode="VisibleWhenSelected">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn x:Name="CheckStations" Header="Add" Width="60">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <CheckBox  IsChecked="False" Checked="addStation" CommandParameter="{Binding Path=Code}" Unchecked="removeStation" materialDesign:CheckBoxAssist.CheckBoxSize="25"/>
+                                <CheckBox IsChecked="False" Checked="addStation" CommandParameter="{Binding Path=Code}" Unchecked="removeStation" materialDesign:CheckBoxAssist.CheckBoxSize="25"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -69,17 +68,10 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn x:Name="cityColumn" Header="City" Width="SizeToHeader">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding City}"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
-            <TextBlock HorizontalAlignment="Left" Margin="26,189,0,0" TextWrapping="Wrap" Text="Add Stations To The Route: " VerticalAlignment="Top" RenderTransformOrigin="0.54,5.417"/>
-            <DataGrid x:Name="stationOnTheLineDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource stationOnTheLineViewSource}}" Margin="534,232,95,133" RowDetailsVisibilityMode="VisibleWhenSelected">
+            <TextBlock HorizontalAlignment="Left" Margin="96,189,0,0" TextWrapping="Wrap" Text="Add Stations To The Route: " VerticalAlignment="Top" RenderTransformOrigin="0.54,5.417" Height="22" Width="166"/>
+            <DataGrid x:Name="stationOnTheLineDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}"  Margin="534,232,95,133" RowDetailsVisibilityMode="VisibleWhenSelected">
                 <DataGrid.Columns>
 
                     <DataGridTemplateColumn x:Name="codeColumn" Header="Code" Width="SizeToHeader">
@@ -99,10 +91,43 @@
 
                 </DataGrid.Columns>
             </DataGrid>
+            <materialDesign:DialogHost x:Name="addTimeDialog" IsOpen="False">
+                <materialDesign:DialogHost.DialogContent>
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Start time:"/>
+                            <materialDesign:TimePicker
+  Is24Hours="True"
+  x:Name="startTimePicker"
+  Width="100"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="End time:"/>
+                            <materialDesign:TimePicker
+  Is24Hours="True"
+  x:Name="endTimePicker"
+  Width="100"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Frequency:"/>
+                            <materialDesign:TimePicker
+  Is24Hours="True"
+  x:Name="freqTimePicker"
+  Width="100"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Content="   Add   " Click="AddTimeClick"/>
+                            <Button Content="Cancel" Click="CancelTimeClick"/>
+                        </StackPanel>
+                    </StackPanel>
+                </materialDesign:DialogHost.DialogContent>
+                <Grid>
+                    <Label FontSize="15" Content="Times:" Margin="482,30,319,474"/>
+                    <TextBlock x:Name="timesText" Text="" FontSize="15" Margin="482,71,100,335"/>
+                    <Button Content="Refresh times" HorizontalAlignment="Left" Margin="851,195,0,0" Click="refreshClick" VerticalAlignment="Top" Width="120"/>
+                </Grid>
+            </materialDesign:DialogHost>
 
-            <Label FontSize="15" Content="Times:" Margin="482,30,319,474"/>
-            <TextBlock x:Name="timesText" Text="" FontSize="15" Margin="482,71,100,335"/>
-            <Button Content="Refresh times" HorizontalAlignment="Left" Margin="851,195,0,0" Click="refreshClick" VerticalAlignment="Top" Width="120"/>
         </Grid>
     </materialDesign:DialogHost>
 </Page>

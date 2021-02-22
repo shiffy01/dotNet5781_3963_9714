@@ -175,4 +175,25 @@
     <Number_on_route>5</Number_on_route>
     <Exists>true</Exists>
   </BusLineStation>
+  <BusLineStation>
+    <BusLineStationID>1023000005</BusLineStationID>
+    <StationID>102</StationID>
+    <LineID>3000005</LineID>
+    <Number_on_route>0</Number_on_route>
+    <Exists>true</Exists>
+  </BusLineStation>
+  <BusLineStation>
+    <BusLineStationID>1043000005</BusLineStationID>
+    <StationID>104</StationID>
+    <LineID>3000005</LineID>
+    <Number_on_route>1</Number_on_route>
+    <Exists>true</Exists>
+  </BusLineStation>
+  <BusLineStation>
+    <BusLineStationID>1163000005</BusLineStationID>
+    <StationID>116</StationID>
+    <LineID>3000005</LineID>
+    <Number_on_route>2</Number_on_route>
+    <Exists>true</Exists>
+  </BusLineStation>
 </ArrayOfBusLineStation>

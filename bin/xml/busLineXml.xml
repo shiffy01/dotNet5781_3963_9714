@@ -35,4 +35,11 @@
     <Origin>Matnas Dolev</Origin>
     <Exists>true</Exists>
   </BusLine>
+  <BusLine>
+    <BusID>3000005</BusID>
+    <Bus_line_number>45</Bus_line_number>
+    <Destination>Nachal Raziel 12</Destination>
+    <Origin>Dolev 10</Origin>
+    <Exists>true</Exists>
+  </BusLine>
 </ArrayOfBusLine>

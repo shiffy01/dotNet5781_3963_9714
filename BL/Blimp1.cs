@@ -925,7 +925,7 @@ namespace BL
             foreach(var t in times)
             {
                 s += "start: "+t.Start.TimeOfDay.ToString()+" end: "+t.End.TimeOfDay.ToString()+" frequency: "+t.Frequency.ToString()+@"
-                     ";
+    ";
             }
            
             return s;

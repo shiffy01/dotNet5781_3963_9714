@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfLineFrequency xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <LineFrequency>
     <ID>30000001/1/2000 8:00:00 AM</ID>
@@ -53,6 +53,28 @@
     <EndMinute>0</EndMinute>
     <FrequencyHours>1</FrequencyHours>
     <FrequencyMinutes>0</FrequencyMinutes>
+    <Exists>true</Exists>
+  </LineFrequency>
+  <LineFrequency>
+    <ID>30000051/1/2000 8:00:00 AM</ID>
+    <LineID>3000005</LineID>
+    <StartHour>8</StartHour>
+    <StartMinute>0</StartMinute>
+    <EndHour>14</EndHour>
+    <EndMinute>0</EndMinute>
+    <FrequencyHours>2</FrequencyHours>
+    <FrequencyMinutes>0</FrequencyMinutes>
+    <Exists>true</Exists>
+  </LineFrequency>
+  <LineFrequency>
+    <ID>30000051/1/2000 2:00:00 PM</ID>
+    <LineID>3000005</LineID>
+    <StartHour>14</StartHour>
+    <StartMinute>0</StartMinute>
+    <EndHour>17</EndHour>
+    <EndMinute>0</EndMinute>
+    <FrequencyHours>0</FrequencyHours>
+    <FrequencyMinutes>30</FrequencyMinutes>
     <Exists>true</Exists>
   </LineFrequency>
 </ArrayOfLineFrequency>

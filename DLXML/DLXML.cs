@@ -209,15 +209,15 @@ namespace DL
             IEnumerable<BusLine> ListLines = XMLtools.LoadListFromXMLSerializer<BusLine>(busLinePath).OrderBy(line => line.BusID);
             List<BusLine> list = ListLines.ToList();
 
-            bool exists =
-               ListLines.Any(p => p.Exists == true && p.BusID == line_number);
-            if (exists)
-                throw new BusLineAlreadyExistsException();//does it need to say something inside?
+           
             int number;
             if (list.Count() == 0)
                 number = 3000000;
             else
-                number = ++list[list.Count()].BusID;
+            {
+                number = list[list.Count() - 1].BusID;
+                number++;
+            }
             BusLine newBus = new BusLine {
                 BusID = number,
                 Bus_line_number = line_number,
