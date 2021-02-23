@@ -126,41 +126,6 @@ namespace PL1
 
             
         }
-        //private void btnDialogOk_Click(object sender, RoutedEventArgs e)
-        //{
-
-            //if (Line_tb.)
-            //{
-            //    if (!correctTimeFormat())
-            //        return;
-            //    try
-            //    {
-            //        bl.AddAdjacentStations(Code1, Code2, double.Parse(distanceMTB.Text), new TimeSpan(Hours, Minutes, 00));
-            //    }
-            //    catch (BO.PairAlreadyExistsException ex)
-            //    {
-            //        MessageBoxResult result = System.Windows.MessageBox.Show(ex.Message, " Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            //    }
-            //    Index++;
-            //    if (Index == PairIds.Count)
-            //    {
-            //        this.DialogResult = true;
-            //        return;
-
-                //    }
-                //    createDialogeContent();
-
-
-                //}
-                //else
-                //{
-
-                //    //throw trigger to change text to red
-                //    errorLabel.Visibility = Visibility.Visible;
-                //    return;
-                //}
-
-        
         private void addLine_Click(object sender, RoutedEventArgs e)
         {
             

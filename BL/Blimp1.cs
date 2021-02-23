@@ -312,7 +312,7 @@ namespace BL
             catch (DO.BusLineNotFoundException ex)
             {
                 throw new BusLineNotFoundException("The bus line was not found in the system", ex);
-            }//update bus
+            }//update line
 
             try
             {
@@ -320,7 +320,7 @@ namespace BL
             }
             catch (FrequencyConflictException ex)
             {
-                throw new FrequencyConflictException("This bus cannot be added, because there is a conflict with the times ", ex);
+                throw new FrequencyConflictException("This bus cannot be updated, because there is a conflict with the times ", ex);
             }//check times
 
             try
@@ -505,12 +505,15 @@ namespace BL
 
             //return a list of distances that need to be added:
             List<string> needed_distances = new List<string>();
-            int code_before = (dal.GetAllBusLineStationsBy(station => (station.LineID == bus_number)).FirstOrDefault(ss => (ss.Number_on_route == place - 1))).StationID;
-            int code_after = (dal.GetAllBusLineStationsBy(station => (station.LineID == bus_number)).FirstOrDefault(ss => (ss.Number_on_route == place + 1))).StationID;
+            int code_before=0, code_after=0;
+            if(place>1)
+            code_before = (dal.GetAllBusLineStationsBy(station => (station.LineID == bus_number)).FirstOrDefault(ss => (ss.Number_on_route == place - 1))).StationID;
+            if(place< list.Count() + 1)
+            code_after = (dal.GetAllBusLineStationsBy(station => (station.LineID == bus_number)).FirstOrDefault(ss => (ss.Number_on_route == place + 1))).StationID;
 
-            if (!(dal.AdjacentStationsExists(code_before.ToString() + code.ToString())))
+            if ((code_before!=0) &&!(dal.AdjacentStationsExists(code_before.ToString() + code.ToString())))
                 needed_distances.Add(code_before + "*" + code);
-            if (!(dal.AdjacentStationsExists(code.ToString() + code_after.ToString())))
+            if ((code_after!=0)&&!(dal.AdjacentStationsExists(code.ToString() + code_after.ToString())))
                 needed_distances.Add(code + "*" + code_after);
             return needed_distances;
 
