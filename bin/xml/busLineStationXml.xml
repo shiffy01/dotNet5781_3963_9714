@@ -145,6 +145,62 @@
     <StationID>102</StationID>
     <LineID>3000004</LineID>
     <Number_on_route>1</Number_on_route>
+    <Exists>false</Exists>
+  </BusLineStation>
+  <BusLineStation>
+    <BusLineStationID>1073000004</BusLineStationID>
+    <StationID>107</StationID>
+    <LineID>3000004</LineID>
+    <Number_on_route>2</Number_on_route>
+    <Exists>false</Exists>
+  </BusLineStation>
+  <BusLineStation>
+    <BusLineStationID>1023000005</BusLineStationID>
+    <StationID>102</StationID>
+    <LineID>3000005</LineID>
+    <Number_on_route>0</Number_on_route>
+    <Exists>true</Exists>
+  </BusLineStation>
+  <BusLineStation>
+    <BusLineStationID>1043000005</BusLineStationID>
+    <StationID>104</StationID>
+    <LineID>3000005</LineID>
+    <Number_on_route>1</Number_on_route>
+    <Exists>true</Exists>
+  </BusLineStation>
+  <BusLineStation>
+    <BusLineStationID>1163000005</BusLineStationID>
+    <StationID>116</StationID>
+    <LineID>3000005</LineID>
+    <Number_on_route>2</Number_on_route>
+    <Exists>true</Exists>
+  </BusLineStation>
+  <BusLineStation>
+    <BusLineStationID>1093000004</BusLineStationID>
+    <StationID>109</StationID>
+    <LineID>3000004</LineID>
+    <Number_on_route>2</Number_on_route>
+    <Exists>false</Exists>
+  </BusLineStation>
+  <BusLineStation>
+    <BusLineStationID>1143000004</BusLineStationID>
+    <StationID>114</StationID>
+    <LineID>3000004</LineID>
+    <Number_on_route>3</Number_on_route>
+    <Exists>false</Exists>
+  </BusLineStation>
+  <BusLineStation>
+    <BusLineStationID>1183000004</BusLineStationID>
+    <StationID>118</StationID>
+    <LineID>3000004</LineID>
+    <Number_on_route>3</Number_on_route>
+    <Exists>false</Exists>
+  </BusLineStation>
+  <BusLineStation>
+    <BusLineStationID>1023000004</BusLineStationID>
+    <StationID>102</StationID>
+    <LineID>3000004</LineID>
+    <Number_on_route>1</Number_on_route>
     <Exists>true</Exists>
   </BusLineStation>
   <BusLineStation>
@@ -176,24 +232,10 @@
     <Exists>true</Exists>
   </BusLineStation>
   <BusLineStation>
-    <BusLineStationID>1023000005</BusLineStationID>
-    <StationID>102</StationID>
-    <LineID>3000005</LineID>
-    <Number_on_route>0</Number_on_route>
-    <Exists>true</Exists>
-  </BusLineStation>
-  <BusLineStation>
-    <BusLineStationID>1043000005</BusLineStationID>
-    <StationID>104</StationID>
-    <LineID>3000005</LineID>
-    <Number_on_route>1</Number_on_route>
-    <Exists>true</Exists>
-  </BusLineStation>
-  <BusLineStation>
-    <BusLineStationID>1163000005</BusLineStationID>
-    <StationID>116</StationID>
-    <LineID>3000005</LineID>
-    <Number_on_route>2</Number_on_route>
+    <BusLineStationID>1213000004</BusLineStationID>
+    <StationID>121</StationID>
+    <LineID>3000004</LineID>
+    <Number_on_route>6</Number_on_route>
     <Exists>true</Exists>
   </BusLineStation>
 </ArrayOfBusLineStation>

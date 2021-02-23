@@ -115,7 +115,6 @@ namespace PL1
                 Console.WriteLine(e.Message);
             }
         }
-
         private void createDialogeContent()
         {
             if (Index < distances.Count())
@@ -136,12 +135,14 @@ namespace PL1
         {
             try
             {
+                //bl.DeleteBusLine(line.BusID);
+                //bl.AddBusLine()
                 bl.UpdateBusLine(line.BusID, int.Parse(Line_tb.Text), LineTimes);
                 foreach (var item in line.Stations)
                 {
                     bl.RemoveBusStationFromLine(item.Code, line.BusID);
                 }
-                int i = 0;
+                int i = 1;
                 foreach (var item in stationsToAdd)
                 {
                     List<string> d=bl.AddStationToBusLine(line.BusID, item.Code, i);

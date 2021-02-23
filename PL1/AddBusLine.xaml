@@ -27,7 +27,7 @@
                     <materialDesign:TimePicker Is24Hours="True" x:Name="DriveTimePicker" Width="100" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <Button Style="{StaticResource MaterialDesignFlatButton}" Content="Add" Click="accept" ToolTip="MaterialDesignFlatButton">
+                    <Button Style="{StaticResource MaterialDesignFlatButton}" Content=" Add " Click="accept" ToolTip="MaterialDesignFlatButton">
                     </Button>
                     <Button Style="{StaticResource MaterialDesignFlatButton}" Content="Cancel" ToolTip="MaterialDesignFlatButton"  Click="cancel">
                     </Button>
@@ -117,7 +117,7 @@
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <Button Content="   Add   " Click="AddTimeClick"/>
-                            <Button Content="Cancel" Click="CancelTimeClick"/>
+                            <Button Content=" Cancel " Click="CancelTimeClick"/>
                         </StackPanel>
                     </StackPanel>
                 </materialDesign:DialogHost.DialogContent>

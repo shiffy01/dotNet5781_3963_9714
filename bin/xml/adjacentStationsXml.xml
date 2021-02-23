@@ -174,4 +174,11 @@
     <Distance>20</Distance>
     <Average_drive_time>10</Average_drive_time>
   </AdjacentStations>
+  <AdjacentStations>
+    <PairID>118121</PairID>
+    <Stop_1_code>118</Stop_1_code>
+    <Stop_2_code>121</Stop_2_code>
+    <Distance>14</Distance>
+    <Average_drive_time>14</Average_drive_time>
+  </AdjacentStations>
 </ArrayOfAdjacentStations>

@@ -24,12 +24,14 @@
         <materialDesign:DialogHost x:Name="popUp" IsOpen="False">
             <materialDesign:DialogHost.DialogContent>
                 <Grid>
+                    <StackPanel>
                     <Label Content="Continue as:" FontSize="15"/>
                     <StackPanel  Orientation="Horizontal" Margin="4">
                         <RadioButton x:Name="Manager_RadioBtn1" Style="{StaticResource MaterialDesignTabRadioButton}" Margin="4" IsChecked="True" Content="Manager" />
                         <RadioButton x:Name="User_RadioBtn1" Style="{StaticResource MaterialDesignTabRadioButton}" Margin="4" IsChecked="False" Content="User" />
                     </StackPanel>
                     <Button Content="Go" Click="GoClick"/>
+                    </StackPanel>
                 </Grid>
             </materialDesign:DialogHost.DialogContent>
             <materialDesign:Flipper

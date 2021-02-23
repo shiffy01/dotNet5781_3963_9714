@@ -303,8 +303,8 @@ namespace BL
             {
                 throw new BusLineNotFoundException("cannot update a bus line that is not in the system", ex);
             }//get bus
-           
-            busToUpdate.Bus_line_number = lineNumber; 
+
+            busToUpdate.Bus_line_number = lineNumber;
             try
             {
                 dal.UpdateBusLine(busToUpdate);
@@ -322,7 +322,24 @@ namespace BL
             {
                 throw new FrequencyConflictException("This bus cannot be updated, because there is a conflict with the times ", ex);
             }//check times
-
+            try
+            {
+                var oldTimes = dal.GetAllLineFrequency();
+                foreach (var t in oldTimes)
+                {
+                    try
+                    {
+                        dal.GetLineFrequency(busID.ToString() + t.Start.ToString());
+                        dal.DeleteLineFrequency(busID.ToString() + t.Start.ToString());
+                    }
+                    catch (DO.LineFrequencyDoesNotExistException)  {}
+                    
+                }
+            }
+            catch (DO.LineFrequencyAlreadyExistsException ex)
+            {
+                throw new DataErrorException("There was an error loading the data", ex);
+            }
             try
             {
                 foreach (var t in times)
@@ -481,12 +498,12 @@ namespace BL
             }
 
 
-            var list = dal.GetAllBusLineStationsBy(station => (station.LineID == bus_number && station.Number_on_route >= place));
-            if (place > list.Count() + 1)
+            var listcheck = dal.GetAllBusLineStationsBy(station => (station.LineID == bus_number));
+            if (place > listcheck.Count() + 1)
                 throw new InvalidPlaceException("Place number is too high");
             if (place < 1)
                 throw new InvalidPlaceException("Place number cannot be lower than 1");
-
+            var list = dal.GetAllBusLineStationsBy(station => (station.LineID == bus_number && station.Number_on_route >= place));
 
             foreach (var item in list)
             {
@@ -553,6 +570,7 @@ namespace BL
             {
                 throw new StationDoesNotExistOnTheLinexception(stationCode, lineNumber, $",station number: {stationCode} is not on this route", ex);
             }
+            if(busLineStation.Number_on_route - 2>0&& busLineStation.Number_on_route< busLineStationList.Count())
             if (!(dal.AdjacentStationsExists(busLineStationList[busLineStation.Number_on_route - 1].StationID.ToString() + busLineStationList[busLineStation.Number_on_route + 1].StationID.ToString())))
             {
                 return busLineStationList[busLineStation.Number_on_route - 2].StationID + "*" + busLineStationList[busLineStation.Number_on_route].StationID;
@@ -928,7 +946,7 @@ namespace BL
             foreach(var t in times)
             {
                 s += "start: "+t.Start.TimeOfDay.ToString()+" end: "+t.End.TimeOfDay.ToString()+" frequency: "+t.Frequency.ToString()+@"
-    ";
+";
             }
            
             return s;
