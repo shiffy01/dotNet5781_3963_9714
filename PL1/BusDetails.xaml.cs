@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BlApi;
 
 namespace PL1
 {
@@ -20,7 +21,7 @@ namespace PL1
     /// </summary>
     public partial class BusDetails : Page
     {
-        public BusDetails()
+        public BusDetails(IBL bl1, BO.Bus bus)
         {
             InitializeComponent();
         }

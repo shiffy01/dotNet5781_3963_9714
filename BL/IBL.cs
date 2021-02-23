@@ -18,12 +18,12 @@ namespace BlApi
         IEnumerable<Bus> GetAllBusesBy(Predicate<Bus> predicate);
         #endregion
 
-        #region Bus functions
-        void refill(Bus bus);
-        void tuneUp(Bus bus);
-        void drive(Bus bus, double distance);
-        bool canDrive(Bus bus);
-        #endregion
+        //#region Bus functions
+        //void refill(Bus bus);
+        //void tuneUp(Bus bus);
+        //void drive(Bus bus, double distance);
+        //bool canDrive(Bus bus);
+        //#endregion
 
         #region BusLine
         List<string> AddBusLine(int line_number, List<int> stations, List<BusLineTime> times);

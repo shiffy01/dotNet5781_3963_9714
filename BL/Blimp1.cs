@@ -601,9 +601,12 @@ namespace BL
             //converting BO status to DO status:
             int number = (int)status;
             DO.Bus.Status_ops DOstatus = (DO.Bus.Status_ops)number;
+            
             try
             {
-          //      dal.UpdateBus(license, DOstatus, last_tune_up, kilometerage, totalkilometerage, gas);
+                
+                
+                dal.UpdateBus(license, DOstatus, last_tune_up, totalkilometerage, totalkilometerage, gas);
             }
             catch (DO.BusNotFoundException ex)
             {
@@ -651,141 +654,141 @@ namespace BL
         }
         #endregion
 
-        #region Bus functions 
+        //#region Bus functions 
 
-        //private void Worker_DoWork(object sender, DoWorkEventArgs e)
+        ////private void Worker_DoWork(object sender, DoWorkEventArgs e)
+        ////{
+
+        ////    Bus b = (Bus)e.Argument;
+
+        ////    for (int i = 0; i < b.Time; i++)
+        ////    {
+
+        ////        System.Threading.Thread.Sleep(1000);//one second
+
+        ////        (sender as BackgroundWorker).ReportProgress((b.Time - i) * 10, b);//sends the number of seconds untill the bus is ready to drive again
+        ////    }
+        ////    e.Result = b;
+        ////}
+        ////private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        ////{
+        ////    Bus b = (e.UserState as Bus);
+        ////    int time = e.ProgressPercentage;
+        ////    string mes = "";
+        ////    if (time >= 60)
+        ////    {
+        ////        mes += (time / 60) + " hour";
+        ////        if (time / 60 > 1)
+        ////            mes += "s";
+        ////        if (time % 60 != 0)
+        ////            mes += " and " + time % 60 + " minutes";
+
+        ////    }
+        ////    else
+        ////        mes += time + " minutes";
+        ////    mes += " untill the bus can drive";
+        ////    b.Seconds = mes;
+        ////}
+        ////private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        ////{
+        ////    Bus bus = (e.Result as Bus);
+        ////    bus.ButtonVisibility = false;
+        ////    bus.Seconds = "Ready";
+        ////    bus.Progressb = 0;
+        ////    if (bus.Status == Bus.Status_ops.At_mechanic || bus.Status == Bus.Status_ops.Filling_up)
+        ////    {
+        ////        bus.Status = Bus.Status_ops.Ready;
+        ////        bus.CanDrive = true;
+        ////        bus.CanGas = true;
+        ////        bus.CanTuneUp = true;
+        ////    }
+        ////    //the bus will be refilled automaticly if there is less than 40 in the gas tank and will be tuned up if less than 2000 km left to drive (or passed the date)
+        ////    if (bus.Status == Bus.Status_ops.On_the_road)//the bus just came back from a drive
+        ////    {
+        ////        if (bus.Milage < 18000 && !((DateTime.Now - bus.Last_tune_up).Days > 356) && bus.Gas >= 40)//the bus does not need gas or a tune up
+        ////        {
+        ////            bus.Status = Bus.Status_ops.Ready;
+        ////            bus.CanDrive = true;
+        ////            bus.CanGas = true;
+        ////            bus.CanTuneUp = true;
+        ////        }
+        ////        if (bus.Milage > 18000 || (bus.Last_tune_up - DateTime.Now).Days > 356)//the bus needs a tune up
+        ////        {
+        ////            if (bus.Gas < 40)//if the bus needs gas too
+        ////                bus.Refill();
+        ////            Tuneup(bus);
+        ////        }
+        ////        if (bus.Gas < 40)
+        ////        {
+        ////            Refill(bus);
+        ////        }
+        ////    }
+
+        ////}
+
+        ////BackgroundWorker gas = new BackgroundWorker();
+        ////gas.DoWork += Worker_DoWork;
+        ////        gas.ProgressChanged += Worker_ProgressChanged;
+        ////        gas.RunWorkerCompleted += Worker_RunWorkerCompleted;
+        ////        gas.WorkerReportsProgress = true;
+        ////        gas.WorkerSupportsCancellation = true;
+        ////gas.RunWorkerAsync(b1);
+        //public void refill(Bus bus)
         //{
-
-        //    Bus b = (Bus)e.Argument;
-
-        //    for (int i = 0; i < b.Time; i++)
-        //    {
-
-        //        System.Threading.Thread.Sleep(1000);//one second
-
-        //        (sender as BackgroundWorker).ReportProgress((b.Time - i) * 10, b);//sends the number of seconds untill the bus is ready to drive again
-        //    }
-        //    e.Result = b;
-        //}
-        //private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        //{
-        //    Bus b = (e.UserState as Bus);
-        //    int time = e.ProgressPercentage;
-        //    string mes = "";
-        //    if (time >= 60)
-        //    {
-        //        mes += (time / 60) + " hour";
-        //        if (time / 60 > 1)
-        //            mes += "s";
-        //        if (time % 60 != 0)
-        //            mes += " and " + time % 60 + " minutes";
-
-        //    }
-        //    else
-        //        mes += time + " minutes";
-        //    mes += " untill the bus can drive";
-        //    b.Seconds = mes;
-        //}
-        //private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        //{
-        //    Bus bus = (e.Result as Bus);
-        //    bus.ButtonVisibility = false;
-        //    bus.Seconds = "Ready";
-        //    bus.Progressb = 0;
-        //    if (bus.Status == Bus.Status_ops.At_mechanic || bus.Status == Bus.Status_ops.Filling_up)
-        //    {
-        //        bus.Status = Bus.Status_ops.Ready;
-        //        bus.CanDrive = true;
-        //        bus.CanGas = true;
-        //        bus.CanTuneUp = true;
-        //    }
-        //    //the bus will be refilled automaticly if there is less than 40 in the gas tank and will be tuned up if less than 2000 km left to drive (or passed the date)
-        //    if (bus.Status == Bus.Status_ops.On_the_road)//the bus just came back from a drive
-        //    {
-        //        if (bus.Milage < 18000 && !((DateTime.Now - bus.Last_tune_up).Days > 356) && bus.Gas >= 40)//the bus does not need gas or a tune up
-        //        {
-        //            bus.Status = Bus.Status_ops.Ready;
-        //            bus.CanDrive = true;
-        //            bus.CanGas = true;
-        //            bus.CanTuneUp = true;
-        //        }
-        //        if (bus.Milage > 18000 || (bus.Last_tune_up - DateTime.Now).Days > 356)//the bus needs a tune up
-        //        {
-        //            if (bus.Gas < 40)//if the bus needs gas too
-        //                bus.Refill();
-        //            Tuneup(bus);
-        //        }
-        //        if (bus.Gas < 40)
-        //        {
-        //            Refill(bus);
-        //        }
-        //    }
-
-        //}
-
-        //BackgroundWorker gas = new BackgroundWorker();
-        //gas.DoWork += Worker_DoWork;
-        //        gas.ProgressChanged += Worker_ProgressChanged;
-        //        gas.RunWorkerCompleted += Worker_RunWorkerCompleted;
-        //        gas.WorkerReportsProgress = true;
-        //        gas.WorkerSupportsCancellation = true;
-        //gas.RunWorkerAsync(b1);
-        public void refill(Bus bus)
-        {
             
-            try
-            {
-                UpdateBus(bus.License, BO.Bus.Status_ops.Filling_up, bus.Last_tune_up, bus.kilometerage, bus.Totalkilometerage, 1200);//1200 is a full tank
-                //DO תהליכונים!!!!!!!!
+        //    try
+        //    {
+        //        UpdateBus(bus.License, BO.Bus.Status_ops.Filling_up, bus.Last_tune_up, bus.kilometerage, bus.Totalkilometerage, 1200);//1200 is a full tank
+        //        //DO תהליכונים!!!!!!!!
         
-            }
-            catch (BusNotFoundException ex)
-            {
-                throw ex;
-            }
-            BackgroundWorker gas = new BackgroundWorker();
-            //gas.DoWork += Worker_DoWork;
-            //gas.ProgressChanged += Worker_ProgressChanged;
-            //gas.RunWorkerCompleted += Worker_RunWorkerCompleted;
-            //gas.WorkerReportsProgress = true;
-            //gas.WorkerSupportsCancellation = true;
-            //gas.RunWorkerAsync(bus);
-        }
-        public void tuneUp(Bus bus)
-        {
-            try
-            {
-                UpdateBus(bus.License, BO.Bus.Status_ops.At_mechanic, DateTime.Now, bus.kilometerage, bus.Totalkilometerage, 1200);//1200 is a full tank, 
-                //the bus gets filled up at the end of a tune up
-                //DO תהליכונים!!!!!!!!
-            }
-            catch (BusNotFoundException ex)
-            {
-                throw ex;
-            }
-        }
-        public void drive(Bus bus, double distance)
-        {
+        //    }
+        //    catch (BusNotFoundException ex)
+        //    {
+        //        throw ex;
+        //    }
+        //    BackgroundWorker gas = new BackgroundWorker();
+        //    //gas.DoWork += Worker_DoWork;
+        //    //gas.ProgressChanged += Worker_ProgressChanged;
+        //    //gas.RunWorkerCompleted += Worker_RunWorkerCompleted;
+        //    //gas.WorkerReportsProgress = true;
+        //    //gas.WorkerSupportsCancellation = true;
+        //    //gas.RunWorkerAsync(bus);
+        //}
+        //public void tuneUp(Bus bus)
+        //{
+        //    try
+        //    {
+        //        UpdateBus(bus.License, BO.Bus.Status_ops.At_mechanic, DateTime.Now, bus.kilometerage, bus.Totalkilometerage, 1200);//1200 is a full tank, 
+        //        //the bus gets filled up at the end of a tune up
+        //        //DO תהליכונים!!!!!!!!
+        //    }
+        //    catch (BusNotFoundException ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
+        //public void drive(Bus bus, double distance)
+        //{
             
-            try
-            {
-                UpdateBus(bus.License, BO.Bus.Status_ops.On_the_road, bus.Last_tune_up, (int)(bus.kilometerage+distance), (int)(bus.Totalkilometerage+distance), bus.Gas-(int)distance);
-                //DO תהליכונים!!!!!!!!
+        //    try
+        //    {
+        //        UpdateBus(bus.License, BO.Bus.Status_ops.On_the_road, bus.Last_tune_up, (int)(bus.kilometerage+distance), (int)(bus.Totalkilometerage+distance), bus.Gas-(int)distance);
+        //        //DO תהליכונים!!!!!!!!
                
-            }
-            catch (BusNotFoundException ex)
-            {
-                throw ex;
-            }
-        }
-        public bool canDrive(Bus bus)
-        {
-            if(bus.Status==Bus.Status_ops.Ready)
-                 return true;
-            return false;
-        }
+        //    }
+        //    catch (BusNotFoundException ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
+        //public bool canDrive(Bus bus)
+        //{
+        //    if(bus.Status==Bus.Status_ops.Ready)
+        //         return true;
+        //    return false;
+        //}
 
-        #endregion
+        //#endregion
 
         #region User functions
         public void AddUser(string userName, string password, bool manager)
