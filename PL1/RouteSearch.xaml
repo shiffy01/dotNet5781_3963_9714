@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:PL1"
+     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:BO="clr-namespace:BO;assembly=BL" x:Class="PL1.RouteSearch"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
@@ -47,13 +48,13 @@
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Orientation="Horizontal"  Margin="166,101,134,283">
-            <TextBox x:Name="firstCodeBox" Margin="0,17" Width="206"/>
-            <TextBox x:Name="secondCodeBox" RenderTransformOrigin="1.637,0.399" Margin="0,17" Width="226" />
+            <TextBox x:Name="firstCodeBox" TextChanged="textChanged" Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" materialDesign:HintAssist.Hint="Origin" Margin="0,17" Width="216"/>
+            <TextBox x:Name="secondCodeBox" TextChanged="textChanged" Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" materialDesign:HintAssist.Hint="Destination"  Margin="0,17" Width="216" />
         </StackPanel>
         <Label Content="Please enter the station codes of your starting point and your desired destination:" HorizontalAlignment="Left" Margin="166,50,0,0" VerticalAlignment="Top" Height="46" Width="474"/>
         <Label HorizontalAlignment="Left" Margin="67,236,0,0" VerticalAlignment="Top">
             <Label x:Name="noResultsLabel" Content="                                                                  No results match your search" TextBlock.TextAlignment="Center" Height="73" Width="651"/>
         </Label>
-        <Button Content="Search" Click="searchClick" HorizontalAlignment="Left" Margin="630,119,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="searchButton" Content="Search" Click="searchClick" HorizontalAlignment="Left" Margin="630,119,0,0" VerticalAlignment="Top" Width="75"/>
     </Grid>
 </Page>

@@ -72,11 +72,17 @@ namespace PL1
             e.Handled = true; //ignore this key. mark event as handled, will not be routed to other controls
             return;
         }
+        private void textChanged(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(firstCodeBox.Text) || string.IsNullOrEmpty(secondCodeBox.Text))
+                searchButton.IsEnabled = false;
+            else
+                searchButton.IsEnabled = true;
+        }
         private void searchClick(object sender, RoutedEventArgs e)
         {
             initialize();
-            if (string.IsNullOrEmpty(firstCodeBox.Text) || string.IsNullOrEmpty(secondCodeBox.Text))
-                return;
+           
            
                 var lines = bl.SearchRoute(int.Parse(firstCodeBox.Text), int.Parse(secondCodeBox.Text));
             if (lines.Count() == 0)

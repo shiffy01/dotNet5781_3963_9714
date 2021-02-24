@@ -60,7 +60,7 @@ namespace BlApi
         TimeSpan driveTime(int lineCode, int station1, int station2);
         IEnumerable<BusLine> GetBusLinesOfStation(int code);
         // void AddRouteSearchHistory(int id);
-
+        void addRouteSearch(string username, Route route);
         string printTimes(List<BusLineTime> times);
         
         

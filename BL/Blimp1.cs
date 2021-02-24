@@ -954,6 +954,17 @@ namespace BL
            
             return s;
         }
+        public void addRouteSearch(string username, Route route)
+        {
+            try
+            {
+          //      dal.AddRouteSearchHistory(username, route.OriginCode, route.DestinationCode, nic)
+            }
+            catch (DO.RouteSearchHistoryAlreadyExistsException ex)
+            {
+                throw ex;
+            }
+        }
     }
    
 
