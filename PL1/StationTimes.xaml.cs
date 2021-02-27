@@ -17,13 +17,17 @@ using BlApi;
 namespace PL1
 {
     /// <summary>
-    /// Interaction logic for Search.xaml
+    /// Interaction logic for StationTimes.xaml
     /// </summary>
-    public partial class Search : Page
+    public partial class StationTimes : Page
     {
-        public Search(IBL bl, BO.User user)
+        public StationTimes(IBL bl1)
         {
             InitializeComponent();
+        }
+        private void comboChange(object sender, SelectionChangedEventArgs e)
+        {
+        
         }
     }
 }

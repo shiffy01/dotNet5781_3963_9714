@@ -889,7 +889,7 @@ namespace BL
         {
 
             var list = from t in dal.GetAllBusLineStationsBy(b => b.LineID == lineCode && b.Number_on_route >= dal.GetBusLineStation(station1.ToString() + lineCode.ToString()).Number_on_route && b.Number_on_route < dal.GetBusLineStation(station2.ToString() + lineCode.ToString()).Number_on_route)
-                       select dal.GetAdjacentStations(station1.ToString() + station2.ToString()).Average_drive_time;
+                       select dal.GetAdjacentStations(t.StationID.ToString() + dal.GetAllBusLineStationsBy(b=>b.LineID==lineCode&&b.Number_on_route==t.Number_on_route+1).First().StationID.ToString()).Average_drive_time;
             TimeSpan driveTime=new TimeSpan(0,0,0);
             foreach (var item in list)
             {
@@ -899,6 +899,7 @@ namespace BL
         }
         bool busLineStationExists(string id)
         {
+        
             try
             {
                 dal.GetBusLineStation(id);

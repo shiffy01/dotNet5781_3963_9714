@@ -93,12 +93,23 @@ namespace PL1
                 busLineDataGrid.Visibility = Visibility.Visible;
                 //try
                 //{
-                    
+                  // try to figure out time label. if not remove it
                 //}
             }
         }
+        private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            DataGridRow row = sender as DataGridRow;
+            BusLineDetails line = new BusLineDetails(bl, (row.DataContext as BO.BusLine));
+            NavigationService.Navigate(line);
 
-
-
+        }
+       
+        private void allSearchClick(object sender, RoutedEventArgs e)
+        {
+            
+            StationTimes time = new StationTimes(bl);
+            NavigationService.Navigate(time);
+        }
     }
 }
