@@ -169,6 +169,7 @@ namespace BL
             Bus BOBus = new Bus();
             DOBus.CopyPropertiesTo(BOBus);
             BOBus.LicensePlate = license_format(DOBus.License);
+            BOBus.Percent = 0;
             return BOBus;
         }
         BusLine DOtoBOBusLineAdapter(DO.BusLine DObusLine)

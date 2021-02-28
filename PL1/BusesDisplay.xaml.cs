@@ -52,8 +52,8 @@ namespace PL1
             {
                 percent = i * (100 / (double)12);
                 System.Threading.Thread.Sleep(1000);//one second
-
-                (sender as BackgroundWorker).ReportProgress((int)percent, bus);
+                (sender as BackgroundWorker).ReportProgress(50, bus);
+               // (sender as BackgroundWorker).ReportProgress((int)percent, bus);
             }
             e.Result = bus;
         }
@@ -64,7 +64,7 @@ namespace PL1
         }
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            BO.Bus b = (e.UserState as BO.Bus);
+            BO.Bus b = (e.Result as BO.Bus);
             b.Percent = 0;
             try
             {

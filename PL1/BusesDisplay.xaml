@@ -87,7 +87,7 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <ProgressBar x:Name="progress"
-  Value="{Binding Percent}"
+  Value="{Binding Percent, Mode=TwoWay}" 
   Height="10" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
