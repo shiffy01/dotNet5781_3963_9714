@@ -26,11 +26,13 @@ namespace PL1
         IBL bl;
         bool stopped = false;
         // ObservableCollection<BO.LineTiming> lineTimes = new ObservableCollection<BO.LineTiming>();
+        
         public StationTimes(IBL bl1)
         {
             InitializeComponent();
             bl = bl1;
             combo.ItemsSource = bl.GetAllBusStations();
+         
         }
         private void comboChange(object sender, SelectionChangedEventArgs e)
         {
@@ -41,13 +43,19 @@ namespace PL1
             stop.IsEnabled = true;
             start.IsEnabled = false;
             combo.IsEnabled = false;
-            BackgroundWorker bgw = new BackgroundWorker();
-            bgw.DoWork += Worker_DoWork;
-            bgw.ProgressChanged += Worker_ProgressChanged;
-            bgw.RunWorkerCompleted += Worker_RunWorkerCompleted;
-            bgw.WorkerReportsProgress = true;
-            bgw.WorkerSupportsCancellation = true;
-            bgw.RunWorkerAsync((combo.SelectedItem as BO.BusStation).Code);
+                BackgroundWorker bgw = new BackgroundWorker();
+                bgw.DoWork += Worker_DoWork;
+                bgw.ProgressChanged += Worker_ProgressChanged;
+                bgw.RunWorkerCompleted += Worker_RunWorkerCompleted;
+                bgw.WorkerReportsProgress = true;
+                bgw.WorkerSupportsCancellation = true;
+            if (bgw.IsBusy)
+            {
+            //then idk...
+            }
+                bgw.RunWorkerAsync((combo.SelectedItem as BO.BusStation).Code);
+              
+
         }
         private void stopClick(object sender, RoutedEventArgs e)
         {
@@ -117,6 +125,7 @@ namespace PL1
                
                 
             }
+            e.Result = code;
         }
         private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {

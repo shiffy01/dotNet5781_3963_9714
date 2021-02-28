@@ -975,13 +975,14 @@ namespace BL
             {
                 foreach(var tt in item.Times)
                 {
-                    if(driveTime(item.BusID, item.Stations.ToList()[0].Code, stationCode)>time)
+                    if(new TimeSpan(tt.Start.Hour, tt.Start.Minute, 0) <= (time+new TimeSpan(8, 0, 0)))
+                    if(driveTime(item.BusID, item.Stations.ToList()[0].Code, stationCode)>(time + new TimeSpan(8, 0, 0)- new TimeSpan(tt.Start.Hour, tt.Start.Minute, 0)))
                     returnList.Add(new LineTiming {
                         TripStart=new TimeSpan(tt.Start.Hour, tt.Start.Minute, 0),
                         LineID =item.BusID,
                         lineCode=item.Bus_line_number,
                         LastStation=item.Destination,
-                        Timing= driveTime(item.BusID, item.Stations.ToList()[0].Code, stationCode) - time
+                        Timing= driveTime(item.BusID, item.Stations.ToList()[0].Code, stationCode) - time+(new TimeSpan(tt.Start.Hour, tt.Start.Minute, 0)-new TimeSpan(8, 0, 0))
                     });
                 }
             }
