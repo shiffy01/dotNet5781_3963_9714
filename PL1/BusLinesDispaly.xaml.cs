@@ -33,7 +33,11 @@ namespace PL1
             bl = bl1;
             User = user;
             if (!manage)
+            {
                 addButton.Visibility = Visibility.Hidden;
+                deleteLine_Btn.Visibility = Visibility.Hidden;
+                updateLine_Btn.Visibility = Visibility.Hidden;
+            }
             initialize();
         }
         private void Row_DoubleClick(object sender, MouseButtonEventArgs e)

@@ -19,7 +19,7 @@
     </Window.Resources>
 
 
-    <Grid>
+    <Grid Width="400" Height="410">
        
         <materialDesign:DialogHost x:Name="popUp" IsOpen="False">
             <materialDesign:DialogHost.DialogContent>

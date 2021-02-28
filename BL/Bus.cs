@@ -22,6 +22,7 @@ namespace BO
         public int Totalkilometerage { get; set; }
         public int kilometerage { get; set; }
         public int Gas { get; set; }
+        public double Percent { get; set; }
         public override string ToString()
         {
             return this.ToStringProperty();

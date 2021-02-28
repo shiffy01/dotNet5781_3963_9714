@@ -16,7 +16,7 @@
     </Page.Resources>
 
     <Grid DataContext="{StaticResource busLineViewSource}">
-        <DataGrid x:Name="busLineDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="55,172,521,78" RowDetailsVisibilityMode="VisibleWhenSelected">
+        <DataGrid x:Name="busLineDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="55,172,521,163" RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Resources>
                 <Style TargetType="DataGridRow">
                     <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
@@ -88,6 +88,6 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Search for all lines coming to a certain station" Click="allSearchClick"  HorizontalAlignment="Left" Margin="667,26,0,0" VerticalAlignment="Top" Width="300" Height="71"/>
+        <Button Content="Search for all lines coming to a certain station" Click="allSearchClick"  HorizontalAlignment="Left" Margin="105,421,0,0" VerticalAlignment="Top" Width="333" Height="71"/>
     </Grid>
 </Page>

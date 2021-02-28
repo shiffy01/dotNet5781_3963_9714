@@ -59,11 +59,13 @@ namespace PL1
         }
         private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-           //should change progress bar..
+            BO.Bus b = (e.UserState as BO.Bus);
+            b.Percent = e.ProgressPercentage;
         }
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             BO.Bus b = (e.UserState as BO.Bus);
+            b.Percent = 0;
             try
             {
                 bl.UpdateBus(b.License, BO.Bus.Status_ops.Ready, b.Last_tune_up, b.kilometerage, b.Totalkilometerage, b.Gas);

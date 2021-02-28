@@ -49,10 +49,7 @@ namespace PL1
                 bgw.RunWorkerCompleted += Worker_RunWorkerCompleted;
                 bgw.WorkerReportsProgress = true;
                 bgw.WorkerSupportsCancellation = true;
-            if (bgw.IsBusy)
-            {
-            //then idk...
-            }
+           
                 bgw.RunWorkerAsync((combo.SelectedItem as BO.BusStation).Code);
               
 
@@ -135,17 +132,7 @@ namespace PL1
         }
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            //BO.Bus b = (e.UserState as BO.Bus);
-            //try
-            //{
-            //    bl.UpdateBus(b.License, BO.Bus.Status_ops.Ready, b.Last_tune_up, b.kilometerage, b.Totalkilometerage, b.Gas);
-            //    initialize();
-            //}
-            //catch (BO.BusNotFoundException ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //}
-            
+            stopped = false;
         }
     }
 }

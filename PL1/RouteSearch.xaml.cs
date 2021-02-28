@@ -33,6 +33,7 @@ namespace PL1
             InitializeComponent();
             bl = bl1;
             User = user;
+            busStationDataGrid.DataContext = bl.GetAllBusStations();
             initialize();
         }
         private void TextBox_OnlyNumbers_PreviewKeyDown(object sender, KeyEventArgs e)
