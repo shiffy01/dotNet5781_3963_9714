@@ -966,6 +966,27 @@ namespace BL
                 throw ex;
             }
         }
+        public IEnumerable<LineTiming> getLineTimings(int stationCode, TimeSpan time)//time=how much time has elapsed since 8AM
+        {
+            List<LineTiming> returnList= new List<LineTiming>();
+            var list = from t in GetBusLinesOfStation(stationCode)
+                       select t;
+            foreach (var item in list)
+            {
+                foreach(var tt in item.Times)
+                {
+                    if(driveTime(item.BusID, item.Stations.ToList()[0].Code, stationCode)>time)
+                    returnList.Add(new LineTiming {
+                        TripStart=new TimeSpan(tt.Start.Hour, tt.Start.Minute, 0),
+                        LineID =item.BusID,
+                        lineCode=item.Bus_line_number,
+                        LastStation=item.Destination,
+                        Timing= driveTime(item.BusID, item.Stations.ToList()[0].Code, stationCode) - time
+                    });
+                }
+            }
+            return returnList;
+        }
     }
    
 
