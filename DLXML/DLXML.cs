@@ -54,37 +54,37 @@ namespace DL
         #endregion
 
        
-        public void CreateStationsList()//get list of all the stations in the country from stops.xml,
-                                        //convert them to our station type and save to new xml
-        {
-            XElement busStationsRootElem = XMLtools.LoadListFromXMLElement(busStationPath);
-            int counter = busStationsRootElem.Elements().Count();
-            if (counter == 0)
-            {
-                XElement badBusStationsRootElem = XMLtools.LoadListFromXMLElement(badBusStationsPath);
-                IEnumerable<BusStation> stops = from stop in badBusStationsRootElem.Elements()
-                                                select new BusStation() {
-                                                    Code = int.Parse(stop.Element("Code").Value),
-                                                    Name = stop.Element("Name").Value,
-                                                    Latitude = double.Parse(stop.Element("Latitude").Value),
-                                                    Longitude = double.Parse(stop.Element("Longitude").Value),
-                                                    Address = stop.Element("Address").Value,
-                                                };
-                foreach (var item in stops)
-                {
-                    XElement stationElem = new XElement("BusStation", new XElement("Code", item.Code),
-                                  new XElement("Name", item.Name),
-                                  new XElement("Latitude", item.Latitude),
-                                  new XElement("Longitude", item.Longitude),
-                                  new XElement("Address", item.Address)
-                                );
-                    busStationsRootElem.Add(stationElem);
-                }
+        //public void CreateStationsList()//get list of all the stations in the country from stops.xml,
+        //                                //convert them to our station type and save to new xml
+        //{
+        //    XElement busStationsRootElem = XMLtools.LoadListFromXMLElement(busStationPath);
+        //    int counter = busStationsRootElem.Elements().Count();
+        //    if (counter == 0)
+        //    {
+        //        XElement badBusStationsRootElem = XMLtools.LoadListFromXMLElement(badBusStationsPath);
+        //        IEnumerable<BusStation> stops = from stop in badBusStationsRootElem.Elements()
+        //                                        select new BusStation() {
+        //                                            Code = int.Parse(stop.Element("Code").Value),
+        //                                            Name = stop.Element("Name").Value,
+        //                                            Latitude = double.Parse(stop.Element("Latitude").Value),
+        //                                            Longitude = double.Parse(stop.Element("Longitude").Value),
+        //                                            Address = stop.Element("Address").Value,
+        //                                        };
+        //        foreach (var item in stops)
+        //        {
+        //            XElement stationElem = new XElement("BusStation", new XElement("Code", item.Code),
+        //                          new XElement("Name", item.Name),
+        //                          new XElement("Latitude", item.Latitude),
+        //                          new XElement("Longitude", item.Longitude),
+        //                          new XElement("Address", item.Address)
+        //                        );
+        //            busStationsRootElem.Add(stationElem);
+        //        }
                 
-                XMLtools.SaveListToXMLElement(busStationsRootElem, busStationPath);
-            }
+        //        XMLtools.SaveListToXMLElement(busStationsRootElem, busStationPath);
+        //    }
 
-        }
+        //}
 
 
         #region Bus implementation
@@ -209,15 +209,15 @@ namespace DL
             IEnumerable<BusLine> ListLines = XMLtools.LoadListFromXMLSerializer<BusLine>(busLinePath).OrderBy(line => line.BusID);
             List<BusLine> list = ListLines.ToList();
 
-            bool exists =
-               ListLines.Any(p => p.Exists == true && p.BusID == line_number);
-            if (exists)
-                throw new BusLineAlreadyExistsException();//does it need to say something inside?
+           
             int number;
             if (list.Count() == 0)
                 number = 3000000;
             else
-                number = ++list[list.Count()].BusID;
+            {
+                number = list[list.Count() - 1].BusID;
+                number++;
+            }
             BusLine newBus = new BusLine {
                 BusID = number,
                 Bus_line_number = line_number,
@@ -267,7 +267,7 @@ namespace DL
         public BusLine GetBusLine(int busID)
         {
             List<BusLine> ListLines = XMLtools.LoadListFromXMLSerializer<BusLine>(busLinePath);
-            BusLine line = ListLines.FirstOrDefault();
+            BusLine line = ListLines.FirstOrDefault(b=>b.Exists&&b.BusID==busID);
             if (line != default(BusLine))
                 return line;
             else
@@ -314,6 +314,7 @@ namespace DL
             XElement freq = (from l in FrequencyRootElem.Elements()
                              where l.Element("ID").Value == lineID.ToString() + start.ToString() && bool.Parse(l.Element("Exists").Value)
                              select l).FirstOrDefault();
+           // int newID= FrequencyRootElem.
             if (freq != null)
                 throw new LineFrequencyAlreadyExistsException("this frequency already exists");
 
@@ -374,14 +375,14 @@ namespace DL
         }
         public IEnumerable<LineFrequency> GetAllLineFrequency()
         {
-            XElement frequencyRoot = XMLtools.LoadListFromXMLElement(busPath);
+            XElement frequencyRoot = XMLtools.LoadListFromXMLElement(lineFrequencyPath);
             return (from f in frequencyRoot.Elements()
                     where bool.Parse(f.Element("Exists").Value)
                     select new LineFrequency() {
                         ID = f.Element("ID").Value,
                         LineID = int.Parse(f.Element("LineID").Value),
-                        Start = new DateTime(0, 0, 0, int.Parse(f.Element("StartHour").Value), int.Parse(f.Element("StartMinute").Value), 0),
-                        End = new DateTime(0, 0, 0, int.Parse(f.Element("EndHour").Value), int.Parse(f.Element("EndMinute").Value), 0),
+                        Start = new DateTime(2000, 01, 01, int.Parse(f.Element("StartHour").Value), int.Parse(f.Element("StartMinute").Value), 0),
+                        End = new DateTime(2000, 01, 01, int.Parse(f.Element("EndHour").Value), int.Parse(f.Element("EndMinute").Value), 0),
                         Frequency = new TimeSpan(int.Parse(f.Element("FrequencyHours").Value), int.Parse(f.Element("FrequencyMinutes").Value), 0)
                     });
         }
@@ -393,8 +394,8 @@ namespace DL
                        select new LineFrequency() {
                            ID = f.Element("ID").Value,
                            LineID = int.Parse(f.Element("LineID").Value),
-                           Start = new DateTime(0, 0, 0, int.Parse(f.Element("StartHour").Value), int.Parse(f.Element("StartMinute").Value), 0),
-                           End = new DateTime(0, 0, 0, int.Parse(f.Element("EndHour").Value), int.Parse(f.Element("EndMinute").Value), 0),
+                           Start = new DateTime(2000, 01, 01, int.Parse(f.Element("StartHour").Value), int.Parse(f.Element("StartMinute").Value), 0),
+                           End = new DateTime(2000, 01, 01, int.Parse(f.Element("EndHour").Value), int.Parse(f.Element("EndMinute").Value), 0),
                            Frequency = new TimeSpan(int.Parse(f.Element("FrequencyHours").Value), int.Parse(f.Element("FrequencyMinutes").Value), 0)
                        }).FirstOrDefault();
             if (freq == null)
@@ -483,30 +484,27 @@ namespace DL
         #endregion   
 
         #region  BusStation implementation
-        public void AddBusStation(int code, double latitude, double longitude, string name, string address)
+        public void AddBusStation(double latitude, double longitude, string name, string address)
         {
             List<BusStation> ListStations = XMLtools.LoadListFromXMLSerializer<BusStation>(busStationPath);
-            if (ListStations.FirstOrDefault(tmpBusStation => tmpBusStation.Code == code) != default(BusStation))
-            {
-                throw new StationAlreadyExistsException(code, $", Bus with License number: {code} already exists in the system");
+            int newCode = ListStations.OrderByDescending(b => b.Code).FirstOrDefault().Code+1;
 
-            }
 
             ListStations.Add(new BusStation {
-                Code = code,
+                Code = newCode,
                 Latitude = latitude,
                 Longitude = longitude,
                 Name = name,
                 Address = address,
-             
-               
-            });
+                Exists = true
+
+            }) ;
             XMLtools.SaveListToXMLSerializer(ListStations, busStationPath);
         }//done!!
         public void UpdateBusStation(BusStation busStation)
         {
             List<BusStation> ListStations = XMLtools.LoadListFromXMLSerializer<BusStation>(busStationPath);
-            BusStation findBusStation = ListStations.FirstOrDefault(tmpBusStation => tmpBusStation.Code == busStation.Code);
+            BusStation findBusStation = ListStations.FirstOrDefault(tmpBusStation => tmpBusStation.Code == busStation.Code&& tmpBusStation.Exists);
 
             if (findBusStation != default(BusStation))
             {
@@ -526,7 +524,7 @@ namespace DL
             if (busStation != default(BusStation))
             {
 
-             
+                busStation.Exists = false;
                 XMLtools.SaveListToXMLSerializer(ListStations, busStationPath);
             }
             else
@@ -535,7 +533,7 @@ namespace DL
         public BusStation GetBusStation(int code)
         {
             List<BusStation> ListStations = XMLtools.LoadListFromXMLSerializer<BusStation>(busStationPath);
-            BusStation findBusStation = ListStations.Find(tmpBusStation => tmpBusStation.Code == code);
+            BusStation findBusStation = ListStations.Find(tmpBusStation => tmpBusStation.Code == code&& tmpBusStation.Exists);
 
             if (findBusStation != default(BusStation))
                 return findBusStation;
@@ -547,13 +545,13 @@ namespace DL
             List<BusStation> ListStations = XMLtools.LoadListFromXMLSerializer<BusStation>(busStationPath);
             return
                 from BusStation in ListStations
+                where BusStation.Exists
                 orderby BusStation.Code
                 select BusStation;
         }//done!!
         public IEnumerable<BusStation> GetAllBusStationsBy(Predicate<BusStation> predicate)
         {
-            List<BusStation> ListStations = XMLtools.LoadListFromXMLSerializer<BusStation>(busStationPath);
-            return from busStation in ListStations
+            return from busStation in GetAllBusStations()
                    where predicate(busStation)
                    select busStation;
         }   //done!!

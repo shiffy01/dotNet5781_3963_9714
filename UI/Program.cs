@@ -9,150 +9,152 @@ namespace PlConsole
 {
     class Program
     {
-        static IBL bl;
-        static Random rnd = new Random(DateTime.Now.Millisecond);
+        //static IBL bl;
+        //static Random rnd = new Random(DateTime.Now.Millisecond);
         static void Main(string[] args)
         {
-            bl = BlFactory.GetBl();
-            void PrintLines(List<BO.BusLine> lines1)
-            {
+            DateTime hi = new DateTime(2000, 01, 01, 4, 30, 1);
+            Console.WriteLine(hi.ToString());
+            //bl = BlFactory.GetBl();
+            //void PrintLines(List<BO.BusLine> lines1)
+            //{
 
-                for (int i = 0; i < lines1.Count; i++)
-                {
-                    Console.WriteLine(lines1[i].ToString());
-                    List<StationOnTheLine> list = lines1[i].Stations.ToList();
-                    Console.WriteLine("stops:");
-                    for (int j = 0; j < list.Count(); j++)
-                    {
-                        Console.WriteLine(list[j].ToString());
-                    }
-                    Console.WriteLine("               * * * *   ");
-                }
-            }
+            //    for (int i = 0; i < lines1.Count; i++)
+            //    {
+            //        Console.WriteLine(lines1[i].ToString());
+            //        List<StationOnTheLine> list = lines1[i].Stations.ToList();
+            //        Console.WriteLine("stops:");
+            //        for (int j = 0; j < list.Count(); j++)
+            //        {
+            //            Console.WriteLine(list[j].ToString());
+            //        }
+            //        Console.WriteLine("               * * * *   ");
+            //    }
+            //}
 
-            void PrintStations(List<BO.BusStation> stations)
-            {
+            //void PrintStations(List<BO.BusStation> stations)
+            //{
 
-                for (int i = 0; i < stations.Count; i++)
-                {
-                    Console.WriteLine(stations[i].ToString());
-                    Console.WriteLine("               * * * *   ");
-                    Console.WriteLine("lines:");
-                    List<BusLine> list = stations[i].Lines.ToList();
-                    for (int j = 0; j < list.Count; j++)
-                        Console.WriteLine(list[j].ToString());
-                }
-            }
+            //    for (int i = 0; i < stations.Count; i++)
+            //    {
+            //        Console.WriteLine(stations[i].ToString());
+            //        Console.WriteLine("               * * * *   ");
+            //        Console.WriteLine("lines:");
+            //        List<BusLine> list = stations[i].Lines.ToList();
+            //        for (int j = 0; j < list.Count; j++)
+            //            Console.WriteLine(list[j].ToString());
+            //    }
+            //}
 
-            //#region create and print lists
+            ////#region create and print lists
+            //////try
+            //////{
+            //List<BO.BusLine> busLines = bl.GetAllBusLines().ToList();
+            //////    List<BO.BusStation> busStations = bl.GetAllBusStations().ToList();
+            //////    Console.WriteLine("All Bus Lines:");
+            //////    PrintLines(busLines);
+            //////    Console.WriteLine("All Bus Stations:");
+            //////    PrintStations(busStations);
+            //////}
+            //////catch (PairNotFoundException ex)
+            //////{
+            //////    Console.WriteLine(ex.InnerException.Message);
+            //////}
+            ////BusLine bb=bl.GetBusLine(2000000);
+            ////Console.WriteLine(bb.ToString());
+            ////List<StationOnTheLine> list2 = bb.Stations.ToList();
+            ////for (int j = 0; j < list2.Count; j++)
+            ////    Console.WriteLine(list2[j].ToString());
+
+            ////#endregion
+            //////*********************
+
+            ////#region ADD NEW LINE AND PRINT
+            ////List<int> stationsOnLine = new List<int>();
+            ////stationsOnLine.Add(73);
+            ////stationsOnLine.Add(76);
+            ////stationsOnLine.Add(77);
+            ////List<String> neededDistances = new List<string>();
             ////try
             ////{
-            List<BO.BusLine> busLines = bl.GetAllBusLines().ToList();
-            ////    List<BO.BusStation> busStations = bl.GetAllBusStations().ToList();
-            ////    Console.WriteLine("All Bus Lines:");
+            ////    neededDistances = bl.AddBusLine(35, stationsOnLine, new DateTime(2021, 1, 1, 8, 0, 0), new DateTime(2021, 1, 1, 22, 0, 0), new TimeSpan(1, 0, 0));
+            ////     Console.WriteLine(bl.GetBusLine(2002).BusID);
+            ////    List<BO.BusLine> busLines = bl.GetAllBusLines().ToList();
             ////    PrintLines(busLines);
-            ////    Console.WriteLine("All Bus Stations:");
-            ////    PrintStations(busStations);
+            ////}
+            ////catch (BusLineNotFoundException ex)
+            ////{
+            ////    Console.WriteLine(ex.Message); 
+            ////}
+            ////catch (FrequencyConflictException ex)
+            ////{
+
+            ////    Console.WriteLine(ex.Message);
+            ////}
+            ////catch (BusLineAlreadyExistsException ex)
+            ////{
+            ////    Console.WriteLine(ex.Message);
+            ////}
+            ////catch (StationNotFoundException ex)
+            ////{
+            ////    Console.WriteLine(ex.Message);
+            ////}
+            ////int code1=0, code2=0;
+            ////for (int i = 0; i < neededDistances.Count; i++)
+            ////{
+            ////    string[] codes = neededDistances[i].Split('*');
+            ////    try
+            ////    {
+            ////         code1= Int32.Parse(codes[0]);
+            ////    }
+            ////    catch (FormatException e)
+            ////    {
+            ////        Console.WriteLine(e.Message);
+            ////    }
+            ////    try
+            ////    {
+            ////         code2 = Int32.Parse(codes[1]);
+            ////    }
+            ////    catch (FormatException e)
+            ////    {
+            ////        Console.WriteLine(e.Message);
+            ////    }
+            ////    bl.AddAdjacentStations(code1, code2, rnd.Next(), new TimeSpan(6, 0, 0));
+            ////}
+
+
+            ////#endregion
+            ////Console.WriteLine("WORKS TILL HERE I CHECKED");
+
+            ////#region update line, and getline
+            ////try
+            ////{
+            ////    bl.UpdateBusLine(new DateTime(2021, 1, 1, 6, 0, 0), new DateTime(2021, 1, 1, 12, 0, 0), new TimeSpan(1, 0, 0), 2000000);
+            ////}
+            ////catch (BO.FrequencyConflictException ex)
+            ////{
+            ////    Console.WriteLine(ex.Message);
+            ////}
+            ////catch (BO.BusLineNotFoundException ex)
+            ////{
+            ////    Console.WriteLine(ex.Message);
+            ////}
+
+            ////try
+            ////{
+            ////    Console.WriteLine("Updated line:" + bl.GetBusLine(2000000).ToString());
+            ////}
+            ////catch (BusLineNotFoundException ex)
+            ////{
+            ////    Console.WriteLine(ex.Message);
             ////}
             ////catch (PairNotFoundException ex)
             ////{
-            ////    Console.WriteLine(ex.InnerException.Message);
+            ////    Console.WriteLine(ex.Message);
             ////}
-            //BusLine bb=bl.GetBusLine(2000000);
-            //Console.WriteLine(bb.ToString());
-            //List<StationOnTheLine> list2 = bb.Stations.ToList();
-            //for (int j = 0; j < list2.Count; j++)
-            //    Console.WriteLine(list2[j].ToString());
+            ////#endregion//implement addDistance 
 
-            //#endregion
-            ////*********************
-
-            //#region ADD NEW LINE AND PRINT
-            //List<int> stationsOnLine = new List<int>();
-            //stationsOnLine.Add(73);
-            //stationsOnLine.Add(76);
-            //stationsOnLine.Add(77);
-            //List<String> neededDistances = new List<string>();
-            //try
-            //{
-            //    neededDistances = bl.AddBusLine(35, stationsOnLine, new DateTime(2021, 1, 1, 8, 0, 0), new DateTime(2021, 1, 1, 22, 0, 0), new TimeSpan(1, 0, 0));
-            //     Console.WriteLine(bl.GetBusLine(2002).BusID);
-            //    List<BO.BusLine> busLines = bl.GetAllBusLines().ToList();
-            //    PrintLines(busLines);
-            //}
-            //catch (BusLineNotFoundException ex)
-            //{
-            //    Console.WriteLine(ex.Message); 
-            //}
-            //catch (FrequencyConflictException ex)
-            //{
-
-            //    Console.WriteLine(ex.Message);
-            //}
-            //catch (BusLineAlreadyExistsException ex)
-            //{
-            //    Console.WriteLine(ex.Message);
-            //}
-            //catch (StationNotFoundException ex)
-            //{
-            //    Console.WriteLine(ex.Message);
-            //}
-            //int code1=0, code2=0;
-            //for (int i = 0; i < neededDistances.Count; i++)
-            //{
-            //    string[] codes = neededDistances[i].Split('*');
-            //    try
-            //    {
-            //         code1= Int32.Parse(codes[0]);
-            //    }
-            //    catch (FormatException e)
-            //    {
-            //        Console.WriteLine(e.Message);
-            //    }
-            //    try
-            //    {
-            //         code2 = Int32.Parse(codes[1]);
-            //    }
-            //    catch (FormatException e)
-            //    {
-            //        Console.WriteLine(e.Message);
-            //    }
-            //    bl.AddAdjacentStations(code1, code2, rnd.Next(), new TimeSpan(6, 0, 0));
-            //}
-
-
-            //#endregion
-            //Console.WriteLine("WORKS TILL HERE I CHECKED");
-
-            //#region update line, and getline
-            //try
-            //{
-            //    bl.UpdateBusLine(new DateTime(2021, 1, 1, 6, 0, 0), new DateTime(2021, 1, 1, 12, 0, 0), new TimeSpan(1, 0, 0), 2000000);
-            //}
-            //catch (BO.FrequencyConflictException ex)
-            //{
-            //    Console.WriteLine(ex.Message);
-            //}
-            //catch (BO.BusLineNotFoundException ex)
-            //{
-            //    Console.WriteLine(ex.Message);
-            //}
-
-            //try
-            //{
-            //    Console.WriteLine("Updated line:" + bl.GetBusLine(2000000).ToString());
-            //}
-            //catch (BusLineNotFoundException ex)
-            //{
-            //    Console.WriteLine(ex.Message);
-            //}
-            //catch (PairNotFoundException ex)
-            //{
-            //    Console.WriteLine(ex.Message);
-            //}
-            //#endregion//implement addDistance 
-
-            ////*********************
+            //////*********************
 
 
             //#region Delete line

@@ -116,14 +116,17 @@
     <Compile Include="RouteSearch.xaml.cs">
       <DependentUpon>RouteSearch.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Search.xaml.cs">
-      <DependentUpon>Search.xaml</DependentUpon>
-    </Compile>
     <Compile Include="SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="StationDetails.xaml.cs">
       <DependentUpon>StationDetails.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StationTimes.xaml.cs">
+      <DependentUpon>StationTimes.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UpdateBusLine.xaml.cs">
+      <DependentUpon>UpdateBusLine.xaml</DependentUpon>
     </Compile>
     <Page Include="AddBus.xaml">
       <SubType>Designer</SubType>
@@ -208,15 +211,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Search.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="StationDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StationTimes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UpdateBusLine.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -244,6 +251,7 @@
     <None Include="Properties\DataSources\BO.BusLine.datasource" />
     <None Include="Properties\DataSources\BO.BusLineTime.datasource" />
     <None Include="Properties\DataSources\BO.BusStation.datasource" />
+    <None Include="Properties\DataSources\BO.LineTiming.datasource" />
     <None Include="Properties\DataSources\BO.StationOnTheLine.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

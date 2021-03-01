@@ -52,6 +52,7 @@ namespace PL1
                 {
                     MainWindow main = new MainWindow(bl, User, false);
                     main.ShowDialog();
+                    this.Close();
                 }
             }
         }
@@ -91,6 +92,7 @@ namespace PL1
             {
                 MainWindow main = new MainWindow(bl, User, false);
                 main.ShowDialog();
+                this.Close();
             }
         }
         private void GoClick(object sender, RoutedEventArgs e)
@@ -106,7 +108,7 @@ namespace PL1
                 MainWindow mainw = new MainWindow(bl, User, false);
                 mainw.ShowDialog();
             }
-
+            this.Close();
         }
 
     }

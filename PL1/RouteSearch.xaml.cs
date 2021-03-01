@@ -33,6 +33,7 @@ namespace PL1
             InitializeComponent();
             bl = bl1;
             User = user;
+            busStationDataGrid.DataContext = bl.GetAllBusStations();
             initialize();
         }
         private void TextBox_OnlyNumbers_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -72,11 +73,17 @@ namespace PL1
             e.Handled = true; //ignore this key. mark event as handled, will not be routed to other controls
             return;
         }
+        private void textChanged(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(firstCodeBox.Text) || string.IsNullOrEmpty(secondCodeBox.Text))
+                searchButton.IsEnabled = false;
+            else
+                searchButton.IsEnabled = true;
+        }
         private void searchClick(object sender, RoutedEventArgs e)
         {
             initialize();
-            if (string.IsNullOrEmpty(firstCodeBox.Text) || string.IsNullOrEmpty(secondCodeBox.Text))
-                return;
+           
            
                 var lines = bl.SearchRoute(int.Parse(firstCodeBox.Text), int.Parse(secondCodeBox.Text));
             if (lines.Count() == 0)
@@ -87,12 +94,23 @@ namespace PL1
                 busLineDataGrid.Visibility = Visibility.Visible;
                 //try
                 //{
-                    
+                  // try to figure out time label. if not remove it
                 //}
             }
         }
+        private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            DataGridRow row = sender as DataGridRow;
+            BusLineDetails line = new BusLineDetails(bl, (row.DataContext as BO.BusLine));
+            NavigationService.Navigate(line);
 
-
-
+        }
+       
+        private void allSearchClick(object sender, RoutedEventArgs e)
+        {
+            
+            StationTimes time = new StationTimes(bl);
+            NavigationService.Navigate(time);
+        }
     }
 }

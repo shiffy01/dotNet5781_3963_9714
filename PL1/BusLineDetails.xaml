@@ -7,7 +7,7 @@
       xmlns:BO="clr-namespace:BO;assembly=BL" x:Class="PL1.BusLineDetails"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="BusLineDetails" Background="white">
+      Title="BusLineDetails" Width="1010" Height="540" Background="white">
 
     <Page.Resources>
         <CollectionViewSource x:Key="busLineViewSource" d:DesignSource="{d:DesignInstance {x:Type BO:BusLine}, CreateList=True}"/>
@@ -17,7 +17,7 @@
 
     <Grid DataContext="{StaticResource stationOnTheLineViewSource}">
 
-        <Grid x:Name="lineGrid" VerticalAlignment="Top" Margin="40,79,0,0" HorizontalAlignment="Left" DataContext="{StaticResource busLineViewSource}" Height="102">
+        <Grid x:Name="lineGrid" VerticalAlignment="Top" Margin="87,85,0,0" HorizontalAlignment="Left" DataContext="{StaticResource busLineViewSource}" Height="102">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -29,12 +29,12 @@
             </Grid.ColumnDefinitions>
             <Label VerticalAlignment="Center" Grid.Row="0" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Bus line number:"/>
             <Label x:Name="bus_line_numberLabel" VerticalAlignment="Center" Grid.Row="0" Margin="3" HorizontalAlignment="Left" Grid.Column="1" Content="{Binding Bus_line_number}"/>
-            <Label VerticalAlignment="Center" Grid.Row="1" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Destination:"/>
-            <Label x:Name="destinationLabel" VerticalAlignment="Center" Grid.Row="1" Margin="3" HorizontalAlignment="Left" Grid.Column="1" Content="{Binding Destination}"/>
-            <Label VerticalAlignment="Center" Grid.Row="2" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Origin:"/>
-            <Label x:Name="originLabel" VerticalAlignment="Center" Grid.Row="2" Margin="3" HorizontalAlignment="Left" Grid.Column="1" Content="{Binding Origin}"/>
+            <Label VerticalAlignment="Center" Grid.Row="1" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Origin:"/>
+            <Label x:Name="originLabel" VerticalAlignment="Center" Grid.Row="1" Margin="3" HorizontalAlignment="Left" Grid.Column="1" Content="{Binding Origin}"/>
+            <Label VerticalAlignment="Center" Grid.Row="2" Margin="3" HorizontalAlignment="Left" Grid.Column="0" Content="Destination:"/>
+            <Label x:Name="destinationLabel" VerticalAlignment="Center" Grid.Row="2" Margin="3" HorizontalAlignment="Left" Grid.Column="1" Content="{Binding Destination}"/>
         </Grid>
-        <DataGrid x:Name="stationsGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="352,30,48,220" RowDetailsVisibilityMode="VisibleWhenSelected">
+        <DataGrid x:Name="stationsGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="352,30,48,289" RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
                 <DataGridTemplateColumn x:Name="number_on_routeColumn" Header="Number on route" Width="SizeToHeader">
                     <DataGridTemplateColumn.CellTemplate>
@@ -54,31 +54,9 @@
                 
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid x:Name="busLineTimeDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource busLineTimeViewSource}}" Margin="352,250,48,10" RowDetailsVisibilityMode="VisibleWhenSelected">
-            <DataGrid.Columns>
-                <DataGridTemplateColumn x:Name="endColumn" Header="End" Width="SizeToHeader">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Label Content="{Binding End}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn x:Name="frequencyColumn" Header="Frequency" Width="SizeToHeader">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Label Content="{Binding Frequency}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn x:Name="startColumn" Header="Start" Width="SizeToHeader">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Label Content="{Binding Start}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>
-        </DataGrid>
-
+        <TextBlock x:Name="timesText" FontSize="20" Margin="352,363,48,50"/>
+        <Label Margin="362,290,258,206" Content="Times:" FontSize="20">
+           
+        </Label>
     </Grid>
 </Page>

@@ -102,35 +102,6 @@ namespace BL
             finalLicense += " ";
             return finalLicense;
         }
-        string GetCityFromAddress(string address)
-        {
-
-            int first_index = address.IndexOf("עיר") + 3;
-            int last_index = address.IndexOf("רציף");
-            int length;
-            if (last_index == -1)
-            {
-                string ans = address.Substring(first_index);
-                ans = ans.Replace(@" ", "");
-                return ans.Replace(@":", "");
-            }
-
-            length = last_index - first_index;
-            string answer;
-            if(length<0)
-                return "תל אביב";
-            try
-            {
-                answer = address.Substring(first_index, length);
-            }
-            catch (Exception)
-            {
-                return "תל אביב";
-            }
-            answer = answer.Replace(@" ", "");
-            return answer.Replace(@":", "");
-
-        }
         void FrequencyCheck(List<BusLineTime> times)
         {
             foreach (var t in times)
@@ -178,8 +149,7 @@ namespace BL
             catch (DataErrorException ex)
             {
                 throw ex;
-            }
-            BOstation.City = GetCityFromAddress(BOstation.Address);
+            }   
             return BOstation;
         }
         DO.BusStation ConvertStationBOtoDO(BusStation BOstation)
@@ -191,8 +161,7 @@ namespace BL
         StationOnTheLine DOtoBOstationOnTheLine(DO.BusStation DOstation)
         {
             StationOnTheLine BOstation = new StationOnTheLine();
-            DOstation.CopyPropertiesTo(BOstation);
-            BOstation.City = GetCityFromAddress(BOstation.Address);
+            DOstation.CopyPropertiesTo(BOstation);      
             return BOstation;
         }
         Bus ConvertDOtoBOBus(DO.Bus DOBus)
@@ -200,6 +169,7 @@ namespace BL
             Bus BOBus = new Bus();
             DOBus.CopyPropertiesTo(BOBus);
             BOBus.LicensePlate = license_format(DOBus.License);
+            BOBus.Percent = 0;
             return BOBus;
         }
         BusLine DOtoBOBusLineAdapter(DO.BusLine DObusLine)
@@ -229,7 +199,6 @@ namespace BL
             BObusLine.Stations = list;
             BObusLine.Origin = list[0].Address;
             BObusLine.Destination = list[list.Count - 1].Address;
-            BObusLine.InterCity = (list[0].City == list[list.Count - 1].City);
 
             BObusLine.Times = from time in dal.GetAllLineFrequencyBy(f => f.LineID == BObusLine.BusID).OrderBy(t=>t.Start)
                               select new BusLineTime {
@@ -335,8 +304,8 @@ namespace BL
             {
                 throw new BusLineNotFoundException("cannot update a bus line that is not in the system", ex);
             }//get bus
-           
-            busToUpdate.Bus_line_number = lineNumber; 
+
+            busToUpdate.Bus_line_number = lineNumber;
             try
             {
                 dal.UpdateBusLine(busToUpdate);
@@ -344,7 +313,7 @@ namespace BL
             catch (DO.BusLineNotFoundException ex)
             {
                 throw new BusLineNotFoundException("The bus line was not found in the system", ex);
-            }//update bus
+            }//update line
 
             try
             {
@@ -352,9 +321,26 @@ namespace BL
             }
             catch (FrequencyConflictException ex)
             {
-                throw new FrequencyConflictException("This bus cannot be added, because there is a conflict with the times ", ex);
+                throw new FrequencyConflictException("This bus cannot be updated, because there is a conflict with the times ", ex);
             }//check times
-
+            try
+            {
+                var oldTimes = dal.GetAllLineFrequency();
+                foreach (var t in oldTimes)
+                {
+                    try
+                    {
+                        dal.GetLineFrequency(busID.ToString() + t.Start.ToString());
+                        dal.DeleteLineFrequency(busID.ToString() + t.Start.ToString());
+                    }
+                    catch (DO.LineFrequencyDoesNotExistException)  {}
+                    
+                }
+            }
+            catch (DO.LineFrequencyAlreadyExistsException ex)
+            {
+                throw new DataErrorException("There was an error loading the data", ex);
+            }
             try
             {
                 foreach (var t in times)
@@ -513,12 +499,12 @@ namespace BL
             }
 
 
-            var list = dal.GetAllBusLineStationsBy(station => (station.LineID == bus_number && station.Number_on_route >= place));
-            if (place > list.Count() + 1)
+            var listcheck = dal.GetAllBusLineStationsBy(station => (station.LineID == bus_number));
+            if (place > listcheck.Count() + 1)
                 throw new InvalidPlaceException("Place number is too high");
             if (place < 1)
                 throw new InvalidPlaceException("Place number cannot be lower than 1");
-
+            var list = dal.GetAllBusLineStationsBy(station => (station.LineID == bus_number && station.Number_on_route >= place));
 
             foreach (var item in list)
             {
@@ -537,12 +523,15 @@ namespace BL
 
             //return a list of distances that need to be added:
             List<string> needed_distances = new List<string>();
-            int code_before = (dal.GetAllBusLineStationsBy(station => (station.LineID == bus_number)).FirstOrDefault(ss => (ss.Number_on_route == place - 1))).StationID;
-            int code_after = (dal.GetAllBusLineStationsBy(station => (station.LineID == bus_number)).FirstOrDefault(ss => (ss.Number_on_route == place + 1))).StationID;
+            int code_before=0, code_after=0;
+            if(place>1)
+            code_before = (dal.GetAllBusLineStationsBy(station => (station.LineID == bus_number)).FirstOrDefault(ss => (ss.Number_on_route == place - 1))).StationID;
+            if(place< list.Count() + 1)
+            code_after = (dal.GetAllBusLineStationsBy(station => (station.LineID == bus_number)).FirstOrDefault(ss => (ss.Number_on_route == place + 1))).StationID;
 
-            if (!(dal.AdjacentStationsExists(code_before.ToString() + code.ToString())))
+            if ((code_before!=0) &&!(dal.AdjacentStationsExists(code_before.ToString() + code.ToString())))
                 needed_distances.Add(code_before + "*" + code);
-            if (!(dal.AdjacentStationsExists(code.ToString() + code_after.ToString())))
+            if ((code_after!=0)&&!(dal.AdjacentStationsExists(code.ToString() + code_after.ToString())))
                 needed_distances.Add(code + "*" + code_after);
             return needed_distances;
 
@@ -582,22 +571,18 @@ namespace BL
             {
                 throw new StationDoesNotExistOnTheLinexception(stationCode, lineNumber, $",station number: {stationCode} is not on this route", ex);
             }
+            if(busLineStation.Number_on_route - 2>0&& busLineStation.Number_on_route< busLineStationList.Count())
             if (!(dal.AdjacentStationsExists(busLineStationList[busLineStation.Number_on_route - 1].StationID.ToString() + busLineStationList[busLineStation.Number_on_route + 1].StationID.ToString())))
             {
                 return busLineStationList[busLineStation.Number_on_route - 2].StationID + "*" + busLineStationList[busLineStation.Number_on_route].StationID;
             }
             return null;
         }
-        public void AddBusStation(int code, double latitude, double longitude, string name, string address, string city)
+        public void AddBusStation(double latitude, double longitude, string name, string address)
         {
-            try
-            {
-                dal.AddBusStation(code, latitude, longitude, name, address);
-            }
-            catch (DO.StationAlreadyExistsException ex)
-            {
-                throw new StationALreadyExistsException(code, "You can't add a bus station that is already in the system", ex);
-            }
+           
+                dal.AddBusStation(latitude, longitude, name, address);
+          
         }
         public void DeleteBusStation(int stationID)//BONUS, not implemented
         {
@@ -617,9 +602,12 @@ namespace BL
             //converting BO status to DO status:
             int number = (int)status;
             DO.Bus.Status_ops DOstatus = (DO.Bus.Status_ops)number;
+            
             try
             {
-          //      dal.UpdateBus(license, DOstatus, last_tune_up, kilometerage, totalkilometerage, gas);
+                
+                
+                dal.UpdateBus(license, DOstatus, last_tune_up, totalkilometerage, totalkilometerage, gas);
             }
             catch (DO.BusNotFoundException ex)
             {
@@ -667,141 +655,141 @@ namespace BL
         }
         #endregion
 
-        #region Bus functions 
+        //#region Bus functions 
 
-        //private void Worker_DoWork(object sender, DoWorkEventArgs e)
+        ////private void Worker_DoWork(object sender, DoWorkEventArgs e)
+        ////{
+
+        ////    Bus b = (Bus)e.Argument;
+
+        ////    for (int i = 0; i < b.Time; i++)
+        ////    {
+
+        ////        System.Threading.Thread.Sleep(1000);//one second
+
+        ////        (sender as BackgroundWorker).ReportProgress((b.Time - i) * 10, b);//sends the number of seconds untill the bus is ready to drive again
+        ////    }
+        ////    e.Result = b;
+        ////}
+        ////private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        ////{
+        ////    Bus b = (e.UserState as Bus);
+        ////    int time = e.ProgressPercentage;
+        ////    string mes = "";
+        ////    if (time >= 60)
+        ////    {
+        ////        mes += (time / 60) + " hour";
+        ////        if (time / 60 > 1)
+        ////            mes += "s";
+        ////        if (time % 60 != 0)
+        ////            mes += " and " + time % 60 + " minutes";
+
+        ////    }
+        ////    else
+        ////        mes += time + " minutes";
+        ////    mes += " untill the bus can drive";
+        ////    b.Seconds = mes;
+        ////}
+        ////private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        ////{
+        ////    Bus bus = (e.Result as Bus);
+        ////    bus.ButtonVisibility = false;
+        ////    bus.Seconds = "Ready";
+        ////    bus.Progressb = 0;
+        ////    if (bus.Status == Bus.Status_ops.At_mechanic || bus.Status == Bus.Status_ops.Filling_up)
+        ////    {
+        ////        bus.Status = Bus.Status_ops.Ready;
+        ////        bus.CanDrive = true;
+        ////        bus.CanGas = true;
+        ////        bus.CanTuneUp = true;
+        ////    }
+        ////    //the bus will be refilled automaticly if there is less than 40 in the gas tank and will be tuned up if less than 2000 km left to drive (or passed the date)
+        ////    if (bus.Status == Bus.Status_ops.On_the_road)//the bus just came back from a drive
+        ////    {
+        ////        if (bus.Milage < 18000 && !((DateTime.Now - bus.Last_tune_up).Days > 356) && bus.Gas >= 40)//the bus does not need gas or a tune up
+        ////        {
+        ////            bus.Status = Bus.Status_ops.Ready;
+        ////            bus.CanDrive = true;
+        ////            bus.CanGas = true;
+        ////            bus.CanTuneUp = true;
+        ////        }
+        ////        if (bus.Milage > 18000 || (bus.Last_tune_up - DateTime.Now).Days > 356)//the bus needs a tune up
+        ////        {
+        ////            if (bus.Gas < 40)//if the bus needs gas too
+        ////                bus.Refill();
+        ////            Tuneup(bus);
+        ////        }
+        ////        if (bus.Gas < 40)
+        ////        {
+        ////            Refill(bus);
+        ////        }
+        ////    }
+
+        ////}
+
+        ////BackgroundWorker gas = new BackgroundWorker();
+        ////gas.DoWork += Worker_DoWork;
+        ////        gas.ProgressChanged += Worker_ProgressChanged;
+        ////        gas.RunWorkerCompleted += Worker_RunWorkerCompleted;
+        ////        gas.WorkerReportsProgress = true;
+        ////        gas.WorkerSupportsCancellation = true;
+        ////gas.RunWorkerAsync(b1);
+        //public void refill(Bus bus)
         //{
-
-        //    Bus b = (Bus)e.Argument;
-
-        //    for (int i = 0; i < b.Time; i++)
-        //    {
-
-        //        System.Threading.Thread.Sleep(1000);//one second
-
-        //        (sender as BackgroundWorker).ReportProgress((b.Time - i) * 10, b);//sends the number of seconds untill the bus is ready to drive again
-        //    }
-        //    e.Result = b;
-        //}
-        //private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        //{
-        //    Bus b = (e.UserState as Bus);
-        //    int time = e.ProgressPercentage;
-        //    string mes = "";
-        //    if (time >= 60)
-        //    {
-        //        mes += (time / 60) + " hour";
-        //        if (time / 60 > 1)
-        //            mes += "s";
-        //        if (time % 60 != 0)
-        //            mes += " and " + time % 60 + " minutes";
-
-        //    }
-        //    else
-        //        mes += time + " minutes";
-        //    mes += " untill the bus can drive";
-        //    b.Seconds = mes;
-        //}
-        //private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        //{
-        //    Bus bus = (e.Result as Bus);
-        //    bus.ButtonVisibility = false;
-        //    bus.Seconds = "Ready";
-        //    bus.Progressb = 0;
-        //    if (bus.Status == Bus.Status_ops.At_mechanic || bus.Status == Bus.Status_ops.Filling_up)
-        //    {
-        //        bus.Status = Bus.Status_ops.Ready;
-        //        bus.CanDrive = true;
-        //        bus.CanGas = true;
-        //        bus.CanTuneUp = true;
-        //    }
-        //    //the bus will be refilled automaticly if there is less than 40 in the gas tank and will be tuned up if less than 2000 km left to drive (or passed the date)
-        //    if (bus.Status == Bus.Status_ops.On_the_road)//the bus just came back from a drive
-        //    {
-        //        if (bus.Milage < 18000 && !((DateTime.Now - bus.Last_tune_up).Days > 356) && bus.Gas >= 40)//the bus does not need gas or a tune up
-        //        {
-        //            bus.Status = Bus.Status_ops.Ready;
-        //            bus.CanDrive = true;
-        //            bus.CanGas = true;
-        //            bus.CanTuneUp = true;
-        //        }
-        //        if (bus.Milage > 18000 || (bus.Last_tune_up - DateTime.Now).Days > 356)//the bus needs a tune up
-        //        {
-        //            if (bus.Gas < 40)//if the bus needs gas too
-        //                bus.Refill();
-        //            Tuneup(bus);
-        //        }
-        //        if (bus.Gas < 40)
-        //        {
-        //            Refill(bus);
-        //        }
-        //    }
-
-        //}
-
-        //BackgroundWorker gas = new BackgroundWorker();
-        //gas.DoWork += Worker_DoWork;
-        //        gas.ProgressChanged += Worker_ProgressChanged;
-        //        gas.RunWorkerCompleted += Worker_RunWorkerCompleted;
-        //        gas.WorkerReportsProgress = true;
-        //        gas.WorkerSupportsCancellation = true;
-        //gas.RunWorkerAsync(b1);
-        public void refill(Bus bus)
-        {
             
-            try
-            {
-                UpdateBus(bus.License, BO.Bus.Status_ops.Filling_up, bus.Last_tune_up, bus.kilometerage, bus.Totalkilometerage, 1200);//1200 is a full tank
-                //DO תהליכונים!!!!!!!!
+        //    try
+        //    {
+        //        UpdateBus(bus.License, BO.Bus.Status_ops.Filling_up, bus.Last_tune_up, bus.kilometerage, bus.Totalkilometerage, 1200);//1200 is a full tank
+        //        //DO תהליכונים!!!!!!!!
         
-            }
-            catch (BusNotFoundException ex)
-            {
-                throw ex;
-            }
-            BackgroundWorker gas = new BackgroundWorker();
-            //gas.DoWork += Worker_DoWork;
-            //gas.ProgressChanged += Worker_ProgressChanged;
-            //gas.RunWorkerCompleted += Worker_RunWorkerCompleted;
-            //gas.WorkerReportsProgress = true;
-            //gas.WorkerSupportsCancellation = true;
-            //gas.RunWorkerAsync(bus);
-        }
-        public void tuneUp(Bus bus)
-        {
-            try
-            {
-                UpdateBus(bus.License, BO.Bus.Status_ops.At_mechanic, DateTime.Now, bus.kilometerage, bus.Totalkilometerage, 1200);//1200 is a full tank, 
-                //the bus gets filled up at the end of a tune up
-                //DO תהליכונים!!!!!!!!
-            }
-            catch (BusNotFoundException ex)
-            {
-                throw ex;
-            }
-        }
-        public void drive(Bus bus, double distance)
-        {
+        //    }
+        //    catch (BusNotFoundException ex)
+        //    {
+        //        throw ex;
+        //    }
+        //    BackgroundWorker gas = new BackgroundWorker();
+        //    //gas.DoWork += Worker_DoWork;
+        //    //gas.ProgressChanged += Worker_ProgressChanged;
+        //    //gas.RunWorkerCompleted += Worker_RunWorkerCompleted;
+        //    //gas.WorkerReportsProgress = true;
+        //    //gas.WorkerSupportsCancellation = true;
+        //    //gas.RunWorkerAsync(bus);
+        //}
+        //public void tuneUp(Bus bus)
+        //{
+        //    try
+        //    {
+        //        UpdateBus(bus.License, BO.Bus.Status_ops.At_mechanic, DateTime.Now, bus.kilometerage, bus.Totalkilometerage, 1200);//1200 is a full tank, 
+        //        //the bus gets filled up at the end of a tune up
+        //        //DO תהליכונים!!!!!!!!
+        //    }
+        //    catch (BusNotFoundException ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
+        //public void drive(Bus bus, double distance)
+        //{
             
-            try
-            {
-                UpdateBus(bus.License, BO.Bus.Status_ops.On_the_road, bus.Last_tune_up, (int)(bus.kilometerage+distance), (int)(bus.Totalkilometerage+distance), bus.Gas-(int)distance);
-                //DO תהליכונים!!!!!!!!
+        //    try
+        //    {
+        //        UpdateBus(bus.License, BO.Bus.Status_ops.On_the_road, bus.Last_tune_up, (int)(bus.kilometerage+distance), (int)(bus.Totalkilometerage+distance), bus.Gas-(int)distance);
+        //        //DO תהליכונים!!!!!!!!
                
-            }
-            catch (BusNotFoundException ex)
-            {
-                throw ex;
-            }
-        }
-        public bool canDrive(Bus bus)
-        {
-            if(bus.Status==Bus.Status_ops.Ready)
-                 return true;
-            return false;
-        }
+        //    }
+        //    catch (BusNotFoundException ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
+        //public bool canDrive(Bus bus)
+        //{
+        //    if(bus.Status==Bus.Status_ops.Ready)
+        //         return true;
+        //    return false;
+        //}
 
-        #endregion
+        //#endregion
 
         #region User functions
         public void AddUser(string userName, string password, bool manager)
@@ -902,7 +890,7 @@ namespace BL
         {
 
             var list = from t in dal.GetAllBusLineStationsBy(b => b.LineID == lineCode && b.Number_on_route >= dal.GetBusLineStation(station1.ToString() + lineCode.ToString()).Number_on_route && b.Number_on_route < dal.GetBusLineStation(station2.ToString() + lineCode.ToString()).Number_on_route)
-                       select dal.GetAdjacentStations(station1.ToString() + station2.ToString()).Average_drive_time;
+                       select dal.GetAdjacentStations(t.StationID.ToString() + dal.GetAllBusLineStationsBy(b=>b.LineID==lineCode&&b.Number_on_route==t.Number_on_route+1).First().StationID.ToString()).Average_drive_time;
             TimeSpan driveTime=new TimeSpan(0,0,0);
             foreach (var item in list)
             {
@@ -912,6 +900,7 @@ namespace BL
         }
         bool busLineStationExists(string id)
         {
+        
             try
             {
                 dal.GetBusLineStation(id);
@@ -940,14 +929,7 @@ namespace BL
            
             //sort the list by time, make a seperate function for that
         }
-        #endregion
-        public IEnumerable<string> GetByCities()
-        {
-            var list= from b in GetAllBusStations()
-                   group b by b.City;
-            return from s in list
-                   select s.Key;
-        }
+        #endregion    
         public IEnumerable<BusLine> GetBusLinesOfStation(int code)
         {
             try
@@ -961,6 +943,51 @@ namespace BL
             {
                 throw new DataErrorException("Data error");
             }
+        }
+        public string printTimes(List<BusLineTime> times)
+        {
+            string s = "";
+           
+            foreach(var t in times)
+            {
+                s += "start: "+t.Start.TimeOfDay.ToString()+" end: "+t.End.TimeOfDay.ToString()+" frequency: "+t.Frequency.ToString()+@"
+";
+            }
+           
+            return s;
+        }
+        public void addRouteSearch(string username, Route route)
+        {
+            try
+            {
+          //      dal.AddRouteSearchHistory(username, route.OriginCode, route.DestinationCode, nic)
+            }
+            catch (DO.RouteSearchHistoryAlreadyExistsException ex)
+            {
+                throw ex;
+            }
+        }
+        public IEnumerable<LineTiming> getLineTimings(int stationCode, TimeSpan time)//time=how much time has elapsed since 8AM
+        {
+            List<LineTiming> returnList= new List<LineTiming>();
+            var list = from t in GetBusLinesOfStation(stationCode)
+                       select t;
+            foreach (var item in list)
+            {
+                foreach(var tt in item.Times)
+                {
+                    if(new TimeSpan(tt.Start.Hour, tt.Start.Minute, 0) <= (time+new TimeSpan(8, 0, 0)))
+                    if(driveTime(item.BusID, item.Stations.ToList()[0].Code, stationCode)>(time + new TimeSpan(8, 0, 0)- new TimeSpan(tt.Start.Hour, tt.Start.Minute, 0)))
+                    returnList.Add(new LineTiming {
+                        TripStart=new TimeSpan(tt.Start.Hour, tt.Start.Minute, 0),
+                        LineID =item.BusID,
+                        lineCode=item.Bus_line_number,
+                        LastStation=item.Destination,
+                        Timing= driveTime(item.BusID, item.Stations.ToList()[0].Code, stationCode) - time+(new TimeSpan(tt.Start.Hour, tt.Start.Minute, 0)-new TimeSpan(8, 0, 0))
+                    });
+                }
+            }
+            return returnList;
         }
     }
    

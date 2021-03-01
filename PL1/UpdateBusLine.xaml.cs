@@ -10,56 +10,90 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Collections.ObjectModel;
-using BO;
 using BlApi;
-//using Xceed.Wpf.Toolkit;
-
 
 namespace PL1
 {
     /// <summary>
-    /// Interaction logic for UpdateLine.xaml
+    /// Interaction logic for UpdateBusLine.xaml
     /// </summary>
-
-
-    public partial class UpdateBusLine : Window
+    public partial class UpdateBusLine : Page
     {
-        ObservableCollection<BO.BusLineTime> LineTimes;
+        List<BO.BusLineTime> LineTimes = new List<BO.BusLineTime>();
         static IBL bl;
         BO.User User;
-        ObservableCollection<BusStation> all_stations;
-        List<int> stationsToAdd;
+        BO.BusLine line;
+        List<BO.BusStation> stationsToAdd = new List<BO.BusStation>();
         int Index = 0;
         int Code1;
         int Code2;
-        string askForDistance;
-        string askForTime;
-        List<string> distances;
-        BO.BusLine Line;
-
-        private void initialize()
+        List<string> distances=new List<string>();
+        void initialize()
         {
-            IEnumerable<BusStation> stationIenumerable = bl.GetAllBusStations();
-            all_stations = new ObservableCollection<BusStation>(stationIenumerable);
-            stationsToAdd = new List<int>();
-            Index = 0;
-            bus_line_numberTextBox.DataContext = Line.Bus_line_number;
-            Line = bl.GetBusLine(Line.BusID);
-            stationOnTheLineDataGrid.DataContext = Line.Stations.OrderBy(station => station.Number_on_route);
-            //first_bus.DefaultValue = Line.First_bus;
-            //last_bus.DefaultValue = Line.Last_bus;
-            ////frequencyPicker.
+            foreach (var item in line.Times)
+            {
+                LineTimes.Add(item);
+            }
+            timesText.Text = bl.printTimes(LineTimes);
+            busStationDataGrid.DataContext = bl.GetAllBusStations();
+            foreach (var item in line.Stations)
+            {
+                stationsToAdd.Add(bl.GetBusStation(item.Code));
+            }
+            stationOnTheLineDataGrid.DataContext = line.Stations;
+            Line_tb.Text = line.Bus_line_number.ToString();
+            //Index = 0;
         }
-        public UpdateBusLine(IBL bl1, BO.User user, BO.BusLine line)
+        public UpdateBusLine(IBL bl1, BO.User user, int lineID)
         {
-           
             InitializeComponent();
             bl = bl1;
+            line = bl.GetBusLine(lineID);
             User = user;
             initialize();
+        }
+        private void TextBox_OnlyNumbers_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            TextBox text = sender as TextBox;
+            if (text == null) return;
+            if (e == null) return;
 
+            //allow get out of the text box
+            if (e.Key == Key.Enter || e.Key == Key.Return || e.Key == Key.Tab)
+                return;
+
+            //allow list of system keys (add other key here if you want to allow)
+            if (e.Key == Key.Escape || e.Key == Key.Back || e.Key == Key.Delete ||
+                  e.Key == Key.Home
+             || e.Key == Key.End || e.Key == Key.Insert || e.Key == Key.Down || e.Key == Key.Right)
+                return;
+
+            char c = (char)KeyInterop.VirtualKeyFromKey(e.Key);
+
+            //allow control system keys
+            if (Char.IsControl(c)) return;
+
+            //allow digits (without Shift or Alt)
+            if (Char.IsDigit(c))
+                if (!(Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightAlt)))
+                    return; //let this key be written inside the textbox
+
+            //forbid letters and signs (#,$, %, ...)
+            e.Handled = true; //ignore this key. mark event as handled, will not be routed to other controls
+            return;
+        }
+        private bool IsAllFilled()
+        {
+            if (string.IsNullOrEmpty(Line_tb.Text))
+                return false;
+            if (LineTimes.Count() == 0)
+                return false;
+            if (stationsToAdd.Count() < 2)
+                return false;
+
+            return true;
         }
         private void splitStringTOTwoInts(string str, ref int num1, ref int num2, char splitHere)
         {
@@ -81,183 +115,188 @@ namespace PL1
                 Console.WriteLine(e.Message);
             }
         }
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void createDialogeContent()
         {
-
-            System.Windows.Data.CollectionViewSource busLineViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("busLineViewSource")));
-            // Load data by setting the CollectionViewSource.Source property:
-            // busLineViewSource.Source = [generic data source]
-            System.Windows.Data.CollectionViewSource busStationViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("busStationViewSource")));
-            // Load data by setting the CollectionViewSource.Source property:
-            // busStationViewSource.Source = [generic data source]
-            System.Windows.Data.CollectionViewSource stationOnTheLineViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("stationOnTheLineViewSource")));
-            // Load data by setting the CollectionViewSource.Source property:
-            // stationOnTheLineViewSource.Source = [generic data source]
-        }
-
-        //private void change(object sender, EventArgs e)
-        //{
-        //    splitStringTOTwoInts(freq.Text, ref Hours, ref Minutes, ':');
-
-        //    if (Minutes <= 59 || (Minutes == 0 && Hours == 0))
-        //    {
-        //        updateButton.IsEnabled = true;
-        //    }
-        //}
-        private void TextBox_OnlyNumbers_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            TextBox text = sender as TextBox;
-            if (text == null) return;
-            if (e == null) return;
-
-
-            if (e.Key == Key.Enter || e.Key == Key.Return || e.Key == Key.Tab)
-                return;
-
-            //allow list of system keys (add other key here if you want to allow)
-            if (e.Key == Key.Escape || e.Key == Key.Back || e.Key == Key.Delete
-                 || e.Key == Key.LeftShift || e.Key == Key.End ||
-                 e.Key == Key.Insert || e.Key == Key.Down || e.Key == Key.Right)
-                return;
-
-            char c = (char)KeyInterop.VirtualKeyFromKey(e.Key);
-
-            //allow control system keys
-            if (Char.IsControl(c)) return;
-
-            //allow digits (without Shift or Alt)
-            if (Char.IsDigit(c))
-                if (!(Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightAlt)))
-                    return; //let this key be written inside the textbox
-
-            //forbid letters and signs (#,$, %, ...)
-            e.Handled = true; //ignore this key. mark event as handled, will not be routed to other controls
-            return;
+            if (Index < distances.Count())
+            {
+                splitStringTOTwoInts(distances[Index], ref Code1, ref Code2, '*');
+                Index++;
+                ids.Text = Code1 + "and" + Code2;
+            }
+            else
+            {
+                BusLinesDispaly busLineDisplay = new BusLinesDispaly(bl, User, true);
+                NavigationService.Navigate(busLineDisplay);
+            }
 
 
         }
-
-
-
-
-
-        private void Add_Stations_Button_Click(object sender, RoutedEventArgs e)
-        {
-            AddStationToLine addStationToLine = new AddStationToLine(Line);
-            addStationToLine.ShowDialog();
-            addStationToLine.Closed += AddStationToLine_Closed;
-        }
-        private void UpdateButton_Click(object sender, RoutedEventArgs e)
+        private void saveClick(object sender, RoutedEventArgs e)
         {
             try
             {
-                splitStringTOTwoInts(freq.Text, ref Hours, ref Minutes, ':');
-                // bl.UpdateBusLine(first_bus.Value.Value, last_bus.Value.Value, new TimeSpan(Hours, Minutes, 0), Line.BusID, int.Parse(bus_line_numberTextBox.Text));
-                System.Windows.MessageBoxResult mb = MessageBox.Show("Bus updated successfully");
+                //bl.DeleteBusLine(line.BusID);
+                //bl.AddBusLine()
+                bl.UpdateBusLine(line.BusID, int.Parse(Line_tb.Text), LineTimes);
+                foreach (var item in line.Stations)
+                {
+                    bl.RemoveBusStationFromLine(item.Code, line.BusID);
+                }
+                int i = 1;
+                foreach (var item in stationsToAdd)
+                {
+                    List<string> d=bl.AddStationToBusLine(line.BusID, item.Code, i);
+                    if (d != null && d.Count > 0)
+                    {
+                        foreach (var dis in d)
+                        {
+                            distances.Add(dis);
+                        }
+                    }
+                        i++;
+                }
+                if (distances.Count != 0)
+                {
+                    createDialogeContent();
+                    distance.IsOpen = true;
+                }
+                else
+                {
+                    BusLinesDispaly display = new BusLinesDispaly(bl, User, true);
+                    NavigationService.Navigate(display);
+                }
+
             }
-            catch (FrequencyConflictException ex)
+            catch (BO.BusLineNotFoundException ex)
             {
-                System.Windows.MessageBoxResult mb = MessageBox.Show("Cannot update, frequency is not valid");
+                MessageBox.Show(ex.Message);
+                BusLinesDispaly display = new BusLinesDispaly(bl, User, true);
+                NavigationService.Navigate(display);
+            }
+            catch (BO.StationDoesNotExistOnTheLinexception ex)
+            {
+                MessageBox.Show(ex.Message);
+                BusLinesDispaly display = new BusLinesDispaly(bl, User, true);
+                NavigationService.Navigate(display);
+            }
+            catch (BO.StationNotFoundException ex)
+            {
+                MessageBox.Show(ex.Message);
+                BusLinesDispaly display = new BusLinesDispaly(bl, User, true);
+                NavigationService.Navigate(display);
+            }
+            catch (BO.InvalidPlaceException ex)
+            {
+                MessageBox.Show(ex.Message);
+                BusLinesDispaly display = new BusLinesDispaly(bl, User, true);
+                NavigationService.Navigate(display);
             }
         }
-        private void AddStationToLine_Closed(object sender, EventArgs e)
+        private void removeStation(object sender, RoutedEventArgs e)
         {
-            initialize();
+            object ID = ((CheckBox)sender).CommandParameter;
+            List<BO.BusStation> list = new List<BO.BusStation>();
+            foreach (var item in stationsToAdd)
+            {
+                if (item.Code != (int)ID)
+                    list.Add(item);
+            }
+            stationsToAdd = list;
+            var stat = from s in stationsToAdd
+                       select s;
+            stationOnTheLineDataGrid.DataContext = stat;
+            if (IsAllFilled())
+                saveButton.IsEnabled = true;
+            else
+                saveButton.IsEnabled = false;
         }
-
-        private void busStationDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void addStation(object sender, RoutedEventArgs e)
         {
+            (sender as CheckBox).IsChecked = false;
+            object ID = ((CheckBox)sender).CommandParameter;
+            stationsToAdd.Add(bl.GetBusStation((int)ID));
+            var stat = from s in stationsToAdd
+                       select s;
+            stationOnTheLineDataGrid.DataContext = stat;
+            if (IsAllFilled())
+                saveButton.IsEnabled = true;
+            else
+                saveButton.IsEnabled = false;
 
+        }     
+        private void AddTime(object sender, RoutedEventArgs e)
+        {
+            addTimeDialog.IsOpen = true;
         }
-        private void remove_station_from_line_buttonClick(Object sender, RoutedEventArgs e)
+        private void accept(object sender, RoutedEventArgs e)
         {
-            string distance = null;
+            if (string.IsNullOrEmpty(distance_tb.Text) || !(DriveTimePicker.SelectedTime.HasValue))
+                return;
 
-            MessageBoxResult result = MessageBox.Show("Are you sure you want to remove this station?", " Alert", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            bl.AddAdjacentStations(Code1, Code2, double.Parse(distance_tb.Text), new TimeSpan(DriveTimePicker.SelectedTime.Value.Hour, DriveTimePicker.SelectedTime.Value.Minute, 0));
+            createDialogeContent();
+        }
+        private void cancel(object sender, RoutedEventArgs e)
+        {
+
+            MessageBoxResult result = System.Windows.MessageBox.Show(@"             Are you sure you want to cancel?
+                                             By canceling, the remaining distances will be set to random values.", " Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
             if (result == MessageBoxResult.Yes)
             {
-                for (var vis = sender as Visual; vis != null; vis = VisualTreeHelper.GetParent(vis) as Visual)
-                    if (vis is DataGridRow)
+
+                for (int i = Index - 1; i < distances.Count; i++)
+                {
+                    splitStringTOTwoInts(distances[i], ref Code1, ref Code2, '*');
+                    try
                     {
-                        var row = (DataGridRow)vis;
-
-                        try
-                        {
-                            distance = bl.RemoveBusStationFromLine((row.DataContext as StationOnTheLine).Code, Line.BusID);
-                        }
-                        catch (StationDoesNotExistOnTheLinexception ex)
-                        {
-                            MessageBoxResult msgBox2 = MessageBox.Show(ex.Message, " Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                        }
-                        if (distance != null)
-                        {
-                            List<string> distances = new List<string>();
-                            distances.Add(distance);
-                            AddDistances addDistances = new AddDistances(distances);
-                            addDistances.ShowDialog();
-                        }
-                        break;
+                        bl.AddAdjacentStations(Code1, Code2, 200, new TimeSpan(00, 12, 00));
                     }
-
+                    catch (BO.PairAlreadyExistsException ex)
+                    {
+                        MessageBoxResult result2 = System.Windows.MessageBox.Show(ex.Message, " Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+                BusLinesDispaly busLineDisplay = new BusLinesDispaly(bl, User, true);
+                NavigationService.Navigate(busLineDisplay);
             }
 
 
 
         }
-
-        private void stationOnTheLineDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void refreshClick(object sender, RoutedEventArgs e)
         {
-
+            timesText.Text = "";
+            LineTimes = new List<BO.BusLineTime>();
+            saveButton.IsEnabled = false;
+        }
+        private void AddTimeClick(object sender, RoutedEventArgs e)
+        {
+            if (!(startTimePicker.SelectedTime.HasValue && endTimePicker.SelectedTime.HasValue && freqTimePicker.SelectedTime.HasValue))
+                return;
+            LineTimes.Add(new BO.BusLineTime {
+                Start = new DateTime(2000, 01, 01, startTimePicker.SelectedTime.Value.Hour, startTimePicker.SelectedTime.Value.Minute, 0),
+                End = new DateTime(2000, 01, 01, endTimePicker.SelectedTime.Value.Hour, endTimePicker.SelectedTime.Value.Minute, 0),
+                Frequency = new TimeSpan(freqTimePicker.SelectedTime.Value.Hour, freqTimePicker.SelectedTime.Value.Minute, 0)
+            });
+            addTimeDialog.IsOpen = false;
+            timesText.Text = bl.printTimes(LineTimes);
+            if (IsAllFilled())
+                saveButton.IsEnabled = true;
+            else
+                saveButton.IsEnabled = false;
+        }
+        private void CancelTimeClick(object sender, RoutedEventArgs e)
+        {
+            addTimeDialog.IsOpen = false;
+        }
+        private void lineNumberTextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (IsAllFilled())
+                saveButton.IsEnabled = true;
+            else
+                saveButton.IsEnabled = false;
         }
     }
 }
-//private void Frequency_hrs_LostFocus(object sender, RoutedEventArgs e)
-//{
-//    TextBox text = sender as TextBox;
-//    if (text == null) return;
-//    if (e == null) return;
 
-//    string stringHrs = sender as string;
-//    if (Int32.TryParse(stringHrs, out int hrs))
-//    {
-//        if (hrs > 0 && hrs <= 23)
-//        {
-//            Frequency_hr = hrs;
-//            updateButton.IsEnabled = true;
-//        }
-//        else
-//        {
-//        frequency_hr_tb.Text.Replace(stringHrs, Line.Frequency.Hours.ToString());
-//        }
-
-//    }
-//}
-//private void Frequency_min_LostFocus(object sender, RoutedEventArgs e)
-//{
-//    TextBox text = sender as TextBox;
-//    if (text == null) return;
-//    if (e == null) return;
-
-//    string stringMin = sender as string;
-//    if (Int32.TryParse(stringMin, out int minutes))
-//    {
-//        if (minutes > 0 && minutes <= 59)
-//        {
-//            Frequency_min = minutes;
-//            updateButton.IsEnabled = true;
-//        }
-//        else
-//        {
-//            frequency_min_tb.Text.Replace(stringMin, Line.Frequency.Minutes.ToString());
-//        }
-
-//    }
-//private void first_bus_min_tb_TextChanged(object sender, TextChangedEventArgs e)
-//{
-
-//}
-
-//private void frequency_hr_tb_TextChanged(object sender, TextChangedEventArgs e)
-//{
-
-//}

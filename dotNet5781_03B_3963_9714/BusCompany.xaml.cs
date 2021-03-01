@@ -312,7 +312,6 @@ namespace dotNet5781_03B_3963_9714
             drive.ShowDialog();
 
         }
-
         private void DriveBusWindow_Closed(object sender, EventArgs e)
         {
             if ((sender as DriveBus).driven)//bus sent to be driven with no errors

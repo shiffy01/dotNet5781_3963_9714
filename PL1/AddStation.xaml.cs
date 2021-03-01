@@ -33,7 +33,7 @@ namespace PL1
         {
             try
             {
-                bl.AddBusStation(int.Parse(addressTextBox.Text), int.Parse(latitudeTextBox.Text), int.Parse(longitudeTextBox.Text), nameTextBox.Text, addressTextBox.Text, cityTextBox.Text);
+                bl.AddBusStation(double.Parse(latitudeTextBox.Text), double.Parse(longitudeTextBox.Text), nameTextBox.Text, addressTextBox.Text);
             }
             catch (BO.StationALreadyExistsException ex)
             {
@@ -46,11 +46,7 @@ namespace PL1
         private bool canUpdate()
         {
             double latresult;
-            double longresult;
-            int intresult;
-
-            if (string.IsNullOrWhiteSpace(codeTextBox.Text) || !(int.TryParse(codeTextBox.Text, out intresult)))
-                return false;
+            double longresult;          
             if (string.IsNullOrWhiteSpace(latitudeTextBox.Text) || !(double.TryParse(latitudeTextBox.Text, out latresult)))
                 return false;
             if (string.IsNullOrWhiteSpace(longitudeTextBox.Text) || !(double.TryParse(longitudeTextBox.Text, out longresult)))
@@ -58,9 +54,7 @@ namespace PL1
             if (string.IsNullOrWhiteSpace(nameTextBox.Text))
                 return false;
             if (string.IsNullOrWhiteSpace(addressTextBox.Text))
-                return false;
-            if (string.IsNullOrWhiteSpace(cityTextBox.Text))
-                return false;
+                return false;    
             return true;
         }
         private void TextChanged(object sender, TextChangedEventArgs e)
@@ -95,6 +89,13 @@ namespace PL1
             if (Char.IsDigit(c))
                 if (!(Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightAlt)))
                     return; //let this key be written inside the textbox
+            if (text.Name == "latitudeTextBox" || text.Name == "longitudeTextBox")
+                if (e.Key == Key.OemPeriod)
+                {
+                    if (!(text.Text).Contains("."))
+                        return;//if there is not already a decimal point in the textbox, let this key be written in the textbox
+
+                }
 
             //forbid letters and signs (#,$, %, ...)
             e.Handled = true; //ignore this key. mark event as handled, will not be routed to other controls

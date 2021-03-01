@@ -12,10 +12,7 @@ namespace DO
         public enum Status_ops
         {
             Ready,
-            Not_ready,
-            On_the_road,
-            Filling_up,
-            At_mechanic
+            Not_ready
         }
         public Status_ops Status { get; set; }
         public int License { get; set; }

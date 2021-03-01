@@ -1,0 +1,69 @@
+﻿<Page
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:local="clr-namespace:PL1"
+       xmlns:BO="clr-namespace:BO;assembly=BL" x:Class="PL1.StationTimes"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="StationTimes" Width="1010" Height="540" Background="white">
+    <Page.Resources>
+        <CollectionViewSource x:Key="lineTimingViewSource" d:DesignSource="{d:DesignInstance {x:Type BO:LineTiming}, CreateList=True}"/>
+    </Page.Resources>
+
+    <Grid DataContext="{StaticResource lineTimingViewSource}">
+        <ComboBox
+ x:Name="combo"
+  MinWidth="72"
+  ItemsSource="{Binding Path=BusStation}"
+ DisplayMemberPath="Name"
+SelectedValuePath="Name"
+SelectedValue="{Binding Path=BusStation}" Height="62" Margin="58,231,751,247"
+            SelectionChanged="comboChange">
+            <ComboBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel />
+                </ItemsPanelTemplate>
+            </ComboBox.ItemsPanel>
+        </ComboBox>
+        <Label Content="Choose a station:" FontSize="22" HorizontalAlignment="Left" Margin="58,186,0,0" VerticalAlignment="Top" Height="40" Width="201"/>
+        <DataGrid x:Name="lineTimingDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="426,162,123,68" RowDetailsVisibilityMode="VisibleWhenSelected">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn x:Name="lineCodeColumn" Header="line Code" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding lineCode}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn x:Name="tripStartColumn" Header="Trip Start" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding TripStart}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn x:Name="timingColumn" Header="Timing" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding Timing}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn x:Name="lastStationColumn" Header="Last Station" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding LastStation}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="start" Content="Start" Click="startClick" IsEnabled="False" HorizontalAlignment="Left" Margin="58,371,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="stop" Content="Stop" Click="stopClick" IsEnabled="False" HorizontalAlignment="Left" Margin="184,371,0,0" VerticalAlignment="Top" Width="75"/>
+
+        <TextBlock x:Name="timer" TextAlignment="Center" FontSize="30" HorizontalAlignment="Left" Height="51" Margin="58,444,0,0" TextWrapping="Wrap" Text="8:00" VerticalAlignment="Top" Width="201"/>
+    </Grid>
+</Page>

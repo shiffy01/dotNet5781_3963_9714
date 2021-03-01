@@ -23,13 +23,22 @@ namespace PL1
     {
         IBL bl;
         BO.User User;
+        void initialize()
+        {
+            busLineDataGrid.DataContext = bl.GetAllBusLines();
+        }
         public BusLinesDispaly(IBL bl1, BO.User user, bool manage)
         {
             InitializeComponent();
             bl = bl1;
             User = user;
             if (!manage)
+            {
                 addButton.Visibility = Visibility.Hidden;
+                deleteLine_Btn.Visibility = Visibility.Hidden;
+                updateLine_Btn.Visibility = Visibility.Hidden;
+            }
+            initialize();
         }
         private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -45,21 +54,24 @@ namespace PL1
         }
         private void DeleteLineButton_Click(object sender, RoutedEventArgs e)
         {
-            DataGridRow row = sender as DataGridRow;
+            //DataGridRow row = sender as DataGridRow;
+            object ID = ((Button)sender).CommandParameter;
             try
             {
-                bl.DeleteBusLine((row.DataContext as BO.BusLine).BusID);
+                bl.DeleteBusLine((int)ID);
             }
             catch (BO.BusLineNotFoundException ex)
             {
                 System.Windows.MessageBoxResult mb = MessageBox.Show(ex.Message);
             }
+            initialize();
         }
         private void UpdateLineButton_Click(object sender, RoutedEventArgs e)
         {
-            DataGridRow row = sender as DataGridRow;
-            //UpdateBusLine updateline = new UpdateBusLine(bl, User, (row.DataContext as BO.BusLine));
-            //updateline.Show();
+            //DataGridRow row = sender as DataGridRow;
+            object ID = ((Button)sender).CommandParameter;
+            UpdateBusLine updateline = new UpdateBusLine(bl, User, (int)ID);
+            NavigationService.Navigate(updateline);
         }
 
     }

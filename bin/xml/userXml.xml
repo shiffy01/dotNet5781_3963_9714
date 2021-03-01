@@ -19,15 +19,9 @@
     <Exists>true</Exists>
   </User>
   <User>
-    <UserName>kalus</UserName>
-    <Password>123</Password>
+    <UserName>B.Y.S</UserName>
+    <Password>benzion</Password>
     <IsManager>true</IsManager>
-    <Exists>true</Exists>
-  </User>
-  <User>
-    <UserName>sarah</UserName>
-    <Password>123</Password>
-    <IsManager>false</IsManager>
     <Exists>true</Exists>
   </User>
 </ArrayOfUser>

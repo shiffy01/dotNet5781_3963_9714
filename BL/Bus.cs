@@ -12,10 +12,7 @@ namespace BO
          public enum Status_ops
         {
             Ready,
-            Not_ready,
-            On_the_road,
-            Filling_up,
-            At_mechanic
+            Not_ready
         }
         public Status_ops Status { get; set; }
         public string LicensePlate { get; set; }
@@ -25,6 +22,7 @@ namespace BO
         public int Totalkilometerage { get; set; }
         public int kilometerage { get; set; }
         public int Gas { get; set; }
+        public int Percent { get; set; }
         public override string ToString()
         {
             return this.ToStringProperty();

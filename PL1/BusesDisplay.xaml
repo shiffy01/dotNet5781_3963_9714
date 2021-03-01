@@ -6,6 +6,7 @@
      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:PL1"
       xmlns:BO="clr-namespace:BO;assembly=BL" x:Class="PL1.BusesDisplay"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="BusesDisplay" Background="White">
@@ -13,95 +14,107 @@
     <Page.Resources>
         <CollectionViewSource x:Key="busViewSource" d:DesignSource="{d:DesignInstance {x:Type BO:Bus}, CreateList=True}"/>
     </Page.Resources>
+    <materialDesign:DialogHost x:Name="dialog" IsOpen="False">
+        <materialDesign:DialogHost.DialogContent>
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Enter the distance to drive:"/>
+                    <TextBox x:Name="distance"/>
+                </StackPanel>
+                <StackPanel>
+                    <Button Content="Go" Click="DriveClick"/>
+                    <Button Content="Cancel" Click="cancelclick"/>
+                </StackPanel>
+            </StackPanel>
+        </materialDesign:DialogHost.DialogContent>
+        <Grid DataContext="{StaticResource busViewSource}">
 
-    <Grid DataContext="{StaticResource busViewSource}">
+            <DataGrid x:Name="busDataGrid" RowDetailsVisibilityMode="VisibleWhenSelected" Margin="155,160,139,90" ItemsSource="{Binding}" EnableRowVirtualization="True" AutoGenerateColumns="False">
+                <DataGrid.Resources>
+                    <Style TargetType="DataGridRow">
+                        <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
+                    </Style>
+                </DataGrid.Resources>
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn x:Name="licensePlateColumn" Width="SizeToHeader" Header="License Plate">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Content="{Binding LicensePlate}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn x:Name="driveColumn" Header="Drive"  Width="SizeToHeader" >
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="driveB"  Style="{StaticResource MaterialDesignFlatLightBgButton}" Width="Auto" Padding="0" ToolTip="delete" Margin="0,2,-6,1.667" Height="29" Click="driveButtonClick" CommandParameter="{Binding Path=BusID}" Background="{x:Null}" BorderBrush="{x:Null}">
+                                    <materialDesign:PackIcon Kind="BusArticulatedFront" Width="30" Height="30" Foreground="#00838F" HorizontalAlignment="Left" />
 
-        <DataGrid x:Name="busDataGrid" RowDetailsVisibilityMode="VisibleWhenSelected" Margin="155,160,139,90" ItemsSource="{Binding}" EnableRowVirtualization="True" AutoGenerateColumns="False">
-            <DataGrid.Columns>
-                <DataGridTemplateColumn x:Name="infoColumn" Width="30">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}">
-                                <materialDesign:PackIcon Kind="Information" Height="25" Width="25" Margin="10"/>
-                                <Button.CommandParameter>
-                                    <StackPanel Orientation="Vertical">
-                                        <StackPanel Orientation="Horizontal">
-                                            <Label Content="License:"/>
-                                            <TextBlock Text="{Binding LicensePlate}"/>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal">
-                                            <Label Content="Status:"/>
-                                            <TextBlock Text="{Binding Status}"/>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal">
-                                            <Label Content="Kilometerage:"/>
-                                            <TextBlock Text="{Binding KiloMeterage}"/>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal">
-                                            <Label Content="Total kilometerage:"/>
-                                            <TextBlock Text="{Binding TotalKiloMeterage}"/>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal">
-                                            <Label Content="Last Tune-up:"/>
-                                            <TextBlock Text="{Binding Last_tune_up}"/>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal">
-                                            <Label Content="Gas:"/>
-                                            <TextBlock Text="{Binding Gas}"/>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal">
-                                            <Button Content="Tune Up" Click="TuneUpClick"/>
-                                            <Button Content="Refill" Click="RefillClick"/>
-                                        </StackPanel>
-                                    </StackPanel>
-                                    
-                                </Button.CommandParameter>
-                            </Button>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn x:Name="licensePlateColumn" Width="SizeToHeader" Header="License Plate">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Label Content="{Binding LicensePlate}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn x:Name="driveColumn" Width="100" >
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button Content="Drive" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}">
-                                <Button.CommandParameter>
-                                    <StackPanel>
-                                        <Label Content="How far do you want to drive?"/>
-                                        <TextBox x:Name="driveDistance"
-                                      materialDesign:TextFieldAssist.TextBoxViewMargin="1 0 1 0"
-                                      materialDesign:HintAssist.FloatingScale="0.50"
-                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                      FontSize="15" />
-                                        <Button Content="Drive" Click="DriveClick"/>
-                                    </StackPanel>
-                                </Button.CommandParameter>
-                            </Button>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn x:Name="refillColumn" Width="100">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button Content="Refill" Click="RefillClick"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn x:Name="progressColumn" Width="100">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <ProgressBar x:Name="progressbar" Visibility="Hidden"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>
-        </DataGrid>
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn x:Name="refillColumn" Header="Refill"  Width="SizeToHeader">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button     Style="{StaticResource MaterialDesignFlatLightBgButton}" Width="Auto" Padding="0" ToolTip="delete" Margin="0,2,-6,1.667" Height="29" Click="RefillClick" CommandParameter="{Binding Path=BusID}" Background="{x:Null}" BorderBrush="{x:Null}">
+                                    <materialDesign:PackIcon Kind="GasStation" Width="30" Height="30" Foreground="#00838F" HorizontalAlignment="Left" />
 
-    </Grid>
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn x:Name="tuneupColumn" Header="Tune Up"  Width="SizeToHeader">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button     Style="{StaticResource MaterialDesignFlatLightBgButton}" Width="Auto" Padding="0" ToolTip="delete" Margin="0,2,-6,1.667" Height="29" Click="TuneUpClick" CommandParameter="{Binding Path=BusID}" Background="{x:Null}" BorderBrush="{x:Null}">
+                                    <materialDesign:PackIcon Kind="Tools" Width="30" Height="30" Foreground="#00838F" HorizontalAlignment="Left" />
+
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn x:Name="deleteColumn" Width="70">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button     Style="{StaticResource MaterialDesignFlatLightBgButton}" Width="Auto" Padding="0" ToolTip="delete" Margin="0,2,-6,1.667" Height="29" Click="deleteClick" CommandParameter="{Binding Path=BusID}" Background="{x:Null}" BorderBrush="{x:Null}">
+                                    <materialDesign:PackIcon Kind="Trash" Width="30" Height="30" Foreground="#00838F" HorizontalAlignment="Left" />
+
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn x:Name="progressColumn" Width="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ProgressBar x:Name="progress"
+  Value="{Binding Percent, Mode=TwoWay}" 
+  Height="10" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <materialDesign:DialogHost IsOpen="false" x:Name="addDialog">
+                <materialDesign:DialogHost.DialogContent>
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <DatePicker x:Name="startText"
+  materialDesign:HintAssist.Hint="Pick Date"
+   DisplayDateEnd="{x:Static sys:DateTime.Today}"                             
+  Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+                            <TextBox Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" x:Name="tkTextBox"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Content="Add" Click="addbusClick"/>
+                            <Button Content="Cancel" Click="canceladdclick"/>
+                        </StackPanel>
+                    </StackPanel>
+                </materialDesign:DialogHost.DialogContent>
+                <Button Content="Add" Click="addClick" HorizontalAlignment="Left" Margin="271,402,0,0" VerticalAlignment="Top" Width="236"/>
+            </materialDesign:DialogHost>
+            
+
+        </Grid>
+    </materialDesign:DialogHost>
+   
 </Page>

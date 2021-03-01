@@ -18,12 +18,12 @@ namespace BlApi
         IEnumerable<Bus> GetAllBusesBy(Predicate<Bus> predicate);
         #endregion
 
-        #region Bus functions
-        void refill(Bus bus);
-        void tuneUp(Bus bus);
-        void drive(Bus bus, double distance);
-        bool canDrive(Bus bus);
-        #endregion
+        //#region Bus functions
+        //void refill(Bus bus);
+        //void tuneUp(Bus bus);
+        //void drive(Bus bus, double distance);
+        //bool canDrive(Bus bus);
+        //#endregion
 
         #region BusLine
         List<string> AddBusLine(int line_number, List<int> stations, List<BusLineTime> times);
@@ -35,7 +35,7 @@ namespace BlApi
         #endregion
 
         #region BusStation
-        void AddBusStation(int code, double latitude, double longitude, string name, string address, string city);
+        void AddBusStation(double latitude, double longitude, string name, string address);
         void UpdateBusStation(int code, string name);
         void DeleteBusStation(int stationID); 
         BusStation GetBusStation(int stationID);
@@ -59,8 +59,10 @@ namespace BlApi
         IEnumerable<BusLine> SearchRoute(int startStation, int endStation);
         TimeSpan driveTime(int lineCode, int station1, int station2);
         IEnumerable<BusLine> GetBusLinesOfStation(int code);
-        IEnumerable<string> GetByCities();
-       // void AddRouteSearchHistory(int id);
-        
+        // void AddRouteSearchHistory(int id);
+        void addRouteSearch(string username, Route route);
+        string printTimes(List<BusLineTime> times);
+        IEnumerable<LineTiming> getLineTimings(int stationCode, TimeSpan time);
+
     }
 }

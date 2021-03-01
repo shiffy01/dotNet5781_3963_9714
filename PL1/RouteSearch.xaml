@@ -4,17 +4,24 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:PL1"
+     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:BO="clr-namespace:BO;assembly=BL" x:Class="PL1.RouteSearch"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="RouteSearch" Background="White">
+      Title="RouteSearch" Background="White" Width="1010" Height="540">
 
     <Page.Resources>
         <CollectionViewSource x:Key="busLineViewSource" d:DesignSource="{d:DesignInstance {x:Type BO:BusLine}, CreateList=True}"/>
+        <CollectionViewSource x:Key="busStationViewSource" d:DesignSource="{d:DesignInstance {x:Type BO:BusStation}, CreateList=True}"/>
     </Page.Resources>
 
     <Grid DataContext="{StaticResource busLineViewSource}">
-        <DataGrid x:Name="busLineDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="187,172,213,78" RowDetailsVisibilityMode="VisibleWhenSelected">
+        <DataGrid x:Name="busLineDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="55,172,521,163" RowDetailsVisibilityMode="VisibleWhenSelected">
+            <DataGrid.Resources>
+                <Style TargetType="DataGridRow">
+                    <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
+                </Style>
+            </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTemplateColumn x:Name="bus_line_numberColumn" Header="Bus line number" Width="SizeToHeader">
                     <DataGridTemplateColumn.CellTemplate>
@@ -40,20 +47,47 @@
                 <DataGridTemplateColumn x:Name="timeColumn" Header="Time" Width="SizeToHeader">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Label />
+                            <Label x:Name="timeLabel" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <StackPanel Orientation="Horizontal"  Margin="166,101,134,283">
-            <TextBox x:Name="firstCodeBox" Margin="0,17" Width="206"/>
-            <TextBox x:Name="secondCodeBox" RenderTransformOrigin="1.637,0.399" Margin="0,17" Width="226" />
+        <StackPanel Orientation="Horizontal"  Margin="166,101,405,373">
+            <TextBox x:Name="firstCodeBox" TextChanged="textChanged" Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" materialDesign:HintAssist.Hint="Origin" Margin="0,17,0,10.333" Width="216"/>
+            <TextBox x:Name="secondCodeBox" TextChanged="textChanged" Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" materialDesign:HintAssist.Hint="Destination"  Margin="0,17,0,10.333" Width="216" />
         </StackPanel>
         <Label Content="Please enter the station codes of your starting point and your desired destination:" HorizontalAlignment="Left" Margin="166,50,0,0" VerticalAlignment="Top" Height="46" Width="474"/>
         <Label HorizontalAlignment="Left" Margin="67,236,0,0" VerticalAlignment="Top">
-            <Label x:Name="noResultsLabel" Content="                                                                  No results match your search" TextBlock.TextAlignment="Center" Height="73" Width="651"/>
+            <Label x:Name="noResultsLabel" Content="               No results match your search" FontSize="20" TextBlock.TextAlignment="Center" Height="73" Width="419"/>
         </Label>
-        <Button Content="Search" Click="searchClick" HorizontalAlignment="Left" Margin="630,119,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="searchButton" Content="Search" Click="searchClick" HorizontalAlignment="Left" Margin="630,119,0,0" VerticalAlignment="Top" Width="75"/>
+        <DataGrid x:Name="busStationDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource busStationViewSource}}" Margin="549,172,61,78" RowDetailsVisibilityMode="VisibleWhenSelected">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn x:Name="codeColumn" Header="Code" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding Code}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn x:Name="addressColumn" Header="Address" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding Address}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn x:Name="nameColumn" Header="Name" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding Name}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="Search for all lines coming to a certain station" Click="allSearchClick"  HorizontalAlignment="Left" Margin="105,421,0,0" VerticalAlignment="Top" Width="333" Height="71"/>
     </Grid>
 </Page>

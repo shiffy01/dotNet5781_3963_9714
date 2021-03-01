@@ -1,3 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfBus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Bus>
+    <License>1000000</License>
+    <Status>1</Status>
+    <StartYear>2021</StartYear>
+    <StartMonth>2</StartMonth>
+    <StartDay>22</StartDay>
+    <TuneYear>2021</TuneYear>
+    <TuneMonth>2</TuneMonth>
+    <TuneDay>23</TuneDay>
+    <TotalKiloMeterage>155</TotalKiloMeterage>
+    <KiloMeterage>0</KiloMeterage>
+    <Gas>1115</Gas>
+    <Exists>true</Exists>
+  </Bus>
 </ArrayOfBus>

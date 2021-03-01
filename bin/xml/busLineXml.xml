@@ -1,3 +1,45 @@
 <?xml version="1.0"?>
 <ArrayOfBusLine xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <BusLine>
+    <BusID>3000000</BusID>
+    <Bus_line_number>12</Bus_line_number>
+    <Destination>Big mall</Destination>
+    <Origin>Nahar Hayarkon 32</Origin>
+    <Exists>true</Exists>
+  </BusLine>
+  <BusLine>
+    <BusID>3000001</BusID>
+    <Bus_line_number>19</Bus_line_number>
+    <Destination>Merkaz Rama Gimmel</Destination>
+    <Origin>Nahar Hayarkon 32</Origin>
+    <Exists>true</Exists>
+  </BusLine>
+  <BusLine>
+    <BusID>3000002</BusID>
+    <Bus_line_number>14</Bus_line_number>
+    <Destination>Big Fashion mall</Destination>
+    <Origin>Merkaz Rama Gimmel</Origin>
+    <Exists>true</Exists>
+  </BusLine>
+  <BusLine>
+    <BusID>3000003</BusID>
+    <Bus_line_number>11</Bus_line_number>
+    <Destination>Dolev park</Destination>
+    <Origin>Lev Harama</Origin>
+    <Exists>true</Exists>
+  </BusLine>
+  <BusLine>
+    <BusID>3000005</BusID>
+    <Bus_line_number>45</Bus_line_number>
+    <Destination>Nachal Raziel 12</Destination>
+    <Origin>Dolev 10</Origin>
+    <Exists>true</Exists>
+  </BusLine>
+  <BusLine>
+    <BusID>3000004</BusID>
+    <Bus_line_number>15</Bus_line_number>
+    <Destination>Big mall</Destination>
+    <Origin>Matnas Dolev</Origin>
+    <Exists>true</Exists>
+  </BusLine>
 </ArrayOfBusLine>

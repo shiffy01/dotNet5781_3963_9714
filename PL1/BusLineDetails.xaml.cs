@@ -25,14 +25,17 @@ namespace PL1
         BO.BusLine line;
         void initialize()
         {
-            stationsGrid.DataContext = line.Stations;
-            busLineTimeDataGrid.DataContext = line.Times;
+            stationsGrid.DataContext = line.Stations.OrderBy(b=>b.Number_on_route);
+            timesText.Text = bl.printTimes(line.Times.ToList());
             lineGrid.DataContext = line;
         }
-        public BusLineDetails(IBL bl1, BO.BusLine line)
+        public BusLineDetails(IBL bl1, BO.BusLine line1)
         {
             InitializeComponent();
             bl = bl1;
+            line = line1;
+            initialize();
         }
+
     }
 }

@@ -91,7 +91,7 @@ namespace DLAPI
         #endregion
 
         #region BusStation  definition
-        void AddBusStation(int code, double latitude, double longitude, string name, string address);
+        void AddBusStation(double latitude, double longitude, string name, string address);
         void UpdateBusStation(BusStation busStation);
         void DeleteBusStation(int code);
         BusStation GetBusStation(int code);
@@ -142,7 +142,7 @@ namespace DLAPI
         //IEnumerable<Bus> GetUserRides();
         //#endregion
 
-        void CreateStationsList();
+     //   void CreateStationsList();
 
 
 

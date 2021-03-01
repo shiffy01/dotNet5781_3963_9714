@@ -16,7 +16,6 @@ namespace BO
         public double Longitude{ get; set; }
          public string Name{get; set;}       
         public string Address{ get; set; }
-         public string City{get; set;}
         public IEnumerable<BusLine> Lines{ get; set; }
         public override string ToString()
         {
