@@ -989,6 +989,34 @@ namespace BL
             }
             return returnList;
         }
+        public string printBusDetails(Bus bus)
+        {
+            string lp = bus.LicensePlate;
+            int milageLeft = 20000 - bus.kilometerage;
+            string toString = @"   
+                 License Plate: " + lp;
+            toString += @"
+
+                 Status: " + bus.Status;
+            toString += @"
+
+                 Total mileage: " + bus.Totalkilometerage;
+            toString += @"
+
+                 ";
+            if ((DateTime.Now - bus.Last_tune_up).Days > 356 || milageLeft == 0)
+                toString += "THIS BUS NEEDS A TUNE-UP";
+            else
+                toString += milageLeft + " kilometers left till next tune up";
+            toString += @"
+
+                 Last tune up: " + bus.Last_tune_up;
+            toString += @"
+
+                 Gas left: " + bus.Gas;
+            return toString;
+        }
+          
     }
    
 
