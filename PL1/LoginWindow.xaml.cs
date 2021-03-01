@@ -102,13 +102,16 @@ namespace PL1
             {
                 MainWindow mainw = new MainWindow(bl, User, true);
                 mainw.ShowDialog();
+                this.Close();
             }
             else
             {
                 MainWindow mainw = new MainWindow(bl, User, false);
                 mainw.ShowDialog();
+                this.Close();
+
             }
-            this.Close();
+          
         }
 
     }

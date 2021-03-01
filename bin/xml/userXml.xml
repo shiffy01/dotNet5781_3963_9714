@@ -24,4 +24,22 @@
     <IsManager>true</IsManager>
     <Exists>true</Exists>
   </User>
+  <User>
+    <UserName>adinakallus</UserName>
+    <Password>123456</Password>
+    <IsManager>true</IsManager>
+    <Exists>true</Exists>
+  </User>
+  <User>
+    <UserName>sarahCohen</UserName>
+    <Password>imSarahCohen</Password>
+    <IsManager>true</IsManager>
+    <Exists>true</Exists>
+  </User>
+  <User>
+    <UserName>ack</UserName>
+    <Password>hello</Password>
+    <IsManager>true</IsManager>
+    <Exists>true</Exists>
+  </User>
 </ArrayOfUser>
