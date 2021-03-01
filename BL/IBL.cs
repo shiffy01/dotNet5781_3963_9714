@@ -63,6 +63,7 @@ namespace BlApi
         void addRouteSearch(string username, Route route);
         string printTimes(List<BusLineTime> times);
         IEnumerable<LineTiming> getLineTimings(int stationCode, TimeSpan time);
+        string printBusDetails(Bus bus);
 
     }
 }

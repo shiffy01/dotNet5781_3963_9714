@@ -28,6 +28,7 @@ namespace PL1
         void initialize()
         {
             busDataGrid.DataContext = bl.GetAllBuses();
+           
         }
 
         public BusesDisplay(IBL bl1, BO.User user)
@@ -39,10 +40,9 @@ namespace PL1
         }
         private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
         {
-            DataGridRow row = sender as DataGridRow;
-            BusDetails line = new BusDetails(bl, (row.DataContext as BO.Bus));
-            NavigationService.Navigate(line);
-
+            BO.Bus bus = sender as BO.Bus;
+            details.Text = bl.printBusDetails(bus);
+            dialogdetails.IsOpen = true;
         }
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -52,7 +52,7 @@ namespace PL1
             {
                 percent = i * (100 / (double)12);
                 System.Threading.Thread.Sleep(1000);//one second
-                (sender as BackgroundWorker).ReportProgress(50, bus);
+                (sender as BackgroundWorker).ReportProgress((int)percent, bus);
                // (sender as BackgroundWorker).ReportProgress((int)percent, bus);
             }
             e.Result = bus;
@@ -61,6 +61,7 @@ namespace PL1
         {
             BO.Bus b = (e.UserState as BO.Bus);
             b.Percent = e.ProgressPercentage;
+
         }
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -211,5 +212,10 @@ namespace PL1
             bl.AddBus(startText.SelectedDate.Value, int.Parse(tkTextBox.Text));
             initialize();
         }
+        private void exButtonClick(object sender, RoutedEventArgs e)
+        {
+            dialogdetails.IsOpen = false;
+        }
+     
     }
 }
