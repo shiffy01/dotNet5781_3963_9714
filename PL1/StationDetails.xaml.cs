@@ -24,6 +24,7 @@ namespace PL1
         static IBL bl;
         BO.User User;
         BO.BusStation station;
+        bool Manage;
         void initialize()
         {
             stationGrid.DataContext = bl.GetBusStation(station.Code);
@@ -35,6 +36,7 @@ namespace PL1
             bl = bl1;
             User = user;
             station = bus1;
+            Manage = manage;
             if (!manage)
                 Edit.Visibility = Visibility.Hidden;
             initialize();

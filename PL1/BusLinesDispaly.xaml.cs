@@ -23,6 +23,7 @@ namespace PL1
     {
         IBL bl;
         BO.User User;
+        bool Manage;
         void initialize()
         {
             busLineDataGrid.DataContext = bl.GetAllBusLines();
@@ -32,6 +33,7 @@ namespace PL1
             InitializeComponent();
             bl = bl1;
             User = user;
+            Manage = manage;
             if (!manage)
             {
                 addButton.Visibility = Visibility.Hidden;
@@ -43,7 +45,7 @@ namespace PL1
         private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
         {
             DataGridRow row = sender as DataGridRow;
-            BusLineDetails line = new BusLineDetails(bl,  (row.DataContext as BO.BusLine));
+            BusLineDetails line = new BusLineDetails(bl, Manage, (row.DataContext as BO.BusLine));
             NavigationService.Navigate(line);
 
         }

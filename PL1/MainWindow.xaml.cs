@@ -42,7 +42,7 @@ namespace PL1
             {
                 icon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Routes;
                 text.Text = "Routes";
-                Main.Navigate(new RouteSearch(bl, User));
+                Main.Navigate(new RouteSearch(bl, Manage, User));
             }
         }
 
@@ -72,7 +72,7 @@ namespace PL1
                     }
                     else
                     {
-                        RouteSearch routeSearch = new RouteSearch(bl, User);
+                        RouteSearch routeSearch = new RouteSearch(bl, Manage, User);
                         this.Main.NavigationService.Navigate(routeSearch);
                     }
                     break;

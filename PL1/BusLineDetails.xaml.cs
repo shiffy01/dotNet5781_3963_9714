@@ -29,7 +29,7 @@ namespace PL1
             timesText.Text = bl.printTimes(line.Times.ToList());
             lineGrid.DataContext = line;
         }
-        public BusLineDetails(IBL bl1, BO.BusLine line1)
+        public BusLineDetails(IBL bl1, bool manage, BO.BusLine line1)
         {
             InitializeComponent();
             bl = bl1;

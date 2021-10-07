@@ -23,16 +23,18 @@ namespace PL1
     {
         static IBL bl;
         BO.User User;
+        bool Manage;
         void initialize()
         {
             noResultsLabel.Visibility = Visibility.Hidden;
             busLineDataGrid.Visibility = Visibility.Hidden;
         }
-        public RouteSearch(IBL bl1, BO.User user)
+        public RouteSearch(IBL bl1, bool manage, BO.User user)
         {
             InitializeComponent();
             bl = bl1;
             User = user;
+            Manage = manage;
             busStationDataGrid.DataContext = bl.GetAllBusStations();
             initialize();
         }
@@ -101,7 +103,7 @@ namespace PL1
         private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
         {
             DataGridRow row = sender as DataGridRow;
-            BusLineDetails line = new BusLineDetails(bl, (row.DataContext as BO.BusLine));
+            BusLineDetails line = new BusLineDetails(bl, Manage, (row.DataContext as BO.BusLine));
             NavigationService.Navigate(line);
 
         }
