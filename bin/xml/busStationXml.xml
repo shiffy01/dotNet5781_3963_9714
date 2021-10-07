@@ -168,4 +168,12 @@
     <Address>Dolev 10</Address>
     <Exists>true</Exists>
   </BusStation>
+  <BusStation>
+    <Code>122</Code>
+    <Name>Hakablan</Name>
+    <Latitude>32.4</Latitude>
+    <Longitude>34.5</Longitude>
+    <Address>Hakablan 2</Address>
+    <Exists>true</Exists>
+  </BusStation>
 </ArrayOfBusStation>

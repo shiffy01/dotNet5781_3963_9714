@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace DO
 {
     public class BusLineStation
+      //station on a bus line to keep of the routes
     {
         public string BusLineStationID{get; set;}
         public int StationID {get; set;}

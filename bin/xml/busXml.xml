@@ -7,11 +7,25 @@
     <StartMonth>2</StartMonth>
     <StartDay>22</StartDay>
     <TuneYear>2021</TuneYear>
-    <TuneMonth>2</TuneMonth>
+    <TuneMonth>10</TuneMonth>
     <TuneDay>23</TuneDay>
     <TotalKiloMeterage>155</TotalKiloMeterage>
     <KiloMeterage>0</KiloMeterage>
     <Gas>1115</Gas>
     <Exists>true</Exists>
+  </Bus>
+  <Bus>
+    <License>1000001</License>
+    <Status>0</Status>
+    <StartYear>2021</StartYear>
+    <StartMonth>10</StartMonth>
+    <StartDay>6</StartDay>
+    <TuneYear>2021</TuneYear>
+    <TuneMonth>10</TuneMonth>
+    <TuneDay>7</TuneDay>
+    <TotalKiloMeterage>100</TotalKiloMeterage>
+    <KiloMeterage>0</KiloMeterage>
+    <Gas>1200</Gas>
+    <Exists>False</Exists>
   </Bus>
 </ArrayOfBus>
