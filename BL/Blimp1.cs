@@ -38,97 +38,9 @@ namespace BL
         #endregion
 
         private readonly IDAL dal = DalFactory.GetDal();
-        string license_format(int license)
-        {
-            string finalLicense;
-            if (license < 10000000)//license plate hase 7 digits
-            {
-                int tmpLicense = license / 100000;//this gives us the first 2 digits of license
-                finalLicense = (" " + tmpLicense + "-");
-                tmpLicense = license % 100000;
-                if (tmpLicense < 100)// if it has 2 or less digits
-                {
-                    finalLicense += "000-";
-                }
-                else
-                {
-                    if (tmpLicense < 1000)//if it has 3 digits
-                        finalLicense += "00";
-                    if (tmpLicense < 10000 && tmpLicense > 999)//if it has 4 digits
-                        finalLicense += "0";
-                    finalLicense += tmpLicense / 100;
-                    finalLicense += "-";
-                }
-
-                tmpLicense = tmpLicense % 100;
-                if (tmpLicense == 0)
-                    finalLicense += "00";
-                else
-                {
-                    if (tmpLicense < 10)//if it has one digit
-                        finalLicense += "0";
-                    finalLicense += tmpLicense;
-                }
-
-            }
-            else
-            //license plate has 8 digits
-            {
-                int tmpLicense = license / 100000;//this gives us the first 3 digits of license
-                finalLicense = (tmpLicense + "-");
-                tmpLicense = license % 100000;
-                if (tmpLicense < 1000)//if it has 3 digits or less
-                {
-                    finalLicense += "00-";
-                }
-                else
-                {
-                    if (tmpLicense < 10000)// if it has 4 digits
-                        finalLicense += "0";
-                    finalLicense += (tmpLicense / 1000) + "-";
-                    tmpLicense = tmpLicense % 1000;//gets last 3
-                }
-                if (tmpLicense == 0)
-                    finalLicense += "000";
-                else
-                {
-                    if (tmpLicense < 10)// has only 1 digit
-                        finalLicense += "00";
-                    if (tmpLicense < 100 && tmpLicense > 9)//has only 2 digits
-                        finalLicense += "0";
-                    finalLicense += tmpLicense;
-                }
-            }
-            finalLicense += " ";
-            return finalLicense;
-        }
-        void FrequencyCheck(List<BusLineTime> times)
-        {
-            foreach (var t in times)
-            {
-                TimeSpan totalTime = t.End - t.Start;
-                if (t.Frequency > totalTime)
-                    throw new FrequencyConflictException("The frequency doesn't match the time frame");
-                if (t.Frequency.Ticks == 0 && t.End != t.Start)
-                    throw new FrequencyConflictException("The frequency cannot be zero unless the bus only comes once");
-                if (totalTime.Ticks % t.Frequency.Ticks != 0)
-                    throw new FrequencyConflictException("Frequencey doesn't match time frame");
-            }
-            for (int i = 0; i < times.Count() - 1; i++)
-                if (times[i].End > times[i + 1].Start)
-                    throw new FrequencyConflictException("The times cannot overlap");
-        }
-        public void AddAdjacentStations(int codeA, int codeB, double distance, TimeSpan drive_time)
-        {
-            try
-            {
-                dal.AddAdjacentStations(codeA, codeB, distance, drive_time);
-            }
-            catch (DO.PairAlreadyExitsException ex)
-            {
-                throw new PairAlreadyExistsException("the pair already exists in the system", ex);
-            }
-        }
+      
+       
+       
 
         #region convert functions     
         BusStation ConvertStationDOtoBO(DO.BusStation DOstation)
@@ -240,7 +152,7 @@ namespace BL
         #endregion
        
         #region BusLine functions
-        public List<string> AddBusLine(int line_number, List<int> stations, List<BusLineTime> times)
+        public List<string> AddBusLine(int line_number, List<int> stations, List<BusLineTime> times) 
         {
             try
             {
@@ -249,13 +161,14 @@ namespace BL
             catch (FrequencyConflictException ex)
             {
                 throw new FrequencyConflictException("This bus cannot be added, because there is a conflict with the times ", ex);
-            }//check frequency
+            }//make sure the frequency matches up with the times of the first and last bus, otherwise throws an exception
            
             DO.BusLine newBus;
 
             try
             {
                 newBus = dal.AddBusLine(line_number, dal.GetBusStation(stations[stations.Count - 1]).Address, dal.GetBusStation(stations[0]).Address);
+                //gets the station code from the dl based on the address for the first and last stops of the bus line
             }
             catch (DO.BusLineAlreadyExistsException ex)
             {
@@ -272,7 +185,7 @@ namespace BL
             catch (DO.LineFrequencyAlreadyExistsException ex)
             {
                 throw new DataErrorException("There was an error pushing the data", ex);
-            }//add times
+            }//adds the different time intervals
 
             List<string> needed_distances = new List<string>();
             try
@@ -291,8 +204,9 @@ namespace BL
             {
                 throw new StationNotFoundException(ex.Code, "One of the stops is not in the system");
             }//add stations on this line
+
             return needed_distances;
-        } //returns all the pair IDs of distances we need to make
+        } //adds line to the system and returns all the pair IDs of distances we need to make
         public void UpdateBusLine(int busID, int lineNumber, List<BusLineTime> times)
         {
             DO.BusLine busToUpdate;
@@ -423,6 +337,33 @@ namespace BL
                    select b;
 
         }//done
+        void FrequencyCheck(List<BusLineTime> times)
+        {
+            foreach (var t in times)
+            {
+                TimeSpan totalTime = t.End - t.Start;
+                if (t.Frequency > totalTime)
+                    throw new FrequencyConflictException("The frequency doesn't match the time frame");
+                if (t.Frequency.Ticks == 0 && t.End != t.Start)
+                    throw new FrequencyConflictException("The frequency cannot be zero unless the bus only comes once");
+                if (totalTime.Ticks % t.Frequency.Ticks != 0)
+                    throw new FrequencyConflictException("Frequencey doesn't match time frame");
+            }
+            for (int i = 0; i < times.Count() - 1; i++)
+                if (times[i].End > times[i + 1].Start)
+                    throw new FrequencyConflictException("The times cannot overlap");
+        }
+        public void AddAdjacentStations(int codeA, int codeB, double distance, TimeSpan drive_time)
+        {
+            try
+            {
+                dal.AddAdjacentStations(codeA, codeB, distance, drive_time);
+            }
+            catch (DO.PairAlreadyExitsException ex)
+            {
+                throw new PairAlreadyExistsException("the pair already exists in the system", ex);
+            }
+        }
         #endregion
 
         #region BusStation functions
@@ -590,7 +531,7 @@ namespace BL
         }
         #endregion
 
-        #region Bus CRUD
+        #region Bus functions
        
         public string AddBus(DateTime start, int totalk)
         {
@@ -652,6 +593,70 @@ namespace BL
                let BOBus=ConvertDOtoBOBus(bus)
                where predicate(BOBus)
                select (ConvertDOtoBOBus(bus));
+        }
+        string license_format(int license) //
+        {
+            string finalLicense;
+            if (license < 10000000)//license plate hase 7 digits
+            {
+                int tmpLicense = license / 100000;//this gives us the first 2 digits of license
+                finalLicense = (" " + tmpLicense + "-");
+                tmpLicense = license % 100000;
+                if (tmpLicense < 100)// if it has 2 or less digits
+                {
+                    finalLicense += "000-";
+                }
+                else
+                {
+                    if (tmpLicense < 1000)//if it has 3 digits
+                        finalLicense += "00";
+                    if (tmpLicense < 10000 && tmpLicense > 999)//if it has 4 digits
+                        finalLicense += "0";
+                    finalLicense += tmpLicense / 100;
+                    finalLicense += "-";
+                }
+
+                tmpLicense = tmpLicense % 100;
+                if (tmpLicense == 0)
+                    finalLicense += "00";
+                else
+                {
+                    if (tmpLicense < 10)//if it has one digit
+                        finalLicense += "0";
+                    finalLicense += tmpLicense;
+                }
+
+            }
+            else
+            //license plate has 8 digits
+            {
+                int tmpLicense = license / 100000;//this gives us the first 3 digits of license
+                finalLicense = (tmpLicense + "-");
+                tmpLicense = license % 100000;
+                if (tmpLicense < 1000)//if it has 3 digits or less
+                {
+                    finalLicense += "00-";
+                }
+                else
+                {
+                    if (tmpLicense < 10000)// if it has 4 digits
+                        finalLicense += "0";
+                    finalLicense += (tmpLicense / 1000) + "-";
+                    tmpLicense = tmpLicense % 1000;//gets last 3
+                }
+                if (tmpLicense == 0)
+                    finalLicense += "000";
+                else
+                {
+                    if (tmpLicense < 10)// has only 1 digit
+                        finalLicense += "00";
+                    if (tmpLicense < 100 && tmpLicense > 9)//has only 2 digits
+                        finalLicense += "0";
+                    finalLicense += tmpLicense;
+                }
+            }
+            finalLicense += " ";
+            return finalLicense;
         }
         #endregion
 
@@ -736,12 +741,12 @@ namespace BL
         ////gas.RunWorkerAsync(b1);
         //public void refill(Bus bus)
         //{
-            
+
         //    try
         //    {
         //        UpdateBus(bus.License, BO.Bus.Status_ops.Filling_up, bus.Last_tune_up, bus.kilometerage, bus.Totalkilometerage, 1200);//1200 is a full tank
         //        //DO תהליכונים!!!!!!!!
-        
+
         //    }
         //    catch (BusNotFoundException ex)
         //    {
@@ -770,12 +775,12 @@ namespace BL
         //}
         //public void drive(Bus bus, double distance)
         //{
-            
+
         //    try
         //    {
         //        UpdateBus(bus.License, BO.Bus.Status_ops.On_the_road, bus.Last_tune_up, (int)(bus.kilometerage+distance), (int)(bus.Totalkilometerage+distance), bus.Gas-(int)distance);
         //        //DO תהליכונים!!!!!!!!
-               
+
         //    }
         //    catch (BusNotFoundException ex)
         //    {
