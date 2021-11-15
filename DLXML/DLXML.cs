@@ -308,7 +308,7 @@ namespace DL
         #endregion //finished! 
 
         #region LineFrequency
-        public void AddLineFrequency(int lineID, DateTime start, TimeSpan frequency, DateTime end)
+        public void AddLineFrequency(int lineID, DateTime start, TimeSpan frequency, DateTime end)//frequency id is lineID+beginnig of the time frequency
         {
             XElement FrequencyRootElem = XMLtools.LoadListFromXMLElement(lineFrequencyPath);
             XElement freq = (from l in FrequencyRootElem.Elements()

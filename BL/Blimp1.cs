@@ -207,8 +207,10 @@ namespace BL
 
             return needed_distances;
         } //adds line to the system and returns all the pair IDs of distances we need to make
-        public void UpdateBusLine(int busID, int lineNumber, List<BusLineTime> times)
+        public void UpdateBusLine(int busID, int lineNumber, List<BusLineTime> times)//Possible prob: first make sure all info is valid, then send it all together to be uptaded
         {
+            //busId is the id for this line and time interval(?).
+            //reminder: the dal saves the line times as a seperate entity
             DO.BusLine busToUpdate;
             try
             {
@@ -219,7 +221,7 @@ namespace BL
                 throw new BusLineNotFoundException("cannot update a bus line that is not in the system", ex);
             }//get bus
 
-            busToUpdate.Bus_line_number = lineNumber;
+            busToUpdate.Bus_line_number = lineNumber;//change the line number
             try
             {
                 dal.UpdateBusLine(busToUpdate);
@@ -227,11 +229,11 @@ namespace BL
             catch (DO.BusLineNotFoundException ex)
             {
                 throw new BusLineNotFoundException("The bus line was not found in the system", ex);
-            }//update line
+            }//send new line to replace the old one.
 
             try
             {
-                FrequencyCheck(times);
+                FrequencyCheck(times);//make sure the new times make sense before changing them.
             }
             catch (FrequencyConflictException ex)
             {
@@ -240,7 +242,8 @@ namespace BL
             try
             {
                 var oldTimes = dal.GetAllLineFrequency();
-                foreach (var t in oldTimes)
+                foreach (var t in oldTimes)//frequency id is lineID+beginning of the time frequency.
+                    //delete all the old times
                 {
                     try
                     {
@@ -257,7 +260,7 @@ namespace BL
             }
             try
             {
-                foreach (var t in times)
+                foreach (var t in times)//add new frequencies
                 {
                     dal.AddLineFrequency(busToUpdate.BusID, t.Start, t.Frequency, t.End);
                 }
@@ -267,9 +270,9 @@ namespace BL
                 throw new DataErrorException("There was an error pushing the data", ex);
             }//update times
         }
-        public void DeleteBusLine(int lineID)
+        public void DeleteBusLine(int lineID)//Possible prob: doesnt delete times
         {
-            try
+            try//if line exists- delete, oherwise throw exception
             {
                 dal.DeleteBusLine(lineID);
             }
@@ -277,9 +280,8 @@ namespace BL
             {
                 throw new BusLineNotFoundException("The bus line cannot be deleted because it is not in the system", ex);
             }
-            //deleting all the bus line stations of this line:
-            var BusLineStationsToDelete = dal.GetAllBusLineStationsBy(id => (id.LineID == lineID));
-            foreach (var item in BusLineStationsToDelete)
+            var BusLineStationsToDelete = dal.GetAllBusLineStationsBy(id => (id.LineID == lineID));//get all stations on this line
+            foreach (var item in BusLineStationsToDelete)//remove all stations from the route
             {
                 dal.DeleteBusLineStation(item.BusLineStationID);
             }
@@ -287,7 +289,7 @@ namespace BL
         public BusLine GetBusLine(int lineID)
         {
             DO.BusLine DObusline;
-            try
+            try//get the busline based on the id. if it doesnt exist, throw exception
             {
                 DObusline = dal.GetBusLine(lineID);
             }
@@ -296,7 +298,7 @@ namespace BL
                 throw new BusLineNotFoundException("The bus line is not in the system", ex);
             }
             BusLine answer = new BusLine();
-            try
+            try// convert the busline recieved to bo 
             {
                 answer = DOtoBOBusLineAdapter(DObusline);
             }
@@ -307,19 +309,19 @@ namespace BL
             return answer;
 
         }//done
-        public IEnumerable<BusLine> GetAllBusLines()
+        public IEnumerable<BusLine> GetAllBusLines()//gets list of all bus lines
         {
             IEnumerable<DO.BusLine> list;
 
                 list =
             from bus in dal.GetAllBuslines()
-            select bus;
+            select bus;//gets all lines
 
             
-            List<BusLine> list2 = new List<BusLine>();
+            List<BusLine> list2 = new List<BusLine>();// new list to return
             try
             {
-                foreach (var item in list)
+                foreach (var item in list)//convert each line to bo and add to list2 
                 {
                     list2.Add(DOtoBOBusLineAdapter(item));
                 }
@@ -330,32 +332,32 @@ namespace BL
             }
             return list2;
         }//done
-        public IEnumerable<BusLine> GetAllBusLinesBy(Predicate<BusLine> predicate)
+        public IEnumerable<BusLine> GetAllBusLinesBy(Predicate<BusLine> predicate)// get all busses that fit a certain critiria
         {
             return from b in GetAllBusLines()
                    where predicate(b)
                    select b;
 
         }//done
-        void FrequencyCheck(List<BusLineTime> times)
+        void FrequencyCheck(List<BusLineTime> times)// makes sure all time intrevals and frequencies are valit and work together
         {
-            foreach (var t in times)
+            foreach (var t in times)// makes sure all time intrevals and frequencies are valid
             {
-                TimeSpan totalTime = t.End - t.Start;
-                if (t.Frequency > totalTime)
+                TimeSpan totalTime = t.End - t.Start;//total time of this time intereval
+                if (t.Frequency > totalTime)//if the time between each bus is longer then the the inreval itself
                     throw new FrequencyConflictException("The frequency doesn't match the time frame");
-                if (t.Frequency.Ticks == 0 && t.End != t.Start)
+                if (t.Frequency.Ticks == 0 && t.End != t.Start)//if frequncy is 0,  and the bus comes more then once
                     throw new FrequencyConflictException("The frequency cannot be zero unless the bus only comes once");
-                if (totalTime.Ticks % t.Frequency.Ticks != 0)
+                if (totalTime.Ticks % t.Frequency.Ticks != 0)// if frequency doesnt fit into the time frame exactly
                     throw new FrequencyConflictException("Frequencey doesn't match time frame");
             }
-            for (int i = 0; i < times.Count() - 1; i++)
+            for (int i = 0; i < times.Count() - 1; i++)// makes sure all time intrevals and frequencies work together
                 if (times[i].End > times[i + 1].Start)
                     throw new FrequencyConflictException("The times cannot overlap");
         }
-        public void AddAdjacentStations(int codeA, int codeB, double distance, TimeSpan drive_time)
+        public void AddAdjacentStations(int codeA, int codeB, double distance, TimeSpan drive_time)//adds a pair of stations that are adjacent on a route
         {
-            try
+            try// 
             {
                 dal.AddAdjacentStations(codeA, codeB, distance, drive_time);
             }
